@@ -25,13 +25,11 @@ namespace DyeHard
 
         public void update()
         {
-            if (Keyboard.GetState().IsKeyUp(Keys.Space))
+            foreach (BackgroundElement e in sequence)
             {
-                foreach (BackgroundElement e in sequence)
-                {
-                    e.move();
-                }
+                e.move();
             }
+
             updateSequence();
 
             foreach (BackgroundElement e in sequence)

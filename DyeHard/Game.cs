@@ -16,7 +16,7 @@ namespace DyeHard
     public class Game : XNACS1Base
     {
 
-        public const float SPEED = -0.05f;
+        public static float SPEED = -0.05f;
 
         // game objects
         Hero hero;
@@ -42,10 +42,17 @@ namespace DyeHard
                 Exit();
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                SPEED = 0f;
+            }
+            else
+            {
+                SPEED = -0.05f;
+            }
+
             background.update();
             hero.update();
-            if (GamePad.ButtonAClicked())
-                Console.WriteLine("Controller connected!");
         }
 
         public static Color randomColor()
@@ -65,6 +72,5 @@ namespace DyeHard
                 default: return Color.Black;
             }
         }
-
     }
 }

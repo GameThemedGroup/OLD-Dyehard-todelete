@@ -10,6 +10,8 @@ namespace DyeHard
     class Hero
     {
         XNACS1Rectangle box;
+        XNACS1Particle p;
+
         bool alive;
 
         public Hero(string name)
