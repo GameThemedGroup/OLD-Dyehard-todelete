@@ -40,6 +40,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BackgroundElement.cs" />
+    <Compile Include="DistanceTracker.cs" />
     <Compile Include="DyePipe.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Hero.cs" />

@@ -22,19 +22,22 @@ namespace DyeHard
 
         // game objects
         Hero hero;
+        DistanceTracker heroDistance;
         Background background;
         
 
         public Game()
         {
+            Speed = SpeedReference;
         }
 
         protected override void InitializeWorld()
         {
             World.SetWorldCoordinate(new Vector2(0f, 0f), 16f);
+
             hero = new Hero("Hero!");
             background = new Background(hero);
-            Speed = SpeedReference;
+            heroDistance = new DistanceTracker(hero);
         }
 
         
@@ -57,6 +60,7 @@ namespace DyeHard
             // update objects
             background.update();
             hero.update();
+            heroDistance.update();
         }
 
         private void checkGameControl()

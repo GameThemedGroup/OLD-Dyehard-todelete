@@ -9,17 +9,13 @@ namespace DyeHard
 {
     class Hero
     {
-        private Vector2 startPoint;
         private XNACS1Rectangle box;
         bool alive;
 
         public Hero(string name)
         {
-            this.startPoint = new Vector2(2f, 1f);
             this.alive = true;
-
-            // init box
-            this.box = new XNACS1Rectangle(startPoint, 1, 1);
+            this.box = new XNACS1Rectangle(new Vector2(2f, 1f), 1, 1);
             this.box.Label = name;
         }
 

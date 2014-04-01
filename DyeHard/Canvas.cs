@@ -20,7 +20,7 @@ namespace DyeHard
 
             this.painting = new Queue<XNACS1Circle>();
 
-            float length = XNACS1Base.World.WorldMax.X;
+            float length = XNACS1Base.World.WorldMax.X * 2;
             float width = XNACS1Base.World.WorldMax.Y;
 
             float offScreen = (length * 0.5f) + XNACS1Base.World.WorldMax.X;
