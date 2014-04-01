@@ -9,26 +9,23 @@ namespace DyeHard
 {
     class Hero
     {
-        XNACS1Rectangle box;
-        XNACS1Particle p;
-
+        private Vector2 startPoint;
+        private XNACS1Rectangle box;
         bool alive;
 
         public Hero(string name)
         {
+            this.startPoint = new Vector2(2f, 1f);
             this.alive = true;
-            this.box = new XNACS1Rectangle(new Vector2(2f, 2f), 1, 1);
+
+            // init box
+            this.box = new XNACS1Rectangle(startPoint, 1, 1);
             this.box.Label = name;
         }
 
         public XNACS1Rectangle getBox()
         {
             return box;
-        }
-
-        public string getName()
-        {
-            return box.Label;
         }
 
         public bool isAlive()
@@ -43,9 +40,9 @@ namespace DyeHard
 
         public void update()
         {
-            this.box.TopOfAutoDrawSet();
+            box.TopOfAutoDrawSet();
             box.RotateAngle = (box.RotateAngle + 0.5f) % 360;
-            box.Center += (XNACS1Lib.XNACS1Base.GamePad.ThumbSticks.Right / 3f);
+            box.Center += (XNACS1Lib.XNACS1Base.GamePad.ThumbSticks.Right / 2.5f);
             XNACS1Base.World.ClampAtWorldBound(box);
         }
     }

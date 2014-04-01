@@ -31,10 +31,10 @@ namespace DyeHard
 
         public override void move()
         {
-            box.CenterX += Game.SPEED;
+            box.CenterX += Game.Speed;
             foreach (XNACS1Circle c in painting)
             {
-                c.CenterX += Game.SPEED;
+                c.CenterX += Game.Speed;
             }
         }
 
@@ -67,13 +67,13 @@ namespace DyeHard
 
         public override bool isOffScreen()
         {
-            return box.CenterX + box.Width / 2 < 0;
+            return box.CenterX + box.Width / 2 <= 0;
         }
 
         public override bool rightEdgeIsOnScreen()
         {
             float rightEdge = XNACS1Base.World.WorldMax.X;
-            return box.CenterX + box.Width / 2 < rightEdge;
+            return box.CenterX + box.Width / 2 <= rightEdge;
         }
     }
 }

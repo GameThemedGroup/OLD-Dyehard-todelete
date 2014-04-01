@@ -16,7 +16,9 @@ namespace DyeHard
     public class Game : XNACS1Base
     {
 
-        public static float SPEED = -0.05f;
+        public static float Speed;
+        private static float SpeedReference = -0.05f;
+        private static float SpeedAccumulator = 0f;
 
         // game objects
         Hero hero;
@@ -30,29 +32,49 @@ namespace DyeHard
         protected override void InitializeWorld()
         {
             World.SetWorldCoordinate(new Vector2(0f, 0f), 16f);
-            hero = new Hero("The Hero");
+            hero = new Hero("Hero!");
             background = new Background(hero);
+            Speed = SpeedReference;
         }
 
         
         protected override void UpdateWorld()
         {
-            if (ButtonState.Pressed == GamePad.Buttons.Back || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            checkGameControl();
+            updateGameObjects();
+        }
+
+        private void updateGameObjects()
+        {
+            // accelerate game
+            SpeedAccumulator -= Speed;
+            if (SpeedAccumulator > 50)
+            {
+                SpeedReference -= 0.01f;
+                SpeedAccumulator = 0f;
+            }
+ 
+            // update objects
+            background.update();
+            hero.update();
+        }
+
+        private void checkGameControl()
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 Exit();
             }
 
+            // pause game speed
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                SPEED = 0f;
+                Speed = 0f;
             }
             else
             {
-                SPEED = -0.05f;
+                Speed = SpeedReference;
             }
-
-            background.update();
-            hero.update();
         }
 
         public static Color randomColor()
