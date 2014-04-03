@@ -64,7 +64,7 @@ namespace DyeHard
         public bool rightEdgeIsOnScreen()
         {
             float rightEdge = XNACS1Base.World.WorldMax.X;
-            return box.CenterX + box.Width / 2 <= rightEdge;
+            return (box.CenterX + box.Width / 2) + Game.Speed <= rightEdge;
         }
     }
 }

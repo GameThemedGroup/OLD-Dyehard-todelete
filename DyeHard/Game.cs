@@ -17,7 +17,7 @@ namespace DyeHard
     {
 
         public static float Speed;
-        private static float SpeedReference = -0.05f;
+        private static float SpeedReference = -0.4f;
         private static float SpeedAccumulator = 0f;
 
         // game objects
@@ -33,7 +33,7 @@ namespace DyeHard
 
         protected override void InitializeWorld()
         {
-            World.SetWorldCoordinate(new Vector2(0f, 0f), 16f);
+            World.SetWorldCoordinate(new Vector2(0f, 0f), 25f);
 
             hero = new Hero("Hero!");
             background = new Background(hero);
@@ -45,22 +45,6 @@ namespace DyeHard
         {
             checkGameControl();
             updateGameObjects();
-        }
-
-        private void updateGameObjects()
-        {
-            // accelerate game
-            SpeedAccumulator -= Speed;
-            if (SpeedAccumulator > 50)
-            {
-                SpeedReference -= 0.01f;
-                SpeedAccumulator = 0f;
-            }
- 
-            // update objects
-            background.update();
-            hero.update();
-            heroDistance.update();
         }
 
         private void checkGameControl()
@@ -78,6 +62,24 @@ namespace DyeHard
             else
             {
                 Speed = SpeedReference;
+            }
+        }
+
+        private void updateGameObjects()
+        {
+            accelerateGame();
+            background.update();
+            hero.update();
+            heroDistance.update();
+        }
+
+        private static void accelerateGame()
+        {
+            SpeedAccumulator -= Speed;
+            if (SpeedAccumulator > 50)
+            {
+                SpeedReference -= 0.02f;
+                SpeedAccumulator = 0f;
             }
         }
 

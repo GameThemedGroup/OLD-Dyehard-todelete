@@ -37,8 +37,7 @@ namespace DyeHard
         public void update()
         {
             box.TopOfAutoDrawSet();
-            box.RotateAngle = (box.RotateAngle + 0.5f) % 360;
-            box.Center += (XNACS1Lib.XNACS1Base.GamePad.ThumbSticks.Right / 2.5f);
+            box.Center += (XNACS1Lib.XNACS1Base.GamePad.ThumbSticks.Right / 3f);
             XNACS1Base.World.ClampAtWorldBound(box);
         }
     }
