@@ -46,11 +46,15 @@ namespace DyeHard
             if (paused)
             {
                 pauseScreen.show();
-            }
-            else
+            } 
+            else if (hero.isAlive())
             {
                 pauseScreen.hide();
                 updateGameObjects();
+            }
+            else
+            {
+                InitializeWorld();
             }
         }
 
@@ -94,7 +98,7 @@ namespace DyeHard
 
         public static List<Color> randomColorSet(int count)
         {
-            List<int> range = Enumerable.Range(0,9).ToList();
+            List<int> range = Enumerable.Range(0,7).ToList();
             List<int> sample = new List<int>();
             for (int i = 0; i < count; i++)
             {
@@ -124,8 +128,6 @@ namespace DyeHard
                 case 4: return Color.Purple;
                 case 5: return Color.Orange;
                 case 6: return Color.Pink;
-                case 7: return Color.LightSeaGreen;
-                case 8: return Color.Gray;
                 default: return Color.Black;
             }
         }

@@ -12,15 +12,16 @@ namespace DyeHard
         private Hero hero;
         private Vector2 startPoint;
         private float accumulatedDistance;
+        private float factor;
         private XNACS1Rectangle textbox;
 
         public DistanceTracker(Hero hero)
         {
             this.hero = hero;
             this.startPoint = hero.getBox().Center;
-
-            float height = 2.5f;
-            float width = 6f;
+            this.factor = hero.getBox().Width;
+            float height = 3.5f;
+            float width = 7f;
             Vector2 position = new Vector2(Game.leftEdge() + (width / 2f), Game.topEdge() - (height / 2f));
             this.textbox = new XNACS1Rectangle(position, width, height);
             this.textbox.Color = Color.White;
@@ -35,7 +36,7 @@ namespace DyeHard
 
             // update textbox
             textbox.TopOfAutoDrawSet();
-            textbox.Label = String.Format("{0:F1}", (accumulatedDistance + heroOffset) / hero.getBox().Width);
+            textbox.Label = String.Format("Distance\n{0:F1}", (accumulatedDistance + heroOffset) / factor);
         }
 
 

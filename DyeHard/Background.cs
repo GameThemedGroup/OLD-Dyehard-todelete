@@ -10,10 +10,9 @@ namespace DyeHard
 {
     class Background
     {
-
         public static float Speed;
-        private static float SpeedReference = 0.5f;
-        private static float SpeedAccumulator = 0f;
+        private float SpeedReference;
+        private float SpeedAccumulator = 0f;
 
         private Queue<BackgroundElement> onscreen;
         private Queue<BackgroundElement> upcoming;
@@ -21,6 +20,7 @@ namespace DyeHard
    
         public Background(Hero hero)
         {
+            SpeedReference = 0.6f;
             Speed = SpeedReference;
 
             this.hero = hero;
@@ -86,12 +86,12 @@ namespace DyeHard
             }
         }
 
-        private static void accelerateGame()
+        private void accelerateGame()
         {
             SpeedAccumulator += Speed;
             if (SpeedAccumulator > 500)
             {
-                SpeedReference *= 1.1f;
+                SpeedReference *= 1.05f;
                 SpeedAccumulator = 0f;
                 Console.WriteLine("Increasing game speed to " + SpeedReference);
             }

@@ -10,12 +10,13 @@ namespace DyeHard
 {
     class PowerUp
     {
-        private const float padding = 3f;
         private Hero hero;
         private XNACS1Circle circle;
         public PowerUp(Hero hero, float minX, float maxX, Color color)
         {
             this.hero = hero;
+
+            float padding = hero.getBox().Width;
 
             float randomX = XNACS1Base.RandomFloat(minX + padding, maxX - padding);
             float randomY = XNACS1Base.RandomFloat(Game.bottomEdge() + padding, Game.topEdge() - padding);
