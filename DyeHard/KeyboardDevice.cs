@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace DyeHard
+namespace Dyehard
 {
     public static class KeyboardDevice
     {

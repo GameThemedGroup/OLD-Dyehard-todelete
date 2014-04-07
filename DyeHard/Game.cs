@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using XNACS1Lib;
 
-namespace DyeHard
+namespace Dyehard
 {
     public class Game : XNACS1Base
     {

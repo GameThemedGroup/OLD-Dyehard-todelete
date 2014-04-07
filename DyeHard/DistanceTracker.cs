@@ -5,7 +5,7 @@ using System.Text;
 using XNACS1Lib;
 using Microsoft.Xna.Framework;
 
-namespace DyeHard
+namespace Dyehard
 {
     class DistanceTracker
     {

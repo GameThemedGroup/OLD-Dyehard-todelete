@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DyeHard
+namespace Dyehard
 {
 #if WINDOWS || XBOX
     public static class Program

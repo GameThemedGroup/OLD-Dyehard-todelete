@@ -6,7 +6,7 @@ using XNACS1Lib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace DyeHard
+namespace Dyehard
 {
     class Background
     {
