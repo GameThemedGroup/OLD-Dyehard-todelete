@@ -1,6 +1,6 @@
 DyeHardTrial
 ============
-Trial development of DyeHard game concepts.
+Development of DyeHard game.
 
 
 
