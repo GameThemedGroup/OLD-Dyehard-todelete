@@ -9,7 +9,7 @@ namespace DyeHard
 {
     class Rainbow : BackgroundElement
     {
-        public const int PIPE_COUNT = 4;
+        public const int PIPE_COUNT = 3;
         DyePipe[] pipes;
         
         public Rainbow(Hero hero, float leftEdge) : base()

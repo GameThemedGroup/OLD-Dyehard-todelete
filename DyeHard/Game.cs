@@ -35,7 +35,7 @@ namespace DyeHard
         {
             World.SetWorldCoordinate(new Vector2(0f, 0f), 100f);
 
-            hero = new Hero("Hero!");
+            hero = new Hero();
             background = new Background(hero);
             heroDistance = new DistanceTracker(hero);
         }
