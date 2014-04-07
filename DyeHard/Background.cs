@@ -12,10 +12,9 @@ namespace DyeHard
     {
 
         public static float Speed;
-        private static float SpeedReference = 0.5f;
+        private static float SpeedReference = 0.6f;
         private static float SpeedAccumulator = 0f;
 
-        private bool rainbowTurn;
         private Queue<BackgroundElement> onscreen;
         private Queue<BackgroundElement> upcoming;
         private Hero hero;
@@ -31,21 +30,12 @@ namespace DyeHard
             // initialize sequence with one canvas followed by
             // one rainbow (so it can forecast colors to player)
             onscreen.Enqueue(new Canvas(hero, Game.leftEdge()));
-            rainbowTurn = true;
             while (onscreen.Last().rightEdge() <= Game.rightEdge())
             {
-                addItem(onscreen);
+                onscreen.Enqueue(nextElement(onscreen));
             }
 
-            if (rainbowTurn)
-            {
-                upcoming.Enqueue(new Rainbow(hero, onscreen.Last().rightEdge()));
-            }
-            else
-            {
-                upcoming.Enqueue(new Canvas(hero, onscreen.Last().rightEdge()));
-            }
-            rainbowTurn = !rainbowTurn;
+            upcoming.Enqueue(nextElement(onscreen));
         }
 
         public void update()
@@ -91,27 +81,9 @@ namespace DyeHard
             if (onscreen.Last().rightEdge() <= Game.rightEdge())
             {
                 // move item from upcoming to end of onscreen
-                addItem(upcoming);
+                upcoming.Enqueue(nextElement(upcoming));
                 onscreen.Enqueue(upcoming.Dequeue());
             }
-        }
-
-        private void addItem(Queue<BackgroundElement> seq)
-        {
-            // alternate between adding rainbow or canvas
-            BackgroundElement e;
-            if (rainbowTurn)
-            {
-                Console.WriteLine("Adding rainbow to background");
-                e = new Rainbow(hero, seq.Last().rightEdge());
-            }
-            else
-            {
-                Console.WriteLine("Adding canvas to background");
-                e = new Canvas(hero, seq.Last().rightEdge());
-            }
-            rainbowTurn = !rainbowTurn;
-            seq.Enqueue(e);
         }
 
         private static void accelerateGame()
@@ -122,6 +94,20 @@ namespace DyeHard
                 SpeedReference *= 1.1f;
                 SpeedAccumulator = 0f;
                 Console.WriteLine("Increasing game speed to " + SpeedReference);
+            }
+        }
+
+        private BackgroundElement nextElement(Queue<BackgroundElement> seq)
+        {
+            if (seq.Last().GetType().Name == "Rainbow")
+            {
+                Console.WriteLine("Adding canvas to background");
+                return new Canvas(hero, seq.Last().rightEdge());
+            }
+            else
+            {
+                Console.WriteLine("Adding rainbow to background");
+                return new Rainbow(hero, seq.Last().rightEdge());
             }
         }
 

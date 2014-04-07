@@ -42,7 +42,7 @@ namespace DyeHard
             XNACS1Rectangle heroBox = hero.getBox();
             if (contains(heroBox))
             {
-                XNACS1Circle paint = new XNACS1Circle(heroBox.Center, 1.5f);
+                XNACS1Circle paint = new XNACS1Circle(heroBox.Center, 2f);
                 paint.Color = heroBox.Color;
                 painting.Enqueue(paint);
             }

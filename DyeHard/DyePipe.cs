@@ -27,7 +27,7 @@ namespace DyeHard
             this.pipe = new XNACS1Rectangle(new Vector2(position, drawOffset), drawWidth, drawHeight);
             this.pipe.Color = color;
 
-            this.pipePreview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 4f, drawHeight * .9f);
+            this.pipePreview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 3f, drawHeight);
             this.pipePreview.Color = this.pipe.Color;
             this.pipePreview.Visible = false;
         }
@@ -35,7 +35,11 @@ namespace DyeHard
         public void move()
         {
             pipe.CenterX -= Background.Speed;
-            pipePreview.Visible = pipe.LowerLeft.X > pipePreview.LowerLeft.X && Game.rightEdge() * 2 > pipe.LowerLeft.X ;
+            pipePreview.Visible = pipe.LowerLeft.X > pipePreview.LowerLeft.X && Game.rightEdge() * 2 > pipe.LowerLeft.X;
+            if (pipePreview.Visible)
+            {
+                pipePreview.Height = (pipe.Height * (1- ((pipe.LowerLeft.X - pipePreview.LowerLeft.X) / Game.rightEdge())));
+            }
         }
 
         public void interact()
