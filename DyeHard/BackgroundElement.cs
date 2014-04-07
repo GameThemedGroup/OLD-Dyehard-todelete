@@ -11,8 +11,7 @@ namespace DyeHard
     {
         abstract public void interact();
         abstract public void move();
-        abstract public void centerOnScreen();
         abstract public bool isOffScreen();
-        abstract public bool rightEdgeIsOnScreen();
+        abstract public float rightEdge();
     }
 }

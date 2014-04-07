@@ -15,7 +15,7 @@ namespace DyeHard
         public Hero(string name)
         {
             this.alive = true;
-            this.box = new XNACS1Rectangle(new Vector2(2f, 1f), 1, 1);
+            this.box = new XNACS1Rectangle(new Vector2(Game.rightEdge() / 3, Game.topEdge() / 2), 5f, 5f);
             this.box.Label = name;
         }
 
@@ -36,8 +36,8 @@ namespace DyeHard
 
         public void update()
         {
+            box.Center += (XNACS1Lib.XNACS1Base.GamePad.ThumbSticks.Right);
             box.TopOfAutoDrawSet();
-            box.Center += (XNACS1Lib.XNACS1Base.GamePad.ThumbSticks.Right / 3f);
             XNACS1Base.World.ClampAtWorldBound(box);
         }
     }

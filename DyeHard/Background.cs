@@ -18,8 +18,7 @@ namespace DyeHard
         {
             this.hero = hero;
             this.sequence = new Queue<BackgroundElement>();
-            this.sequence.Enqueue(new Canvas(hero));
-            this.sequence.First().centerOnScreen();
+            this.sequence.Enqueue(new Canvas(hero, Game.leftEdge()));
             rainbowTurn = true;
         }
 
@@ -48,20 +47,19 @@ namespace DyeHard
                 Console.WriteLine("Dumping element from background");
             }
 
-            if (sequence.Last().rightEdgeIsOnScreen())
+            if (sequence.Last().rightEdge() <= Game.rightEdge())
             {
-                // need to add new element to end of sequence
                 // alternate between adding rainbow or canvas
                 if (rainbowTurn)
                 {
                     Console.WriteLine("Adding rainbow to background");
-                    sequence.Enqueue(new Rainbow(hero));
+                    sequence.Enqueue(new Rainbow(hero, sequence.Last().rightEdge()));
                     rainbowTurn = false;
                 }
                 else
                 {
                     Console.WriteLine("Adding canvas to background");
-                    sequence.Enqueue(new Canvas(hero));
+                    sequence.Enqueue(new Canvas(hero, sequence.Last().rightEdge()));
                     rainbowTurn = true;
                 }
             }

@@ -20,18 +20,18 @@ namespace DyeHard
             this.hero = hero;
             this.startPoint = hero.getBox().Center;
 
-            float height = 0.5f;
-            float width = 1f;
-            Vector2 position = new Vector2(XNACS1Base.World.WorldMax.X - (width / 2f), XNACS1Base.World.WorldMax.Y - (height / 2f));
+            float height = 2.5f;
+            float width = 6f;
+            Vector2 position = new Vector2(Game.rightEdge() - (width / 2f), Game.topEdge() - (height / 2f));
             this.textbox = new XNACS1Rectangle(position, width, height);
-            this.textbox.Color = Color.Transparent;
+            this.textbox.Color = Color.White;
             this.accumulatedDistance = 0.0f;
         }
 
         public void update()
         {
             // update distance
-            accumulatedDistance -= Game.Speed;
+            accumulatedDistance += Game.Speed;
             float heroOffset = hero.getBox().CenterX - startPoint.X;
             distance = accumulatedDistance + heroOffset;
 

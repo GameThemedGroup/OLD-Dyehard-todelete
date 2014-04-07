@@ -17,7 +17,7 @@ namespace DyeHard
     {
 
         public static float Speed;
-        private static float SpeedReference = -0.4f;
+        private static float SpeedReference = 0.4f;
         private static float SpeedAccumulator = 0f;
 
         // game objects
@@ -33,7 +33,7 @@ namespace DyeHard
 
         protected override void InitializeWorld()
         {
-            World.SetWorldCoordinate(new Vector2(0f, 0f), 25f);
+            World.SetWorldCoordinate(new Vector2(0f, 0f), 100f);
 
             hero = new Hero("Hero!");
             background = new Background(hero);
@@ -75,11 +75,12 @@ namespace DyeHard
 
         private static void accelerateGame()
         {
-            SpeedAccumulator -= Speed;
-            if (SpeedAccumulator > 50)
+            SpeedAccumulator += Speed;
+            if (SpeedAccumulator > 500)
             {
-                SpeedReference -= 0.02f;
+                SpeedReference *= 1.1f;
                 SpeedAccumulator = 0f;
+                Console.WriteLine("Increasing game speed to " + SpeedReference);
             }
         }
 
@@ -99,6 +100,26 @@ namespace DyeHard
                 case 9: return Color.Pink;
                 default: return Color.Black;
             }
+        }
+
+        public static float rightEdge()
+        {
+            return World.WorldMax.X;
+        }
+
+        public static float leftEdge()
+        {
+            return World.WorldMin.X;
+        }
+
+        public static float topEdge()
+        {
+            return World.WorldMax.Y;
+        }
+
+        public static float bottomEdge()
+        {
+            return World.WorldMin.Y;
         }
     }
 }

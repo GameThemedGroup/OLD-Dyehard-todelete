@@ -12,24 +12,24 @@ namespace DyeHard
         XNACS1Rectangle box;
         Hero hero;
 
-        public DyePipe(int offset, Hero hero)
+        public DyePipe(int offset, Hero hero, float leftEdge)
         {
             this.hero = hero;
 
             // set up pipe
-            float drawLength = XNACS1Base.World.WorldMax.X;
-            float offScreen = (drawLength * 0.5f) + XNACS1Base.World.WorldMax.X;
+            float drawLength = Game.rightEdge();
+            float position = (drawLength * 0.5f) + leftEdge;
 
-            float drawWidth =  XNACS1Base.World.WorldMax.Y / Rainbow.PIPE_COUNT;
+            float drawWidth =  Game.topEdge() / Rainbow.PIPE_COUNT;
             float drawOffset = drawWidth * (offset + 0.5f);
             
-            this.box = new XNACS1Rectangle(new Vector2(offScreen, drawOffset), drawLength, drawWidth);
+            this.box = new XNACS1Rectangle(new Vector2(position, drawOffset), drawLength, drawWidth);
             this.box.Color = Game.randomColor();
         }
 
         public void move()
         {
-            box.CenterX += Game.Speed;
+            box.CenterX -= Game.Speed;
         }
 
         public void interact()
@@ -61,10 +61,9 @@ namespace DyeHard
             return box.CenterX + box.Width / 2 <= 0;
         }
 
-        public bool rightEdgeIsOnScreen()
+        public float rightEdge()
         {
-            float rightEdge = XNACS1Base.World.WorldMax.X;
-            return (box.CenterX + box.Width / 2) + Game.Speed <= rightEdge;
+            return box.CenterX + box.Width / 2;
         }
     }
 }

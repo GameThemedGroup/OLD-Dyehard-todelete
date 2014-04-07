@@ -13,28 +13,27 @@ namespace DyeHard
         Hero hero;
         Queue<XNACS1Circle> painting;
 
-        public Canvas(Hero hero)
-            : base()
+        public Canvas(Hero hero, float leftEdge) : base()
         {
             this.hero = hero;
 
             this.painting = new Queue<XNACS1Circle>();
 
-            float length = XNACS1Base.World.WorldMax.X * 1.5f;
-            float width = XNACS1Base.World.WorldMax.Y;
+            float width = Game.rightEdge() * 1.5f;
+            float height = Game.topEdge();
 
-            float offScreen = (length * 0.5f) + XNACS1Base.World.WorldMax.X;
+            float position = (width * 0.5f) + leftEdge;
 
-            this.box = new XNACS1Rectangle(new Vector2(offScreen, width/2), length, width);
-            this.box.Color = Color.AntiqueWhite;
+            this.box = new XNACS1Rectangle(new Vector2(position, height/2), width, height);
+            this.box.Color = Color.WhiteSmoke;
         }
 
         public override void move()
         {
-            box.CenterX += Game.Speed;
+            box.CenterX -= Game.Speed;
             foreach (XNACS1Circle c in painting)
             {
-                c.CenterX += Game.Speed;
+                c.CenterX -= Game.Speed;
             }
         }
 
@@ -43,7 +42,7 @@ namespace DyeHard
             XNACS1Rectangle heroBox = hero.getBox();
             if (contains(heroBox))
             {
-                XNACS1Circle paint = new XNACS1Circle(heroBox.Center, 0.2f);
+                XNACS1Circle paint = new XNACS1Circle(heroBox.Center, 2f);
                 paint.Color = heroBox.Color;
                 painting.Enqueue(paint);
             }
@@ -60,20 +59,14 @@ namespace DyeHard
             return otherLeftEdge > leftEdge && otherRightEdge < rightEdge;
         }
 
-        public override void centerOnScreen()
-        {
-            this.box.CenterX -= XNACS1Base.World.WorldMax.X;
-        }
-
         public override bool isOffScreen()
         {
             return box.CenterX + box.Width / 2 <= 0;
         }
 
-        public override bool rightEdgeIsOnScreen()
+        public override float rightEdge()
         {
-            float rightEdge = XNACS1Base.World.WorldMax.X;
-            return (box.CenterX + box.Width / 2) + Game.Speed <= rightEdge;
+            return box.CenterX + box.Width / 2;
         }
     }
 }

@@ -9,15 +9,15 @@ namespace DyeHard
 {
     class Rainbow : BackgroundElement
     {
-        public const float PIPE_COUNT = 4f;
+        public const int PIPE_COUNT = 4;
         DyePipe[] pipes;
         
-        public Rainbow(Hero hero) : base()
+        public Rainbow(Hero hero, float leftEdge) : base()
         {
-            this.pipes = new DyePipe[(int) PIPE_COUNT];
+            this.pipes = new DyePipe[PIPE_COUNT];
             for (int i = 0; i < this.pipes.Length; i++)
             {
-                this.pipes[i] = new DyePipe(i, hero);
+                this.pipes[i] = new DyePipe(i, hero, leftEdge);
             }
         }
 
@@ -37,19 +37,14 @@ namespace DyeHard
             }
         }
 
-        public override void centerOnScreen()
-        {
-            throw new NotImplementedException();
-        }
-
         public override bool isOffScreen()
         {
             return pipes[0].isOffScreen();
         }
 
-        public override bool rightEdgeIsOnScreen()
+        public override float rightEdge()
         {
-            return pipes[0].rightEdgeIsOnScreen();
+            return pipes[0].rightEdge();
         }
     }
 }
