@@ -86,16 +86,15 @@ namespace DyeHard
 
         private void updateGameObjects()
         {
+            // might need to move hero first (since background interacts with hero - hero doesnt interact with background)
             background.update();
             hero.update();
             heroDistance.update();
         }
 
-
-
         public static List<Color> randomColorSet(int count)
         {
-            List<int> range = Enumerable.Range(0,10).ToList();
+            List<int> range = Enumerable.Range(0,9).ToList();
             List<int> sample = new List<int>();
             for (int i = 0; i < count; i++)
             {
@@ -124,10 +123,9 @@ namespace DyeHard
                 case 3: return Color.Yellow;
                 case 4: return Color.Purple;
                 case 5: return Color.Orange;
-                case 6: return Color.Navy;
-                case 7: return Color.LimeGreen;
+                case 6: return Color.Pink;
+                case 7: return Color.LightSeaGreen;
                 case 8: return Color.Gray;
-                case 9: return Color.Pink;
                 default: return Color.Black;
             }
         }

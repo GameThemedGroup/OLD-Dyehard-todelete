@@ -9,23 +9,35 @@ namespace DyeHard
 {
     class Canvas : BackgroundElement
     {
+        public static float width = Game.rightEdge() * 4;
+        public static int powerupCount = 8;
         private XNACS1Rectangle box;
         private Hero hero;
         private Queue<XNACS1Circle> painting;
+        private List<PowerUp> powerups;
 
         public Canvas(Hero hero, float leftEdge) : base()
         {
             this.hero = hero;
 
             this.painting = new Queue<XNACS1Circle>();
+            this.powerups = new List<PowerUp>();
 
-            float width = Game.rightEdge() * 2.5f;
             float height = Game.topEdge();
-
             float position = (width * 0.5f) + leftEdge;
 
             this.box = new XNACS1Rectangle(new Vector2(position, height/2), width, height);
             this.box.Color = Color.WhiteSmoke;
+
+            // add powerups to canvas
+            List<Color> colors = Game.randomColorSet(powerupCount);
+            float region = (rightEdge() - leftEdge) / powerupCount;
+            for (int i = 0; i < powerupCount; i++)
+            {
+                float regionLeft = leftEdge + (i * region);
+                float regionRight = regionLeft + region;
+                powerups.Add(new PowerUp(hero, regionLeft, regionRight, colors[i]));
+            }
         }
 
         public override void move()
@@ -36,7 +48,10 @@ namespace DyeHard
                 c.CenterX -= Background.Speed;
             }
 
-            // powerups move
+            foreach (PowerUp p in powerups)
+            {
+                p.move();
+            }
         }
 
         public override void interact()
@@ -44,12 +59,15 @@ namespace DyeHard
             XNACS1Rectangle heroBox = hero.getBox();
             if (contains(heroBox))
             {
-                XNACS1Circle paint = new XNACS1Circle(heroBox.Center, 2f);
+                XNACS1Circle paint = new XNACS1Circle(heroBox.Center, 1.5f);
                 paint.Color = heroBox.Color;
                 painting.Enqueue(paint);
             }
 
-            // powerups interact
+            foreach (PowerUp p in powerups)
+            {
+                p.interact();
+            }
         }
 
         private bool contains(XNACS1Rectangle other)

@@ -18,7 +18,7 @@ namespace DyeHard
             this.hero = hero;
 
             // set up pipe
-            float drawWidth = Game.rightEdge();
+            float drawWidth = Game.rightEdge() * 1.5f;
             float position = (drawWidth * 0.5f) + leftEdge;
 
             float drawHeight =  Game.topEdge() / Rainbow.PIPE_COUNT;
@@ -35,10 +35,10 @@ namespace DyeHard
         public void move()
         {
             pipe.CenterX -= Background.Speed;
-            pipePreview.Visible = pipe.LowerLeft.X > pipePreview.LowerLeft.X && Game.rightEdge() * 2 > pipe.LowerLeft.X;
+            pipePreview.Visible = pipe.LowerLeft.X > pipePreview.LowerLeft.X && (Game.rightEdge() + Canvas.width) > pipe.LowerLeft.X;
             if (pipePreview.Visible)
             {
-                pipePreview.Height = (pipe.Height * (1- ((pipe.LowerLeft.X - pipePreview.LowerLeft.X) / Game.rightEdge())));
+                pipePreview.Height = (pipe.Height * (1- ((pipe.LowerLeft.X - pipePreview.LowerLeft.X) / Canvas.width)));
             }
         }
 

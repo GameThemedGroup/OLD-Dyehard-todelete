@@ -19,6 +19,7 @@ namespace DyeHard
             this.alive = true;
             this.box = new XNACS1Rectangle(new Vector2(Game.rightEdge() / 3, Game.topEdge() / 2), 5f, 5f);
             this.box.Label = "hero";
+            this.box.Color = Color.White;
 
             this.boxBorder = new XNACS1Rectangle(this.box.Center, this.box.Width + .5f, this.box.Height + .5f);
             this.boxBorder.Color = Color.Black;
