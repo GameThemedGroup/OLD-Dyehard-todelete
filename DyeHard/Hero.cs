@@ -11,7 +11,8 @@ namespace DyeHard
     {
         private XNACS1Rectangle box;
         private XNACS1Rectangle boxBorder;
-        bool alive;
+        private Weapon weapon;
+        private bool alive;
 
         public Hero()
         {
@@ -21,11 +22,23 @@ namespace DyeHard
 
             this.boxBorder = new XNACS1Rectangle(this.box.Center, this.box.Width * 1.07f, this.box.Height * 1.07f);
             this.boxBorder.Color = Color.Black;
+
+            this.weapon = new Weapon(this);
         }
 
         public XNACS1Rectangle getBox()
         {
             return box;
+        }
+
+        public void setColor(Color color)
+        {
+            box.Color = color;
+        }
+
+        public Color getColor()
+        {
+            return box.Color;
         }
 
         public bool isAlive()
@@ -44,6 +57,14 @@ namespace DyeHard
             XNACS1Base.World.ClampAtWorldBound(box);
 
             boxBorder.Center = box.Center;
+
+            weapon.update();
+
+            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.F))
+            {
+                weapon.fire();
+            }
+
             boxBorder.TopOfAutoDrawSet();
             box.TopOfAutoDrawSet();
         }
