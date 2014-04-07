@@ -10,13 +10,20 @@ namespace DyeHard
 {
     class Background
     {
-        bool rainbowTurn;
-        Queue<BackgroundElement> onscreen;
-        Queue<BackgroundElement> upcoming;
-        Hero hero;
+
+        public static float Speed;
+        private static float SpeedReference = 0.5f;
+        private static float SpeedAccumulator = 0f;
+
+        private bool rainbowTurn;
+        private Queue<BackgroundElement> onscreen;
+        private Queue<BackgroundElement> upcoming;
+        private Hero hero;
    
         public Background(Hero hero)
         {
+            Speed = SpeedReference;
+
             this.hero = hero;
             onscreen = new Queue<BackgroundElement>();
             upcoming = new Queue<BackgroundElement>();
@@ -43,6 +50,8 @@ namespace DyeHard
 
         public void update()
         {
+            accelerateGame();
+
             foreach (BackgroundElement e in onscreen)
             {
                 e.move();
@@ -58,6 +67,16 @@ namespace DyeHard
             {
                 e.interact();
             }            
+        }
+
+        public void stop()
+        {
+            Speed = 0f;
+        }
+
+        public void resume()
+        {
+            Speed = SpeedReference;
         }
 
         private void updateSequence()
@@ -94,5 +113,17 @@ namespace DyeHard
             rainbowTurn = !rainbowTurn;
             seq.Enqueue(e);
         }
+
+        private static void accelerateGame()
+        {
+            SpeedAccumulator += Speed;
+            if (SpeedAccumulator > 500)
+            {
+                SpeedReference *= 1.1f;
+                SpeedAccumulator = 0f;
+                Console.WriteLine("Increasing game speed to " + SpeedReference);
+            }
+        }
+
     }
 }

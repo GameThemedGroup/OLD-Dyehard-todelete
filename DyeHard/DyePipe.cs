@@ -34,7 +34,7 @@ namespace DyeHard
 
         public void move()
         {
-            pipe.CenterX -= Game.Speed;
+            pipe.CenterX -= Background.Speed;
             pipePreview.Visible = pipe.LowerLeft.X > pipePreview.LowerLeft.X && Game.rightEdge() * 2 > pipe.LowerLeft.X ;
         }
 
@@ -52,7 +52,7 @@ namespace DyeHard
             float topEdge = pipe.MaxBound.Y;
             float bottomEdge = pipe.MinBound.Y;
 
-            if (other.CenterY < topEdge && other.CenterY > bottomEdge)
+            if (other.CenterY < topEdge && other.CenterY >= bottomEdge)
             {
                 float leftEdge = pipe.LowerLeft.X;
                 float rightEdge = leftEdge + pipe.Width;

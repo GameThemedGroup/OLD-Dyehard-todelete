@@ -30,10 +30,10 @@ namespace DyeHard
 
         public override void move()
         {
-            box.CenterX -= Game.Speed;
+            box.CenterX -= Background.Speed;
             foreach (XNACS1Circle c in painting)
             {
-                c.CenterX -= Game.Speed;
+                c.CenterX -= Background.Speed;
             }
         }
 

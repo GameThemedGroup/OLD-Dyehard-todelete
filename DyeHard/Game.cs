@@ -13,11 +13,8 @@ namespace DyeHard
 {
     public class Game : XNACS1Base
     {
-
-        public static float Speed;
-        private static float SpeedReference = 0.5f;
-        private static float SpeedAccumulator = 0f;
         private bool paused;
+        private bool debugging;
 
         // game objects
         Hero hero;
@@ -29,7 +26,7 @@ namespace DyeHard
         public Game()
         {
             paused = false;
-            Speed = SpeedReference;
+            debugging = false;
         }
 
         protected override void InitializeWorld()
@@ -68,15 +65,16 @@ namespace DyeHard
             // pause game speed
             if (KeyboardDevice.isKeyTapped(Keys.P))
             {
-                if (Speed > 0)
+                debugging = !debugging;
+                if (debugging)
                 {
-                    Speed = 0f;
                     Console.WriteLine("Entering debug mode - press 'P' to resume game");
+                    background.stop();
                 }
                 else
                 {
                     Console.WriteLine("Exiting debug mode");
-                    Speed = SpeedReference;
+                    background.resume();
                 }
             }
 
@@ -88,22 +86,12 @@ namespace DyeHard
 
         private void updateGameObjects()
         {
-            accelerateGame();
             background.update();
             hero.update();
             heroDistance.update();
         }
 
-        private static void accelerateGame()
-        {
-            SpeedAccumulator += Speed;
-            if (SpeedAccumulator > 500)
-            {
-                SpeedReference *= 1.1f;
-                SpeedAccumulator = 0f;
-                Console.WriteLine("Increasing game speed to " + SpeedReference);
-            }
-        }
+
 
         public static List<Color> randomColorSet(int count)
         {
