@@ -12,7 +12,7 @@ namespace DyeHard
     {
 
         public static float Speed;
-        private static float SpeedReference = 0.6f;
+        private static float SpeedReference = 0.5f;
         private static float SpeedAccumulator = 0f;
 
         private Queue<BackgroundElement> onscreen;

@@ -9,9 +9,9 @@ namespace DyeHard
 {
     class Canvas : BackgroundElement
     {
-        XNACS1Rectangle box;
-        Hero hero;
-        Queue<XNACS1Circle> painting;
+        private XNACS1Rectangle box;
+        private Hero hero;
+        private Queue<XNACS1Circle> painting;
 
         public Canvas(Hero hero, float leftEdge) : base()
         {
@@ -19,7 +19,7 @@ namespace DyeHard
 
             this.painting = new Queue<XNACS1Circle>();
 
-            float width = Game.rightEdge() * 1.8f;
+            float width = Game.rightEdge() * 2.5f;
             float height = Game.topEdge();
 
             float position = (width * 0.5f) + leftEdge;
@@ -35,6 +35,8 @@ namespace DyeHard
             {
                 c.CenterX -= Background.Speed;
             }
+
+            // powerups move
         }
 
         public override void interact()
@@ -46,6 +48,8 @@ namespace DyeHard
                 paint.Color = heroBox.Color;
                 painting.Enqueue(paint);
             }
+
+            // powerups interact
         }
 
         private bool contains(XNACS1Rectangle other)
@@ -65,6 +69,11 @@ namespace DyeHard
         }
 
         public override float rightEdge()
+        {
+            return box.CenterX + box.Width / 2;
+        }
+
+        private float leftEdge()
         {
             return box.CenterX + box.Width / 2;
         }

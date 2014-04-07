@@ -17,10 +17,10 @@ namespace DyeHard
         private bool debugging;
 
         // game objects
-        Hero hero;
-        DistanceTracker heroDistance;
-        Background background;
-        PauseScreen pauseScreen;
+        private Hero hero;
+        private DistanceTracker heroDistance;
+        private Background background;
+        private PauseScreen pauseScreen;
         
 
         public Game()
@@ -63,12 +63,12 @@ namespace DyeHard
             }
 
             // pause game speed
-            if (KeyboardDevice.isKeyTapped(Keys.P))
+            if (KeyboardDevice.isKeyTapped(Keys.W))
             {
                 debugging = !debugging;
                 if (debugging)
                 {
-                    Console.WriteLine("Entering debug mode - press 'P' to resume game");
+                    Console.WriteLine("Entering debug mode - press 'W' to resume game");
                     background.stop();
                 }
                 else

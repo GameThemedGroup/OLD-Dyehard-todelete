@@ -9,9 +9,9 @@ namespace DyeHard
 {
     class DyePipe
     {
-        XNACS1Rectangle pipe;
-        XNACS1Rectangle pipePreview;
-        Hero hero;
+        private XNACS1Rectangle pipe;
+        private XNACS1Rectangle pipePreview;
+        private Hero hero;
 
         public DyePipe(int offset, Hero hero, float leftEdge, Color color)
         {
