@@ -9,7 +9,8 @@ namespace DyeHard
 {
     class DyePipe
     {
-        XNACS1Rectangle box;
+        XNACS1Rectangle pipe;
+        XNACS1Rectangle pipePreview;
         Hero hero;
 
         public DyePipe(int offset, Hero hero, float leftEdge)
@@ -17,19 +18,24 @@ namespace DyeHard
             this.hero = hero;
 
             // set up pipe
-            float drawLength = Game.rightEdge();
-            float position = (drawLength * 0.5f) + leftEdge;
+            float drawWidth = Game.rightEdge();
+            float position = (drawWidth * 0.5f) + leftEdge;
 
-            float drawWidth =  Game.topEdge() / Rainbow.PIPE_COUNT;
-            float drawOffset = drawWidth * (offset + 0.5f);
+            float drawHeight =  Game.topEdge() / Rainbow.PIPE_COUNT;
+            float drawOffset = drawHeight * (offset + 0.5f);
             
-            this.box = new XNACS1Rectangle(new Vector2(position, drawOffset), drawLength, drawWidth);
-            this.box.Color = Game.randomColor();
+            this.pipe = new XNACS1Rectangle(new Vector2(position, drawOffset), drawWidth, drawHeight);
+            this.pipe.Color = Game.randomColor();
+
+            this.pipePreview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 4f, drawHeight);
+            this.pipePreview.Color = this.pipe.Color;
+            this.pipePreview.Visible = false;
         }
 
         public void move()
         {
-            box.CenterX -= Game.Speed;
+            pipe.CenterX -= Game.Speed;
+            pipePreview.Visible = pipe.LowerLeft.X > pipePreview.LowerLeft.X && Game.rightEdge() * 2 > pipe.LowerLeft.X ;
         }
 
         public void interact()
@@ -37,19 +43,19 @@ namespace DyeHard
             XNACS1Rectangle heroBox = hero.getBox();
             if (contains(heroBox))
             {
-                heroBox.Color = box.Color;
+                heroBox.Color = pipe.Color;
             }
         }
 
         private bool contains(XNACS1Rectangle other)
         {
-            float topEdge = box.MaxBound.Y;
-            float bottomEdge = box.MinBound.Y;
+            float topEdge = pipe.MaxBound.Y;
+            float bottomEdge = pipe.MinBound.Y;
 
             if (other.CenterY < topEdge && other.CenterY > bottomEdge)
             {
-                float leftEdge = box.LowerLeft.X;
-                float rightEdge = leftEdge + box.Width;
+                float leftEdge = pipe.LowerLeft.X;
+                float rightEdge = leftEdge + pipe.Width;
                 return other.CenterX < rightEdge && other.CenterX > leftEdge;
             }
 
@@ -58,12 +64,12 @@ namespace DyeHard
 
         public bool isOffScreen()
         {
-            return box.CenterX + box.Width / 2 <= 0;
+            return pipe.CenterX + pipe.Width / 2 <= 0;
         }
 
         public float rightEdge()
         {
-            return box.CenterX + box.Width / 2;
+            return pipe.CenterX + pipe.Width / 2;
         }
     }
 }
