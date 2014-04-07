@@ -13,7 +13,7 @@ namespace DyeHard
         XNACS1Rectangle pipePreview;
         Hero hero;
 
-        public DyePipe(int offset, Hero hero, float leftEdge)
+        public DyePipe(int offset, Hero hero, float leftEdge, Color color)
         {
             this.hero = hero;
 
@@ -25,9 +25,9 @@ namespace DyeHard
             float drawOffset = drawHeight * (offset + 0.5f);
             
             this.pipe = new XNACS1Rectangle(new Vector2(position, drawOffset), drawWidth, drawHeight);
-            this.pipe.Color = Game.randomColor();
+            this.pipe.Color = color;
 
-            this.pipePreview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 4f, drawHeight);
+            this.pipePreview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 4f, drawHeight * .9f);
             this.pipePreview.Color = this.pipe.Color;
             this.pipePreview.Visible = false;
         }
@@ -43,7 +43,7 @@ namespace DyeHard
             XNACS1Rectangle heroBox = hero.getBox();
             if (contains(heroBox))
             {
-                heroBox.Color = pipe.Color;
+                hero.setColor(pipe.Color);
             }
         }
 

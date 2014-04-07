@@ -19,7 +19,7 @@ namespace DyeHard
 
             this.painting = new Queue<XNACS1Circle>();
 
-            float width = Game.rightEdge() * 1.5f;
+            float width = Game.rightEdge() * 1.8f;
             float height = Game.topEdge();
 
             float position = (width * 0.5f) + leftEdge;
@@ -42,7 +42,7 @@ namespace DyeHard
             XNACS1Rectangle heroBox = hero.getBox();
             if (contains(heroBox))
             {
-                XNACS1Circle paint = new XNACS1Circle(heroBox.Center, 2f);
+                XNACS1Circle paint = new XNACS1Circle(heroBox.Center, 1.5f);
                 paint.Color = heroBox.Color;
                 painting.Enqueue(paint);
             }

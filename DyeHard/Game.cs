@@ -1,5 +1,5 @@
-﻿#region Using Statements
-using System;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -7,8 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
-#endregion
-
 using XNACS1Lib;
 
 namespace DyeHard
@@ -17,7 +15,7 @@ namespace DyeHard
     {
 
         public static float Speed;
-        private static float SpeedReference = 0.4f;
+        private static float SpeedReference = 0.5f;
         private static float SpeedAccumulator = 0f;
 
         // game objects
@@ -49,19 +47,23 @@ namespace DyeHard
 
         private void checkGameControl()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            KeyboardDevice.update();
+            if (KeyboardDevice.isKeyDown(Keys.Escape))
             {
                 Exit();
             }
 
             // pause game speed
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (KeyboardDevice.isKeyTapped(Keys.P))
             {
-                Speed = 0f;
-            }
-            else
-            {
-                Speed = SpeedReference;
+                if (Speed > 0)
+                {
+                    Speed = 0f;
+                }
+                else
+                {
+                    Speed = SpeedReference;
+                }
             }
         }
 
@@ -84,9 +86,30 @@ namespace DyeHard
             }
         }
 
-        public static Color randomColor()
+        public static List<Color> randomColorSet(int count)
         {
-            switch (RandomInt(10))
+            List<int> range = Enumerable.Range(0,10).ToList();
+            List<int> sample = new List<int>();
+            for (int i = 0; i < count; i++)
+            {
+                int choice = RandomInt(range.Count);
+                sample.Add(range.ElementAt(choice));
+                range.RemoveAt(choice);
+            }
+
+            List<Color> colors = new List<Color>();
+
+            foreach (int i in sample)
+            {
+                colors.Add(ColorPicker(i));
+            }
+
+            return colors;
+        }
+
+        private static Color ColorPicker(int choice)
+        {
+            switch (choice)
             {
                 case 0: return Color.Blue;
                 case 1: return Color.Green;

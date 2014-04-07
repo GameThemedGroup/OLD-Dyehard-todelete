@@ -44,11 +44,13 @@
     <Compile Include="DyePipe.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Hero.cs" />
+    <Compile Include="KeyboardDevice.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="Canvas.cs" />
     <Compile Include="Rainbow.cs" />
+    <Compile Include="Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GTCS1Lib">
