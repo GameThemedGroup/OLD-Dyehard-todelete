@@ -17,15 +17,18 @@ namespace DyeHard
         public static float Speed;
         private static float SpeedReference = 0.5f;
         private static float SpeedAccumulator = 0f;
+        private bool paused;
 
         // game objects
         Hero hero;
         DistanceTracker heroDistance;
         Background background;
+        PauseScreen pauseScreen;
         
 
         public Game()
         {
+            paused = false;
             Speed = SpeedReference;
         }
 
@@ -36,13 +39,22 @@ namespace DyeHard
             hero = new Hero();
             background = new Background(hero);
             heroDistance = new DistanceTracker(hero);
+            pauseScreen = new PauseScreen();
         }
 
         
         protected override void UpdateWorld()
         {
             checkGameControl();
-            updateGameObjects();
+            if (paused)
+            {
+                pauseScreen.show();
+            }
+            else
+            {
+                pauseScreen.hide();
+                updateGameObjects();
+            }
         }
 
         private void checkGameControl()
@@ -59,11 +71,18 @@ namespace DyeHard
                 if (Speed > 0)
                 {
                     Speed = 0f;
+                    Console.WriteLine("Entering debug mode - press 'P' to resume game");
                 }
                 else
                 {
+                    Console.WriteLine("Exiting debug mode");
                     Speed = SpeedReference;
                 }
+            }
+
+            if (KeyboardDevice.isKeyTapped(Keys.Space))
+            {
+                paused = !paused;
             }
         }
 
