@@ -12,30 +12,29 @@ namespace DyeHard
     {
         private const float padding = 3f;
         private Hero hero;
-        private XNACS1Circle box;
+        private XNACS1Circle circle;
         public PowerUp(Hero hero, float minX, float maxX, Color color)
         {
             this.hero = hero;
 
             float randomX = XNACS1Base.RandomFloat(minX + padding, maxX - padding);
             float randomY = XNACS1Base.RandomFloat(Game.bottomEdge() + padding, Game.topEdge() - padding);
-            this.box = new XNACS1Circle(new Vector2(randomX, randomY), 2.5f);
-            this.box.Color = color;
-            this.box.Label = "powerup";
+            this.circle = new XNACS1Circle(new Vector2(randomX, randomY), 2.5f);
+            this.circle.Color = color;
+            this.circle.Label = "powerup";
         }
 
         public void move()
         {
-            box.CenterX -= Background.Speed;
+            circle.CenterX -= Background.Speed;
         }
 
         public void interact()
         {
-            XNACS1Rectangle heroBox = hero.getBox();
-            if (box.Collided(heroBox))
+            if (circle.Collided(hero.getBox()))
             {
-                hero.setColor(box.Color);
-                box.Visible = false;
+                hero.setColor(circle.Color);
+                circle.Visible = false;
             }
         }
 
