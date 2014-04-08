@@ -9,7 +9,7 @@ namespace Dyehard
 {
     class Hero
     {
-        private XNACS1Rectangle box;
+        private MassObject box;
         private XNACS1Rectangle boxBorder;
         private Weapon weapon;
         private bool alive;
@@ -17,9 +17,9 @@ namespace Dyehard
         public Hero()
         {
             this.alive = true;
-            this.box = new XNACS1Rectangle(new Vector2(Game.rightEdge() / 3, Game.topEdge() / 2), 5f, 5f);
+            this.box = new MassObject(new Vector2(Game.rightEdge() / 3, Game.topEdge() / 2), 5f, 5f);
             this.box.Label = "hero";
-            this.box.Color = Color.WhiteSmoke;
+            this.box.Color = Color.Green;
 
             this.boxBorder = new XNACS1Rectangle(this.box.Center, this.box.Width + .4f, this.box.Height + .4f);
             this.boxBorder.Color = Color.Black;
@@ -54,7 +54,12 @@ namespace Dyehard
 
         public void update()
         {
-            box.Center += XNACS1Lib.XNACS1Base.GamePad.ThumbSticks.Right;
+            Vector2 jetpack = new Vector2(XNACS1Lib.XNACS1Base.GamePad.ThumbSticks.Right.X, XNACS1Lib.XNACS1Base.GamePad.ThumbSticks.Right.Y);
+            if (jetpack.Y > 0) {
+                jetpack.Y *= 2.0f;
+            }
+
+            box.push(jetpack);
             XNACS1Base.World.ClampAtWorldBound(box);
 
             boxBorder.Center = box.Center;

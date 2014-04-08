@@ -47,6 +47,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="KeyboardDevice.cs" />
+    <Compile Include="MassObject.cs" />
     <Compile Include="PauseScreen.cs" />
     <Compile Include="PowerUp.cs" />
     <Compile Include="Program.cs" />
