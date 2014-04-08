@@ -13,23 +13,16 @@ namespace Dyehard
 {
     public class Game : XNACS1Base
     {
-        private bool paused;
-        private bool debugging;
-
         // game objects
         private Hero hero;
-        private DistanceTracker heroDistance;
+        private DistanceTracker distanceTracker;
         private Background background;
-        private PauseScreen pauseScreen;
 
-        EnemyManager eManager;
-        
-        
+        // control objects
+        private PauseScreen pauseScreen;
 
         public Game()
         {
-            paused = false;
-            debugging = false;
         }
 
         protected override void InitializeWorld()
@@ -38,102 +31,46 @@ namespace Dyehard
 
             hero = new Hero();
             background = new Background(hero);
-            heroDistance = new DistanceTracker(hero);
+            distanceTracker = new DistanceTracker(hero);
             pauseScreen = new PauseScreen();
-            eManager = new EnemyManager();
         }
 
         
         protected override void UpdateWorld()
         {
-            checkGameControl();
-            if (paused)
+            checkControl();
+
+            if (pauseScreen.isActive())
             {
-                pauseScreen.show();
-            } 
+                // do nothing
+            }
             else if (hero.isAlive())
             {
-                pauseScreen.hide();
-                updateGameObjects();
+                background.update();
+                hero.update();
+                distanceTracker.update();
             }
             else
             {
+                // reset the world
                 InitializeWorld();
             }
         }
 
-        private void checkGameControl()
+        private void checkControl()
         {
             KeyboardDevice.update();
+
             if (KeyboardDevice.isKeyDown(Keys.Escape))
             {
+                // allow user exit game
                 Exit();
-            }
-
-            // pause game speed
-            if (KeyboardDevice.isKeyTapped(Keys.W))
-            {
-                debugging = !debugging;
-                if (debugging)
-                {
-                    Console.WriteLine("Entering debug mode - press 'W' to resume game");
-                    background.stop();
-                }
-                else
-                {
-                    Console.WriteLine("Exiting debug mode");
-                    background.resume();
-                }
             }
 
             if (KeyboardDevice.isKeyTapped(Keys.Space))
             {
-                paused = !paused;
-            }
-        }
-
-        private void updateGameObjects()
-        {
-            // might need to move hero first (since background interacts with hero - hero doesnt interact with background)
-            background.update();
-            hero.update();
-            heroDistance.update();
-            eManager.update();
-        }
-
-        public static List<Color> randomColorSet(int count)
-        {
-            List<int> range = Enumerable.Range(0,7).ToList();
-            List<int> sample = new List<int>();
-            for (int i = 0; i < count; i++)
-            {
-                int choice = RandomInt(range.Count);
-                sample.Add(range.ElementAt(choice));
-                range.RemoveAt(choice);
-            }
-
-            List<Color> colors = new List<Color>();
-
-            foreach (int i in sample)
-            {
-                colors.Add(ColorPicker(i));
-            }
-
-            return colors;
-        }
-
-        private static Color ColorPicker(int choice)
-        {
-            switch (choice)
-            {
-                case 0: return Color.Blue;
-                case 1: return Color.Green;
-                case 2: return Color.Red;
-                case 3: return Color.Yellow;
-                case 4: return Color.Purple;
-                case 5: return Color.Orange;
-                case 6: return Color.Pink;
-                default: return Color.Black;
+                // allow user to pause game
+                pauseScreen.toggle();
             }
         }
 
@@ -155,6 +92,42 @@ namespace Dyehard
         public static float bottomEdge()
         {
             return World.WorldMin.Y;
+        }
+
+        // get a random and unique subset of the available colors
+        public static List<Color> randomColorSet(int count)
+        {
+            List<int> range = Enumerable.Range(0,7).ToList();
+            List<int> sample = new List<int>();
+            for (int i = 0; i < count; i++)
+            {
+                int choice = RandomInt(range.Count);
+                sample.Add(range.ElementAt(choice));
+                range.RemoveAt(choice);
+            }
+
+            List<Color> colors = new List<Color>();
+            foreach (int i in sample)
+            {
+                colors.Add(ColorPicker(i));
+            }
+
+            return colors;
+        }
+
+        private static Color ColorPicker(int choice)
+        {
+            switch (choice)
+            {
+                case 0: return Color.Blue;
+                case 1: return Color.Green;
+                case 2: return Color.Red;
+                case 3: return Color.Yellow;
+                case 4: return Color.Purple;
+                case 5: return Color.Orange;
+                case 6: return Color.Pink;
+                default: return Color.Black;
+            }
         }
     }
 }

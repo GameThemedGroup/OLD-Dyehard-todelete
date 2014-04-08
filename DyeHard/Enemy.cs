@@ -22,7 +22,7 @@ namespace Dyehard
         public Enemy(Vector2 center, int width, int height)
             : base(center, 5, 5)
         {
-            Texture = "pika";
+            Label = "enemy";
             timer = 5.0f;
             alreadyCollied = true;
             movementType = 1;

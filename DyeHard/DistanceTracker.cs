@@ -25,7 +25,7 @@ namespace Dyehard
             float width = 7f;
             Vector2 position = new Vector2(Game.leftEdge() + (width / 2f), Game.topEdge() - (height / 2f));
             this.label = new XNACS1Rectangle(position, width, height);
-            this.label.Color = Color.Transparent;
+            this.label.Color = new Color(Color.Black, 30);
             this.label.Label = "Distance";
             this.distance = new XNACS1Rectangle(position - new Vector2(0, 1.5f), width, height);
             this.distance.Color = this.label.Color;
@@ -40,6 +40,7 @@ namespace Dyehard
 
             // update textbox
             distance.Label = String.Format("{0:F1}", (accumulatedDistance + heroOffset) / factor);
+            label.TopOfAutoDrawSet();
             distance.TopOfAutoDrawSet();
 
         }

@@ -13,6 +13,7 @@ namespace Dyehard
         public static float Speed;
         private float SpeedReference;
         private float SpeedAccumulator = 0f;
+        private bool stop;
 
         private Queue<BackgroundElement> onscreen;
         private Queue<BackgroundElement> upcoming;
@@ -20,32 +21,39 @@ namespace Dyehard
    
         public Background(Hero hero)
         {
+            this.stop = false;
+
             SpeedReference = 0.6f;
             Speed = SpeedReference;
 
             this.hero = hero;
-            onscreen = new Queue<BackgroundElement>();
-            upcoming = new Queue<BackgroundElement>();
+            this.onscreen = new Queue<BackgroundElement>();
+            this.upcoming = new Queue<BackgroundElement>();
 
-            // initialize sequence with one canvas followed by
-            // one rainbow (so it can forecast colors to player)
-            onscreen.Enqueue(new Canvas(hero, Game.leftEdge()));
+            // first element on screen
+            onscreen.Enqueue(new Rainbow(hero, Game.leftEdge()));
+
+            // fill the rest of the exisiting screen
             while (onscreen.Last().rightEdge() <= Game.rightEdge())
             {
                 onscreen.Enqueue(nextElement(onscreen));
             }
 
+            // prep upcoming elements
             upcoming.Enqueue(nextElement(onscreen));
         }
 
         public void update()
         {
+            checkControl();
+
             accelerateGame();
 
             foreach (BackgroundElement e in onscreen)
             {
                 e.move();
             }
+
             foreach (BackgroundElement e in upcoming)
             {
                 e.move();
@@ -59,14 +67,34 @@ namespace Dyehard
             }            
         }
 
-        public void stop()
+        private void checkControl()
         {
-            Speed = 0f;
+            // pause game speed
+            if (KeyboardDevice.isKeyTapped(Keys.W))
+            {
+                stop = !stop;
+                if (stop)
+                {
+                    Console.WriteLine("Entering debug mode - press 'W' to resume game");
+                    Speed = 0f;
+                }
+                else
+                {
+                    Console.WriteLine("Exiting debug mode");
+                    Speed = SpeedReference;
+                }
+            }
         }
 
-        public void resume()
+        private void accelerateGame()
         {
-            Speed = SpeedReference;
+            SpeedAccumulator += Speed;
+            if (SpeedAccumulator > 500)
+            {
+                SpeedReference *= 1.05f;
+                SpeedAccumulator = 0f;
+                Console.WriteLine("Increasing game speed to " + SpeedReference);
+            }
         }
 
         private void updateSequence()
@@ -83,17 +111,6 @@ namespace Dyehard
                 // move item from upcoming to end of onscreen
                 upcoming.Enqueue(nextElement(upcoming));
                 onscreen.Enqueue(upcoming.Dequeue());
-            }
-        }
-
-        private void accelerateGame()
-        {
-            SpeedAccumulator += Speed;
-            if (SpeedAccumulator > 500)
-            {
-                SpeedReference *= 1.05f;
-                SpeedAccumulator = 0f;
-                Console.WriteLine("Increasing game speed to " + SpeedReference);
             }
         }
 

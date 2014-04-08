@@ -9,8 +9,8 @@ namespace Dyehard
 {
     class Canvas : BackgroundElement
     {
-        public static float width = Game.rightEdge() * 3;
-        public static int powerupCount = 5;
+        public static float width = Game.rightEdge() * 3.5f;
+        public static int powerupCount = 6;
         private XNACS1Rectangle box;
         private Hero hero;
         private Queue<XNACS1Circle> painting;
@@ -59,7 +59,7 @@ namespace Dyehard
             XNACS1Rectangle heroBox = hero.getBox();
             if (contains(heroBox))
             {
-                XNACS1Circle paint = new XNACS1Circle(heroBox.Center, 1.5f);
+                XNACS1Circle paint = new XNACS1Circle(heroBox.Center, 1.25f);
                 paint.Color = heroBox.Color;
                 painting.Enqueue(paint);
             }

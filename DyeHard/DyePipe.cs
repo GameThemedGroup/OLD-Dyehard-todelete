@@ -9,6 +9,7 @@ namespace Dyehard
 {
     class DyePipe
     {
+        public static float width = Game.rightEdge() * 1.25f;
         private XNACS1Rectangle pipe;
         private XNACS1Rectangle pipeWall;
         private XNACS1Rectangle pipePreview;
@@ -19,19 +20,18 @@ namespace Dyehard
             this.hero = hero;
 
             // set up pipe
-            float drawWidth = Game.rightEdge() * 1.5f;
-            float position = (drawWidth * 0.5f) + leftEdge;
+            float position = (width * 0.5f) + leftEdge;
 
             float drawHeight =  Game.topEdge() / Rainbow.PIPE_COUNT;
             float drawOffset = drawHeight * (offset + 0.5f);
             
-            this.pipe = new XNACS1Rectangle(new Vector2(position, drawOffset), drawWidth, drawHeight);
+            this.pipe = new XNACS1Rectangle(new Vector2(position, drawOffset), width, drawHeight);
             this.pipe.Color = color;
 
             this.pipeWall = new XNACS1Rectangle(new Vector2(leftEdge, pipe.CenterY), 1f, pipe.Height);
             this.pipeWall.Color = Color.DarkSlateGray;
 
-            this.pipePreview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 3f, 0f);
+            this.pipePreview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 4f, 0f);
             this.pipePreview.Color = this.pipe.Color;
             this.pipePreview.Visible = false;
         }
