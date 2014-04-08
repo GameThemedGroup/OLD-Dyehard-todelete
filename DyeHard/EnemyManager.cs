@@ -14,28 +14,24 @@ namespace Dyehard
         
 
 
-        public List<Enemy> enemys;
+        private List<Enemy> enemies;
         float enemyTimer;
 
         public EnemyManager()
         {
-        }
-
-        public void initialize()
-        {
             enemyTimer = 10;
-            enemys = new List<Enemy>();
-            enemys.Add(new Enemy(new Vector2(100, 20), 5, 5));
+            enemies = new List<Enemy>();
+            enemies.Add(new Enemy(new Vector2(100, 20), 5, 5));
             rnd = new Random();
         }
 
         public void update()
         {
-            if (enemys != null && enemys.Count > 0)
+            if (enemies != null && enemies.Count > 0)
             {
-                foreach (Enemy currentEnemy in enemys)
+                foreach (Enemy currentEnemy in enemies)
                 {
-                    currentEnemy.upDate();
+                    currentEnemy.update();
                 }
             }
 
@@ -44,17 +40,17 @@ namespace Dyehard
             enemyTimer = enemyTimer - 0.05f;
             if (enemyTimer <= 0)
             {
-                enemys.Add(new Enemy(new Vector2(100, enemyAppearPosition), 5, 5));
+                enemies.Add(new Enemy(new Vector2(100, enemyAppearPosition), 5, 5));
                 enemyTimer = 10;
             }
 
-            if (enemys != null && enemys.Count > 0)
+            if (enemies != null && enemies.Count > 0)
             {
-                for (int i = enemys.Count - 1; i >= 0; i--)
+                for (int i = enemies.Count - 1; i >= 0; i--)
                 {
-                    if (enemys[i].isRemoved == true)
+                    if (enemies[i].isRemoved == true)
                     {
-                        enemys.RemoveAt(i);
+                        enemies.RemoveAt(i);
                     }
                 }
             }
@@ -115,21 +111,5 @@ namespace Dyehard
             }
         }
         */
-        public void cleanUp()
-        {
-            if (enemys.Count > 0 && enemys != null)
-            {
-                foreach (Enemy currentEnemy in enemys)
-                {
-                    currentEnemy.RemoveFromAutoDrawSet();
-                }
-            }
-
-            enemys.Clear();
-
-        }
     }
-
-
-
 }

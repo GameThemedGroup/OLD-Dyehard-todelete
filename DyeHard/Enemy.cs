@@ -53,7 +53,7 @@ namespace Dyehard
 
         }
       
-        public void upDate()
+        public void update()
         {
             if (movementType == 1)
             {

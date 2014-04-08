@@ -41,8 +41,6 @@ namespace Dyehard
             heroDistance = new DistanceTracker(hero);
             pauseScreen = new PauseScreen();
             eManager = new EnemyManager();
-            eManager.initialize();
-
         }
 
         

@@ -99,7 +99,7 @@ namespace Dyehard
 
         private BackgroundElement nextElement(Queue<BackgroundElement> seq)
         {
-            if (seq.Last().GetType().Name == "Rainbow")
+            if (seq.Last().GetType() == typeof(Rainbow))
             {
                 Console.WriteLine("Adding canvas to background");
                 return new Canvas(hero, seq.Last().rightEdge());
