@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class DyePipe
+    class Pipe
     {
         public static float width = Game.rightEdge() * 1.25f;
         private XNACS1Rectangle pipe;
@@ -15,7 +15,7 @@ namespace Dyehard
         private XNACS1Rectangle pipePreview;
         private Hero hero;
 
-        public DyePipe(int offset, Hero hero, float leftEdge, Color color)
+        public Pipe(int offset, Hero hero, float leftEdge, Color color)
         {
             this.hero = hero;
 

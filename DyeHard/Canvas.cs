@@ -9,7 +9,7 @@ namespace Dyehard
 {
     class Canvas : BackgroundElement
     {
-        public static float width = Game.rightEdge() * 3.5f;
+        public static float width = Game.rightEdge() * 3f;
         public static int powerupCount = 6;
         private XNACS1Rectangle box;
         private Hero hero;

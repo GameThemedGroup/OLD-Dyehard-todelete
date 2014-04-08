@@ -54,7 +54,7 @@ namespace Dyehard
 
         public void update()
         {
-            Vector2 jetpack = new Vector2(XNACS1Lib.XNACS1Base.GamePad.ThumbSticks.Right.X, XNACS1Lib.XNACS1Base.GamePad.ThumbSticks.Right.Y);
+            Vector2 jetpack = new Vector2(XNACS1Base.GamePad.ThumbSticks.Right.X, XNACS1Base.GamePad.ThumbSticks.Right.Y);
             if (jetpack.Y > 0) {
                 jetpack.Y *= 2.0f;
             }

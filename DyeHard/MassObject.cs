@@ -17,10 +17,11 @@ namespace Dyehard
             : base(position, width, height)
         {
             this.gravity = new Vector2(0, -.05f);
-            this.drag = 0.95f;
+            this.drag = 0.94f;
             this.horizonalSpeedLimit = 1f;
 
             // set object into motion;
+            this.Velocity = new Vector2();
             this.ShouldTravel = true;
         }
 
@@ -28,11 +29,7 @@ namespace Dyehard
         {
             // scale direction
             direction = direction / 8f;
-
-            if (MinBound.Y <= Game.bottomEdge() || MaxBound.Y >= Game.topEdge())
-            {
-                VelocityY = 0f;
-            }
+            
             Velocity = (Velocity + direction + gravity) * drag;
 
             if (VelocityX < 0)
@@ -42,6 +39,23 @@ namespace Dyehard
             else
             {
                 VelocityX = Math.Min(VelocityX, horizonalSpeedLimit);
+            }
+
+            if (LowerLeft.Y <= Game.bottomEdge() && VelocityY < 0)
+            {
+                VelocityY = 0f;
+            }
+            if ((LowerLeft.Y + Height) >= Game.topEdge() && VelocityY > 0)
+            {
+                VelocityY = 0f;
+            }
+            if (LowerLeft.X <= Game.leftEdge() && VelocityX < 0)
+            {
+                VelocityX = 0f;
+            } 
+            if( (LowerLeft.X + Width) >= Game.rightEdge() && VelocityX > 0)
+            {
+                VelocityX = 0f;
             }
         }
     }

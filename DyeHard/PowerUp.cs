@@ -16,7 +16,7 @@ namespace Dyehard
         {
             this.hero = hero;
 
-            float padding = hero.getBox().Width;
+            float padding = hero.getBox().Width * 2;
 
             float randomX = XNACS1Base.RandomFloat(minX + padding, maxX - padding);
             float randomY = XNACS1Base.RandomFloat(Game.bottomEdge() + padding, Game.topEdge() - padding);

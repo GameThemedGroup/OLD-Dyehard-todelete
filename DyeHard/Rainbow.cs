@@ -10,22 +10,22 @@ namespace Dyehard
     class Rainbow : BackgroundElement
     {
         public const int PIPE_COUNT = 3;
-        DyePipe[] pipes;
+        Pipe[] pipes;
         
         public Rainbow(Hero hero, float leftEdge) : base()
         {
             List<Color> colors = Game.randomColorSet(PIPE_COUNT);
-            this.pipes = new DyePipe[PIPE_COUNT];
+            this.pipes = new Pipe[PIPE_COUNT];
             for (int i = 0; i < this.pipes.Length; i++)
             {
-                this.pipes[i] = new DyePipe(i, hero, leftEdge, colors[i]);
+                this.pipes[i] = new Pipe(i, hero, leftEdge, colors[i]);
             }
 
         }
 
         public override void move()
         {
-            foreach (DyePipe p in pipes)
+            foreach (Pipe p in pipes)
             {
                 p.move();
             }
@@ -33,7 +33,7 @@ namespace Dyehard
 
         public override void interact()
         {
-            foreach (DyePipe p in pipes)
+            foreach (Pipe p in pipes)
             {
                 p.interact();
             }

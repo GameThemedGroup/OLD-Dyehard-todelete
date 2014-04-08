@@ -10,9 +10,10 @@ namespace Dyehard
 {
     class Background
     {
+        private const float START_SPEED = 0.6f;
         public static float Speed;
         private float SpeedReference;
-        private float SpeedAccumulator = 0f;
+        private float SpeedAccumulator;
         private bool stop;
 
         private Queue<BackgroundElement> onscreen;
@@ -23,8 +24,9 @@ namespace Dyehard
         {
             this.stop = false;
 
-            SpeedReference = 0.6f;
+            SpeedReference = START_SPEED;
             Speed = SpeedReference;
+            SpeedAccumulator = 0f;
 
             this.hero = hero;
             this.onscreen = new Queue<BackgroundElement>();
