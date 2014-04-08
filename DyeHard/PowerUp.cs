@@ -10,8 +10,9 @@ namespace Dyehard
 {
     class PowerUp
     {
-        private Hero hero;
-        private XNACS1Circle circle;
+        protected Hero hero;
+        protected XNACS1Circle circle;
+
         public PowerUp(Hero hero, float minX, float maxX, Color color)
         {
             this.hero = hero;
@@ -22,7 +23,7 @@ namespace Dyehard
             float randomY = XNACS1Base.RandomFloat(Game.bottomEdge() + padding, Game.topEdge() - padding);
             this.circle = new XNACS1Circle(new Vector2(randomX, randomY), 2.5f);
             this.circle.Color = color;
-            this.circle.Label = "powerup";
+            this.circle.Label = "+";
         }
 
         public void move()
@@ -30,7 +31,7 @@ namespace Dyehard
             circle.CenterX -= Background.Speed;
         }
 
-        public void interact()
+        public virtual void interact()
         {
             if (circle.Collided(hero.getBox()))
             {

@@ -45,6 +45,7 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyManager.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GravityPowerUp.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="KeyboardDevice.cs" />
     <Compile Include="MassObject.cs" />

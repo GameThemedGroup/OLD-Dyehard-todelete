@@ -58,5 +58,15 @@ namespace Dyehard
                 VelocityX = 0f;
             }
         }
+
+        public void disableGravity()
+        {
+            gravity = new Vector2();
+        }
+
+        public void enableGravity()
+        {
+            gravity = new Vector2(0, -.05f);
+        }
     }
 }
