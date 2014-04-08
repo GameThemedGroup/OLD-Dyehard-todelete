@@ -21,6 +21,9 @@ namespace Dyehard
         private DistanceTracker heroDistance;
         private Background background;
         private PauseScreen pauseScreen;
+
+        EnemyManager eManager;
+        
         
 
         public Game()
@@ -37,6 +40,9 @@ namespace Dyehard
             background = new Background(hero);
             heroDistance = new DistanceTracker(hero);
             pauseScreen = new PauseScreen();
+            eManager = new EnemyManager();
+            eManager.initialize();
+
         }
 
         
@@ -94,6 +100,7 @@ namespace Dyehard
             background.update();
             hero.update();
             heroDistance.update();
+            eManager.update();
         }
 
         public static List<Color> randomColorSet(int count)
