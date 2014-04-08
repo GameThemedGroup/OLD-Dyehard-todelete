@@ -1,4 +1,4 @@
-DyeHardTrial
+Dyehard
 ============
 Development of DyeHard game.
 
