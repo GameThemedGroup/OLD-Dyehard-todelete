@@ -33,12 +33,21 @@ namespace Dyehard
 
         public virtual void interact()
         {
-            if (circle.Collided(hero.getBox()))
+            if (circle.Collided(hero.getBox()) && circle.Visible)
             {
                 hero.setColor(circle.Color);
                 circle.Visible = false;
             }
         }
 
+        public virtual void update()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool expired()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

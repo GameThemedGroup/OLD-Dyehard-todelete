@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="BackgroundElement.cs" />
     <Compile Include="DistanceTracker.cs" />
-    <Compile Include="DyePipe.cs" />
+    <Compile Include="Pipe.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyManager.cs" />
     <Compile Include="Game.cs" />
@@ -56,6 +56,7 @@
     <Compile Include="Background.cs" />
     <Compile Include="Canvas.cs" />
     <Compile Include="Rainbow.cs" />
+    <Compile Include="Timer.cs" />
     <Compile Include="Weapon.cs" />
   </ItemGroup>
   <ItemGroup>

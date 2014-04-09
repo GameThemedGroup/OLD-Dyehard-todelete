@@ -33,7 +33,7 @@ namespace Dyehard
             this.upcoming = new Queue<BackgroundElement>();
 
             // first element on screen
-            onscreen.Enqueue(new Rainbow(hero, Game.leftEdge()));
+            onscreen.Enqueue(new Canvas(hero, Game.leftEdge()));
 
             // fill the rest of the exisiting screen
             while (onscreen.Last().rightEdge() <= Game.rightEdge())

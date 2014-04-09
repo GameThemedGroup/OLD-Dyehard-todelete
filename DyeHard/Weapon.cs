@@ -31,10 +31,15 @@ namespace Dyehard
                 Console.WriteLine("Removing bullet");
                 bullets.Dequeue();
             }
+
+            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.F))
+            {
+                fire();
+            }
         }
 
         // fire the weapon
-        public void fire()
+        private void fire()
         {
             XNACS1Circle bullet = new XNACS1Circle(hero.getBox().Center, bulletSize);
             bullet.Color = hero.getColor();

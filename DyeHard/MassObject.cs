@@ -12,6 +12,7 @@ namespace Dyehard
         private Vector2 gravity;
         private float drag;
         private float horizonalSpeedLimit;
+        private XNACS1Rectangle border;
         
         public MassObject(Vector2 position, float width, float height)
             : base(position, width, height)
@@ -23,15 +24,25 @@ namespace Dyehard
             // set object into motion;
             this.Velocity = new Vector2();
             this.ShouldTravel = true;
+            this.border = new XNACS1Rectangle(this.Center, this.Width * 1.1f, this.Height * 1.1f);
+            this.border.Color = Color.Black;
         }
 
         public void push(Vector2 direction)
         {
+            // add jetpack factor
+            if (direction.Y > 0)
+            {
+                direction.Y *= 2f;
+            }
+
             // scale direction
             direction = direction / 8f;
             
+            // update velocity
             Velocity = (Velocity + direction + gravity) * drag;
 
+            // clamp horizontal speed
             if (VelocityX < 0)
             {
                 VelocityX = Math.Max(VelocityX, -horizonalSpeedLimit);
@@ -41,6 +52,7 @@ namespace Dyehard
                 VelocityX = Math.Min(VelocityX, horizonalSpeedLimit);
             }
 
+            // clamp velocity
             if (LowerLeft.Y <= Game.bottomEdge() && VelocityY < 0)
             {
                 VelocityY = 0f;
@@ -57,6 +69,14 @@ namespace Dyehard
             {
                 VelocityX = 0f;
             }
+
+            border.Center = Center;
+        }
+
+        public override void TopOfAutoDrawSet()
+        {
+            border.TopOfAutoDrawSet();
+            base.TopOfAutoDrawSet();
         }
 
         public void disableGravity()
