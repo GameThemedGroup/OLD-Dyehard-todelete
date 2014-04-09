@@ -38,7 +38,7 @@ namespace Dyehard
                 float regionRight = regionLeft + region;
                 powerups.Add(new PowerUp(hero, regionLeft, regionRight, colors[i]));
             }
-            powerups.Add(new ZeroGravityPowerUp(hero, leftEdge, rightEdge(), Color.Green));
+            powerups.Add(new ZeroGravityPowerUp(hero, leftEdge, rightEdge(), Game.randomColor()));
         }
 
         public override void move()

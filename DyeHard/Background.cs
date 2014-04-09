@@ -15,6 +15,7 @@ namespace Dyehard
         private float SpeedReference;
         private float SpeedAccumulator;
         private bool stop;
+        private Timer timer;
 
         private Queue<BackgroundElement> onscreen;
         private Queue<BackgroundElement> upcoming;
@@ -23,10 +24,10 @@ namespace Dyehard
         public Background(Hero hero)
         {
             this.stop = false;
+            this.timer = new Timer(10);
 
             SpeedReference = START_SPEED;
             Speed = SpeedReference;
-            SpeedAccumulator = 0f;
 
             this.hero = hero;
             this.onscreen = new Queue<BackgroundElement>();
@@ -90,11 +91,16 @@ namespace Dyehard
 
         private void accelerateGame()
         {
-            SpeedAccumulator += Speed;
-            if (SpeedAccumulator > 500)
+            if (!stop)
             {
-                SpeedReference *= 1.05f;
-                SpeedAccumulator = 0f;
+                timer.update();
+                Speed = SpeedReference;
+            }
+
+            if (timer.isDone())
+            {
+                timer = new Timer(10);
+                SpeedReference *= 1.1f;
                 Console.WriteLine("Increasing game speed to " + SpeedReference);
             }
         }

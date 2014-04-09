@@ -109,13 +109,18 @@ namespace Dyehard
             List<Color> colors = new List<Color>();
             foreach (int i in sample)
             {
-                colors.Add(ColorPicker(i));
+                colors.Add(colorPicker(i));
             }
 
             return colors;
         }
 
-        private static Color ColorPicker(int choice)
+        public static Color randomColor()
+        {
+            return colorPicker(RandomInt(7));
+        }
+
+        private static Color colorPicker(int choice)
         {
             switch (choice)
             {

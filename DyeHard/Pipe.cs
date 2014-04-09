@@ -28,8 +28,8 @@ namespace Dyehard
             this.pipe = new XNACS1Rectangle(new Vector2(position, drawOffset), width, drawHeight);
             this.pipe.Color = color;
 
-            this.pipeWall = new XNACS1Rectangle(new Vector2(leftEdge, pipe.CenterY), 1f, pipe.Height);
-            this.pipeWall.Color = Color.DarkSlateGray;
+            this.pipeWall = new XNACS1Rectangle(new Vector2(leftEdge, pipe.CenterY), 2f, pipe.Height);
+            this.pipeWall.Color = new Color(Color.Black, 125);
 
             this.pipePreview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 4f, 0f);
             this.pipePreview.Color = this.pipe.Color;
