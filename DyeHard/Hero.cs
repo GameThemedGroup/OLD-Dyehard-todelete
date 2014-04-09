@@ -18,7 +18,7 @@ namespace Dyehard
         {
             this.powerups = new List<PowerUp>();
             this.alive = true;
-            this.box = new MassObject(new Vector2(Game.rightEdge() / 3, Game.topEdge() / 2), 5f, 5f);
+            this.box = new MassObject(new Vector2(Game.rightEdge() / 3, Game.topEdge() / 2), 4f, 4f);
             this.box.Label = "hero";
             this.box.Color = Color.Green;
 

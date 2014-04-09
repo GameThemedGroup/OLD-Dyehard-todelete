@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="BackgroundElement.cs" />
     <Compile Include="DistanceTracker.cs" />
-    <Compile Include="Pipe.cs" />
+    <Compile Include="Gate.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyManager.cs" />
     <Compile Include="Game.cs" />
@@ -54,8 +54,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Background.cs" />
-    <Compile Include="Canvas.cs" />
-    <Compile Include="Rainbow.cs" />
+    <Compile Include="Blackspace.cs" />
+    <Compile Include="Stargate.cs" />
     <Compile Include="Timer.cs" />
     <Compile Include="Weapon.cs" />
   </ItemGroup>

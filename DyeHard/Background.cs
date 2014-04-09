@@ -34,7 +34,7 @@ namespace Dyehard
             this.upcoming = new Queue<BackgroundElement>();
 
             // first element on screen
-            onscreen.Enqueue(new Canvas(hero, Game.leftEdge()));
+            onscreen.Enqueue(new Blackspace(hero, Game.leftEdge()));
 
             // fill the rest of the exisiting screen
             while (onscreen.Last().rightEdge() <= Game.rightEdge())
@@ -124,15 +124,15 @@ namespace Dyehard
 
         private BackgroundElement nextElement(Queue<BackgroundElement> seq)
         {
-            if (seq.Last().GetType() == typeof(Rainbow))
+            if (seq.Last().GetType() == typeof(Stargate))
             {
                 Console.WriteLine("Adding canvas to background");
-                return new Canvas(hero, seq.Last().rightEdge());
+                return new Blackspace(hero, seq.Last().rightEdge());
             }
             else
             {
                 Console.WriteLine("Adding rainbow to background");
-                return new Rainbow(hero, seq.Last().rightEdge());
+                return new Stargate(hero, seq.Last().rightEdge());
             }
         }
 

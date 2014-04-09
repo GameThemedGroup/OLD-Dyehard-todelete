@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Pipe
+    class Gate
     {
         public static float width = Game.rightEdge() * 1.25f;
         private XNACS1Rectangle pipe;
@@ -15,21 +15,21 @@ namespace Dyehard
         private XNACS1Rectangle pipePreview;
         private Hero hero;
 
-        public Pipe(int offset, Hero hero, float leftEdge, Color color)
+        public Gate(int offset, Hero hero, float leftEdge, Color color)
         {
             this.hero = hero;
 
             // set up pipe
             float position = (width * 0.5f) + leftEdge;
 
-            float drawHeight =  Game.topEdge() / Rainbow.PIPE_COUNT;
+            float drawHeight =  Game.topEdge() / Stargate.PIPE_COUNT;
             float drawOffset = drawHeight * (offset + 0.5f);
             
             this.pipe = new XNACS1Rectangle(new Vector2(position, drawOffset), width, drawHeight);
             this.pipe.Color = color;
 
-            this.pipeWall = new XNACS1Rectangle(new Vector2(leftEdge, pipe.CenterY), 2f, pipe.Height);
-            this.pipeWall.Color = new Color(Color.Black, 125);
+            this.pipeWall = new XNACS1Rectangle(new Vector2(leftEdge, pipe.CenterY), 3.5f, pipe.Height);
+            this.pipeWall.Color = new Color(Color.Gray, 100);
 
             this.pipePreview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 4f, 0f);
             this.pipePreview.Color = this.pipe.Color;
@@ -40,10 +40,10 @@ namespace Dyehard
         {
             pipe.CenterX -= Background.Speed;
             pipeWall.CenterX -= Background.Speed;
-            pipePreview.Visible = pipe.LowerLeft.X > pipePreview.LowerLeft.X && (Game.rightEdge() + Canvas.width) > pipe.LowerLeft.X;
+            pipePreview.Visible = pipe.LowerLeft.X > pipePreview.LowerLeft.X && (Game.rightEdge() + Blackspace.width) > pipe.LowerLeft.X;
             if (pipePreview.Visible)
             {
-                pipePreview.Height = (pipe.Height * (1- ((pipe.LowerLeft.X - pipePreview.LowerLeft.X) / Canvas.width)));
+                pipePreview.Height = (pipe.Height * (1- ((pipe.LowerLeft.X - pipePreview.LowerLeft.X) / Blackspace.width)));
             }
         }
 
