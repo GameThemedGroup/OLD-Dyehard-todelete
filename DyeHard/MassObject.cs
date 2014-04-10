@@ -13,7 +13,6 @@ namespace Dyehard
         private float drag;
         private float horizonalSpeedLimit;
         private XNACS1Rectangle border;
-        private XNACS1Circle boost;
         
         public MassObject(Vector2 position, float width, float height)
             : base(position, width, height)
@@ -26,10 +25,6 @@ namespace Dyehard
             this.Velocity = new Vector2();
             this.border = new XNACS1Rectangle(this.Center, this.Width * 1.1f, this.Height * 1.1f);
             this.border.Color = Color.LightGray;
-
-            this.boost = new XNACS1Circle(new Vector2(), width/2);
-            this.boost.Color = new Color(Color.Orange, 200);
-            this.boost.Visible = false;
         }
 
         public void push(Vector2 direction)
@@ -39,12 +34,8 @@ namespace Dyehard
             if (direction.Y > 0)
             {
                 direction.Y *= 1.5f;
-                boost.Visible = true;
             }
-            else
-            {
-                boost.Visible = false;
-            }
+
 
             // scale direction
             direction = direction / 10f;
@@ -82,12 +73,10 @@ namespace Dyehard
 
             Center += Velocity; // only move center when being pushed
             border.Center = Center;
-            boost.Center = Center - new Vector2(0, Height / 2);
         }
 
         public override void TopOfAutoDrawSet()
         {
-            boost.TopOfAutoDrawSet();
             border.TopOfAutoDrawSet();
             base.TopOfAutoDrawSet();
         }
