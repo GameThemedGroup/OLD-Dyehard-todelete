@@ -11,7 +11,7 @@ namespace Dyehard
     {
         public static float width = Game.rightEdge() * 3f;
         public static int powerupCount = 6;
-        private XNACS1Rectangle box;
+        private XNACS1Rectangle space;
         private Hero hero;
         private List<PowerUp> powerups;
 
@@ -24,8 +24,8 @@ namespace Dyehard
             float height = Game.topEdge();
             float position = (width * 0.5f) + leftEdge;
 
-            this.box = new XNACS1Rectangle(new Vector2(position, height/2), width, height);
-            this.box.Color = new Color(5, 5, 5);
+            this.space = new XNACS1Rectangle(new Vector2(position, height/2), width, height);
+            this.space.Color = new Color(25,25,25);
 
             // add powerups to canvas
             List<Color> colors = Game.randomColorSet(powerupCount);
@@ -41,8 +41,8 @@ namespace Dyehard
 
         public override void move()
         {
-            box.CenterX -= Background.Speed;
-            box.TopOfAutoDrawSet();
+            space.CenterX -= Background.Speed;
+            space.TopOfAutoDrawSet();
 
             foreach (PowerUp p in powerups)
             {
@@ -62,8 +62,8 @@ namespace Dyehard
 
         private bool contains(XNACS1Rectangle other)
         {
-            float leftEdge = box.LowerLeft.X;
-            float rightEdge = leftEdge + box.Width;
+            float leftEdge = space.LowerLeft.X;
+            float rightEdge = leftEdge + space.Width;
 
             float otherLeftEdge = other.MinBound.X;
             float otherRightEdge = otherLeftEdge + other.Width;
@@ -73,17 +73,17 @@ namespace Dyehard
 
         public override bool isOffScreen()
         {
-            return box.CenterX + box.Width / 2 <= 0;
+            return space.CenterX + space.Width / 2 <= 0;
         }
 
         public override float rightEdge()
         {
-            return box.CenterX + box.Width / 2;
+            return space.CenterX + space.Width / 2;
         }
 
         private float leftEdge()
         {
-            return box.CenterX + box.Width / 2;
+            return space.CenterX + space.Width / 2;
         }
     }
 }

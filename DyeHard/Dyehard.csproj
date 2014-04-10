@@ -86,10 +86,7 @@
     <Content Include="Content\Resources\Audio\powerup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Resources\Textures\HouseFront.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Resources\Textures\pika.png">
+    <Content Include="Content\Resources\Textures\greendye.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
