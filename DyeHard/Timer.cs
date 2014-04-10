@@ -9,11 +9,13 @@ namespace Dyehard
 {
     class Timer
     {
-        private int ticks;
+        private float initialTicks;
+        private float ticks;
 
-        public Timer(int seconds)
+        public Timer(float seconds)
         {
             ticks = seconds * XNACS1Base.World.TicksInASecond;
+            initialTicks = ticks;
         }
 
         public void update()
@@ -24,6 +26,11 @@ namespace Dyehard
         public bool isDone()
         {
             return ticks <= 0;
+        }
+
+        public void reset()
+        {
+            ticks = initialTicks;
         }
     }
 }

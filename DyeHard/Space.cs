@@ -39,6 +39,11 @@ namespace Dyehard
             powerups.Add(new ZeroGravityPowerUp(hero, leftEdge, rightEdge(), Game.randomColor()));
         }
 
+        ~Space()
+        {
+            space.RemoveFromAutoDrawSet();
+        }
+
         public override void move()
         {
             space.CenterX -= Background.Speed;

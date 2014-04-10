@@ -20,6 +20,14 @@ namespace Dyehard
             bullets = new Queue<XNACS1Circle>();
         }
 
+        ~Weapon()
+        {
+            foreach (XNACS1Circle b in bullets)
+            {
+                b.RemoveFromAutoDrawSet();
+            }
+        }
+
         public void update()
         {
             if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.F))
@@ -33,8 +41,7 @@ namespace Dyehard
 
             while (bullets.Count > 0 && (bullets.First().CenterX - bullets.First().Radius) > Game.rightEdge())
             {
-                Console.WriteLine("Removing bullet");
-                bullets.Dequeue();
+                bullets.Dequeue().RemoveFromAutoDrawSet();
             }
         }
 

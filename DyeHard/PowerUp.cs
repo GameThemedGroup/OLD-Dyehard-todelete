@@ -26,6 +26,11 @@ namespace Dyehard
             this.circle.Label = "+";
         }
 
+        ~PowerUp()
+        {
+            circle.RemoveFromAutoDrawSet();
+        }
+
         public void move()
         {
             circle.CenterX -= Background.Speed;

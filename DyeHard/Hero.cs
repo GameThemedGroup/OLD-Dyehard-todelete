@@ -66,8 +66,8 @@ namespace Dyehard
 
         public void redraw()
         {
-            box.TopOfAutoDrawSet();
             weapon.redraw();
+            box.TopOfAutoDrawSet();
         }
 
         public void collect(PowerUp p)

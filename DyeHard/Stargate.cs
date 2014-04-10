@@ -10,43 +10,43 @@ namespace Dyehard
     class Stargate : BackgroundElement
     {
         public const int PIPE_COUNT = 4;
-        Gate[] pipes;
+        Gate[] gates;
         
         public Stargate(Hero hero, float leftEdge) : base()
         {
             List<Color> colors = Game.randomColorSet(PIPE_COUNT);
-            this.pipes = new Gate[PIPE_COUNT];
-            for (int i = 0; i < this.pipes.Length; i++)
+            this.gates = new Gate[PIPE_COUNT];
+            for (int i = 0; i < this.gates.Length; i++)
             {
-                this.pipes[i] = new Gate(i, hero, leftEdge, colors[i]);
+                this.gates[i] = new Gate(i, hero, leftEdge, colors[i]);
             }
 
         }
 
         public override void move()
         {
-            foreach (Gate p in pipes)
+            foreach (Gate g in gates)
             {
-                p.move();
+                g.move();
             }
         }
 
         public override void interact()
         {
-            foreach (Gate p in pipes)
+            foreach (Gate g in gates)
             {
-                p.interact();
+                g.interact();
             }
         }
 
         public override bool isOffScreen()
         {
-            return pipes[0].isOffScreen();
+            return gates[0].isOffScreen();
         }
 
         public override float rightEdge()
         {
-            return pipes[0].rightEdge();
+            return gates[0].rightEdge();
         }
     }
 }

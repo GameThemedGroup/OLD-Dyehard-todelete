@@ -10,7 +10,7 @@ namespace Dyehard
     class Gate
     {
         public static float width = Game.rightEdge() * 1.25f;
-        private XNACS1Rectangle pipe;
+        private XNACS1Rectangle gate;
         private XNACS1Rectangle wall;
         private XNACS1Rectangle preview;
         private Hero hero;
@@ -25,35 +25,42 @@ namespace Dyehard
             float drawHeight =  Game.topEdge() / Stargate.PIPE_COUNT;
             float drawOffset = drawHeight * (offset + 0.5f);
             
-            this.pipe = new XNACS1Rectangle(new Vector2(position, drawOffset), width, drawHeight);
-            this.pipe.Color = color;
+            this.gate = new XNACS1Rectangle(new Vector2(position, drawOffset), width, drawHeight);
+            this.gate.Color = color;
 
-            this.wall = new XNACS1Rectangle(new Vector2(leftEdge, pipe.CenterY), 3.5f, pipe.Height);
+            this.wall = new XNACS1Rectangle(new Vector2(leftEdge, gate.CenterY), 3.5f, gate.Height);
             this.wall.Color = new Color(Color.Gray, 100);
 
             this.preview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 4f, 0f);
-            this.preview.Color = this.pipe.Color;
+            this.preview.Color = this.gate.Color;
             this.preview.Visible = false;
+        }
+
+        ~Gate()
+        {
+            gate.RemoveFromAutoDrawSet();
+            wall.RemoveFromAutoDrawSet();
+            preview.RemoveFromAutoDrawSet();
         }
 
         public void move()
         {
-            pipe.CenterX -= Background.Speed;
+            gate.CenterX -= Background.Speed;
             wall.CenterX -= Background.Speed;
-            preview.Visible = pipe.LowerLeft.X > preview.LowerLeft.X && (Game.rightEdge() + Space.width) > pipe.LowerLeft.X;
+            preview.Visible = gate.LowerLeft.X > preview.LowerLeft.X && (Game.rightEdge() + Space.width) > gate.LowerLeft.X;
             if (preview.Visible)
             {
-                preview.Height = (pipe.Height * (1- ((pipe.LowerLeft.X - preview.LowerLeft.X) / Space.width)));
+                preview.Height = (gate.Height * (1- ((gate.LowerLeft.X - preview.LowerLeft.X) / Space.width)));
             }
 
             preview.TopOfAutoDrawSet();
-            pipe.TopOfAutoDrawSet();
+            gate.TopOfAutoDrawSet();
             wall.TopOfAutoDrawSet();
         }
 
         public void interact()
         {
-            wall.Visible = hero.getColor() != pipe.Color;
+            wall.Visible = hero.getColor() != gate.Color;
             if (wall.Visible)
             {
                 if (wall.Collided(hero.getBox()))
@@ -65,19 +72,19 @@ namespace Dyehard
 
             if (contains(hero.getBox()))
             {
-                hero.setColor(pipe.Color);
+                hero.setColor(gate.Color);
             }
         }
 
         private bool contains(XNACS1Rectangle other)
         {
-            float topEdge = pipe.MaxBound.Y;
-            float bottomEdge = pipe.MinBound.Y;
+            float topEdge = gate.MaxBound.Y;
+            float bottomEdge = gate.MinBound.Y;
 
             if (other.CenterY < topEdge && other.CenterY >= bottomEdge)
             {
-                float leftEdge = pipe.LowerLeft.X;
-                float rightEdge = leftEdge + pipe.Width;
+                float leftEdge = gate.LowerLeft.X;
+                float rightEdge = leftEdge + gate.Width;
                 return other.CenterX < rightEdge && other.CenterX > leftEdge;
             }
 
@@ -86,12 +93,12 @@ namespace Dyehard
 
         public bool isOffScreen()
         {
-            return pipe.CenterX + pipe.Width / 2 <= 0;
+            return gate.CenterX + gate.Width / 2 <= 0;
         }
 
         public float rightEdge()
         {
-            return pipe.CenterX + pipe.Width / 2;
+            return gate.CenterX + gate.Width / 2;
         }
     }
 }
