@@ -10,7 +10,7 @@ namespace Dyehard
     class Space : BackgroundElement
     {
         public static float width = Game.rightEdge() * 3f;
-        public static int powerupCount = 6;
+        public static int powerupCount = 5;
         private XNACS1Rectangle space;
         private Hero hero;
         private List<PowerUp> powerups;
@@ -25,7 +25,7 @@ namespace Dyehard
             float position = (width * 0.5f) + leftEdge;
 
             this.space = new XNACS1Rectangle(new Vector2(position, height/2), width, height);
-            this.space.Color = new Color(25,25,25);
+            this.space.Color = Color.Black;
 
             // add powerups to canvas
             List<Color> colors = Game.randomColorSet(powerupCount);

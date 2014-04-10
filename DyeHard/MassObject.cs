@@ -18,7 +18,7 @@ namespace Dyehard
         public MassObject(Vector2 position, float width, float height)
             : base(position, width, height)
         {
-            this.gravity = new Vector2(0, -.05f);
+            this.gravity = new Vector2(0, -.03f);
             this.drag = 0.94f;
             this.horizonalSpeedLimit = 1f;
 
@@ -38,7 +38,7 @@ namespace Dyehard
             // add jetpack factor
             if (direction.Y > 0)
             {
-                direction.Y *= 2f;
+                direction.Y *= 1.5f;
                 boost.Visible = true;
             }
             else
@@ -47,7 +47,7 @@ namespace Dyehard
             }
 
             // scale direction
-            direction = direction / 8f;
+            direction = direction / 10f;
             
             // update velocity
             Velocity = (Velocity + direction + gravity) * drag;

@@ -133,7 +133,7 @@ namespace Dyehard
         // get a random and unique subset of the available colors
         public static List<Color> randomColorSet(int count)
         {
-            List<int> range = Enumerable.Range(0,7).ToList();
+            List<int> range = Enumerable.Range(0,6).ToList();
             List<int> sample = new List<int>();
             for (int i = 0; i < count; i++)
             {
@@ -160,15 +160,14 @@ namespace Dyehard
         {
             switch (choice)
             {
-                case 0: return Color.Blue;
+                case 0: return new Color(50, 75, 150);
                 case 1: return Color.Green;
                 case 2: return Color.Red;
                 case 3: return Color.Yellow;
-                case 4: return Color.Purple;
-                case 5: return Color.Orange;
-                case 6: return Color.Pink;
-                default: return Color.Black;
+                case 4: return new Color(90, 184, 186);
+                case 5: return new Color(215, 59, 148);
             }
+            return Color.Black;
         }
     }
 }

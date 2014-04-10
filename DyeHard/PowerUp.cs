@@ -11,7 +11,7 @@ namespace Dyehard
     class PowerUp
     {
         protected Hero hero;
-        protected XNACS1Rectangle circle;
+        protected XNACS1Circle circle;
 
         public PowerUp(Hero hero, float minX, float maxX, Color color)
         {
@@ -21,15 +21,9 @@ namespace Dyehard
 
             float randomX = XNACS1Base.RandomFloat(minX + padding, maxX - padding);
             float randomY = XNACS1Base.RandomFloat(Game.bottomEdge() + padding, Game.topEdge() - padding);
-            this.circle = new XNACS1Rectangle(new Vector2(randomX, randomY), 8f, 8f);
+            this.circle = new XNACS1Circle(new Vector2(randomX, randomY), 2.5f);
             this.circle.Color = color;
             this.circle.Label = "+";
-
-            if (circle.Color == Color.Green)
-            {
-                this.circle.Label = "";
-                this.circle.Texture = "greendye";
-            }
         }
 
         public void move()

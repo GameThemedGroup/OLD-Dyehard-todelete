@@ -13,7 +13,6 @@ namespace Dyehard
         private const float START_SPEED = 0.6f;
         public static float Speed;
         private float SpeedReference;
-        private float SpeedAccumulator;
         private bool stop;
         private Timer timer;
 

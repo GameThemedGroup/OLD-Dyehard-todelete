@@ -20,7 +20,7 @@ namespace Dyehard
             this.alive = true;
             this.box = new MassObject(new Vector2(Game.rightEdge() / 3, Game.topEdge() / 2), 4f, 4f);
             this.box.Label = "hero";
-            this.box.Color = Color.Green;
+            this.box.Color = Game.randomColor();
 
             this.weapon = new Weapon(this);
         }
