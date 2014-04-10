@@ -11,8 +11,8 @@ namespace Dyehard
     {
         public static float width = Game.rightEdge() * 1.25f;
         private XNACS1Rectangle pipe;
-        private XNACS1Rectangle pipeWall;
-        private XNACS1Rectangle pipePreview;
+        private XNACS1Rectangle wall;
+        private XNACS1Rectangle preview;
         private Hero hero;
 
         public Gate(int offset, Hero hero, float leftEdge, Color color)
@@ -28,31 +28,35 @@ namespace Dyehard
             this.pipe = new XNACS1Rectangle(new Vector2(position, drawOffset), width, drawHeight);
             this.pipe.Color = color;
 
-            this.pipeWall = new XNACS1Rectangle(new Vector2(leftEdge, pipe.CenterY), 3.5f, pipe.Height);
-            this.pipeWall.Color = new Color(Color.Gray, 100);
+            this.wall = new XNACS1Rectangle(new Vector2(leftEdge, pipe.CenterY), 3.5f, pipe.Height);
+            this.wall.Color = new Color(Color.Gray, 100);
 
-            this.pipePreview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 4f, 0f);
-            this.pipePreview.Color = this.pipe.Color;
-            this.pipePreview.Visible = false;
+            this.preview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 4f, 0f);
+            this.preview.Color = this.pipe.Color;
+            this.preview.Visible = false;
         }
 
         public void move()
         {
             pipe.CenterX -= Background.Speed;
-            pipeWall.CenterX -= Background.Speed;
-            pipePreview.Visible = pipe.LowerLeft.X > pipePreview.LowerLeft.X && (Game.rightEdge() + Blackspace.width) > pipe.LowerLeft.X;
-            if (pipePreview.Visible)
+            wall.CenterX -= Background.Speed;
+            preview.Visible = pipe.LowerLeft.X > preview.LowerLeft.X && (Game.rightEdge() + Space.width) > pipe.LowerLeft.X;
+            if (preview.Visible)
             {
-                pipePreview.Height = (pipe.Height * (1- ((pipe.LowerLeft.X - pipePreview.LowerLeft.X) / Blackspace.width)));
+                preview.Height = (pipe.Height * (1- ((pipe.LowerLeft.X - preview.LowerLeft.X) / Space.width)));
             }
+
+            preview.TopOfAutoDrawSet();
+            pipe.TopOfAutoDrawSet();
+            wall.TopOfAutoDrawSet();
         }
 
         public void interact()
         {
-            pipeWall.Visible = hero.getColor() != pipe.Color;
-            if (pipeWall.Visible)
+            wall.Visible = hero.getColor() != pipe.Color;
+            if (wall.Visible)
             {
-                if (pipeWall.Collided(hero.getBox()))
+                if (wall.Collided(hero.getBox()))
                 {
                     Console.WriteLine("hero died - collided with wall!");
                     hero.kill();

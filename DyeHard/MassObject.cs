@@ -24,7 +24,6 @@ namespace Dyehard
 
             // set object into motion;
             this.Velocity = new Vector2();
-            this.ShouldTravel = true;
             this.border = new XNACS1Rectangle(this.Center, this.Width * 1.1f, this.Height * 1.1f);
             this.border.Color = Color.LightGray;
 
@@ -81,6 +80,7 @@ namespace Dyehard
                 VelocityX = 0f;
             }
 
+            Center += Velocity; // only move center when being pushed
             border.Center = Center;
             boost.Center = Center - new Vector2(0, Height / 2);
         }

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Blackspace : BackgroundElement
+    class Space : BackgroundElement
     {
         public static float width = Game.rightEdge() * 3f;
         public static int powerupCount = 6;
@@ -15,7 +15,7 @@ namespace Dyehard
         private Hero hero;
         private List<PowerUp> powerups;
 
-        public Blackspace(Hero hero, float leftEdge) : base()
+        public Space(Hero hero, float leftEdge) : base()
         {
             this.hero = hero;
 
@@ -42,6 +42,7 @@ namespace Dyehard
         public override void move()
         {
             box.CenterX -= Background.Speed;
+            box.TopOfAutoDrawSet();
 
             foreach (PowerUp p in powerups)
             {

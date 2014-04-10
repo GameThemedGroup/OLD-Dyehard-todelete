@@ -13,13 +13,24 @@ namespace Dyehard
 {
     public class Game : XNACS1Base
     {
+        private enum State
+        {
+            START_SCREEN,
+            PAUSED,
+            RUNNING
+        };
+
+        // screen objects
+        private StartScreen startScreen;
+        private PauseScreen pauseScreen;
+
         // game objects
         private Hero hero;
         private DistanceTracker distanceTracker;
         private Background background;
 
-        // control objects
-        private PauseScreen pauseScreen;
+        // game state
+        private State state;
 
         public Game()
         {
@@ -27,33 +38,37 @@ namespace Dyehard
 
         protected override void InitializeWorld()
         {
+            this.state = State.START_SCREEN;
             World.SetWorldCoordinate(new Vector2(0f, 0f), 100f);
 
             hero = new Hero();
             background = new Background(hero);
             distanceTracker = new DistanceTracker(hero);
             pauseScreen = new PauseScreen();
+            startScreen = new StartScreen();
         }
 
-        
+
         protected override void UpdateWorld()
         {
             checkControl();
 
-            if (pauseScreen.isActive())
+            switch (state)
             {
-                // do nothing
-            }
-            else if (hero.isAlive())
-            {
-                background.update();
-                hero.update();
-                distanceTracker.update();
-            }
-            else
-            {
-                // reset the world
-                InitializeWorld();
+                case State.START_SCREEN:
+                    startScreen.update();
+                    break;
+
+                case State.PAUSED:
+                    pauseScreen.update();
+                    break;
+
+                case State.RUNNING:
+                    hero.update();
+                    background.update();
+                    hero.redraw();
+                    distanceTracker.update();
+                    break;
             }
         }
 
@@ -63,14 +78,35 @@ namespace Dyehard
 
             if (KeyboardDevice.isKeyDown(Keys.Escape))
             {
-                // allow user exit game
-                Exit();
+                Exit(); // allow user exit game
             }
 
-            if (KeyboardDevice.isKeyTapped(Keys.Space))
+            switch (state)
             {
-                // allow user to pause game
-                pauseScreen.toggle();
+                case State.START_SCREEN:
+                    //
+                    if (KeyboardDevice.isKeyTapped(Keys.A))
+                    {
+                        state = State.RUNNING;
+                    }
+                    break;
+
+                case State.PAUSED:
+                    if (KeyboardDevice.isKeyTapped(Keys.Space))
+                    {
+                        state = State.RUNNING;
+                    }
+                    break;
+                case State.RUNNING:
+                    if (KeyboardDevice.isKeyTapped(Keys.Space))
+                    {
+                        state = State.PAUSED;
+                    }
+                    else if (!hero.isAlive())
+                    {
+                        InitializeWorld();
+                    }
+                    break;
             }
         }
 

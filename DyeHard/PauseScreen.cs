@@ -11,43 +11,28 @@ namespace Dyehard
     {
         private XNACS1Rectangle boxBorder;
         private XNACS1Rectangle box;
-        private bool active;
 
         public PauseScreen()
         {
-            this.active = false;
             Vector2 centerScreen = new Vector2(Game.rightEdge() / 2, Game.topEdge() / 2);
             this.box = new XNACS1Rectangle(centerScreen, Game.rightEdge() / 2, Game.topEdge() / 2);
             this.box.Color = Color.White;
-            this.box.Label = "Paused\n\n\nPress 'Space' to resume...";
-            this.box.Visible = false;
+            this.box.Label = "Game is paused.\n\n\nPress 'Space' to resume...";
 
             this.boxBorder = new XNACS1Rectangle(box.Center, box.Width + 1f, box.Height + 1f);
             this.boxBorder.Color = Color.LightGray;
-            this.boxBorder.Visible = this.box.Visible;
         }
 
-        public void toggle()
+        public void update()
         {
-            active = !active;
-            if (active)
-            {
-                boxBorder.Visible = true;
-                boxBorder.TopOfAutoDrawSet();
-                box.Visible = true;
-                box.TopOfAutoDrawSet();
-            }
-            else
-            {
-                box.Visible = false;
-                boxBorder.Visible = false;
-            }
+            boxBorder.Center += XNACS1Base.GamePad.ThumbSticks.Right;
+            XNACS1Base.World.ClampAtWorldBound(boxBorder);
+            box.Center = boxBorder.Center;
+
+            boxBorder.TopOfAutoDrawSet();
+            box.TopOfAutoDrawSet();
         }
 
-        public bool isActive()
-        {
-            return active;
-        }
 
     }
 }

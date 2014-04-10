@@ -29,6 +29,7 @@ namespace Dyehard
         public void move()
         {
             circle.CenterX -= Background.Speed;
+            circle.TopOfAutoDrawSet();
         }
 
         public virtual void interact()

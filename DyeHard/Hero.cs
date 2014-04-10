@@ -54,7 +54,6 @@ namespace Dyehard
         {
             box.push(XNACS1Base.GamePad.ThumbSticks.Right);
             XNACS1Base.World.ClampAtWorldBound(box);
-
             weapon.update();
 
             foreach (PowerUp p in powerups)
@@ -63,7 +62,12 @@ namespace Dyehard
             }
             powerups.RemoveAll(p => p.expired());
 
+        }
+
+        public void redraw()
+        {
             box.TopOfAutoDrawSet();
+            weapon.redraw();
         }
 
         public void collect(PowerUp p)

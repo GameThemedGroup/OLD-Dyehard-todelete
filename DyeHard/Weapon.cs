@@ -22,6 +22,11 @@ namespace Dyehard
 
         public void update()
         {
+            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.F))
+            {
+                fire();
+            }
+
             foreach (XNACS1Circle b in bullets) {
                 b.CenterX += bulletSpeed;
             }
@@ -30,11 +35,6 @@ namespace Dyehard
             {
                 Console.WriteLine("Removing bullet");
                 bullets.Dequeue();
-            }
-
-            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.F))
-            {
-                fire();
             }
         }
 
@@ -45,6 +45,14 @@ namespace Dyehard
             bullet.Color = new Color(hero.getColor(), 210);
             bullet.Label = "pew";
             bullets.Enqueue(bullet);
+        }
+
+        public void redraw()
+        {
+            foreach (XNACS1Circle b in bullets)
+            {
+                b.TopOfAutoDrawSet();
+            }
         }
     }
 }
