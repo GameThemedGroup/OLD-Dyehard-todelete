@@ -24,7 +24,7 @@ namespace Dyehard
             {
                 hero.collect(this);
                 hero.setColor(circle.Color);
-                ((MassObject)hero.getBox()).disableGravity();
+                ((CharacterBlock)hero.getBox()).disableGravity();
                 circle.Visible = false;
             }
         }
@@ -35,7 +35,7 @@ namespace Dyehard
 
             if (timer.isDone())
             {
-                ((MassObject)hero.getBox()).enableGravity();
+                ((CharacterBlock)hero.getBox()).enableGravity();
             }
         }
 

@@ -10,6 +10,7 @@ namespace Dyehard
     class Gate
     {
         public static float width = Game.rightEdge() * 1.25f;
+        private Color color;
         private XNACS1Rectangle gate;
         private XNACS1Rectangle wall;
         private XNACS1Rectangle preview;
@@ -18,6 +19,7 @@ namespace Dyehard
         public Gate(int offset, Hero hero, float leftEdge, Color color)
         {
             this.hero = hero;
+            this.color = color;
 
             // set up pipe
             float position = (width * 0.5f) + leftEdge;
@@ -26,7 +28,7 @@ namespace Dyehard
             float drawOffset = drawHeight * (offset + 0.5f);
             
             this.gate = new XNACS1Rectangle(new Vector2(position, drawOffset), width, drawHeight);
-            this.gate.Color = color;
+            this.gate.Color = new Color(color, 100);
 
             this.wall = new XNACS1Rectangle(new Vector2(leftEdge, gate.CenterY), 3.5f, gate.Height);
             this.wall.Color = new Color(Color.Gray, 100);
@@ -47,10 +49,10 @@ namespace Dyehard
         {
             gate.CenterX -= Environment.Speed;
             wall.CenterX -= Environment.Speed;
-            preview.Visible = gate.LowerLeft.X > preview.LowerLeft.X && (Game.rightEdge() + Space.width) > gate.LowerLeft.X;
+            preview.Visible = gate.LowerLeft.X > (preview.LowerLeft.X + preview.Width) && (Game.rightEdge() + (Space.width * 0.75f)) > gate.LowerLeft.X;
             if (preview.Visible)
             {
-                preview.Height = (gate.Height * (1- ((gate.LowerLeft.X - preview.LowerLeft.X) / Space.width)));
+                preview.Height = (gate.Height * (1 - ((gate.LowerLeft.X - (preview.LowerLeft.X + preview.Width)) / (Space.width * 0.75f))));
             }
 
             preview.TopOfAutoDrawSet();
@@ -60,7 +62,7 @@ namespace Dyehard
 
         public void interact()
         {
-            wall.Visible = hero.getColor() != gate.Color;
+            wall.Visible = hero.getColor() != color;
             if (wall.Visible)
             {
                 if (wall.Collided(hero.getBox()))
@@ -72,7 +74,7 @@ namespace Dyehard
 
             if (contains(hero.getBox()))
             {
-                hero.setColor(gate.Color);
+                hero.setColor(color);
             }
         }
 

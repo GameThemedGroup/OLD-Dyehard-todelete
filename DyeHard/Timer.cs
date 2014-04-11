@@ -20,7 +20,7 @@ namespace Dyehard
 
         public void update()
         {
-            ticks--;
+            ticks -= 1;
         }
 
         public bool isDone()

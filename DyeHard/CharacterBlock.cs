@@ -7,14 +7,13 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class MassObject : XNACS1Rectangle
+    class CharacterBlock : XNACS1Rectangle
     {
         private Vector2 gravity;
         private float drag;
         private float horizonalSpeedLimit;
-        private XNACS1Rectangle border;
         
-        public MassObject(Vector2 position, float width, float height)
+        public CharacterBlock(Vector2 position, float width, float height)
             : base(position, width, height)
         {
             this.gravity = new Vector2(0, -.03f);
@@ -23,13 +22,6 @@ namespace Dyehard
 
             // set object into motion;
             this.Velocity = new Vector2();
-            this.border = new XNACS1Rectangle(this.Center, this.Width * 1.1f, this.Height * 1.1f);
-            this.border.Color = Color.LightGray;
-        }
-
-        ~MassObject()
-        {
-            border.RemoveFromAutoDrawSet();
         }
 
         public void push(Vector2 direction)
@@ -77,12 +69,10 @@ namespace Dyehard
             }
 
             Center += Velocity; // only move center when being pushed
-            border.Center = Center;
         }
 
         public override void TopOfAutoDrawSet()
         {
-            border.TopOfAutoDrawSet();
             base.TopOfAutoDrawSet();
         }
 

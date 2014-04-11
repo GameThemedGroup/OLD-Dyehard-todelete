@@ -46,11 +46,12 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyManager.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Starfield.cs" />
     <Compile Include="Window.cs" />
     <Compile Include="ZeroGravityPowerUp.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="KeyboardDevice.cs" />
-    <Compile Include="MassObject.cs" />
+    <Compile Include="CharacterBlock.cs" />
     <Compile Include="PowerUp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
