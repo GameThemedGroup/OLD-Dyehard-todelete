@@ -50,10 +50,12 @@ namespace Dyehard
 
             if (timer.isDone())
             {
-                timer.reset();
+                // add a new star
                 stars.Enqueue(starAt(Game.rightEdge()));
-            }
 
+                // reset timer for next star
+                timer.reset();
+            }
 
             // control star movement, and redraw
             foreach (XNACS1Circle star in stars)
@@ -61,7 +63,6 @@ namespace Dyehard
                 star.CenterX -= speed;
                 star.TopOfAutoDrawSet();
             }
-
 
             // clean up stars that are out of view
             if (stars.First().CenterX + stars.First().Radius <= Game.leftEdge())
@@ -87,6 +88,5 @@ namespace Dyehard
             star.Color = randomStarColor();
             return star;
         }
-
     }
 }

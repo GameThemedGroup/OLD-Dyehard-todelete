@@ -57,16 +57,19 @@ namespace Dyehard
 
         public void update()
         {
+            // update onscreen entity
             box.push(XNACS1Base.GamePad.ThumbSticks.Right);
             XNACS1Base.World.ClampAtWorldBound(box);
+
+            // update weapon
             weapon.update();
 
+            // update powerups
             foreach (PowerUp p in powerups)
             {
                 p.update();
             }
             powerups.RemoveAll(p => p.expired());
-
         }
 
         public void draw()
