@@ -4,136 +4,111 @@ using System.Linq;
 using System.Text;
 using XNACS1Lib;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 
 namespace Dyehard
 {
     class Background
     {
-        private const float START_SPEED = 0.6f;
-        public static float Speed;
-        private float SpeedReference;
-        private bool stop;
-        private Timer timer;
+        private XNACS1Rectangle world;
 
-        private Queue<BackgroundElement> onscreen;
-        private Queue<BackgroundElement> upcoming;
-        private Hero hero;
-   
-        public Background(Hero hero)
+        private Queue<XNACS1Circle> foreground;
+        private Queue<XNACS1Circle> background;
+
+        private Timer fgTimer;
+        private Timer bgTimer;
+
+
+        public Background()
         {
-            this.stop = false;
-            this.timer = new Timer(10);
+            float width = XNACS1Base.World.WorldMax.X;
+            float height = XNACS1Base.World.WorldMax.Y;
+            Vector2 center = new Vector2(width/2, height/2);
+            this.world = new XNACS1Rectangle(center, width, height);
 
-            SpeedReference = START_SPEED;
-            Speed = SpeedReference;
+            this.world.Color = Color.Black;
 
-            this.hero = hero;
-            this.onscreen = new Queue<BackgroundElement>();
-            this.upcoming = new Queue<BackgroundElement>();
+            this.foreground = new Queue<XNACS1Circle>();
+            this.fgTimer = new Timer(0.2f);
 
-            // first element on screen
-            onscreen.Enqueue(new Space(hero, Game.leftEdge()));
+            this.background = new Queue<XNACS1Circle>();
+            this.bgTimer = new Timer(0.1f);
 
-            // fill the rest of the exisiting screen
-            while (onscreen.Last().rightEdge() <= Game.rightEdge())
+
+            for (float i = 0; i < Game.rightEdge(); i += 2.4f)
             {
-                onscreen.Enqueue(nextElement(onscreen));
+                Vector2 position = new Vector2(i, XNACS1Base.RandomFloat(Game.topEdge()));
+                foreground.Enqueue(new XNACS1Circle(position, 0.08f));
+                foreground.Last().Color = Color.White;
+                foreground.Last().VelocityX = -0.3f;
             }
 
-            // prep upcoming elements
-            upcoming.Enqueue(nextElement(onscreen));
+            for (float i = 0; i < Game.rightEdge(); i += 1.2f)
+            {
+                Vector2 position = new Vector2(i, XNACS1Base.RandomFloat(Game.topEdge()));
+                background.Enqueue(new XNACS1Circle(position, 0.04f));
+                background.Last().Color = Color.White;
+                background.Last().VelocityX = -0.15f;
+            }
         }
-
-        public void update()
+        ~Background()
         {
-            checkControl();
-
-            accelerateGame();
-
-            foreach (BackgroundElement e in onscreen)
+            foreach (XNACS1Circle star in foreground)
             {
-                e.move();
+                star.RemoveFromAutoDrawSet();
             }
-
-            foreach (BackgroundElement e in upcoming)
+            foreach (XNACS1Circle star in background)
             {
-                e.move();
-            }
-
-            updateSequence();
-
-            foreach (BackgroundElement e in onscreen)
-            {
-                e.interact();
-            }            
-        }
-
-        private void checkControl()
-        {
-            // pause game speed
-            if (KeyboardDevice.isKeyTapped(Keys.W))
-            {
-                stop = !stop;
-                if (stop)
-                {
-                    Console.WriteLine("Entering debug mode - press 'W' to resume game");
-                    Speed = 0f;
-                }
-                else
-                {
-                    Console.WriteLine("Exiting debug mode");
-                    Speed = SpeedReference;
-                }
+                star.RemoveFromAutoDrawSet();
             }
         }
 
-        private void accelerateGame()
-        {
-            if (!stop)
+        public void update() {
+            world.TopOfAutoDrawSet();
+
+            fgTimer.update();
+            bgTimer.update();
+
+            if (fgTimer.isDone())
             {
-                timer.update();
-                Speed = SpeedReference;
+                fgTimer.reset();
+                Vector2 position = new Vector2(Game.rightEdge(), XNACS1Base.RandomFloat(Game.topEdge()));
+                foreground.Enqueue(new XNACS1Circle(position, 0.08f));
+                foreground.Last().Color = Color.White;
+                foreground.Last().VelocityX = -0.1f;
             }
 
-            if (timer.isDone())
+            if (bgTimer.isDone())
             {
-                timer = new Timer(10);
-                SpeedReference *= 1.1f;
-                Console.WriteLine("Increasing game speed to " + SpeedReference);
+                bgTimer.reset();
+                Vector2 position = new Vector2(Game.rightEdge(), XNACS1Base.RandomFloat(Game.topEdge()));
+                background.Enqueue(new XNACS1Circle(position, 0.04f));
+                background.Last().Color = Color.White;
+                background.Last().VelocityX = -0.05f;
+            }
+
+
+            // control when stars are moved (only on update)
+            foreach (XNACS1Circle star in foreground)
+            {
+                star.CenterX += star.VelocityX ;
+                star.TopOfAutoDrawSet();
+            }
+
+            foreach (XNACS1Circle star in background)
+            {
+                star.CenterX += star.VelocityX;
+                star.TopOfAutoDrawSet();
+            }
+
+            // clean up out of screen stars
+            if (foreground.Count > 0 && foreground.First().CenterX + foreground.First().Radius < Game.leftEdge())
+            {
+               foreground.Dequeue().RemoveFromAutoDrawSet();
+            }
+            if (background.Count > 0 && background.First().CenterX + background.First().Radius < Game.leftEdge())
+            {
+                background.Dequeue().RemoveFromAutoDrawSet();
             }
         }
-
-        private void updateSequence()
-        {
-            if (onscreen.First().isOffScreen())
-            {
-                // remove off screen element
-                onscreen.Dequeue();
-                Console.WriteLine("Dumping element from background");
-            }
-
-            if (onscreen.Last().rightEdge() <= Game.rightEdge())
-            {
-                // move item from upcoming to end of onscreen
-                upcoming.Enqueue(nextElement(upcoming));
-                onscreen.Enqueue(upcoming.Dequeue());
-            }
-        }
-
-        private BackgroundElement nextElement(Queue<BackgroundElement> seq)
-        {
-            if (seq.Last().GetType() == typeof(Stargate))
-            {
-                Console.WriteLine("Adding canvas to background");
-                return new Space(hero, seq.Last().rightEdge());
-            }
-            else
-            {
-                Console.WriteLine("Adding rainbow to background");
-                return new Stargate(hero, seq.Last().rightEdge());
-            }
-        }
-
     }
 }

@@ -15,19 +15,20 @@ namespace Dyehard
     {
         private enum State
         {
-            START_SCREEN,
+            BEGIN,
             PAUSED,
-            RUNNING
+            PLAYING
         };
 
         // screen objects
-        private StartScreen startScreen;
-        private PauseScreen pauseScreen;
+        private Background background;
+        private Window startScreen;
+        private Window pauseScreen;
 
         // game objects
         private Hero hero;
         private DistanceTracker distanceTracker;
-        private Background background;
+        private Environment environment;
 
         // game state
         private State state;
@@ -38,24 +39,33 @@ namespace Dyehard
 
         protected override void InitializeWorld()
         {
-            this.state = State.START_SCREEN;
             World.SetWorldCoordinate(new Vector2(0f, 0f), 100f);
+            background = new Background();
+            pauseScreen = new Window("Paused.\n\n\n'A' to resume.\n\n'Q' to restart.");
+            startScreen = new Window("DYEHARD\n\n'A' to begin.");
+            initializeObjects();
+        }
+
+
+        private void initializeObjects()
+        {
+            this.state = State.BEGIN;
 
             hero = new Hero();
-            background = new Background(hero);
+            environment = new Environment(hero);
             distanceTracker = new DistanceTracker(hero);
-            pauseScreen = new PauseScreen();
-            startScreen = new StartScreen();
         }
 
 
         protected override void UpdateWorld()
         {
+
             checkControl();
+            background.update();
 
             switch (state)
             {
-                case State.START_SCREEN:
+                case State.BEGIN:
                     startScreen.update();
                     break;
 
@@ -63,9 +73,9 @@ namespace Dyehard
                     pauseScreen.update();
                     break;
 
-                case State.RUNNING:
+                case State.PLAYING:
                     hero.update();
-                    background.update();
+                    environment.update();
                     hero.redraw();
                     distanceTracker.update();
                     break;
@@ -83,28 +93,31 @@ namespace Dyehard
 
             switch (state)
             {
-                case State.START_SCREEN:
-                    //
+                case State.BEGIN:
                     if (KeyboardDevice.isKeyTapped(Keys.A))
                     {
-                        state = State.RUNNING;
+                        state = State.PLAYING;
                     }
                     break;
 
                 case State.PAUSED:
-                    if (KeyboardDevice.isKeyTapped(Keys.Space))
+                    if (KeyboardDevice.isKeyTapped(Keys.A))
                     {
-                        state = State.RUNNING;
+                        state = State.PLAYING;
+                    }
+                    if (KeyboardDevice.isKeyTapped(Keys.Q))
+                    {
+                        initializeObjects();
                     }
                     break;
-                case State.RUNNING:
-                    if (KeyboardDevice.isKeyTapped(Keys.Space))
+                case State.PLAYING:
+                    if (KeyboardDevice.isKeyTapped(Keys.A))
                     {
                         state = State.PAUSED;
                     }
                     else if (!hero.isAlive())
                     {
-                        InitializeWorld();
+                        initializeObjects();
                     }
                     break;
             }
@@ -153,7 +166,7 @@ namespace Dyehard
 
         public static Color randomColor()
         {
-            return colorPicker(RandomInt(7));
+            return colorPicker(RandomInt(6));
         }
 
         private static Color colorPicker(int choice)

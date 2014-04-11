@@ -33,7 +33,7 @@ namespace Dyehard
 
         public void move()
         {
-            circle.CenterX -= Background.Speed;
+            circle.CenterX -= Environment.Speed;
             circle.TopOfAutoDrawSet();
         }
 

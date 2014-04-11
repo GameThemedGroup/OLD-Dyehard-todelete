@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Stargate : BackgroundElement
+    class Stargate : EnvironmentElement
     {
         public const int PIPE_COUNT = 4;
         Gate[] gates;

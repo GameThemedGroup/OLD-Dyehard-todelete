@@ -45,8 +45,8 @@ namespace Dyehard
 
         public void move()
         {
-            gate.CenterX -= Background.Speed;
-            wall.CenterX -= Background.Speed;
+            gate.CenterX -= Environment.Speed;
+            wall.CenterX -= Environment.Speed;
             preview.Visible = gate.LowerLeft.X > preview.LowerLeft.X && (Game.rightEdge() + Space.width) > gate.LowerLeft.X;
             if (preview.Visible)
             {

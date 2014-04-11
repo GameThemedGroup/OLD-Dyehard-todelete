@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Space : BackgroundElement
+    class Space : EnvironmentElement
     {
         public static float width = Game.rightEdge() * 3f;
         public static int powerupCount = 5;
@@ -25,7 +25,7 @@ namespace Dyehard
             float position = (width * 0.5f) + leftEdge;
 
             this.space = new XNACS1Rectangle(new Vector2(position, height/2), width, height);
-            this.space.Color = Color.Black;
+            this.space.Visible = false;
 
             // add powerups to canvas
             List<Color> colors = Game.randomColorSet(powerupCount);
@@ -46,7 +46,7 @@ namespace Dyehard
 
         public override void move()
         {
-            space.CenterX -= Background.Speed;
+            space.CenterX -= Environment.Speed;
             space.TopOfAutoDrawSet();
 
             foreach (PowerUp p in powerups)
