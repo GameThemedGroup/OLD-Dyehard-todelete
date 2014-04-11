@@ -69,6 +69,18 @@ namespace Dyehard
             }            
         }
 
+        public void draw()
+        {
+            foreach (EnvironmentElement e in onscreen)
+            {
+                e.draw();
+            }
+            foreach (EnvironmentElement e in upcoming)
+            {
+                e.draw();
+            }
+        }
+
         private void checkControl()
         {
             // pause game speed

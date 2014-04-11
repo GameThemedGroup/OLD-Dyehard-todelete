@@ -66,18 +66,25 @@ namespace Dyehard
             switch (state)
             {
                 case State.BEGIN:
-                    startScreen.update();
+                    startScreen.draw();
                     break;
 
                 case State.PAUSED:
-                    pauseScreen.update();
+                    environment.draw();
+                    hero.draw();
+                    distanceTracker.draw();
+
+                    pauseScreen.draw();
                     break;
 
                 case State.PLAYING:
                     hero.update();
                     environment.update();
-                    hero.redraw();
                     distanceTracker.update();
+
+                    environment.draw();
+                    hero.draw();
+                    distanceTracker.draw();
                     break;
             }
         }

@@ -9,7 +9,7 @@ namespace Dyehard
 {
     class Space : EnvironmentElement
     {
-        public static float width = Game.rightEdge() * 3f;
+        public static float width = Game.rightEdge() * 1.1f;
         public static int powerupCount = 5;
         private XNACS1Rectangle space;
         private Hero hero;
@@ -47,7 +47,6 @@ namespace Dyehard
         public override void move()
         {
             space.CenterX -= Environment.Speed;
-            space.TopOfAutoDrawSet();
 
             foreach (PowerUp p in powerups)
             {
@@ -55,10 +54,18 @@ namespace Dyehard
             }
         }
 
+        public override void draw()
+        {
+            space.TopOfAutoDrawSet();
+
+            foreach (PowerUp p in powerups)
+            {
+                p.draw();
+            }
+        }
+
         public override void interact()
         {
-            XNACS1Rectangle heroBox = hero.getBox();
-
             foreach (PowerUp p in powerups)
             {
                 p.interact();

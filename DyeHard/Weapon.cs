@@ -54,7 +54,7 @@ namespace Dyehard
             bullets.Enqueue(bullet);
         }
 
-        public void redraw()
+        public void draw()
         {
             foreach (XNACS1Circle b in bullets)
             {

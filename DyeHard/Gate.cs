@@ -30,8 +30,8 @@ namespace Dyehard
             this.gate = new XNACS1Rectangle(new Vector2(position, drawOffset), width, drawHeight);
             this.gate.Color = new Color(color, 100);
 
-            this.wall = new XNACS1Rectangle(new Vector2(leftEdge, gate.CenterY), 3.5f, gate.Height);
-            this.wall.Color = new Color(Color.Gray, 100);
+            this.wall = new XNACS1Rectangle(new Vector2(leftEdge + 1, gate.CenterY), 2, gate.Height);
+            this.wall.Color = new Color(Color.White, 10);
 
             this.preview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 4f, 0f);
             this.preview.Color = this.gate.Color;
@@ -54,7 +54,10 @@ namespace Dyehard
             {
                 preview.Height = (gate.Height * (1 - ((gate.LowerLeft.X - (preview.LowerLeft.X + preview.Width)) / (Space.width * 0.75f))));
             }
+        }
 
+        public void draw()
+        {
             preview.TopOfAutoDrawSet();
             gate.TopOfAutoDrawSet();
             wall.TopOfAutoDrawSet();

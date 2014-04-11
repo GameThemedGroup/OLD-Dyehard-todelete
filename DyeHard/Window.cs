@@ -28,7 +28,7 @@ namespace Dyehard
             window.RemoveFromAutoDrawSet();
         }
 
-        public void update()
+        public void draw()
         {
             window.TopOfAutoDrawSet();
         }

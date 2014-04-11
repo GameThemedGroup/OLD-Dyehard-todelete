@@ -31,6 +31,14 @@ namespace Dyehard
             }
         }
 
+        public override void draw()
+        {
+            foreach (Gate g in gates)
+            {
+                g.draw();
+            }
+        }
+
         public override void interact()
         {
             foreach (Gate g in gates)

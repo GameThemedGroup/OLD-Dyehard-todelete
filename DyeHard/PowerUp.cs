@@ -34,7 +34,6 @@ namespace Dyehard
         public void move()
         {
             circle.CenterX -= Environment.Speed;
-            circle.TopOfAutoDrawSet();
         }
 
         public virtual void interact()
@@ -44,6 +43,11 @@ namespace Dyehard
                 hero.setColor(circle.Color);
                 circle.Visible = false;
             }
+        }
+
+        public void draw()
+        {
+            circle.TopOfAutoDrawSet();
         }
 
         public virtual void update()

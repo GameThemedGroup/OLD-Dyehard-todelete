@@ -46,9 +46,13 @@ namespace Dyehard
 
             // update textbox
             distance.Label = String.Format("{0:F1}", (accumulatedDistance + heroOffset) / factor);
+
+        }
+
+        public void draw()
+        {
             label.TopOfAutoDrawSet();
             distance.TopOfAutoDrawSet();
-
         }
 
 

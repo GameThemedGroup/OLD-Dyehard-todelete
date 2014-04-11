@@ -69,9 +69,9 @@ namespace Dyehard
 
         }
 
-        public void redraw()
+        public void draw()
         {
-            weapon.redraw();
+            weapon.draw();
             box.TopOfAutoDrawSet();
         }
 
