@@ -25,6 +25,11 @@ namespace Dyehard
             this.weapon = new Weapon(this);
         }
 
+        ~Hero()
+        {
+            box.RemoveFromAutoDrawSet();
+        }
+
         public XNACS1Rectangle getBox()
         {
             return box;

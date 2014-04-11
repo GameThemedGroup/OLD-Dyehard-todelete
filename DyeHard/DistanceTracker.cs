@@ -32,6 +32,12 @@ namespace Dyehard
             this.accumulatedDistance = 0.0f;
         }
 
+        ~DistanceTracker()
+        {
+            label.RemoveFromAutoDrawSet();
+            distance.RemoveFromAutoDrawSet();
+        }
+
         public void update()
         {
             // update distance

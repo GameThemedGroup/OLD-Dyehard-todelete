@@ -23,6 +23,12 @@ namespace Dyehard
             this.boxBorder.Color = Color.LightGray;
         }
 
+        ~PauseScreen()
+        {
+            boxBorder.RemoveFromAutoDrawSet();
+            box.RemoveFromAutoDrawSet();
+        }
+
         public void update()
         {
             boxBorder.Center += XNACS1Base.GamePad.ThumbSticks.Right;

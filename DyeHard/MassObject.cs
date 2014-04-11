@@ -27,6 +27,11 @@ namespace Dyehard
             this.border.Color = Color.LightGray;
         }
 
+        ~MassObject()
+        {
+            border.RemoveFromAutoDrawSet();
+        }
+
         public void push(Vector2 direction)
         {
 
