@@ -8,20 +8,20 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    public class EnemyManager
+     class EnemyManager
     {
         Random rnd ;
-        
+        Hero theHero;
 
 
         private List<Enemy> enemies;
         float enemyTimer;
 
-        public EnemyManager()
+        public EnemyManager(Hero currentHero)
         {
+            theHero = currentHero;
             enemyTimer = 10;
             enemies = new List<Enemy>();
-            enemies.Add(new Enemy(new Vector2(100, 20), 5, 5));
             rnd = new Random();
         }
 
@@ -40,7 +40,7 @@ namespace Dyehard
             enemyTimer = enemyTimer - 0.05f;
             if (enemyTimer <= 0)
             {
-                enemies.Add(new Enemy(new Vector2(100, enemyAppearPosition), 5, 5));
+                enemies.Add(new Enemy(new Vector2(100, enemyAppearPosition), 5, 5, theHero));
                 enemyTimer = 10;
             }
 
@@ -57,59 +57,32 @@ namespace Dyehard
 
         }
 
-       /* public void interact(BulletManager bManager)
+        public void draw()
         {
-             List<Bullet> temp = bManager.getBulletList();
-
-             if (enemys.Count > 0 && enemys != null && temp.Count > 0 && temp != null)
+            foreach (Enemy b in enemies)
             {
-                foreach (Enemy currentEnemy in enemys)
-                {
-                    for (int x = temp.Count(); x > 0; x--)
-                    {
-                        if (temp[x - 1].Collided(currentEnemy))
-                        {
-                            currentEnemy.changeColor(temp[x - 1].thisBulletColor);
-                            temp[x - 1].remove();
-                            temp.RemoveAt(x - 1);
+                b.getPosition().TopOfAutoDrawSet();
+            }
+        }
 
-                        }
-                    }
+        public void killThemALL()
+        {
+                    
+        
+            if (enemies.Count > 0 && enemies != null)
+            {
+                foreach (Enemy currentEnemy in enemies)
+                {
+                    //currentEnemy.RemoveFromAutoDrawSet();
                 }
             }
 
-        }
-        */
+            enemies.Clear();
 
-       /* public void interact(Player player){
-    
-            if (enemys != null && enemys.Count > 0)
-            {
-                foreach (Enemy currentEnemy in enemys)
-                {
-                    currentEnemy.interact(player);
+        
+
+        }
+
    
-                    if (currentEnemy != null && player.Collided(currentEnemy) && currentEnemy.alreadyCollied == true)
-                    {
-                        Game.PlayACue("PikaVoice");
-                        player.setDeadPublic();
-                        break;
-                    }
-                }
-            }
-        }
-        * */
-        /*
-        public void interact(Path currentPath)
-        {
-            if (enemys != null && enemys.Count > 0)
-            {
-                foreach (Enemy currentEnemy in enemys)
-                {
-                    currentEnemy.interact(currentPath);
-                }
-            }
-        }
-        */
     }
 }

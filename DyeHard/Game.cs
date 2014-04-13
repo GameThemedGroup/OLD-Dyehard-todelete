@@ -37,6 +37,9 @@ namespace Dyehard
         // game state
         private State state;
 
+        //Charles
+        private EnemyManager eManager; 
+
         protected override void InitializeWorld()
         {
             SetAppWindowPixelDimension(true, 1280, 720);
@@ -58,6 +61,8 @@ namespace Dyehard
             environment = new Environment(hero);
             distanceTracker = new DistanceTracker(hero);
             powerupTracker = new PowerUpTracker(hero);
+            //Charles
+            eManager = new EnemyManager(hero);
         }
 
 
@@ -80,6 +85,9 @@ namespace Dyehard
                     powerupTracker.draw();
 
                     pauseScreen.draw();
+                    //Charles
+                    eManager.draw();
+
                     break;
 
                 case State.PLAYING:
@@ -88,11 +96,18 @@ namespace Dyehard
                     hero.update();
                     distanceTracker.update();
                     powerupTracker.update();
+                    //Charles
+                    eManager.update();
+
 
                     environment.draw();
                     hero.draw();
                     distanceTracker.draw();
                     powerupTracker.draw();
+
+                    //Charles
+                    eManager.draw();
+
                     break;
 
                 case State.DEAD:
@@ -101,6 +116,9 @@ namespace Dyehard
                     powerupTracker.draw();
 
                     deathScreen.draw();
+                    //Charles
+                    eManager.draw();
+
                     break;
             }
         }
@@ -142,6 +160,11 @@ namespace Dyehard
                     else if (!hero.isAlive())
                     {
                         state = State.DEAD;
+                    }
+
+                    //Charles
+                    if(KeyboardDevice.isKeyTapped(Keys.P)){
+                        eManager.killThemALL();
                     }
                     break;
 

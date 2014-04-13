@@ -8,26 +8,28 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    public  class Enemy : XNACS1Rectangle 
+     class Enemy : Character
     {
-
-        private float moveSpeed = 0.5f;
-        float timer;
-        public bool alreadyCollied;
-        public int movementType;
-        public Color thisEnemyColor;
-        private bool coloHaveChanged;
+        protected Hero theHero;
+        protected float moveSpeed = 0.5f;
+        protected float timer;
+        protected bool alreadyCollied;
+        protected int movementType;
+        protected Color thisEnemyColor;
+        protected bool coloHaveChanged;
         public bool isRemoved;
 
-        public Enemy(Vector2 center, int width, int height)
+        public Enemy(Vector2 center, int width, int height, Hero currentHero)
             : base(center, 5, 5)
         {
-            Label = "enemy";
+            this.getPosition().Texture = "Robot3";
+            theHero = currentHero;
             timer = 5.0f;
             alreadyCollied = true;
             movementType = 1;
             coloHaveChanged = false;
             isRemoved = false;
+            this.currentPosition.Color = Game.randomColor();
         }
         /*
         public void onUse(Player player)
@@ -36,20 +38,22 @@ namespace Dyehard
         }
         */
 
-        /*
-        public void chasePlayer(Player player)
-        {
-            float playerCenterX = player.CenterX;
-            float playerCenterY = player.CenterY;
 
-            this.CenterX = this.CenterX + (playerCenterX - this.CenterX) / 100;
-            this.CenterY = this.CenterY + (playerCenterY - this.CenterY) / 100;
+        public void chaseHero()
+        {
+            float playerCenterX = theHero.getPosition().CenterX;
+            float playerCenterY = theHero.getPosition().CenterY;
+
+            this.getPosition().CenterX = this.getPosition().CenterX + 
+                (playerCenterX - this.getPosition().CenterX) / 100;
+            this.getPosition().CenterY = this.getPosition().CenterY + 
+                (playerCenterY - this.getPosition().CenterY) / 100;
         }
-         */
+         
 
         public void moveLeft()
         {
-            this.CenterX = this.CenterX - Environment.Speed;
+            this.getPosition().CenterX = this.getPosition().CenterX - Environment.Speed;
 
         }
       
@@ -59,32 +63,35 @@ namespace Dyehard
             {
                 this.moveLeft();
             }
+            if (movementType == 2)
+            {
+                this.interactWithHero();
+            }
 
-            if (this.CenterX <= 0)
+            if (this.getPosition().Collided(theHero.getPosition()))
+            {
+                theHero.kill();
+            }
+
+            if (this.getPosition().CenterX <= 0)
             {
                 this.movementType = 2;
                 if (coloHaveChanged == false)
                 {
                     thisEnemyColor = getRandomColor();
-                    this.TextureTintColor = thisEnemyColor;
+                    this.getPosition().TextureTintColor = thisEnemyColor;
                 }
             }
-
-           
-
         }
-        /*
-        public void interact(Player player)
+        
+        public void interactWithHero()
         {
-            if (movementType == 2)
-            {
                 //this.CenterX = player.CenterX - 20;
                 //this.CenterY = player.CenterY;
-                chasePlayer(player);
-            }
+                chaseHero();
 
         }
-        */
+        
         /*
         public void interact(Path currentPath)
         {
@@ -104,14 +111,14 @@ namespace Dyehard
         */
         public void changeColor(Color inputColor){
             thisEnemyColor = inputColor;
-            this.TextureTintColor = inputColor;
+            this.getPosition().TextureTintColor = inputColor;
             coloHaveChanged = true;
         }
         
 
         public void remove()
         {
-            RemoveFromAutoDrawSet();
+            getPosition().RemoveFromAutoDrawSet();
             //boarder.RemoveFromAutoDrawSet();
         }
 
