@@ -19,20 +19,17 @@ namespace Dyehard
         public DistanceTracker(Hero hero)
         {
             this.hero = hero;
-            this.startPoint = hero.getBox().Center;
-            this.factor = hero.getBox().Width;
-            float height = 2f;
-            float width = 5f;
-
-            Vector2 position = new Vector2(Game.rightEdge() / 2, Game.topEdge() - height);
-            
-            this.distance = new XNACS1Rectangle(position, width, height);
-            this.distance.Color = Color.Transparent;
-            this.distance.LabelColor = Color.White;
-
+            this.startPoint = hero.getPosition().Center;
+            this.factor = hero.getPosition().Width;
             this.accumulatedDistance = 0.0f;
 
-            border = new BorderBox(position, width, height, .2f, Color.Red);
+            float height = 2.5f;
+            float width = 5.5f;
+            Vector2 position = new Vector2((Game.rightEdge() / 2) + width, Game.topEdge() - height);            
+            this.distance = new XNACS1Rectangle(position, width, height);
+            this.distance.Color = new Color(Color.Gray, 25);
+            this.distance.LabelColor = Color.White;
+            this.border = new BorderBox(position, width, height, .2f, Color.Red);
         }
 
         ~DistanceTracker()
@@ -44,7 +41,7 @@ namespace Dyehard
         {
             // update distance
             accumulatedDistance += Environment.Speed;
-            float heroOffset = hero.getBox().CenterX - startPoint.X;
+            float heroOffset = hero.getPosition().CenterX - startPoint.X;
 
             // update textbox
             distance.Label = String.Format("{0:F1}", (accumulatedDistance + heroOffset) / factor);

@@ -11,6 +11,7 @@ namespace Dyehard
     class Environment
     {
         private const float START_SPEED = 0.6f;
+
         public static float Speed;
         private float SpeedReference;
         private bool stop;

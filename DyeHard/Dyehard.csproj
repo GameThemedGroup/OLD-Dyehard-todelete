@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Background.cs" />
     <Compile Include="BorderBox.cs" />
+    <Compile Include="PowerUpTracker.cs" />
     <Compile Include="EnvironmentElement.cs" />
     <Compile Include="DistanceTracker.cs" />
     <Compile Include="Gate.cs" />
@@ -80,10 +81,9 @@
     <Compile Include="Player.cs" />
     <Compile Include="Starfield.cs" />
     <Compile Include="Window.cs" />
-    <Compile Include="ZeroGravityPowerUp.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="KeyboardDevice.cs" />
-    <Compile Include="CharacterBlock.cs" />
+    <Compile Include="Character.cs" />
     <Compile Include="PowerUp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

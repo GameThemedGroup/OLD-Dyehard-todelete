@@ -31,6 +31,7 @@ namespace Dyehard
         private Player player;
         private Hero hero;
         private DistanceTracker distanceTracker;
+        private PowerUpTracker powerupTracker;
         private Environment environment;
 
         // game state
@@ -56,6 +57,7 @@ namespace Dyehard
             player = new Player(hero);
             environment = new Environment(hero);
             distanceTracker = new DistanceTracker(hero);
+            powerupTracker = new PowerUpTracker(hero);
         }
 
 
@@ -75,6 +77,7 @@ namespace Dyehard
                     environment.draw();
                     hero.draw();
                     distanceTracker.draw();
+                    powerupTracker.draw();
 
                     pauseScreen.draw();
                     break;
@@ -84,15 +87,18 @@ namespace Dyehard
                     environment.update();
                     hero.update();
                     distanceTracker.update();
+                    powerupTracker.update();
 
                     environment.draw();
                     hero.draw();
                     distanceTracker.draw();
+                    powerupTracker.draw();
                     break;
 
                 case State.DEAD:
                     environment.draw();
                     distanceTracker.draw();
+                    powerupTracker.draw();
 
                     deathScreen.draw();
                     break;

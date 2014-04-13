@@ -43,32 +43,22 @@ namespace Dyehard
 
         public void interact()
         {
-            // if hero's velocity will lead the hero to collide with the box...
+            // if hero's velocity will lead the hero to collide with the box,
             // then we need to limit the hero's velocity to the edge of the box.
-            XNACS1Rectangle heroBox = hero.getBox();
-            if (willCollide(heroBox)) {
-
-                    // by default, push hero up or down
-                    if (box.CenterY < heroBox.CenterY)
-                    {
-                        heroBox.CenterY += (box.MaxBound.Y - heroBox.MinBound.Y);
-                        heroBox.VelocityY = 0;
-                    }
-                    else
-                    {
-                        heroBox.CenterY += (box.MinBound.Y - heroBox.MaxBound.Y);
-                        heroBox.VelocityY = 0;
-                    } 
-             
+            XNACS1Rectangle position = hero.getPosition();
+            if (box.Collided(hero.getNextPosition())) {
+                // by default, push hero up or down
+                if (box.CenterY < position.CenterY)
+                {
+                    position.CenterY += (box.MaxBound.Y - position.MinBound.Y);
+                    position.VelocityY = 0;
+                }
+                else
+                {
+                    position.CenterY += (box.MinBound.Y - position.MaxBound.Y);
+                    position.VelocityY = 0;
+                } 
             }
-        }
-
-        public bool willCollide(XNACS1Rectangle other)
-        {
-            XNACS1Rectangle nextPosition = new XNACS1Rectangle(other.Center + other.Velocity, other.Width, other.Height);
-            nextPosition.Visible = false;
-            nextPosition.RemoveFromAutoDrawSet();
-            return box.Collided(nextPosition);
         }
     }
 }

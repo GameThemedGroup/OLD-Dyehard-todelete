@@ -10,8 +10,8 @@ namespace Dyehard
     class Gate
     {
         private Color color;
+        private XNACS1Rectangle path;
         private XNACS1Rectangle gate;
-        private XNACS1Rectangle gateway;
         private XNACS1Rectangle preview;
         private Hero hero;
 
@@ -26,55 +26,55 @@ namespace Dyehard
             float drawHeight =  Game.topEdge() / Stargate.PIPE_COUNT;
             float drawOffset = drawHeight * (offset + 0.5f);
             
-            this.gate = new XNACS1Rectangle(new Vector2(position, drawOffset), Stargate.width, drawHeight - (Platform.height * 2));
-            this.gate.Color = new Color(color, 100);
+            this.path = new XNACS1Rectangle(new Vector2(position, drawOffset), Stargate.width, drawHeight - (Platform.height * 2));
+            this.path.Color = new Color(color, 100);
 
-            this.gateway = new XNACS1Rectangle(new Vector2(leftEdge + 1.5f, gate.CenterY), 3f, drawHeight);
-            this.gateway.Color = Color.Maroon;
+            this.gate = new XNACS1Rectangle(new Vector2(leftEdge + 1.5f, path.CenterY), 3f, path.Height);
+            this.gate.Color = Color.Maroon;
 
             this.preview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 4f, 0f);
-            this.preview.Color = this.gate.Color;
+            this.preview.Color = this.path.Color;
             this.preview.Visible = false;
         }
 
         ~Gate()
         {
+            path.RemoveFromAutoDrawSet();
             gate.RemoveFromAutoDrawSet();
-            gateway.RemoveFromAutoDrawSet();
             preview.RemoveFromAutoDrawSet();
         }
 
         public void move()
         {
+            path.CenterX -= Environment.Speed;
             gate.CenterX -= Environment.Speed;
-            gateway.CenterX -= Environment.Speed;
-            preview.Visible = gate.LowerLeft.X > (preview.LowerLeft.X + preview.Width) && (Game.rightEdge() + (Space.width * 0.75f)) > gate.LowerLeft.X;
+            preview.Visible = path.LowerLeft.X > (preview.LowerLeft.X + preview.Width) && (Game.rightEdge() + (Space.width * 0.7f)) > path.LowerLeft.X;
             if (preview.Visible)
             {
-                preview.Height = (gate.Height * (1 - ((gate.LowerLeft.X - (preview.LowerLeft.X + preview.Width)) / (Space.width * 0.75f))));
+                preview.Height = ((path.Height + (Platform.height * 2)) * (1 - ((path.LowerLeft.X - (preview.LowerLeft.X + preview.Width)) / (Space.width * 0.7f))));
             }
         }
 
         public void draw()
         {
             preview.TopOfAutoDrawSet();
+            path.TopOfAutoDrawSet();
             gate.TopOfAutoDrawSet();
-            gateway.TopOfAutoDrawSet();
         }
 
         public void interact()
         {
-            gateway.Visible = hero.getColor() != color;
-            if (gateway.Visible)
+            gate.Visible = hero.getColor() != color;
+            if (gate.Visible)
             {
-                if (gateway.Collided(hero.getBox()))
+                if (gate.Collided(hero.getPosition()))
                 {
                     Console.WriteLine("hero died - collided with wall!");
                     hero.kill();
                 }
             }
 
-            if (contains(hero.getBox()))
+            if (contains(hero.getPosition()))
             {
                 hero.setColor(color);
             }
@@ -82,13 +82,13 @@ namespace Dyehard
 
         private bool contains(XNACS1Rectangle other)
         {
-            float topEdge = gate.MaxBound.Y;
-            float bottomEdge = gate.MinBound.Y;
+            float topEdge = path.MaxBound.Y;
+            float bottomEdge = path.MinBound.Y;
 
             if (other.CenterY < topEdge && other.CenterY >= bottomEdge)
             {
-                float leftEdge = gate.LowerLeft.X;
-                float rightEdge = leftEdge + gate.Width;
+                float leftEdge = path.LowerLeft.X;
+                float rightEdge = leftEdge + path.Width;
                 return other.CenterX < rightEdge && other.CenterX > leftEdge;
             }
 
@@ -97,12 +97,12 @@ namespace Dyehard
 
         public bool isOffScreen()
         {
-            return gate.CenterX + gate.Width / 2 <= 0;
+            return path.CenterX + path.Width / 2 <= 0;
         }
 
         public float rightEdge()
         {
-            return gate.CenterX + gate.Width / 2;
+            return path.CenterX + path.Width / 2;
         }
     }
 }

@@ -48,7 +48,7 @@ namespace Dyehard
         // fire the weapon
         private void fire()
         {
-            XNACS1Circle bullet = new XNACS1Circle(hero.getBox().Center, bulletSize);
+            XNACS1Circle bullet = new XNACS1Circle(hero.getPosition().Center, bulletSize);
             bullet.Color = new Color(hero.getColor(), 210);
             bullet.Label = "pew";
             bullets.Enqueue(bullet);

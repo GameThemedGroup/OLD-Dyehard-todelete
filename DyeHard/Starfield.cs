@@ -78,10 +78,9 @@ namespace Dyehard
 
         private Color randomStarColor()
         {
-            int r = XNACS1Base.RandomInt(175, 256);
-            int g = XNACS1Base.RandomInt(175, 256);
-            int b = XNACS1Base.RandomInt(175, 256);
-
+            int r = XNACS1Base.RandomInt(185, 256);
+            int g = XNACS1Base.RandomInt(185, 256);
+            int b = XNACS1Base.RandomInt(185, 256);
             return new Color(r, g, b);
         }
 

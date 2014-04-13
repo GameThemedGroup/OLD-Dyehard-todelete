@@ -17,7 +17,7 @@ namespace Dyehard
         {
             this.hero = hero;
 
-            float padding = hero.getBox().Width * 2;
+            float padding = hero.getPosition().Width * 2;
 
             float randomX = XNACS1Base.RandomFloat(minX + padding, maxX - padding);
             float randomY = XNACS1Base.RandomFloat(Game.bottomEdge() + padding, Game.topEdge() - padding);
@@ -38,8 +38,9 @@ namespace Dyehard
 
         public virtual void interact()
         {
-            if (circle.Collided(hero.getBox()) && circle.Visible)
+            if (circle.Collided(hero.getPosition()) && circle.Visible)
             {
+                hero.collect(this);
                 hero.setColor(circle.Color);
                 circle.Visible = false;
             }
@@ -52,12 +53,6 @@ namespace Dyehard
 
         public virtual void update()
         {
-            throw new NotImplementedException();
-        }
-
-        public virtual bool expired()
-        {
-            throw new NotImplementedException();
         }
     }
 }
