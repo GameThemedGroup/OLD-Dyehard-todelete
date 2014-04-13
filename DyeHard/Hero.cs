@@ -58,7 +58,7 @@ namespace Dyehard
         public void update()
         {
             // update onscreen entity
-            box.push(XNACS1Base.GamePad.ThumbSticks.Right);
+            box.update();
             XNACS1Base.World.ClampAtWorldBound(box);
 
             // update weapon

@@ -9,7 +9,7 @@ namespace Dyehard
 {
     class Space : EnvironmentElement
     {
-        public static float width = Game.rightEdge() * 3.25f;
+        public static float width = Game.rightEdge() * 2.5f;
         public static int powerupCount = 5;
         private XNACS1Rectangle space;
         private Hero hero;

@@ -78,7 +78,11 @@ namespace Dyehard
 
         private Color randomStarColor()
         {
-            return new Color(XNACS1Base.RandomInt(200, 256), XNACS1Base.RandomInt(200, 256), XNACS1Base.RandomInt(200, 256));
+            int r = XNACS1Base.RandomInt(175, 256);
+            int g = XNACS1Base.RandomInt(175, 256);
+            int b = XNACS1Base.RandomInt(175, 256);
+
+            return new Color(r, g, b);
         }
 
         private XNACS1Circle starAt(float xPos)

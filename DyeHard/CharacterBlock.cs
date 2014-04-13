@@ -26,20 +26,17 @@ namespace Dyehard
 
         public void push(Vector2 direction)
         {
-
-            // add jetpack factor
-            if (direction.Y > 0)
-            {
-                direction.Y *= 1.5f;
-            }
-
-
             // scale direction
             direction = direction / 10f;
             
             // update velocity
             Velocity = (Velocity + direction + gravity) * drag;
 
+
+        }
+
+        public void update()
+        {
             // clamp horizontal speed
             if (VelocityX < 0)
             {
@@ -62,13 +59,14 @@ namespace Dyehard
             if (LowerLeft.X <= Game.leftEdge() && VelocityX < 0)
             {
                 VelocityX = 0f;
-            } 
-            if( (LowerLeft.X + Width) >= Game.rightEdge() && VelocityX > 0)
+            }
+            if ((LowerLeft.X + Width) >= Game.rightEdge() && VelocityX > 0)
             {
                 VelocityX = 0f;
             }
 
-            Center += Velocity; // only move center when being pushed
+            // intepret velocity into motion
+            Center += Velocity;
         }
 
         public override void TopOfAutoDrawSet()

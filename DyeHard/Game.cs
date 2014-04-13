@@ -17,15 +17,18 @@ namespace Dyehard
         {
             BEGIN,
             PAUSED,
-            PLAYING
+            PLAYING,
+            DEAD
         };
 
         // screen objects
         private Background background;
         private Window startScreen;
         private Window pauseScreen;
+        private Window deathScreen;
 
         // game objects
+        private Player player;
         private Hero hero;
         private DistanceTracker distanceTracker;
         private Environment environment;
@@ -33,25 +36,24 @@ namespace Dyehard
         // game state
         private State state;
 
-        public Game()
-        {
-        }
-
         protected override void InitializeWorld()
         {
+            SetAppWindowPixelDimension(false, 1280, 720);
+
             World.SetWorldCoordinate(new Vector2(0f, 0f), 100f);
             background = new Background();
             pauseScreen = new Window("Paused.\n\n\n'A' to resume.\n\n'Q' to restart.");
             startScreen = new Window("DYEHARD\n\n'A' to begin.");
+            deathScreen = new Window("YOU HAVE DIED...\n\n'A' to continue.");
             initializeObjects();
         }
 
 
         private void initializeObjects()
         {
-            this.state = State.BEGIN;
-
+            state = State.BEGIN;
             hero = new Hero();
+            player = new Player(hero);
             environment = new Environment(hero);
             distanceTracker = new DistanceTracker(hero);
         }
@@ -78,13 +80,21 @@ namespace Dyehard
                     break;
 
                 case State.PLAYING:
-                    hero.update();
+                    player.update();
                     environment.update();
+                    hero.update();
                     distanceTracker.update();
 
                     environment.draw();
                     hero.draw();
                     distanceTracker.draw();
+                    break;
+
+                case State.DEAD:
+                    environment.draw();
+                    distanceTracker.draw();
+
+                    deathScreen.draw();
                     break;
             }
         }
@@ -117,12 +127,20 @@ namespace Dyehard
                         initializeObjects();
                     }
                     break;
+
                 case State.PLAYING:
                     if (KeyboardDevice.isKeyTapped(Keys.A))
                     {
                         state = State.PAUSED;
                     }
                     else if (!hero.isAlive())
+                    {
+                        state = State.DEAD;
+                    }
+                    break;
+
+                case State.DEAD:
+                    if (KeyboardDevice.isKeyTapped(Keys.A))
                     {
                         initializeObjects();
                     }

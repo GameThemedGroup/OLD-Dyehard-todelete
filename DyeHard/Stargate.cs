@@ -9,8 +9,10 @@ namespace Dyehard
 {
     class Stargate : EnvironmentElement
     {
+        public static float width = Game.rightEdge() * 1.25f;
         public const int PIPE_COUNT = 4;
         Gate[] gates;
+        Platform[] platforms;
         
         public Stargate(Hero hero, float leftEdge) : base()
         {
@@ -21,6 +23,11 @@ namespace Dyehard
                 this.gates[i] = new Gate(i, hero, leftEdge, colors[i]);
             }
 
+            this.platforms = new Platform[PIPE_COUNT + 1];
+            for (int i = 0; i < this.platforms.Length; i++) {
+                this.platforms[i]  = new Platform(i, hero, leftEdge);
+            }
+
         }
 
         public override void move()
@@ -28,6 +35,10 @@ namespace Dyehard
             foreach (Gate g in gates)
             {
                 g.move();
+            }
+
+            foreach (Platform p in platforms) {
+                p.move();
             }
         }
 
@@ -37,6 +48,10 @@ namespace Dyehard
             {
                 g.draw();
             }
+
+            foreach (Platform p in platforms) {
+                p.draw();
+            }
         }
 
         public override void interact()
@@ -44,6 +59,10 @@ namespace Dyehard
             foreach (Gate g in gates)
             {
                 g.interact();
+            }
+
+            foreach (Platform p in platforms) {
+                p.interact();
             }
         }
 

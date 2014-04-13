@@ -9,10 +9,9 @@ namespace Dyehard
 {
     class Gate
     {
-        public static float width = Game.rightEdge() * 1.25f;
         private Color color;
         private XNACS1Rectangle gate;
-        private XNACS1Rectangle wall;
+        private XNACS1Rectangle gateway;
         private XNACS1Rectangle preview;
         private Hero hero;
 
@@ -22,16 +21,16 @@ namespace Dyehard
             this.color = color;
 
             // set up pipe
-            float position = (width * 0.5f) + leftEdge;
+            float position = (Stargate.width * 0.5f) + leftEdge;
 
             float drawHeight =  Game.topEdge() / Stargate.PIPE_COUNT;
             float drawOffset = drawHeight * (offset + 0.5f);
             
-            this.gate = new XNACS1Rectangle(new Vector2(position, drawOffset), width, drawHeight);
+            this.gate = new XNACS1Rectangle(new Vector2(position, drawOffset), Stargate.width, drawHeight - (Platform.height * 2));
             this.gate.Color = new Color(color, 100);
 
-            this.wall = new XNACS1Rectangle(new Vector2(leftEdge + 1, gate.CenterY), 2, gate.Height);
-            this.wall.Color = new Color(Color.White, 10);
+            this.gateway = new XNACS1Rectangle(new Vector2(leftEdge + 1.5f, gate.CenterY), 3f, drawHeight);
+            this.gateway.Color = Color.Maroon;
 
             this.preview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 4f, 0f);
             this.preview.Color = this.gate.Color;
@@ -41,14 +40,14 @@ namespace Dyehard
         ~Gate()
         {
             gate.RemoveFromAutoDrawSet();
-            wall.RemoveFromAutoDrawSet();
+            gateway.RemoveFromAutoDrawSet();
             preview.RemoveFromAutoDrawSet();
         }
 
         public void move()
         {
             gate.CenterX -= Environment.Speed;
-            wall.CenterX -= Environment.Speed;
+            gateway.CenterX -= Environment.Speed;
             preview.Visible = gate.LowerLeft.X > (preview.LowerLeft.X + preview.Width) && (Game.rightEdge() + (Space.width * 0.75f)) > gate.LowerLeft.X;
             if (preview.Visible)
             {
@@ -60,15 +59,15 @@ namespace Dyehard
         {
             preview.TopOfAutoDrawSet();
             gate.TopOfAutoDrawSet();
-            wall.TopOfAutoDrawSet();
+            gateway.TopOfAutoDrawSet();
         }
 
         public void interact()
         {
-            wall.Visible = hero.getColor() != color;
-            if (wall.Visible)
+            gateway.Visible = hero.getColor() != color;
+            if (gateway.Visible)
             {
-                if (wall.Collided(hero.getBox()))
+                if (gateway.Collided(hero.getBox()))
                 {
                     Console.WriteLine("hero died - collided with wall!");
                     hero.kill();
