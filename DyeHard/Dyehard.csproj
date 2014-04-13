@@ -69,7 +69,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Background.cs" />
+    <Compile Include="BlackRobot.cs" />
     <Compile Include="BorderBox.cs" />
+    <Compile Include="BrainRobot.cs" />
     <Compile Include="PowerUpTracker.cs" />
     <Compile Include="EnvironmentElement.cs" />
     <Compile Include="DistanceTracker.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Platform.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Starfield.cs" />
+    <Compile Include="WhiteRobot.cs" />
     <Compile Include="Window.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="KeyboardDevice.cs" />
@@ -122,13 +125,13 @@
     <Content Include="Content\Resources\Textures\greendye.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Resources\Textures\Robot1.png">
+    <Content Include="Content\Resources\Textures\BrainRobot.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Resources\Textures\Robot2.png">
+    <Content Include="Content\Resources\Textures\BlackRobot.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Resources\Textures\Robot3.png">
+    <Content Include="Content\Resources\Textures\WhiteRobot.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
