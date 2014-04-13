@@ -13,28 +13,30 @@ namespace Dyehard
         private Vector2 startPoint;
         private float accumulatedDistance;
         private float factor;
-        private XNACS1Rectangle label;  // separate label box to eliminate jumpy formatting
         private XNACS1Rectangle distance;
+        private BorderBox border;
 
         public DistanceTracker(Hero hero)
         {
             this.hero = hero;
             this.startPoint = hero.getBox().Center;
             this.factor = hero.getBox().Width;
-            float height = 1.5f;
-            float width = 7f;
-            Vector2 position = new Vector2(Game.leftEdge() + (width / 2f), Game.topEdge() - (height / 2f));
-            this.label = new XNACS1Rectangle(position, width, height);
-            this.label.Color = new Color(Color.Gray, 50);
-            this.label.Label = "Distance";
-            this.distance = new XNACS1Rectangle(position - new Vector2(0, 1.5f), width, height);
-            this.distance.Color = this.label.Color;
+            float height = 2f;
+            float width = 5f;
+
+            Vector2 position = new Vector2(Game.rightEdge() / 2, Game.topEdge() - height);
+            
+            this.distance = new XNACS1Rectangle(position, width, height);
+            this.distance.Color = Color.Transparent;
+            this.distance.LabelColor = Color.White;
+
             this.accumulatedDistance = 0.0f;
+
+            border = new BorderBox(position, width, height, .2f, Color.Red);
         }
 
         ~DistanceTracker()
         {
-            label.RemoveFromAutoDrawSet();
             distance.RemoveFromAutoDrawSet();
         }
 
@@ -46,13 +48,12 @@ namespace Dyehard
 
             // update textbox
             distance.Label = String.Format("{0:F1}", (accumulatedDistance + heroOffset) / factor);
-
         }
 
         public void draw()
         {
-            label.TopOfAutoDrawSet();
             distance.TopOfAutoDrawSet();
+            border.draw();
         }
 
 

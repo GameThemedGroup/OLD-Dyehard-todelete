@@ -69,6 +69,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Background.cs" />
+    <Compile Include="BorderBox.cs" />
     <Compile Include="EnvironmentElement.cs" />
     <Compile Include="DistanceTracker.cs" />
     <Compile Include="Gate.cs" />
