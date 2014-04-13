@@ -23,8 +23,9 @@ namespace Dyehard
 
         public override void update()
         {
-            // update onscreen entity
+            // update character
             base.update();
+            XNACS1Base.World.ClampAtWorldBound(currentPosition);
 
             // update weapon
             weapon.update();
@@ -36,7 +37,7 @@ namespace Dyehard
             }
         }
 
-        public void draw()
+        public override void draw()
         {
             weapon.draw();
             base.draw();

@@ -12,7 +12,7 @@ namespace Dyehard
         private const float horizontalSpeedLimit = 1;
         private static float drag = 0.93f;
         private bool alive;
-        private XNACS1Rectangle currentPosition;
+        protected XNACS1Rectangle currentPosition;
         private XNACS1Rectangle nextPosition;
         
         public Character(Vector2 position, float width, float height)
@@ -85,10 +85,9 @@ namespace Dyehard
 
             // convert velocity to actual movement
             currentPosition.Center += currentPosition.Velocity;
-            XNACS1Base.World.ClampAtWorldBound(currentPosition);
         }
 
-        public void draw()
+        public virtual void draw()
         {
             currentPosition.TopOfAutoDrawSet();
         }

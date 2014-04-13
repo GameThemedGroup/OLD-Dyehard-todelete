@@ -49,7 +49,6 @@ namespace Dyehard
         public void update()
         {
             checkControl();
-
             accelerateGame();
 
             foreach (EnvironmentElement e in onscreen)
@@ -76,6 +75,7 @@ namespace Dyehard
             {
                 e.draw();
             }
+
             foreach (EnvironmentElement e in upcoming)
             {
                 e.draw();

@@ -21,9 +21,6 @@ namespace Dyehard
 
         public void update()
         {
-
-            
-
             // update hero per input
             hero.push(XNACS1Base.GamePad.ThumbSticks.Right);
         }
