@@ -33,12 +33,10 @@ namespace Dyehard
         private DistanceTracker distanceTracker;
         private PowerUpTracker powerupTracker;
         private Environment environment;
+        private EnemyManager eManager; 
 
         // game state
         private State state;
-
-        //Charles
-        private EnemyManager eManager; 
 
         protected override void InitializeWorld()
         {
@@ -61,7 +59,6 @@ namespace Dyehard
             environment = new Environment(hero);
             distanceTracker = new DistanceTracker(hero);
             powerupTracker = new PowerUpTracker(hero);
-            //Charles
             eManager = new EnemyManager(hero);
         }
 
@@ -80,45 +77,38 @@ namespace Dyehard
 
                 case State.PAUSED:
                     environment.draw();
+                    eManager.draw();
                     hero.draw();
                     distanceTracker.draw();
                     powerupTracker.draw();
 
                     pauseScreen.draw();
-                    //Charles
-                    eManager.draw();
-
                     break;
 
                 case State.PLAYING:
                     player.update();
                     environment.update();
+                    eManager.update();
                     hero.update();
                     distanceTracker.update();
                     powerupTracker.update();
-                    //Charles
-                    eManager.update();
 
 
                     environment.draw();
+                    eManager.draw();
                     hero.draw();
                     distanceTracker.draw();
                     powerupTracker.draw();
-
-                    //Charles
-                    eManager.draw();
-
                     break;
 
                 case State.DEAD:
                     environment.draw();
+                    eManager.draw();
+                    hero.draw();
                     distanceTracker.draw();
                     powerupTracker.draw();
 
                     deathScreen.draw();
-                    //Charles
-                    eManager.draw();
-
                     break;
             }
         }
@@ -162,7 +152,6 @@ namespace Dyehard
                         state = State.DEAD;
                     }
 
-                    //Charles
                     if(KeyboardDevice.isKeyTapped(Keys.P)){
                         eManager.killThemALL();
                     }
