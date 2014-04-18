@@ -33,7 +33,7 @@ namespace Dyehard
         private DistanceTracker distanceTracker;
         private PowerUpTracker powerupTracker;
         private Environment environment;
-        private EnemyManager eManager; 
+        // private EnemyManager eManager; 
 
         // game state
         private State state;
@@ -73,7 +73,7 @@ namespace Dyehard
             environment = new Environment(hero);
             distanceTracker = new DistanceTracker(hero);
             powerupTracker = new PowerUpTracker(hero);
-            eManager = new EnemyManager(hero);
+            // eManager = new EnemyManager(hero);
         }
 
 
@@ -91,7 +91,7 @@ namespace Dyehard
 
                 case State.PAUSED:
                     environment.draw();
-                    eManager.draw();
+                    // eManager.draw();
                     hero.draw();
                     distanceTracker.draw();
                     powerupTracker.draw();
@@ -102,14 +102,14 @@ namespace Dyehard
                 case State.PLAYING:
                     player.update();
                     environment.update();
-                    eManager.update();
+                    // eManager.update();
                     hero.update();
                     distanceTracker.update();
                     powerupTracker.update();
 
 
                     environment.draw();
-                    eManager.draw();
+                    // eManager.draw();
                     hero.draw();
                     distanceTracker.draw();
                     powerupTracker.draw();
@@ -117,7 +117,7 @@ namespace Dyehard
 
                 case State.DEAD:
                     environment.draw();
-                    eManager.draw();
+                    // eManager.draw();
                     distanceTracker.draw();
                     powerupTracker.draw();
 
@@ -166,7 +166,7 @@ namespace Dyehard
                     }
 
                     if(KeyboardDevice.isKeyTapped(Keys.P)){
-                        eManager.killThemALL();
+                        // eManager.killThemALL();
                     }
                     break;
 

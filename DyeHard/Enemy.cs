@@ -29,7 +29,7 @@ namespace Dyehard
             movementType = 1;
             coloHaveChanged = false;
             isRemoved = false;
-            this.currentPosition.Color = Game.randomColor();
+            this.position.Color = Game.randomColor();
         }
         /*
         public void onUse(Player player)
@@ -57,7 +57,7 @@ namespace Dyehard
 
         }
       
-        public void update()
+        public override void update()
         {
             if (movementType == 1)
             {

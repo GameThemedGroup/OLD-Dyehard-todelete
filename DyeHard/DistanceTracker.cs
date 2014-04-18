@@ -27,7 +27,7 @@ namespace Dyehard
             float width = 5.5f;
             Vector2 position = new Vector2((Game.rightEdge() / 2) + width, Game.topEdge() - height);            
             this.distance = new XNACS1Rectangle(position, width, height);
-            this.distance.Color = new Color(Color.Gray, 25);
+            this.distance.Color = Color.Transparent;
             this.distance.LabelColor = Color.White;
             this.border = new BorderBox(position, width, height, .2f, Color.Red);
         }

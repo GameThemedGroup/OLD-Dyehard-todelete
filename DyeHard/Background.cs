@@ -22,8 +22,8 @@ namespace Dyehard
 
             this.world.Color = Color.Black;
 
-            this.foreground = new Starfield(0.08f, 0.1f, 2f);
-            this.background = new Starfield(0.04f, 0.05f, 0.5f);
+            this.foreground = new Starfield(0.08f, 0.1f, 4f);
+            this.background = new Starfield(0.04f, 0.05f, 1f);
         }
 
         public void update() {

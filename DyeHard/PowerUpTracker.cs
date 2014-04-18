@@ -22,7 +22,7 @@ namespace Dyehard
             Vector2 position = new Vector2((Game.rightEdge() / 2) - width, Game.topEdge() - height);
             
             this.counter = new XNACS1Rectangle(position, width, height);
-            this.counter.Color = new Color(Color.Gray, 25);
+            this.counter.Color = Color.Transparent;
             this.counter.LabelColor = Color.White;
 
             this.border = new BorderBox(position, width, height, .2f, Color.Red);

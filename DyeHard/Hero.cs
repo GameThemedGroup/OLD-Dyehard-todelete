@@ -9,7 +9,7 @@ namespace Dyehard
 {
     class Hero : Character
     {
-        //private Character character;
+        private static float drag = 0.94f;
         private Weapon weapon;
         private List<PowerUp> powerups;
 
@@ -25,7 +25,7 @@ namespace Dyehard
         {
             // update character
             base.update();
-            XNACS1Base.World.ClampAtWorldBound(currentPosition);
+            XNACS1Base.World.ClampAtWorldBound(position);
 
             // update weapon
             weapon.update();
@@ -51,6 +51,15 @@ namespace Dyehard
         public int getPowerUpCount()
         {
             return powerups.Count;
+        }
+
+        public void push(Vector2 direction)
+        {
+            // scale direction
+            direction = direction / 7f;
+
+            // update velocity
+            position.Velocity = (position.Velocity + direction) * drag;
         }
     }
 }
