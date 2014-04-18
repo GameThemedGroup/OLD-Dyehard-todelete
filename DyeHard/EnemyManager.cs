@@ -36,7 +36,7 @@ namespace Dyehard
             }
 
 
-            int enemyAppearPosition = rnd.Next(5, 50);
+            Vector2 enemyAppearPosition = new Vector2(Game.rightEdge() + 10f, Game.topEdge() - 5f);
             enemyTimer = enemyTimer - 0.05f;
             if (enemyTimer <= 0)
             {
@@ -44,13 +44,13 @@ namespace Dyehard
                 switch (caseSwitch)
                 {
                     case 1:
-                        enemies.Add(new BrainRobot(new Vector2(100, enemyAppearPosition), 5, 5, theHero));
+                        enemies.Add(new BrainRobot(enemyAppearPosition, 5, 5, theHero));
                         break;
                     case 2:
-                        enemies.Add(new WhiteRobot(new Vector2(100, enemyAppearPosition), 5, 5, theHero));
+                        enemies.Add(new WhiteRobot(enemyAppearPosition, 5, 5, theHero));
                         break;
                     default:
-                        enemies.Add(new BlackRobot(new Vector2(100, enemyAppearPosition), 5, 5, theHero));
+                        enemies.Add(new BlackRobot(enemyAppearPosition, 5, 5, theHero));
                         break;
                 }
                 enemyTimer = 10;

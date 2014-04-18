@@ -38,16 +38,30 @@ namespace Dyehard
         // game state
         private State state;
 
+        public Game() {
+
+        }
+
         protected override void InitializeWorld()
         {
-            SetAppWindowPixelDimension(true, 1280, 720);
+            SetAppWindowPixelDimension(false, 1280, 720);
 
             World.SetWorldCoordinate(new Vector2(0f, 0f), 100f);
+
+            preloadTexturedObjects();
+            
             background = new Background();
             pauseScreen = new Window("Paused.\n\n\n'A' to resume.\n\n'Q' to restart.");
             startScreen = new Window("DYEHARD\n\n'A' to begin.");
             deathScreen = new Window("YOU HAVE DIED...\n\n'A' to continue.");
             initializeObjects();
+        }
+
+        private static void preloadTexturedObjects()
+        {
+            new BrainRobot(new Vector2(0, 0), 0, 0, null);
+            new WhiteRobot(new Vector2(0, 0), 0, 0, null);
+            new BlackRobot(new Vector2(0, 0), 0, 0, null);
         }
 
 
@@ -104,7 +118,6 @@ namespace Dyehard
                 case State.DEAD:
                     environment.draw();
                     eManager.draw();
-                    hero.draw();
                     distanceTracker.draw();
                     powerupTracker.draw();
 

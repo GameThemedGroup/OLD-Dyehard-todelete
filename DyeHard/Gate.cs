@@ -29,8 +29,9 @@ namespace Dyehard
             this.path = new XNACS1Rectangle(new Vector2(position, drawOffset), Stargate.width, drawHeight - (Platform.height * 2));
             this.path.Color = new Color(color, 100);
 
-            this.gate = new XNACS1Rectangle(new Vector2(leftEdge + 1.5f, path.CenterY), 3f, path.Height);
+            this.gate = new XNACS1Rectangle(new Vector2(leftEdge + 0.25f, path.CenterY), 0.5f, path.Height);
             this.gate.Color = Color.Maroon;
+            gate.Visible = false;
 
             this.preview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 4f, 0f);
             this.preview.Color = this.path.Color;
@@ -64,14 +65,11 @@ namespace Dyehard
 
         public void interact()
         {
-            gate.Visible = hero.getColor() != color;
-            if (gate.Visible)
+
+            if (hero.getColor() != color && gate.Collided(hero.getPosition()))
             {
-                if (gate.Collided(hero.getPosition()))
-                {
-                    Console.WriteLine("hero died - collided with wall!");
-                    hero.kill();
-                }
+                Console.WriteLine("hero died - collided with wall!");
+                hero.kill();
             }
 
             if (contains(hero.getPosition()))

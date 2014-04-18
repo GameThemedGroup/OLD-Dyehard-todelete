@@ -29,6 +29,7 @@ namespace Dyehard
 
         ~Character()
         {
+            Console.WriteLine("removing my boxes from auto draw set!");
             currentPosition.RemoveFromAutoDrawSet();
             nextPosition.RemoveFromAutoDrawSet();
         }

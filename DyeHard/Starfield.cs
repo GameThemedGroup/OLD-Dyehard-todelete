@@ -13,23 +13,17 @@ namespace Dyehard
     class Starfield
     {
         private Queue<XNACS1Circle> stars;
-        private Timer timer;
         private float speed;
         private float size;
-        private float interval;
 
-        public Starfield(float size, float speed, float interval)
+        public Starfield(float size, float speed, float spacing)
         {
             this.size = size;
             this.speed = speed;
-            this.interval = interval;
-            this.timer = new Timer(interval);
             this.stars = new Queue<XNACS1Circle>();
 
-            float delta = speed * interval * XNACS1Base.World.TicksInASecond;
-
             // pre-fill game
-            for (float i = 0; i < Game.rightEdge(); i += delta)
+            for (float i = 0; i < Game.rightEdge(); i += spacing)
             {
                 stars.Enqueue(starAt(i));
             }
@@ -45,29 +39,20 @@ namespace Dyehard
 
         public void update()
         {
-
-            timer.update();
-
-            if (timer.isDone())
-            {
-                // add a new star
-                stars.Enqueue(starAt(Game.rightEdge()));
-
-                // reset timer for next star
-                timer.reset();
-            }
-
-            // control star movement, and redraw
+            // move stars, and redraw
             foreach (XNACS1Circle star in stars)
             {
                 star.CenterX -= speed;
                 star.TopOfAutoDrawSet();
             }
 
-            // clean up stars that are out of view
-            if (stars.First().CenterX + stars.First().Radius <= Game.leftEdge())
+            // recycle stars to right edge of screen
+            if (stars.First().CenterX <= Game.leftEdge())
             {
-                stars.Dequeue().RemoveFromAutoDrawSet();
+                XNACS1Circle star = stars.Dequeue();
+                star.CenterX = Game.rightEdge();
+                star.CenterY = randomPosition();
+                stars.Enqueue(star);
             }
         }
 
@@ -78,9 +63,9 @@ namespace Dyehard
 
         private Color randomStarColor()
         {
-            int r = XNACS1Base.RandomInt(185, 256);
-            int g = XNACS1Base.RandomInt(185, 256);
-            int b = XNACS1Base.RandomInt(185, 256);
+            int r = XNACS1Base.RandomInt(200, 256);
+            int g = XNACS1Base.RandomInt(200, 256);
+            int b = XNACS1Base.RandomInt(200, 256);
             return new Color(r, g, b);
         }
 
