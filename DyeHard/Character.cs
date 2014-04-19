@@ -144,16 +144,62 @@ namespace Dyehard
                             position.VelocityX = 0;
                         }
                     }
-                    else {
-                        if (box.CenterY < position.CenterY)
+                    else if (position.CenterY < box.CenterY && position.CenterX >= box.CenterX)
+                    {
+                        // character collided into lower right corner of box
+                        // get the smaller of the two overlaps from the next position
+                        float Xoverlap = Math.Max(0, box.MaxBound.X - next.MinBound.X);
+                        float Yoverlap = Math.Max(0, next.MaxBound.Y - box.MinBound.Y);
+
+                        if (Yoverlap < Xoverlap)
                         {
-                            position.CenterY += (box.MaxBound.Y - position.MinBound.Y);
+                            // adjust to the Y side (since it is less)
+                            position.CenterY += (box.MinBound.Y - position.MaxBound.Y);
                             position.VelocityY = 0;
                         }
                         else
                         {
-                            position.CenterY += (box.MinBound.Y - position.MaxBound.Y);
+                            // adjust to the X side (since it is less)
+                            position.CenterX -= (position.MinBound.X - box.MaxBound.X);
+                            position.VelocityX = 0;
+                        }
+                    }
+                    else if (position.CenterY >= box.CenterY && position.CenterX < box.CenterX)
+                    {
+                        // character collided into upper left corner of box
+                        // get the smaller of the two overlaps from the next position
+                        float Xoverlap = Math.Max(0, next.MaxBound.X - box.MinBound.X);
+                        float Yoverlap = Math.Max(0, box.MaxBound.Y - next.MinBound.Y);
+
+                        if (Yoverlap < Xoverlap)
+                        {
+                            // adjust to the Y side (since it is less)
+                            position.CenterY -= (position.MinBound.Y - box.MaxBound.Y);
                             position.VelocityY = 0;
+                        }
+                        else
+                        {
+                            // adjust to the X side (since it is less)
+                            position.CenterX += (box.MinBound.X - position.MaxBound.X);
+                            position.VelocityX = 0;
+                        }
+                    }
+                    else {
+                        // character collided into upper right corner
+                        float Xoverlap = Math.Max(0, box.MaxBound.X - next.MinBound.X);
+                        float Yoverlap = Math.Max(0, box.MaxBound.Y - next.MinBound.Y);
+
+                        if (Yoverlap < Xoverlap)
+                        {
+                            // adjust to the Y side (since it is less)
+                            position.CenterY -= (position.MinBound.Y - box.MaxBound.Y);
+                            position.VelocityY = 0;
+                        }
+                        else
+                        {
+                            // adjust to the X side (since it is less)
+                            position.CenterX -= (position.MinBound.X - box.MaxBound.X);
+                            position.VelocityX = 0;
                         }
                     }
                     
