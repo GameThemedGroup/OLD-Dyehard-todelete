@@ -14,6 +14,7 @@ namespace Dyehard
         private XNACS1Rectangle space;
         private Hero hero;
         private List<PowerUp> powerups;
+        private Debris debris;
 
         public Space(Hero hero, float leftEdge) : base()
         {
@@ -36,6 +37,8 @@ namespace Dyehard
                 float regionRight = regionLeft + region;
                 powerups.Add(new PowerUp(hero, regionLeft, regionRight, colors[i]));
             }
+
+            this.debris = new Debris(hero, leftEdge, rightEdge());
         }
 
         ~Space()
@@ -51,6 +54,8 @@ namespace Dyehard
             {
                 p.move();
             }
+
+            debris.move();
         }
 
         public override void draw()
@@ -61,6 +66,8 @@ namespace Dyehard
             {
                 p.draw();
             }
+
+            debris.draw();
         }
 
         public override void interact()
@@ -69,6 +76,8 @@ namespace Dyehard
             {
                 p.interact();
             }
+
+            debris.interact();
         }
 
         private bool contains(XNACS1Rectangle other)
