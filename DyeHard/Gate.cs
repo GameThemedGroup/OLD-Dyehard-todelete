@@ -14,10 +14,12 @@ namespace Dyehard
         private XNACS1Rectangle gate;
         private XNACS1Rectangle preview;
         private Hero hero;
+        private List<Enemy> enemies;
 
-        public Gate(int offset, Hero hero, float leftEdge, Color color)
+        public Gate(int offset, Hero hero, List<Enemy> enemies, float leftEdge, Color color)
         {
             this.hero = hero;
+            this.enemies = enemies;
             this.color = color;
 
             // set up pipe
@@ -68,13 +70,28 @@ namespace Dyehard
 
             if (hero.getColor() != color && gate.Collided(hero.getPosition()))
             {
-                Console.WriteLine("hero died - collided with wall!");
                 hero.kill();
+            }
+
+            foreach (Enemy e in enemies)
+            {
+                if (e.getColor() != color && gate.Collided(e.getPosition()))
+                {
+                    e.kill();
+                }
             }
 
             if (contains(hero.getPosition()))
             {
                 hero.setColor(color);
+            }
+
+            foreach (Enemy e in enemies)
+            {
+                if (contains(e.getPosition()))
+                {
+                    e.setColor(color);
+                }
             }
         }
 

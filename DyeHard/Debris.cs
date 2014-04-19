@@ -11,11 +11,13 @@ namespace Dyehard
     class Debris
     {
         private Hero hero;
+        private List<Enemy> enemies;
         private XNACS1Rectangle box;
 
-        public Debris(Hero hero, float minX, float maxX)
+        public Debris(Hero hero, List<Enemy> enemies, float minX, float maxX)
         {
             this.hero = hero;
+            this.enemies = enemies;
 
             float padding = hero.getPosition().Width * 2;
 
@@ -50,6 +52,14 @@ namespace Dyehard
             if (box.Collided(hero.getNextPosition()))
             {
                 hero.addCollision(box);
+            }
+
+            foreach (Enemy e in enemies)
+            {
+                if (box.Collided(e.getNextPosition()))
+                {
+                    e.addCollision(box);
+                }
             }
         }   
     }

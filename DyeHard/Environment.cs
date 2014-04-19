@@ -20,9 +20,11 @@ namespace Dyehard
         private Queue<EnvironmentElement> onscreen;
         private Queue<EnvironmentElement> upcoming;
         private Hero hero;
+        private EnemyManager eManager;
    
         public Environment(Hero hero)
         {
+            this.eManager = new EnemyManager(hero);
             this.stop = false;
             this.timer = new Timer(10);
 
@@ -34,7 +36,7 @@ namespace Dyehard
             this.upcoming = new Queue<EnvironmentElement>();
 
             // first element on screen
-            onscreen.Enqueue(new Space(hero, Game.leftEdge()));
+            this.onscreen.Enqueue(new Space(hero, eManager.getEnemies(), Game.leftEdge()));
 
             // fill the rest of the exisiting screen
             while (onscreen.Last().rightEdge() <= Game.rightEdge())
@@ -43,7 +45,8 @@ namespace Dyehard
             }
 
             // prep upcoming elements
-            upcoming.Enqueue(nextElement(onscreen));
+            this.upcoming.Enqueue(nextElement(onscreen));
+
         }
 
         public void update()
@@ -66,7 +69,8 @@ namespace Dyehard
             foreach (EnvironmentElement e in onscreen)
             {
                 e.interact();
-            }            
+            }
+            eManager.update();
         }
 
         public void draw()
@@ -80,6 +84,7 @@ namespace Dyehard
             {
                 e.draw();
             }
+            eManager.draw();
         }
 
         private void checkControl()
@@ -98,6 +103,11 @@ namespace Dyehard
                     Console.WriteLine("Exiting debug mode");
                     Speed = SpeedReference;
                 }
+            }
+
+            if (KeyboardDevice.isKeyTapped(Keys.P))
+            {
+                eManager.killAll();
             }
         }
 
@@ -139,12 +149,12 @@ namespace Dyehard
             if (seq.Last().GetType() == typeof(Stargate))
             {
                 Console.WriteLine("Adding canvas to background");
-                return new Space(hero, seq.Last().rightEdge());
+                return new Space(hero, eManager.getEnemies(), seq.Last().rightEdge());
             }
             else
             {
                 Console.WriteLine("Adding rainbow to background");
-                return new Stargate(hero, seq.Last().rightEdge());
+                return new Stargate(hero, eManager.getEnemies(), seq.Last().rightEdge());
             }
         }
 

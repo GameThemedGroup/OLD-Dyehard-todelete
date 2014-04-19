@@ -42,6 +42,7 @@ namespace Dyehard
         public void setColor(Color color)
         {
             position.Color = color;
+            position.TextureTintColor = color;
         }
 
         public Color getColor()
@@ -206,7 +207,7 @@ namespace Dyehard
                 }
             }
 
-            // all collisions handled
+            // all collisions handled, remove all boxes
             pendingCollisions.Clear();
         }
 
@@ -215,21 +216,5 @@ namespace Dyehard
         {
             pendingCollisions.Add(box);
         }
-
-
-        /*
-         if (box.CenterY < position.CenterY)
-                {
-                    position.CenterY += (box.MaxBound.Y - position.MinBound.Y);
-                    position.VelocityY = 0;
-                }
-                else
-                {
-                    position.CenterY += (box.MinBound.Y - position.MaxBound.Y);
-                    position.VelocityY = 0;
-                } 
-         * 
-         * 
-         */
     }
 }

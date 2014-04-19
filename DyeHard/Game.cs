@@ -33,7 +33,6 @@ namespace Dyehard
         private DistanceTracker distanceTracker;
         private PowerUpTracker powerupTracker;
         private Environment environment;
-        // private EnemyManager eManager; 
 
         // game state
         private State state;
@@ -59,9 +58,11 @@ namespace Dyehard
 
         private static void preloadTexturedObjects()
         {
-            new BrainRobot(new Vector2(0, 0), 0, 0, null);
-            new WhiteRobot(new Vector2(0, 0), 0, 0, null);
-            new BlackRobot(new Vector2(0, 0), 0, 0, null);
+            new BrainRobot(new Vector2(-100f, -100f), 0, 0, null);
+            new WhiteRobot(new Vector2(-100f, -100f), 0, 0, null);
+            new BlackRobot(new Vector2(-100f, -100f), 0, 0, null);
+
+            // dont save any preloaded objects
         }
 
 
@@ -73,7 +74,6 @@ namespace Dyehard
             environment = new Environment(hero);
             distanceTracker = new DistanceTracker(hero);
             powerupTracker = new PowerUpTracker(hero);
-            // eManager = new EnemyManager(hero);
         }
 
 
@@ -91,7 +91,6 @@ namespace Dyehard
 
                 case State.PAUSED:
                     environment.draw();
-                    // eManager.draw();
                     hero.draw();
                     distanceTracker.draw();
                     powerupTracker.draw();
@@ -102,14 +101,12 @@ namespace Dyehard
                 case State.PLAYING:
                     player.update();
                     environment.update();
-                    // eManager.update();
                     hero.update();
                     distanceTracker.update();
                     powerupTracker.update();
 
 
                     environment.draw();
-                    // eManager.draw();
                     hero.draw();
                     distanceTracker.draw();
                     powerupTracker.draw();
@@ -117,7 +114,6 @@ namespace Dyehard
 
                 case State.DEAD:
                     environment.draw();
-                    // eManager.draw();
                     distanceTracker.draw();
                     powerupTracker.draw();
 
@@ -163,10 +159,6 @@ namespace Dyehard
                     else if (!hero.isAlive())
                     {
                         state = State.DEAD;
-                    }
-
-                    if(KeyboardDevice.isKeyTapped(Keys.P)){
-                        // eManager.killThemALL();
                     }
                     break;
 

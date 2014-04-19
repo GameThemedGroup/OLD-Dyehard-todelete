@@ -16,7 +16,7 @@ namespace Dyehard
         private List<PowerUp> powerups;
         private Debris debris;
 
-        public Space(Hero hero, float leftEdge) : base()
+        public Space(Hero hero, List<Enemy> enemies, float leftEdge) : base()
         {
             this.hero = hero;
 
@@ -38,7 +38,7 @@ namespace Dyehard
                 powerups.Add(new PowerUp(hero, regionLeft, regionRight, colors[i]));
             }
 
-            this.debris = new Debris(hero, leftEdge, rightEdge());
+            this.debris = new Debris(hero, enemies, leftEdge, rightEdge());
         }
 
         ~Space()

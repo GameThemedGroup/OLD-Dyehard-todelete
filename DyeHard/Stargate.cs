@@ -14,20 +14,19 @@ namespace Dyehard
         Gate[] gates;
         Platform[] platforms;
         
-        public Stargate(Hero hero, float leftEdge) : base()
+        public Stargate(Hero hero, List<Enemy> enemies, float leftEdge) : base()
         {
             List<Color> colors = Game.randomColorSet(PIPE_COUNT);
             this.gates = new Gate[PIPE_COUNT];
             for (int i = 0; i < this.gates.Length; i++)
             {
-                this.gates[i] = new Gate(i, hero, leftEdge, colors[i]);
+                this.gates[i] = new Gate(i, hero, enemies, leftEdge, colors[i]);
             }
 
             this.platforms = new Platform[PIPE_COUNT + 1];
             for (int i = 0; i < this.platforms.Length; i++) {
-                this.platforms[i]  = new Platform(i, hero, leftEdge);
+                this.platforms[i]  = new Platform(i, hero, enemies, leftEdge);
             }
-
         }
 
         public override void move()

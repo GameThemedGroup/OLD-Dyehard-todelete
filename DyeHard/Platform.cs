@@ -11,11 +11,13 @@ namespace Dyehard
     {
         public static float height = 1.2f;
         private Hero hero;
+        private List<Enemy> enemies;
         private XNACS1Rectangle box;
 
-        public Platform(int offset, Hero hero, float leftEdge)
+        public Platform(int offset, Hero hero, List<Enemy> enemies, float leftEdge)
         {
             this.hero = hero;
+            this.enemies = enemies;
 
             // set up platform
             float position = (Stargate.width * 0.5f) + leftEdge;
@@ -46,6 +48,14 @@ namespace Dyehard
             // let the hero know if it is about to collide with the platform
             if (box.Collided(hero.getNextPosition())) {
                 hero.addCollision(box);
+            }
+
+            foreach (Enemy e in enemies)
+            {
+                if (box.Collided(e.getNextPosition()))
+                {
+                    e.addCollision(box);
+                }
             }
         }
     }

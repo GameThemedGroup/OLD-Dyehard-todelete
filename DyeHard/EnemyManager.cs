@@ -27,14 +27,12 @@ namespace Dyehard
 
         public void update()
         {
-            if (enemies != null && enemies.Count > 0)
-            {
-                foreach (Enemy currentEnemy in enemies)
-                {
-                    currentEnemy.update();
-                }
-            }
+            enemies.RemoveAll(enemy => !enemy.isAlive());
 
+            foreach (Enemy currentEnemy in enemies)
+            {
+                currentEnemy.update();
+            }
 
             Vector2 enemyAppearPosition = new Vector2(Game.rightEdge() + 10f, Game.topEdge() - 5f);
             enemyTimer = enemyTimer - 0.05f;
@@ -77,24 +75,15 @@ namespace Dyehard
             }
         }
 
-        public void killThemALL()
+        public void killAll()
         {
-                    
-        
-            if (enemies.Count > 0 && enemies != null)
-            {
-                foreach (Enemy currentEnemy in enemies)
-                {
-                    //currentEnemy.RemoveFromAutoDrawSet();
-                }
-            }
-
             enemies.Clear();
-
-        
-
         }
 
+        public List<Enemy> getEnemies()
+        {
+            return enemies;
+        }
    
     }
 }
