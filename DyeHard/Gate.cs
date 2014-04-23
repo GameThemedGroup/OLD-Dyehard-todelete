@@ -25,7 +25,7 @@ namespace Dyehard
             // set up pipe
             float position = (Stargate.width * 0.5f) + leftEdge;
 
-            float drawHeight =  Game.topEdge() / Stargate.PIPE_COUNT;
+            float drawHeight =  Game.topEdge() / Stargate.GATE_COUNT;
             float drawOffset = drawHeight * (offset + 0.5f);
             
             this.path = new XNACS1Rectangle(new Vector2(position, drawOffset), Stargate.width, drawHeight - (Platform.height * 2));

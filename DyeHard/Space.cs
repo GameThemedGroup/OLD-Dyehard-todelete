@@ -97,14 +97,14 @@ namespace Dyehard
             
             foreach (XNACS1Rectangle c in trail)
             {
-                c.Height *= 0.9f;
-                c.Width *= 0.9f;
+                c.Height *= 0.97f;
+                c.Width *= 0.97f;
             }
 
 
             if (trail.Count > 0 && trail.First().Width < 0.1f)
             {
-                trail.Dequeue();
+                trail.Dequeue().RemoveFromAutoDrawSet();
             }
 
             if (contains(hero.getPosition()))

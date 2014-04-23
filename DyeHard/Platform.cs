@@ -9,53 +9,52 @@ namespace Dyehard
 {
     class Platform
     {
+        private const int SEGMENT_COUNT = 3;
         public static float height = 1.2f;
         private Hero hero;
         private List<Enemy> enemies;
-        private XNACS1Rectangle box;
+        private List<Obstacle> obstacles;
 
         public Platform(int offset, Hero hero, List<Enemy> enemies, float leftEdge)
         {
             this.hero = hero;
             this.enemies = enemies;
-
+            this.obstacles = new List<Obstacle>();
             // set up platform
-            float position = (Stargate.width * 0.5f) + leftEdge;
 ;
-            float drawOffset = ((offset * 1f) / Stargate.PIPE_COUNT) * Game.topEdge();
+            float Ypos = ((offset * 1f) / Stargate.GATE_COUNT) * Game.topEdge();
             
-            this.box = new XNACS1Rectangle(new Vector2(position, drawOffset), Stargate.width, height);
-            this.box.Color = Color.SlateGray;
-        }
+            float width = Stargate.width / ((SEGMENT_COUNT * 2) - 1);
 
-        ~Platform()
-        {
-            box.RemoveFromAutoDrawSet();
+            for (int i = 0; i < (SEGMENT_COUNT * 2); i += 2)
+            {
+                float Xpos = (width * 0.5f) + leftEdge + (i * width);
+                Obstacle obstacle = new Obstacle(hero, enemies, new Vector2(Xpos, Ypos), width, height);
+                obstacles.Add(obstacle);
+            }
         }
 
         public void move()
         {
-            box.CenterX -= Environment.Speed;
+            foreach (Obstacle obstacle in obstacles)
+            {
+                obstacle.move();
+            }
         }
 
         public void draw()
         {
-            box.TopOfAutoDrawSet();
+            foreach (Obstacle obstacle in obstacles)
+            {
+                obstacle.draw();
+            }
         }
 
         public void interact()
         {
-            // let the hero know if it is about to collide with the platform
-            if (box.Collided(hero.getNextPosition())) {
-                hero.addCollision(box);
-            }
-
-            foreach (Enemy e in enemies)
+            foreach (Obstacle obstacle in obstacles)
             {
-                if (box.Collided(e.getNextPosition()))
-                {
-                    e.addCollision(box);
-                }
+                obstacle.interact();
             }
         }
     }

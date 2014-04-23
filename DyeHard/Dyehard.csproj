@@ -73,6 +73,7 @@
     <Compile Include="BorderBox.cs" />
     <Compile Include="BrainRobot.cs" />
     <Compile Include="Debris.cs" />
+    <Compile Include="Obstacle.cs" />
     <Compile Include="PowerUpTracker.cs" />
     <Compile Include="EnvironmentElement.cs" />
     <Compile Include="DistanceTracker.cs" />
