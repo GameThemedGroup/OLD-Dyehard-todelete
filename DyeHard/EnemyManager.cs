@@ -15,14 +15,14 @@ namespace Dyehard
 
 
         private List<Enemy> enemies;
-        float enemyTimer;
+        Timer enemyTimer;
 
         public EnemyManager(Hero currentHero)
         {
             theHero = currentHero;
-            enemyTimer = 10;
             enemies = new List<Enemy>();
             rnd = new Random();
+            enemyTimer = new Timer(5.0f);
         }
 
         public void update()
@@ -34,10 +34,14 @@ namespace Dyehard
                 currentEnemy.update();
             }
 
-            Vector2 enemyAppearPosition = new Vector2(Game.rightEdge() + 10f, Game.topEdge() - 5f);
-            enemyTimer = enemyTimer - 0.05f;
-            if (enemyTimer <= 0)
+            if (Environment.Speed != 0)
             {
+                enemyTimer.update();
+            }
+            
+            if (enemyTimer.isDone())
+            {
+                Vector2 enemyAppearPosition = new Vector2(Game.rightEdge() + 10f, Game.topEdge() - rnd.Next(0,20));
                 int caseSwitch = rnd.Next(0,3);
                 switch (caseSwitch)
                 {
@@ -51,7 +55,7 @@ namespace Dyehard
                         enemies.Add(new BlackRobot(enemyAppearPosition, 5, 5, theHero));
                         break;
                 }
-                enemyTimer = 10;
+                enemyTimer.reset();
             }
 
             if (enemies != null && enemies.Count > 0)

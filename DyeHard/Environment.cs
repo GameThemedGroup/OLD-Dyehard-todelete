@@ -35,6 +35,9 @@ namespace Dyehard
             this.onscreen = new Queue<EnvironmentElement>();
             this.upcoming = new Queue<EnvironmentElement>();
 
+            //charles
+            hero.setEmenyManagerForTheWeaponInYourHand(eManager);
+
             // first element on screen
             this.onscreen.Enqueue(new Space(hero, eManager.getEnemies(), Game.leftEdge()));
 

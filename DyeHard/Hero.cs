@@ -61,5 +61,10 @@ namespace Dyehard
             // update velocity
             position.Velocity = (position.Velocity + direction) * drag;
         }
+
+        public void setEmenyManagerForTheWeaponInYourHand(EnemyManager eManager)
+        {
+            weapon.setEmenyManager(eManager);
+        }
     }
 }

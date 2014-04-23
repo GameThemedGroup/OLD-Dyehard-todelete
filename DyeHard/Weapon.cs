@@ -13,11 +13,14 @@ namespace Dyehard
         private static float bulletSize = 1.5f;
         private Hero hero;
         private Queue<XNACS1Circle> bullets;
+        private Queue<XNACS1Circle> bullets2;
+        private EnemyManager eManager;
 
         public Weapon(Hero hero)
         {
             this.hero = hero;
             bullets = new Queue<XNACS1Circle>();
+            bullets2 = new Queue<XNACS1Circle>();
         }
 
         ~Weapon()
@@ -43,13 +46,31 @@ namespace Dyehard
             {
                 bullets.Dequeue().RemoveFromAutoDrawSet();
             }
+
+            foreach (XNACS1Circle b in bullets)
+            {
+                foreach (Enemy e in eManager.getEnemies())
+                {
+                    if (e.getPosition().Collided(b) && b.Color!= Color.White)
+                    {
+                        e.gotShot(b.Color);
+                        b.Color = Color.White;
+                    }
+                }
+            }
+            //clean up old q 
+           // bullets.Clear();
+            // old Q = new Q
+            //bullets = new Queue<XNACS1Circle>(bullets2);
+            //bullets2 = new Queue<XNACS1Circle>();
+            
         }
 
         // fire the weapon
         private void fire()
         {
             XNACS1Circle bullet = new XNACS1Circle(hero.getPosition().Center, bulletSize);
-            bullet.Color = new Color(hero.getColor(), 210);
+            bullet.Color = hero.getColor();
             bullet.Label = "pew";
             bullets.Enqueue(bullet);
         }
@@ -60,6 +81,11 @@ namespace Dyehard
             {
                 b.TopOfAutoDrawSet();
             }
+        }
+
+        public void setEmenyManager(EnemyManager targetEMAnager)
+        {
+            eManager = targetEMAnager;
         }
     }
 }
