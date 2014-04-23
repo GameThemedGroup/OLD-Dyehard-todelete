@@ -25,7 +25,7 @@ namespace Dyehard
 
             this.foreground = new Starfield(0.08f, 0.02f, 4f);
             this.background = new Starfield(0.04f, 0.01f, 1f);
-            this.ship = new InfinityShip(0.08f);
+            this.ship = new InfinityShip(0.04f);
         }
 
         public void update() {
