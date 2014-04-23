@@ -43,7 +43,7 @@ namespace Dyehard
 
         protected override void InitializeWorld()
         {
-            SetAppWindowPixelDimension(false, 1280, 720);
+            SetAppWindowPixelDimension(true, 1280, 720);
 
             World.SetWorldCoordinate(new Vector2(0f, 0f), 100f);
 
