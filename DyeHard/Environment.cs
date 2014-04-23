@@ -73,6 +73,7 @@ namespace Dyehard
             {
                 e.interact();
             }
+
             eManager.update();
         }
 

@@ -10,6 +10,7 @@ namespace Dyehard
     class Hero : Character
     {
         private static float drag = 0.94f;
+        private Vector2 gravity = new Vector2(0, -0.03f);
         private Weapon weapon;
         private List<PowerUp> powerups;
 
@@ -59,7 +60,7 @@ namespace Dyehard
             direction = direction / 7f;
 
             // update velocity
-            position.Velocity = (position.Velocity + direction) * drag;
+            position.Velocity = (position.Velocity + direction + gravity) * drag;
         }
 
         public void setEmenyManagerForTheWeaponInYourHand(EnemyManager eManager)

@@ -9,18 +9,20 @@ namespace Dyehard
 {
     class Space : EnvironmentElement
     {
-        public static float width = Game.rightEdge() * 2.5f;
-        public static int powerupCount = 5;
+        public static float width = Game.rightEdge() * 3.5f;
+        public static int powerupCount = 6;
         private XNACS1Rectangle space;
         private Hero hero;
         private List<PowerUp> powerups;
         private Debris debris;
+        private Queue<XNACS1Rectangle> trail;
 
         public Space(Hero hero, List<Enemy> enemies, float leftEdge) : base()
         {
             this.hero = hero;
 
             this.powerups = new List<PowerUp>();
+            this.trail = new Queue<XNACS1Rectangle>();
 
             float height = Game.topEdge();
             float position = (width * 0.5f) + leftEdge;
@@ -43,12 +45,22 @@ namespace Dyehard
 
         ~Space()
         {
+            foreach (XNACS1Rectangle c in trail)
+            {
+                c.RemoveFromAutoDrawSet();
+            }
+
             space.RemoveFromAutoDrawSet();
         }
 
         public override void move()
         {
             space.CenterX -= Environment.Speed;
+
+            foreach (XNACS1Rectangle c in trail)
+            {
+                c.CenterX -= Environment.Speed;
+            }
 
             foreach (PowerUp p in powerups)
             {
@@ -61,6 +73,11 @@ namespace Dyehard
         public override void draw()
         {
             space.TopOfAutoDrawSet();
+
+            foreach (XNACS1Rectangle c in trail)
+            {
+                c.TopOfAutoDrawSet();
+            }
 
             foreach (PowerUp p in powerups)
             {
@@ -75,6 +92,26 @@ namespace Dyehard
             foreach (PowerUp p in powerups)
             {
                 p.interact();
+            }
+
+            
+            foreach (XNACS1Rectangle c in trail)
+            {
+                c.Height *= 0.9f;
+                c.Width *= 0.9f;
+            }
+
+
+            if (trail.Count > 0 && trail.First().Width < 0.1f)
+            {
+                trail.Dequeue();
+            }
+
+            if (contains(hero.getPosition()))
+            {
+                XNACS1Rectangle circle = new XNACS1Rectangle(hero.getPosition().Center, 4f, 4f);
+                circle.Color = hero.getColor();
+                trail.Enqueue(circle);
             }
 
             debris.interact();

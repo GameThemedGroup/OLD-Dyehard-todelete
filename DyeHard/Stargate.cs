@@ -9,7 +9,7 @@ namespace Dyehard
 {
     class Stargate : EnvironmentElement
     {
-        public static float width = Game.rightEdge() * 1.25f;
+        public static float width = Game.rightEdge() * 1.1f;
         public const int PIPE_COUNT = 4;
         Gate[] gates;
         Platform[] platforms;
