@@ -12,6 +12,7 @@ namespace Dyehard
         private XNACS1Rectangle world;
         private Starfield foreground;
         private Starfield background;
+        private InfinityShip ship;
 
         public Background()
         {
@@ -22,14 +23,16 @@ namespace Dyehard
 
             this.world.Color = Color.Black;
 
-            this.foreground = new Starfield(0.08f, 0.1f, 4f);
-            this.background = new Starfield(0.04f, 0.05f, 1f);
+            this.foreground = new Starfield(0.08f, 0.02f, 4f);
+            this.background = new Starfield(0.04f, 0.01f, 1f);
+            this.ship = new InfinityShip(0.08f);
         }
 
         public void update() {
             world.TopOfAutoDrawSet();
             background.update();
             foreground.update();
+            ship.update();
         }
     }
 }

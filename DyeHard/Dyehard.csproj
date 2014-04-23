@@ -73,6 +73,7 @@
     <Compile Include="BorderBox.cs" />
     <Compile Include="BrainRobot.cs" />
     <Compile Include="Debris.cs" />
+    <Compile Include="InfinityShip.cs" />
     <Compile Include="Obstacle.cs" />
     <Compile Include="PowerUpTracker.cs" />
     <Compile Include="EnvironmentElement.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="ShipTile.cs" />
     <Compile Include="Starfield.cs" />
     <Compile Include="WhiteRobot.cs" />
     <Compile Include="Window.cs" />
