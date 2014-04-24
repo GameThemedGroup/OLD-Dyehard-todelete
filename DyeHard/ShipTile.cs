@@ -9,8 +9,8 @@ namespace Dyehard
 {
     class ShipTile
     {
-        private const float width = 28f;
-        private const float height = 28f;
+        private const float width = 50f;
+        private const float height = 22f;
         private XNACS1Rectangle tile;
         private XNACS1Rectangle window;
 
@@ -19,10 +19,10 @@ namespace Dyehard
             float Xpos = leftEdge + (width * 0.5f);
             float Ypos = (Game.topEdge() / 2);
             Vector2 position = new Vector2(Xpos, Ypos);
-            this.tile = new XNACS1Rectangle(position, width - 3f, height); // - value to force a little gap between tiles
+            this.tile = new XNACS1Rectangle(position, width - 1f, height); // - value to force a little gap between tiles
             this.tile.Color = Color.DimGray;
 
-            this.window = new XNACS1Rectangle(position, width / 10, height / 10);
+            this.window = new XNACS1Rectangle(position, 3, 3);
             this.window.Color = Color.LightGray;
         }
 
@@ -40,7 +40,7 @@ namespace Dyehard
 
         public float rightEdge()
         {
-            return tile.MaxBound.X + 1.5f; // + value to correct for temporary gap
+            return tile.MaxBound.X + 0.5f; // + value to correct for temporary gap
         }
 
         public bool isOffScreen()

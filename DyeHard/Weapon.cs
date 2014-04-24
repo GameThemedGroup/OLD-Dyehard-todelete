@@ -9,8 +9,8 @@ namespace Dyehard
 {
     class Weapon
     {
-        private static float bulletSpeed = 1f;
-        private static float bulletSize = 1.5f;
+        private static float bulletSpeed = 1.2f;
+        private static float bulletSize = 1f;
         private Hero hero;
         private Queue<XNACS1Circle> bullets;
         private Queue<XNACS1Circle> bullets2;
@@ -66,7 +66,6 @@ namespace Dyehard
         {
             XNACS1Circle bullet = new XNACS1Circle(hero.getPosition().Center, bulletSize);
             bullet.Color = hero.getColor();
-            bullet.Label = "pew";
             bullets.Enqueue(bullet);
         }
 

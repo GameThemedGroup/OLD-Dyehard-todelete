@@ -125,9 +125,8 @@ namespace Dyehard
 
             if (timer.isDone())
             {
-                timer = new Timer(10);
+                timer.reset();
                 SpeedReference *= 1.1f;
-                Console.WriteLine("Increasing game speed to " + SpeedReference);
             }
         }
 
@@ -137,7 +136,6 @@ namespace Dyehard
             {
                 // remove off screen element
                 onscreen.Dequeue();
-                Console.WriteLine("Dumping element from background");
             }
 
             if (onscreen.Last().rightEdge() <= Game.rightEdge())

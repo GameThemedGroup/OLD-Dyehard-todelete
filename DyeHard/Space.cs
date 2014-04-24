@@ -9,7 +9,7 @@ namespace Dyehard
 {
     class Space : EnvironmentElement
     {
-        public static float width = Game.rightEdge() * 3.5f;
+        public static float width = Game.rightEdge() * 3.75f;
         public static int powerupCount = 6;
         private XNACS1Rectangle space;
         private Hero hero;
@@ -30,7 +30,7 @@ namespace Dyehard
             this.space = new XNACS1Rectangle(new Vector2(position, height/2), width, height);
             this.space.Visible = false;
 
-            // add powerups to canvas
+            // add powerups to space region
             List<Color> colors = Game.randomColorSet(powerupCount);
             float region = (rightEdge() - leftEdge) / powerupCount;
             for (int i = 0; i < powerupCount; i++)
