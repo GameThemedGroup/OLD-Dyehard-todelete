@@ -43,7 +43,7 @@ namespace Dyehard
 
         protected override void InitializeWorld()
         {
-            SetAppWindowPixelDimension(true, 1280, 720);
+            SetAppWindowPixelDimension(false, 1280, 720);
 
             World.SetWorldCoordinate(new Vector2(0f, 0f), 100f);
 
@@ -58,11 +58,11 @@ namespace Dyehard
 
         private static void preloadTexturedObjects()
         {
+            // dont save references to any preloaded objects
+
             new BrainRobot(new Vector2(-100f, -100f), 0, 0, null);
             new WhiteRobot(new Vector2(-100f, -100f), 0, 0, null);
             new BlackRobot(new Vector2(-100f, -100f), 0, 0, null);
-
-            // dont save any preloaded objects
         }
 
 

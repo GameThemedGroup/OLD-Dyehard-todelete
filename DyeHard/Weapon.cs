@@ -51,18 +51,13 @@ namespace Dyehard
             {
                 foreach (Enemy e in eManager.getEnemies())
                 {
-                    if (e.getPosition().Collided(b) && b.Color!= Color.White)
+                    if (e.getPosition().Collided(b) && b.Visible)
                     {
                         e.gotShot(b.Color);
-                        b.Color = Color.White;
+                        b.Visible = false;
                     }
                 }
             }
-            //clean up old q 
-           // bullets.Clear();
-            // old Q = new Q
-            //bullets = new Queue<XNACS1Circle>(bullets2);
-            //bullets2 = new Queue<XNACS1Circle>();
             
         }
 
