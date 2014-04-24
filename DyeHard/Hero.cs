@@ -57,7 +57,13 @@ namespace Dyehard
         public void push(Vector2 direction)
         {
             // scale direction
-            direction = direction / 7f;
+            direction = direction / 10f;
+
+            // add 'jetpack' factor
+            if (direction.Y > 0)
+            {
+                direction.Y *= 1.7f;
+            }
 
             // update velocity
             position.Velocity = (position.Velocity + direction + gravity) * drag;

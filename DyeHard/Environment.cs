@@ -26,7 +26,7 @@ namespace Dyehard
         {
             this.eManager = new EnemyManager(hero);
             this.stop = false;
-            this.timer = new Timer(10);
+            this.timer = new Timer(15);
 
             SpeedReference = START_SPEED;
             Speed = SpeedReference;

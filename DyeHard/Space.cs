@@ -9,12 +9,13 @@ namespace Dyehard
 {
     class Space : EnvironmentElement
     {
-        public static float width = Game.rightEdge() * 3.75f;
+        public static float width = Game.rightEdge() * 4f;
         public static int powerupCount = 6;
         private XNACS1Rectangle space;
         private Hero hero;
         private List<PowerUp> powerups;
-        private Debris debris;
+        private Debris debris1;
+        private Debris debris2;
         private Trail trail;
 
         public Space(Hero hero, List<Enemy> enemies, float leftEdge) : base()
@@ -41,7 +42,8 @@ namespace Dyehard
                 powerups.Add(new PowerUp(hero, regionLeft, regionRight, colors[i]));
             }
 
-            this.debris = new Debris(hero, enemies, leftEdge, rightEdge);
+            this.debris1 = new Debris(hero, enemies, leftEdge, rightEdge);
+            this.debris2 = new Debris(hero, enemies, leftEdge, rightEdge);
         }
 
         ~Space()
@@ -60,7 +62,8 @@ namespace Dyehard
                 p.move();
             }
 
-            debris.move();
+            debris1.move();
+            debris2.move();
         }
 
         public override void draw()
@@ -69,12 +72,14 @@ namespace Dyehard
 
             trail.draw();
 
+            debris1.draw();
+            debris2.draw();
+
             foreach (PowerUp p in powerups)
             {
                 p.draw();
             }
 
-            debris.draw();
         }
 
         public override void interact()
@@ -89,7 +94,8 @@ namespace Dyehard
                 trail.interact();
             }
 
-            debris.interact();
+            debris1.interact();
+            debris2.interact();
         }
 
         private bool contains(XNACS1Rectangle other)

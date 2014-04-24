@@ -18,7 +18,7 @@ namespace Dyehard
 
             float randomX = XNACS1Base.RandomFloat(minX + padding, maxX - padding);
             float randomY = XNACS1Base.RandomFloat(Game.bottomEdge() + padding, Game.topEdge() - padding);
-            this.obstacle = new Obstacle(hero, enemies, new Vector2(randomX, randomY), 12f, 12f);
+            this.obstacle = new Obstacle(hero, enemies, new Vector2(randomX, randomY), 18f, 14f);
         }
 
         public void move()

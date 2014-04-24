@@ -136,13 +136,13 @@ namespace Dyehard
                         {
                             // adjust to the Y side (since it is less)
                             position.CenterY += (box.MinBound.Y - position.MaxBound.Y);
-                            position.VelocityY = 0;
+                            position.VelocityY = Math.Min(0, position.VelocityY);
                         }
                         else
                         {
                             // adjust to the X side (since it is less)
                             position.CenterX += (box.MinBound.X - position.MaxBound.X);
-                            position.VelocityX = 0;
+                            position.VelocityX = Math.Min(0, position.VelocityX);
                         }
                     }
                     else if (position.CenterY < box.CenterY && position.CenterX >= box.CenterX)
@@ -156,13 +156,13 @@ namespace Dyehard
                         {
                             // adjust to the Y side (since it is less)
                             position.CenterY += (box.MinBound.Y - position.MaxBound.Y);
-                            position.VelocityY = 0;
+                            position.VelocityY = Math.Min(0, position.VelocityY);
                         }
                         else
                         {
                             // adjust to the X side (since it is less)
                             position.CenterX -= (position.MinBound.X - box.MaxBound.X);
-                            position.VelocityX = 0;
+                            position.VelocityX = Math.Max(0, position.VelocityX);
                         }
                     }
                     else if (position.CenterY >= box.CenterY && position.CenterX < box.CenterX)
@@ -176,13 +176,13 @@ namespace Dyehard
                         {
                             // adjust to the Y side (since it is less)
                             position.CenterY -= (position.MinBound.Y - box.MaxBound.Y);
-                            position.VelocityY = 0;
+                            position.VelocityY = Math.Max(0, position.VelocityY);
                         }
                         else
                         {
                             // adjust to the X side (since it is less)
                             position.CenterX += (box.MinBound.X - position.MaxBound.X);
-                            position.VelocityX = 0;
+                            position.VelocityX = Math.Min(0, position.VelocityX);
                         }
                     }
                     else {
@@ -194,13 +194,13 @@ namespace Dyehard
                         {
                             // adjust to the Y side (since it is less)
                             position.CenterY -= (position.MinBound.Y - box.MaxBound.Y);
-                            position.VelocityY = 0;
+                            position.VelocityY = Math.Max(0, position.VelocityY);
                         }
                         else
                         {
                             // adjust to the X side (since it is less)
                             position.CenterX -= (position.MinBound.X - box.MaxBound.X);
-                            position.VelocityX = 0;
+                            position.VelocityX = Math.Max(0, position.VelocityX);
                         }
                     }
                     
