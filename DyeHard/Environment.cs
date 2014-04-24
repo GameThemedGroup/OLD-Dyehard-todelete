@@ -150,12 +150,10 @@ namespace Dyehard
         {
             if (seq.Last().GetType() == typeof(Stargate))
             {
-                Console.WriteLine("Adding canvas to background");
                 return new Space(hero, eManager.getEnemies(), seq.Last().rightEdge());
             }
             else
             {
-                Console.WriteLine("Adding rainbow to background");
                 return new Stargate(hero, eManager.getEnemies(), seq.Last().rightEdge());
             }
         }

@@ -15,14 +15,14 @@ namespace Dyehard
         private Hero hero;
         private List<PowerUp> powerups;
         private Debris debris;
-        private Queue<XNACS1Rectangle> trail;
+        private Trail trail;
 
         public Space(Hero hero, List<Enemy> enemies, float leftEdge) : base()
         {
             this.hero = hero;
 
             this.powerups = new List<PowerUp>();
-            this.trail = new Queue<XNACS1Rectangle>();
+            this.trail = new Trail(hero);
 
             float height = Game.topEdge();
             float position = (width * 0.5f) + leftEdge;
@@ -32,7 +32,8 @@ namespace Dyehard
 
             // add powerups to space region
             List<Color> colors = Game.randomColorSet(powerupCount);
-            float region = (rightEdge() - leftEdge) / powerupCount;
+            float rightEdge = space.CenterX + space.Width / 2;
+            float region = (rightEdge - leftEdge) / powerupCount;
             for (int i = 0; i < powerupCount; i++)
             {
                 float regionLeft = leftEdge + (i * region);
@@ -40,16 +41,11 @@ namespace Dyehard
                 powerups.Add(new PowerUp(hero, regionLeft, regionRight, colors[i]));
             }
 
-            this.debris = new Debris(hero, enemies, leftEdge, rightEdge());
+            this.debris = new Debris(hero, enemies, leftEdge, rightEdge);
         }
 
         ~Space()
         {
-            foreach (XNACS1Rectangle c in trail)
-            {
-                c.RemoveFromAutoDrawSet();
-            }
-
             space.RemoveFromAutoDrawSet();
         }
 
@@ -57,10 +53,7 @@ namespace Dyehard
         {
             space.CenterX -= Environment.Speed;
 
-            foreach (XNACS1Rectangle c in trail)
-            {
-                c.CenterX -= Environment.Speed;
-            }
+            trail.move();
 
             foreach (PowerUp p in powerups)
             {
@@ -74,10 +67,7 @@ namespace Dyehard
         {
             space.TopOfAutoDrawSet();
 
-            foreach (XNACS1Rectangle c in trail)
-            {
-                c.TopOfAutoDrawSet();
-            }
+            trail.draw();
 
             foreach (PowerUp p in powerups)
             {
@@ -94,24 +84,9 @@ namespace Dyehard
                 p.interact();
             }
 
-            
-            foreach (XNACS1Rectangle c in trail)
-            {
-                c.Height *= 0.97f;
-                c.Width *= 0.97f;
-            }
-
-
-            if (trail.Count > 0 && trail.First().Width < 0.1f)
-            {
-                trail.Dequeue().RemoveFromAutoDrawSet();
-            }
-
             if (contains(hero.getPosition()))
             {
-                XNACS1Rectangle circle = new XNACS1Rectangle(hero.getPosition().Center, 4f, 4f);
-                circle.Color = hero.getColor();
-                trail.Enqueue(circle);
+                trail.interact();
             }
 
             debris.interact();
