@@ -109,15 +109,5 @@ namespace Dyehard
 
             return false;
         }
-
-        public bool isOffScreen()
-        {
-            return path.CenterX + path.Width / 2 <= 0;
-        }
-
-        public float rightEdge()
-        {
-            return path.CenterX + path.Width / 2;
-        }
     }
 }

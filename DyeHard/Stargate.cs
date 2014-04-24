@@ -9,13 +9,15 @@ namespace Dyehard
 {
     class Stargate : EnvironmentElement
     {
-        public static float width = Game.rightEdge() * 1.4f;
+        public static float width = Game.rightEdge() * 1.5f;
         public const int GATE_COUNT = 4;
         Gate[] gates;
         Platform[] platforms;
+        private XNACS1Rectangle backdrop;
         
         public Stargate(Hero hero, List<Enemy> enemies, float leftEdge) : base()
         {
+
             List<Color> colors = Game.randomColorSet(GATE_COUNT);
             this.gates = new Gate[GATE_COUNT];
             for (int i = 0; i < this.gates.Length; i++)
@@ -27,10 +29,22 @@ namespace Dyehard
             for (int i = 0; i < this.platforms.Length; i++) {
                 this.platforms[i]  = new Platform(i, hero, enemies, leftEdge);
             }
+
+            float height = Game.topEdge();
+            float Xposition = (width * 0.5f) + leftEdge;
+            this.backdrop = new XNACS1Rectangle(new Vector2(Xposition, height/2), width, height);
+            this.backdrop.Color = new Color(Color.Black, 140);
+        }
+
+        ~Stargate()
+        {
+            backdrop.RemoveFromAutoDrawSet();
         }
 
         public override void move()
         {
+            backdrop.CenterX -= Environment.Speed;
+
             foreach (Gate g in gates)
             {
                 g.move();
@@ -43,6 +57,8 @@ namespace Dyehard
 
         public override void draw()
         {
+            backdrop.TopOfAutoDrawSet();
+
             foreach (Gate g in gates)
             {
                 g.draw();
@@ -67,12 +83,12 @@ namespace Dyehard
 
         public override bool isOffScreen()
         {
-            return gates[0].isOffScreen();
+            return backdrop.MaxBound.X <= Game.leftEdge();
         }
 
         public override float rightEdge()
         {
-            return gates[0].rightEdge();
+            return backdrop.MaxBound.X;
         }
     }
 }
