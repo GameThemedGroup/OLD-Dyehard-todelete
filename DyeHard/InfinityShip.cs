@@ -14,6 +14,7 @@ namespace Dyehard
     {
         public static float Speed = 0f;
         private Queue<ShipTile> shipTiles;
+        private Queue<ShipTile> pool;
         private float speed;
         private float size;
 
@@ -21,13 +22,10 @@ namespace Dyehard
         {
             Speed = speed;
             this.shipTiles = new Queue<ShipTile>();
+            this.pool = new Queue<ShipTile>();
 
-            // pre-fill game
-            shipTiles.Enqueue(new ShipTile(Game.leftEdge()));
-            while (shipTiles.Last().rightEdge() < Game.rightEdge())
-            {
-                shipTiles.Enqueue(new ShipTile(shipTiles.Last().rightEdge()));
-            }
+            // pre-fill background
+            shipTiles.Enqueue(new ShipTile(Game.rightEdge()));
         }
 
         public void update()
@@ -40,14 +38,26 @@ namespace Dyehard
 
             if (shipTiles.First().isOffScreen())
             {
-                shipTiles.Dequeue();
+                pool.Enqueue(shipTiles.Dequeue());
+                Console.WriteLine("tile saved for recycling");
             }
 
             if (shipTiles.Last().rightEdge() <= Game.rightEdge())
             {
-                shipTiles.Enqueue(
-                    new ShipTile(shipTiles.Last().rightEdge())
-                );
+                if (pool.Count > 0)
+                {
+                    // draw a tile from the pool
+                    ShipTile tile = pool.Dequeue();
+                    tile.setLeftEdgeAt(shipTiles.Last().rightEdge());
+                    shipTiles.Enqueue(tile);
+                }
+                else
+                {
+                    // pool is empty, create new ship tile
+                    shipTiles.Enqueue(
+                        new ShipTile(shipTiles.Last().rightEdge())
+                    );
+                }
             }
 
             foreach (ShipTile tile in shipTiles)

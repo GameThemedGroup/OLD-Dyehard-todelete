@@ -9,7 +9,7 @@ namespace Dyehard
 {
     class Hero : Character
     {
-        private static float drag = 0.94f;
+        private static float drag = 0.95f;  // smaller number means more reduction
         private Vector2 gravity = new Vector2(0, -0.03f);
         private Weapon weapon;
         private List<PowerUp> powerups;

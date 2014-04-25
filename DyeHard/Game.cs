@@ -37,21 +37,26 @@ namespace Dyehard
         // game state
         private State state;
 
+        private const string controls = "\n\nControls:\n" +
+                                        "Move:        arrow keys\n" +
+                                        "Fire dye gun:          'F'\n" +
+                                        "Pause game:          'A'\n" +
+                                        "Quit game:          'ESC'\n" + 
+                                        "Stop the world:       'W'";
         public Game() {
 
         }
 
         protected override void InitializeWorld()
         {
-            SetAppWindowPixelDimension(false, 1280, 720);
-
+            SetAppWindowPixelDimension(true, 1280, 720);
             World.SetWorldCoordinate(new Vector2(0f, 0f), 100f);
 
             preloadTexturedObjects();
             
             background = new Background();
-            pauseScreen = new Window("Paused.\n\n\n'A' to resume.\n\n'Q' to restart.");
-            startScreen = new Window("DYEHARD\n\n'A' to begin.");
+            startScreen = new Window("DYEHARD\n'A' to begin." + controls);
+            pauseScreen = new Window("Paused.\nResume game:    'A'\nRestart game:     'Q'" + controls);
             deathScreen = new Window("YOU HAVE DIED...\n\n'A' to continue.");
             initializeObjects();
         }

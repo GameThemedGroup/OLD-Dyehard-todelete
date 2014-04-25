@@ -9,10 +9,10 @@ namespace Dyehard
 {
     class WhiteRobot : Enemy
     {
-        public WhiteRobot(Vector2 center, int width, int height, Hero currentHero)
+        public WhiteRobot(Vector2 center, float width, float height, Hero currentHero)
             : base(center, width, height, currentHero)
         {
-            this.getPosition().Texture = "WhiteRobot";
+            this.setTexture("WhiteRobot");
         }
     }
 }

@@ -10,19 +10,17 @@ namespace Dyehard
 {
      class EnemyManager
     {
-        Random rnd ;
         Hero theHero;
 
 
         private List<Enemy> enemies;
-        Timer enemyTimer;
+        Timer newEnemyTimer;
 
         public EnemyManager(Hero currentHero)
         {
             theHero = currentHero;
             enemies = new List<Enemy>();
-            rnd = new Random();
-            enemyTimer = new Timer(5.0f);
+            newEnemyTimer = new Timer(7);
         }
 
         public void update()
@@ -36,26 +34,27 @@ namespace Dyehard
 
             if (Environment.Speed != 0)
             {
-                enemyTimer.update();
+                newEnemyTimer.update();
             }
             
-            if (enemyTimer.isDone())
+            if (newEnemyTimer.isDone())
             {
-                Vector2 enemyAppearPosition = new Vector2(Game.rightEdge() + 10f, Game.topEdge() - rnd.Next(0,20));
-                int caseSwitch = rnd.Next(0,3);
-                switch (caseSwitch)
+                Vector2 enemyAppearPosition = new Vector2(Game.rightEdge() + 10f, Game.topEdge() - XNACS1Base.RandomFloat(5,20));
+                
+                switch (XNACS1Base.RandomInt(0,3))
                 {
                     case 1:
-                        enemies.Add(new BrainRobot(enemyAppearPosition, 5, 5, theHero));
+                        enemies.Add(new BrainRobot(enemyAppearPosition, 3.25f, 6, theHero));
                         break;
                     case 2:
-                        enemies.Add(new WhiteRobot(enemyAppearPosition, 5, 5, theHero));
+                        enemies.Add(new WhiteRobot(enemyAppearPosition, 4.14f, 6, theHero));
                         break;
                     default:
-                        enemies.Add(new BlackRobot(enemyAppearPosition, 5, 5, theHero));
+                        enemies.Add(new BlackRobot(enemyAppearPosition, 3.6f, 6, theHero));
                         break;
                 }
-                enemyTimer.reset();
+
+                newEnemyTimer.reset();
             }
 
             if (enemies != null && enemies.Count > 0)

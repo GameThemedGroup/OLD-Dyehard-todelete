@@ -50,6 +50,11 @@ namespace Dyehard
             return position.Color;
         }
 
+        public void setTexture(string resourceName)
+        {
+            position.Texture = resourceName;
+        }
+
         public void setLabel(string label)
         {
             position.Label = label;

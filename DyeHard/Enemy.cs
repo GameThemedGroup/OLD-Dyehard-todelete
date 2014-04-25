@@ -11,32 +11,30 @@ namespace Dyehard
      class Enemy : Character
     {
         protected Hero hero;
-        //protected float moveSpeed = 0.5f;
         protected int movementType;
         public bool isRemoved;
         
 
-        public Enemy(Vector2 center, int width, int height, Hero currentHero)
-            : base(center, 5, 5)
+        public Enemy(Vector2 center, float width, float height, Hero hero)
+            : base(center, width, height)
         {
-            this.getPosition().Texture = "Robot3";
-            hero = currentHero;
+            this.hero = hero;
             movementType = 1;
             isRemoved = false;
             setColor(Game.randomColor());
-            
         }
 
         public void chaseHero()
         {
-            float playerCenterX = hero.getPosition().CenterX;
-            float playerCenterY = hero.getPosition().CenterY;
-
-            XNACS1Rectangle heroPosition = hero.getPosition();
-
-                position.Velocity = Environment.Speed * (heroPosition.Center - position.Center) / 100f;
-
- 
+            if (Environment.Speed != 0)
+            {
+                Vector2 direction = Vector2.Normalize(hero.getPosition().Center - position.Center);
+                position.Velocity = (direction * 0.15f);
+            }
+            else
+            {
+                position.Velocity = new Vector2();
+            }
         }
          
 
