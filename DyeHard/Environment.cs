@@ -126,7 +126,7 @@ namespace Dyehard
             if (timer.isDone())
             {
                 timer.reset();
-                SpeedReference += 0.05f;
+                SpeedReference += 0.01f;
             }
         }
 
