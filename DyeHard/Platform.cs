@@ -9,13 +9,13 @@ namespace Dyehard
 {
     class Platform
     {
-        private const int SEGMENT_COUNT = 3;
+        private const int SEGMENT_COUNT = 20;
         public static float height = 1.2f;
         private Hero hero;
         private List<Enemy> enemies;
         private List<Obstacle> obstacles;
 
-        public Platform(int offset, Hero hero, List<Enemy> enemies, float leftEdge)
+        public Platform(int offset, Hero hero, List<Enemy> enemies, float leftEdge, bool continuous = false)
         {
             this.hero = hero;
             this.enemies = enemies;
@@ -23,14 +23,37 @@ namespace Dyehard
             // set up platform
 ;
             float Ypos = ((offset * 1f) / Stargate.GATE_COUNT) * Game.topEdge();
-            
-            float width = Stargate.width / ((SEGMENT_COUNT * 2) - 1);
 
-            for (int i = 0; i < (SEGMENT_COUNT * 2); i += 2)
+
+            if (continuous)
             {
-                float Xpos = (width * 0.5f) + leftEdge + (i * width);
-                Obstacle obstacle = new Obstacle(hero, enemies, new Vector2(Xpos, Ypos), width, height);
+                float Xpos = leftEdge + (Stargate.width / 2);
+                Obstacle obstacle = new Obstacle(hero, enemies, new Vector2(Xpos, Ypos), Stargate.width, height);
                 obstacles.Add(obstacle);
+            }
+            else
+            {
+                // randomly fill platform
+                float width = Stargate.width / SEGMENT_COUNT;
+                Obstacle obstacle;
+                int consecutiveChance = 10;
+                bool platform = true;
+                for (int i = 0; i < SEGMENT_COUNT; i++)
+                {
+
+                    if (platform)
+                    {
+                        float Xpos = (width * 0.5f) + leftEdge + (i * width);
+                        obstacle = new Obstacle(hero, enemies, new Vector2(Xpos, Ypos), width, height);
+                        obstacles.Add(obstacle);
+                    }
+
+                    consecutiveChance -= 2;
+                    if (XNACS1Base.RandomInt(consecutiveChance) == 0) {
+                        platform = !platform;
+                        consecutiveChance = 10;    
+                    }   
+                }
             }
         }
 

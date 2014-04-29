@@ -11,7 +11,7 @@ namespace Dyehard
     class PowerUp
     {
         protected Hero hero;
-        protected XNACS1Circle circle;
+        protected XNACS1Rectangle box;
 
         public PowerUp(Hero hero, float minX, float maxX, Color color)
         {
@@ -21,38 +21,46 @@ namespace Dyehard
 
             float randomX = XNACS1Base.RandomFloat(minX + padding, maxX - padding);
             float randomY = XNACS1Base.RandomFloat(Game.bottomEdge() + padding, Game.topEdge() - padding);
-            this.circle = new XNACS1Circle(new Vector2(randomX, randomY), 2.5f);
-            this.circle.Color = color;
-            this.circle.Label = "+";
+            this.box = new XNACS1Rectangle(new Vector2(randomX, randomY), 3.46f, 4f);
+            this.box.Color = color;
+
+            this.box.Texture = getTexture(color);
         }
 
         ~PowerUp()
         {
-            circle.RemoveFromAutoDrawSet();
+            box.RemoveFromAutoDrawSet();
         }
 
         public void move()
         {
-            circle.CenterX -= Environment.Speed;
+            box.CenterX -= Environment.Speed;
         }
 
         public virtual void interact()
         {
-            if (circle.Collided(hero.getPosition()) && circle.Visible)
+            if (box.Collided(hero.getPosition()) && box.Visible)
             {
                 hero.collect(this);
-                hero.setColor(circle.Color);
-                circle.Visible = false;
+                hero.setColor(box.Color);
+                box.Visible = false;
             }
         }
 
         public void draw()
         {
-            circle.TopOfAutoDrawSet();
+            box.TopOfAutoDrawSet();
         }
 
-        public virtual void update()
+        private static String getTexture(Color color)
         {
+            if (color == Game.Green) return "Dye_Green";
+            if (color == Game.Blue) return "Dye_Blue";
+            if (color == Game.Yellow) return "Dye_Yellow";
+            if (color == Game.Teal) return "Dye_Teal";
+            if (color == Game.Pink) return "Dye_Pink";
+            if (color == Game.Red) return "Dye_Red";
+            return "";
         }
     }
 }

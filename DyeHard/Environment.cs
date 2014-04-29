@@ -10,7 +10,7 @@ namespace Dyehard
 {
     class Environment
     {
-        private const float START_SPEED = 0.3f;
+        private const float START_SPEED = 0.25f;
 
         public static float Speed;
         private float SpeedReference;
@@ -35,8 +35,8 @@ namespace Dyehard
             this.onscreen = new Queue<EnvironmentElement>();
             this.upcoming = new Queue<EnvironmentElement>();
 
-            //charles
-            hero.setEmenyManagerForTheWeaponInYourHand(eManager);
+            // set the enemy manager for the weapon
+            hero.setEnemies(eManager.getEnemies());
 
             // first element on screen
             this.onscreen.Enqueue(new Space(hero, eManager.getEnemies(), Game.leftEdge()));
@@ -126,7 +126,7 @@ namespace Dyehard
             if (timer.isDone())
             {
                 timer.reset();
-                SpeedReference *= 1.1f;
+                SpeedReference += 0.05f;
             }
         }
 

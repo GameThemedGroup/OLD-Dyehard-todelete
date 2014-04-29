@@ -13,6 +13,8 @@ namespace Dyehard
 {
     public class Game : XNACS1Base
     {
+        private static bool FULLSCREEN = true;
+
         private enum State
         {
             BEGIN,
@@ -23,7 +25,7 @@ namespace Dyehard
 
         // screen objects
         private Background background;
-        private Window startScreen;
+        private Screen startScreen;
         private Window pauseScreen;
         private Window deathScreen;
 
@@ -43,34 +45,46 @@ namespace Dyehard
                                         "Pause game:          'A'\n" +
                                         "Quit game:          'ESC'\n" + 
                                         "Stop the world:       'W'";
+        
+        // constructor
         public Game() {
-
         }
 
+        // Initialize the game world
         protected override void InitializeWorld()
         {
-            SetAppWindowPixelDimension(true, 1280, 720);
+            SetAppWindowPixelDimension(FULLSCREEN, 1280, 720);
             World.SetWorldCoordinate(new Vector2(0f, 0f), 100f);
 
             preloadTexturedObjects();
             
             background = new Background();
-            startScreen = new Window("DYEHARD\n'A' to begin." + controls);
+            startScreen = new Screen("Press 'A' to begin." + controls);
             pauseScreen = new Window("Paused.\nResume game:    'A'\nRestart game:     'Q'" + controls);
             deathScreen = new Window("YOU HAVE DIED...\n\n'A' to continue.");
             initializeObjects();
         }
 
+        // preload any game objects that have textures
         private static void preloadTexturedObjects()
         {
             // dont save references to any preloaded objects
+            Hero preload = new Hero();
 
-            new BrainRobot(new Vector2(-100f, -100f), 0, 0, null);
-            new WhiteRobot(new Vector2(-100f, -100f), 0, 0, null);
-            new BlackRobot(new Vector2(-100f, -100f), 0, 0, null);
+            new BrainRobot(new Vector2(-100f, -100f), 0, 0, preload);
+            new WhiteRobot(new Vector2(-100f, -100f), 0, 0, preload);
+            new BlackRobot(new Vector2(-100f, -100f), 0, 0, preload);
+
+            new PowerUp(preload, -200f, -100f, Blue);
+            new PowerUp(preload, -200f, -100f, Green);
+            new PowerUp(preload, -200f, -100f, Yellow);
+            new PowerUp(preload, -200f, -100f, Red);
+            new PowerUp(preload, -200f, -100f, Pink);
+            new PowerUp(preload, -200f, -100f, Teal);
         }
 
 
+        // initialize the objects for a new game
         private void initializeObjects()
         {
             state = State.BEGIN;
@@ -84,7 +98,6 @@ namespace Dyehard
 
         protected override void UpdateWorld()
         {
-
             checkControl();
             background.update();
 
@@ -226,14 +239,21 @@ namespace Dyehard
         {
             switch (choice)
             {
-                case 0: return new Color(50, 75, 150);
-                case 1: return Color.Green;
-                case 2: return Color.Red;
-                case 3: return Color.Yellow;
-                case 4: return new Color(90, 184, 186);
-                case 5: return new Color(215, 59, 148);
+                case 0: return Green;
+                case 1: return Red;
+                case 2: return Yellow;
+                case 3: return Teal;
+                case 4: return Pink;
+                case 5: return Blue;
             }
             return Color.Black;
         }
+
+        public static Color Green = new Color(38, 153, 70);
+        public static Color Red = new Color(193, 24, 30);
+        public static Color Yellow = new Color(228, 225, 21);
+        public static Color Teal = new Color(90, 184, 186);
+        public static Color Pink = new Color(215, 59, 148);
+        public static Color Blue = new Color(50, 75, 150);
     }
 }

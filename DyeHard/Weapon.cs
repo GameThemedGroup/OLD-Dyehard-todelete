@@ -13,14 +13,12 @@ namespace Dyehard
         private static float bulletSize = 1f;
         private Hero hero;
         private Queue<XNACS1Circle> bullets;
-        private Queue<XNACS1Circle> bullets2;
-        private EnemyManager eManager;
+        private List<Enemy> enemies;
 
         public Weapon(Hero hero)
         {
             this.hero = hero;
             bullets = new Queue<XNACS1Circle>();
-            bullets2 = new Queue<XNACS1Circle>();
         }
 
         ~Weapon()
@@ -49,7 +47,7 @@ namespace Dyehard
 
             foreach (XNACS1Circle b in bullets)
             {
-                foreach (Enemy e in eManager.getEnemies())
+                foreach (Enemy e in enemies)
                 {
                     if (e.getPosition().Collided(b) && b.Visible)
                     {
@@ -77,9 +75,9 @@ namespace Dyehard
             }
         }
 
-        public void setEmenyManager(EnemyManager targetEMAnager)
+        public void setEnemies(List<Enemy> enemies)
         {
-            eManager = targetEMAnager;
+            this.enemies = enemies;
         }
     }
 }

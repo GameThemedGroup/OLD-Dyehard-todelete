@@ -7,26 +7,23 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Window
+    class Screen
     {
         private XNACS1Rectangle window;
-        private BorderBox border;
 
-        public Window(string label)
+        public Screen(string label)
         {
             float width = XNACS1Base.World.WorldMax.X;
             float height = XNACS1Base.World.WorldMax.Y;
             Vector2 center = new Vector2(width/2, height/2);
-            this.window = new XNACS1Rectangle(center, width/3, height/3);
+            this.window = new XNACS1Rectangle(center, width, height);
 
-            this.window.Color = new Color(Color.Gray, 125);
+            this.window.Texture = "StartScreen_Background";
             this.window.LabelColor = Color.White;
             this.window.Label = label;
-
-            this.border = new BorderBox(center, window.Width, window.Height, .4f, Color.DarkSlateGray);
         }
 
-        ~Window()
+        ~Screen()
         {
             window.RemoveFromAutoDrawSet();
         }
@@ -34,7 +31,6 @@ namespace Dyehard
         public void draw()
         {
             window.TopOfAutoDrawSet();
-            border.draw();
         }
 
     }

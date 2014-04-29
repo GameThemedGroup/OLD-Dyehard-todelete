@@ -88,6 +88,7 @@
     <Compile Include="Starfield.cs" />
     <Compile Include="Trail.cs" />
     <Compile Include="WhiteRobot.cs" />
+    <Compile Include="Screen.cs" />
     <Compile Include="Window.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="KeyboardDevice.cs" />
@@ -127,13 +128,31 @@
     <Content Include="Content\Resources\Audio\powerup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Resources\Textures\greendye.png">
+    <Content Include="Content\Resources\Textures\Dye_Blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Resources\Textures\Dye_Green.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Resources\Textures\BrainRobot.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Resources\Textures\BlackRobot.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Resources\Textures\Dye_Pink.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Resources\Textures\Dye_Red.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Resources\Textures\Dye_Teal.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Resources\Textures\Dye_Yellow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Resources\Textures\StartScreen_Background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Resources\Textures\WhiteRobot.png">

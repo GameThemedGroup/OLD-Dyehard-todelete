@@ -23,8 +23,8 @@ namespace Dyehard
             this.tile = new XNACS1Rectangle(position, width - gap, height); // - value to force a little gap between tiles
             this.tile.Color = Color.DimGray;
 
-            this.window = new XNACS1Rectangle(position, 3, 3);
-            this.window.Color = Color.LightGray;
+            this.window = new XNACS1Rectangle(position, 1, 1);
+            this.window.Color = Color.Gray;
         }
 
         ~ShipTile()

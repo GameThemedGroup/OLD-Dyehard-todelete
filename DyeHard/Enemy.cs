@@ -11,16 +11,13 @@ namespace Dyehard
      class Enemy : Character
     {
         protected Hero hero;
-        protected int movementType;
-        public bool isRemoved;
-        
+        protected int movementType;        
 
         public Enemy(Vector2 center, float width, float height, Hero hero)
             : base(center, width, height)
         {
             this.hero = hero;
             movementType = 1;
-            isRemoved = false;
             setColor(Game.randomColor());
         }
 
@@ -29,7 +26,7 @@ namespace Dyehard
             if (Environment.Speed != 0)
             {
                 Vector2 direction = Vector2.Normalize(hero.getPosition().Center - position.Center);
-                position.Velocity = (direction * 0.15f);
+                position.Velocity = (direction * 0.1f);
             }
             else
             {

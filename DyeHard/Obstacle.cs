@@ -27,11 +27,6 @@ namespace Dyehard
             box.RemoveFromAutoDrawSet();
         }
 
-        public void update()
-        {
-            this.box.CenterX -= Environment.Speed;
-        }
-
         public void move()
         {
             box.CenterX -= Environment.Speed;
@@ -44,6 +39,12 @@ namespace Dyehard
 
         public void interact()
         {
+            // kill the hero if it's squished at the left edge of the screen
+            if (box.Collided(hero.getPosition()) && hero.getPosition().MinBound.X <= Game.leftEdge())
+            {
+                hero.kill();
+            }
+
             // let the hero know if it is about to collide with the platform
             if (box.Collided(hero.getNextPosition()))
             {

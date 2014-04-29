@@ -9,7 +9,7 @@ namespace Dyehard
 {
     class Stargate : EnvironmentElement
     {
-        public static float width = Game.rightEdge() * 1.5f;
+        public static float width = Game.rightEdge() * 2.0f;
         public const int GATE_COUNT = 4;
         Gate[] gates;
         Platform[] platforms;
@@ -27,13 +27,14 @@ namespace Dyehard
 
             this.platforms = new Platform[GATE_COUNT + 1];
             for (int i = 0; i < this.platforms.Length; i++) {
-                this.platforms[i]  = new Platform(i, hero, enemies, leftEdge);
+                bool boundary = (i == 0) || (i == this.platforms.Length - 1);
+                this.platforms[i] = new Platform(i, hero, enemies, leftEdge, boundary);
             }
 
             float height = Game.topEdge();
             float Xposition = (width * 0.5f) + leftEdge;
             this.backdrop = new XNACS1Rectangle(new Vector2(Xposition, height/2), width, height);
-            this.backdrop.Color = new Color(Color.Black, 140);
+            this.backdrop.Color = new Color(Color.Black, 130);
         }
 
         ~Stargate()

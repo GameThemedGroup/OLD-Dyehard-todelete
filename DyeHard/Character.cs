@@ -9,7 +9,6 @@ namespace Dyehard
 {
     class Character
     {
-        private const float horizontalSpeedLimit = 1;
         private bool alive;
         protected XNACS1Rectangle position;
         private XNACS1Rectangle nextPosition;
@@ -84,7 +83,6 @@ namespace Dyehard
         public virtual void update()
         {
             interpretCollisions();
-            limitSpeed();
 
             // clamp velocity
             if (position.LowerLeft.Y <= Game.bottomEdge() && position.VelocityY < 0)
@@ -106,19 +104,6 @@ namespace Dyehard
 
             // convert velocity to actual movement
             position.Center += position.Velocity;
-        }
-
-        private void limitSpeed()
-        {
-            // clamp horizontal speed to the speed limit
-            if (position.VelocityX < 0)
-            {
-                position.VelocityX = Math.Max(position.VelocityX, -1 * horizontalSpeedLimit);
-            }
-            else
-            {
-                position.VelocityX = Math.Min(position.VelocityX, horizontalSpeedLimit);
-            }
         }
 
         public void interpretCollisions()

@@ -25,6 +25,7 @@ namespace Dyehard
 
         public void update()
         {
+            // remove any dead enemies
             enemies.RemoveAll(enemy => !enemy.isAlive());
 
             foreach (Enemy currentEnemy in enemies)
@@ -56,18 +57,6 @@ namespace Dyehard
 
                 newEnemyTimer.reset();
             }
-
-            if (enemies != null && enemies.Count > 0)
-            {
-                for (int i = enemies.Count - 1; i >= 0; i--)
-                {
-                    if (enemies[i].isRemoved == true)
-                    {
-                        enemies.RemoveAt(i);
-                    }
-                }
-            }
-
         }
 
         public void draw()
