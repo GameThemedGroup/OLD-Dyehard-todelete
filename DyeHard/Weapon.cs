@@ -9,6 +9,10 @@ namespace Dyehard
 {
     class Weapon
     {
+        HaloEmitter p;
+        Timer particleTimer;
+        Explosion testEXP;
+
         private static float bulletSpeed = 1.2f;
         private static float bulletSize = 1f;
         private Hero hero;
@@ -19,6 +23,11 @@ namespace Dyehard
         {
             this.hero = hero;
             bullets = new Queue<XNACS1Circle>();
+            particleTimer = new Timer(3);
+            p = new HaloEmitter(new Vector2(10,
+                          10), 1, 1.0f, "Particle001", Color.White, 5);
+            testEXP = new Explosion();
+
         }
 
         ~Weapon()
@@ -45,6 +54,10 @@ namespace Dyehard
                 bullets.Dequeue().RemoveFromAutoDrawSet();
             }
 
+                testEXP.draw();
+            
+            
+
             foreach (XNACS1Circle b in bullets)
             {
                 foreach (Enemy e in enemies)
@@ -52,10 +65,28 @@ namespace Dyehard
                     if (e.getPosition().Collided(b) && b.Visible)
                     {
                         e.gotShot(b.Color);
+                        p = new HaloEmitter(new Vector2(e.getPosition().CenterX,
+                          e.getPosition().CenterY), 100, 1.0f, "Particle001", e.getPosition().Color, 5);
+                        p.DrawHalo(100);
+                        
                         b.Visible = false;
+                        particleTimer.reset();
+                        testEXP.explod(e.getPosition().CenterX, e.getPosition().CenterY, e.getPosition().Color);
+                        
                     }
+                    
                 }
+                
             }
+            
+            particleTimer.update();
+            //if (!particleTimer.isDone())
+            //{
+                p.TopOfAutoDrawSet();
+              //  p.DrawHalo(10);
+           // }
+
+            
             
         }
 

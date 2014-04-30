@@ -9,6 +9,8 @@ namespace Dyehard
 {
     class Background
     {
+       
+
         private XNACS1Rectangle world;
         private Starfield foreground;
         private Starfield background;
@@ -26,6 +28,8 @@ namespace Dyehard
             this.foreground = new Starfield(0.08f, 0.02f, 4f);
             this.background = new Starfield(0.04f, 0.01f, 1f);
             this.ship = new InfinityShip(0.04f);
+
+            
         }
 
         public void update() {
@@ -33,6 +37,7 @@ namespace Dyehard
             background.update();
             foreground.update();
             ship.update();
+            
         }
     }
 }

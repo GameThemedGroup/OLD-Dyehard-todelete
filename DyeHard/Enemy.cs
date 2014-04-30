@@ -10,16 +10,57 @@ namespace Dyehard
 {
      class Enemy : Character
     {
+
+         protected enum EnemyState
+         {
+             BEGIN,
+             CHASEHERO,
+             PLAYING,
+             DEAD
+         };
         protected Hero hero;
-        protected int movementType;        
+        protected EnemyState enemyState;
+        Timer enemyBhaviorTimer;
+        int changeBehaviorTime = 5;
 
         public Enemy(Vector2 center, float width, float height, Hero hero)
             : base(center, width, height)
         {
             this.hero = hero;
-            movementType = 1;
             setColor(Game.randomColor());
+            enemyState = EnemyState.BEGIN;
+            enemyBhaviorTimer = new Timer(changeBehaviorTime);
         }
+
+
+        public override void update()
+        {
+            enemyBhaviorTimer.update();
+            if (enemyBhaviorTimer.isDone())
+            {
+                enemyState = EnemyState.CHASEHERO;
+            }
+
+            switch (enemyState)
+            {
+                case EnemyState.BEGIN:
+                    moveLeft();
+                    break;
+
+                case EnemyState.CHASEHERO:
+                    chaseHero();
+                    break;
+            }
+
+
+            if (this.getPosition().Collided(hero.getPosition()))
+            {
+                hero.kill();
+            }
+
+            base.update();
+        }
+
 
         public void chaseHero()
         {
@@ -33,35 +74,11 @@ namespace Dyehard
                 position.Velocity = new Vector2();
             }
         }
-         
 
-        public void floatLeft()
+
+        public void moveLeft()
         {
             position.CenterX -= Environment.Speed;
-        }
-      
-        public override void update()
-        {
-            if (movementType == 1)
-            {
-                floatLeft();
-            }
-            if (movementType == 2)
-            {
-                chaseHero();
-            }
-
-            if (this.getPosition().Collided(hero.getPosition()))
-            {
-                hero.kill();
-            }
-
-            if (getPosition().CenterX <= 0)
-            {
-                movementType = 2;
-            }
-
-            base.update();
         }
 
          public void gotShot(Color color){

@@ -22,6 +22,8 @@ namespace Dyehard
             PLAYING,
             DEAD
         };
+        //charles
+        //HaloEmitter halo;
 
         // screen objects
         private Background background;
@@ -53,7 +55,7 @@ namespace Dyehard
         // Initialize the game world
         protected override void InitializeWorld()
         {
-            SetAppWindowPixelDimension(FULLSCREEN, 1280, 720);
+            SetAppWindowPixelDimension(false, 1280, 720);
             World.SetWorldCoordinate(new Vector2(0f, 0f), 100f);
 
             preloadTexturedObjects();
@@ -63,6 +65,7 @@ namespace Dyehard
             pauseScreen = new Window("Paused.\nResume game:    'A'\nRestart game:     'Q'" + controls);
             deathScreen = new Window("YOU HAVE DIED...\n\n'A' to continue.");
             initializeObjects();
+            //halo = new HaloEmitter(new Vector2(55, 35), 150, 10.0f, "Particle001", Color.Green, 30);
         }
 
         // preload any game objects that have textures
@@ -100,7 +103,7 @@ namespace Dyehard
         {
             checkControl();
             background.update();
-
+            
             switch (state)
             {
                 case State.BEGIN:
@@ -127,6 +130,7 @@ namespace Dyehard
                     environment.draw();
                     hero.draw();
                     distanceTracker.draw();
+                   // halo.DrawHalo(100);
                     powerupTracker.draw();
                     break;
 
@@ -138,6 +142,8 @@ namespace Dyehard
                     deathScreen.draw();
                     break;
             }
+            
+            
         }
 
         private void checkControl()

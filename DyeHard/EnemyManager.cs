@@ -12,6 +12,10 @@ namespace Dyehard
     {
         Hero theHero;
 
+        float enemyAX = 100.0f;
+        float enemyARandonTop = 50.0f;
+        float enemyARandomBot = 0.00f;
+        Vector2 enemyAppearPosition;
 
         private List<Enemy> enemies;
         Timer newEnemyTimer;
@@ -33,14 +37,16 @@ namespace Dyehard
                 currentEnemy.update();
             }
 
+            // prevent generating enemy
             if (Environment.Speed != 0)
             {
                 newEnemyTimer.update();
             }
             
+            //generate new enemy
             if (newEnemyTimer.isDone())
             {
-                Vector2 enemyAppearPosition = new Vector2(Game.rightEdge() + 10f, Game.topEdge() - XNACS1Base.RandomFloat(5,20));
+                enemyAppearPosition = new Vector2(enemyAX,XNACS1Base.RandomFloat(enemyARandomBot, enemyARandonTop));
                 
                 switch (XNACS1Base.RandomInt(0,3))
                 {
