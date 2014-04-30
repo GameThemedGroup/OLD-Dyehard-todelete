@@ -8,20 +8,21 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-     class Enemy : Character
+   class Enemy : Character
     {
 
-         protected enum EnemyState
-         {
-             BEGIN,
-             CHASEHERO,
-             PLAYING,
-             DEAD
-         };
+        protected enum EnemyState
+        {
+            BEGIN,
+            CHASEHERO,
+            PLAYING,
+            DEAD
+        };
+
         protected Hero hero;
         protected EnemyState enemyState;
-        Timer enemyBhaviorTimer;
-        int changeBehaviorTime = 5;
+        Timer timer;
+        int behaviorChangeTime = 5;
 
         public Enemy(Vector2 center, float width, float height, Hero hero)
             : base(center, width, height)
@@ -29,14 +30,14 @@ namespace Dyehard
             this.hero = hero;
             setColor(Game.randomColor());
             enemyState = EnemyState.BEGIN;
-            enemyBhaviorTimer = new Timer(changeBehaviorTime);
+            timer = new Timer(behaviorChangeTime);
         }
 
 
         public override void update()
         {
-            enemyBhaviorTimer.update();
-            if (enemyBhaviorTimer.isDone())
+            timer.update();
+            if (timer.isDone())
             {
                 enemyState = EnemyState.CHASEHERO;
             }
@@ -81,8 +82,9 @@ namespace Dyehard
             position.CenterX -= Environment.Speed;
         }
 
-         public void gotShot(Color color){
-             this.setColor(color);
-         }
+
+        public void gotShot(Color color){
+            this.setColor(color);
+        }
     }
 }

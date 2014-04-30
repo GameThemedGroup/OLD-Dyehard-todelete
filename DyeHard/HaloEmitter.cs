@@ -21,8 +21,8 @@ namespace Dyehard
         float m_Radius;
         float m_Speed;
 
-        public HaloEmitter(Vector2 center, int initialParticleLife, float particleSize, string tex, Color defaultColor, float radius)
-            : base(center, initialParticleLife, particleSize, tex, defaultColor)
+        public HaloEmitter(Vector2 center, int initialParticleLife, float particleSize, Color color, float radius)
+            : base(center, initialParticleLife, particleSize, "", color)
         {
             AutoEmitEnabled = false;
             m_Radius = radius;
@@ -32,7 +32,9 @@ namespace Dyehard
         public void DrawHalo(int numParticles)
         {
             for (int i = 0; i < numParticles; i++)
+            {
                 Emit();
+            }
         }
 
         protected override void NewParticle(XNACS1Particle newParticle)

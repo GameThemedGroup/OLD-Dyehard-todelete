@@ -13,6 +13,15 @@ namespace Dyehard
 {
     public class Game : XNACS1Base
     {
+        // Dyehard Dye Colors
+        public static Color Green = new Color(38, 153, 70);
+        public static Color Red = new Color(193, 24, 30);
+        public static Color Yellow = new Color(228, 225, 21);
+        public static Color Teal = new Color(90, 184, 186);
+        public static Color Pink = new Color(215, 59, 148);
+        public static Color Blue = new Color(50, 75, 150);
+
+
         private static bool FULLSCREEN = true;
 
         private enum State
@@ -22,8 +31,6 @@ namespace Dyehard
             PLAYING,
             DEAD
         };
-        //charles
-        //HaloEmitter halo;
 
         // screen objects
         private Background background;
@@ -55,7 +62,7 @@ namespace Dyehard
         // Initialize the game world
         protected override void InitializeWorld()
         {
-            SetAppWindowPixelDimension(false, 1280, 720);
+            SetAppWindowPixelDimension(FULLSCREEN, 1280, 720);
             World.SetWorldCoordinate(new Vector2(0f, 0f), 100f);
 
             preloadTexturedObjects();
@@ -65,7 +72,6 @@ namespace Dyehard
             pauseScreen = new Window("Paused.\nResume game:    'A'\nRestart game:     'Q'" + controls);
             deathScreen = new Window("YOU HAVE DIED...\n\n'A' to continue.");
             initializeObjects();
-            //halo = new HaloEmitter(new Vector2(55, 35), 150, 10.0f, "Particle001", Color.Green, 30);
         }
 
         // preload any game objects that have textures
@@ -130,7 +136,6 @@ namespace Dyehard
                     environment.draw();
                     hero.draw();
                     distanceTracker.draw();
-                   // halo.DrawHalo(100);
                     powerupTracker.draw();
                     break;
 
@@ -215,9 +220,10 @@ namespace Dyehard
             return World.WorldMin.Y;
         }
 
-        // get a random and unique subset of the available colors
         public static List<Color> randomColorSet(int count)
         {
+            // get a random and unique subset of the available colors
+
             List<int> range = Enumerable.Range(0,6).ToList();
             List<int> sample = new List<int>();
             for (int i = 0; i < count; i++)
@@ -238,6 +244,7 @@ namespace Dyehard
 
         public static Color randomColor()
         {
+            // get a single random color
             return colorPicker(RandomInt(6));
         }
 
@@ -254,12 +261,5 @@ namespace Dyehard
             }
             return Color.Black;
         }
-
-        public static Color Green = new Color(38, 153, 70);
-        public static Color Red = new Color(193, 24, 30);
-        public static Color Yellow = new Color(228, 225, 21);
-        public static Color Teal = new Color(90, 184, 186);
-        public static Color Pink = new Color(215, 59, 148);
-        public static Color Blue = new Color(50, 75, 150);
     }
 }

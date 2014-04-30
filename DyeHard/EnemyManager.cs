@@ -12,11 +12,6 @@ namespace Dyehard
     {
         Hero theHero;
 
-        float enemyAX = 100.0f;
-        float enemyARandonTop = 50.0f;
-        float enemyARandomBot = 0.00f;
-        Vector2 enemyAppearPosition;
-
         private List<Enemy> enemies;
         Timer newEnemyTimer;
 
@@ -46,18 +41,19 @@ namespace Dyehard
             //generate new enemy
             if (newEnemyTimer.isDone())
             {
-                enemyAppearPosition = new Vector2(enemyAX,XNACS1Base.RandomFloat(enemyARandomBot, enemyARandonTop));
+                float randomY = XNACS1Base.RandomFloat(Game.topEdge() - 10, Game.bottomEdge() + 10);
+                Vector2 position = new Vector2(Game.rightEdge() + 10, randomY);
                 
                 switch (XNACS1Base.RandomInt(0,3))
                 {
                     case 1:
-                        enemies.Add(new BrainRobot(enemyAppearPosition, 3.25f, 6, theHero));
+                        enemies.Add(new BrainRobot(position, 3.25f, 6, theHero));
                         break;
                     case 2:
-                        enemies.Add(new WhiteRobot(enemyAppearPosition, 4.14f, 6, theHero));
+                        enemies.Add(new WhiteRobot(position, 4.14f, 6, theHero));
                         break;
                     default:
-                        enemies.Add(new BlackRobot(enemyAppearPosition, 3.6f, 6, theHero));
+                        enemies.Add(new BlackRobot(position, 3.6f, 6, theHero));
                         break;
                 }
 

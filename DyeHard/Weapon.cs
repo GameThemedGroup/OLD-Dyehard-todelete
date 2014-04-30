@@ -9,10 +9,7 @@ namespace Dyehard
 {
     class Weapon
     {
-        HaloEmitter p;
-        Timer particleTimer;
-        Explosion testEXP;
-
+        private HaloEmitter p;
         private static float bulletSpeed = 1.2f;
         private static float bulletSize = 1f;
         private Hero hero;
@@ -23,11 +20,7 @@ namespace Dyehard
         {
             this.hero = hero;
             bullets = new Queue<XNACS1Circle>();
-            particleTimer = new Timer(3);
-            p = new HaloEmitter(new Vector2(10,
-                          10), 1, 1.0f, "Particle001", Color.White, 5);
-            testEXP = new Explosion();
-
+            p = new HaloEmitter(new Vector2(), 50, 0.75f, Color.Transparent, 1);
         }
 
         ~Weapon()
@@ -53,8 +46,6 @@ namespace Dyehard
             {
                 bullets.Dequeue().RemoveFromAutoDrawSet();
             }
-
-                testEXP.draw();
             
             
 
@@ -65,29 +56,16 @@ namespace Dyehard
                     if (e.getPosition().Collided(b) && b.Visible)
                     {
                         e.gotShot(b.Color);
-                        p = new HaloEmitter(new Vector2(e.getPosition().CenterX,
-                          e.getPosition().CenterY), 100, 1.0f, "Particle001", e.getPosition().Color, 5);
-                        p.DrawHalo(100);
+                        p = new HaloEmitter(b.Center, 60, 0.5f, b.Color, 1.5f);
+                        p.DrawHalo(50);
                         
                         b.Visible = false;
-                        particleTimer.reset();
-                        testEXP.explod(e.getPosition().CenterX, e.getPosition().CenterY, e.getPosition().Color);
-                        
                     }
                     
                 }
                 
             }
-            
-            particleTimer.update();
-            //if (!particleTimer.isDone())
-            //{
-                p.TopOfAutoDrawSet();
-              //  p.DrawHalo(10);
-           // }
-
-            
-            
+            p.TopOfAutoDrawSet();
         }
 
         // fire the weapon
