@@ -36,6 +36,5 @@ namespace Dyehard
             window.TopOfAutoDrawSet();
             border.draw();
         }
-
     }
 }

@@ -39,10 +39,23 @@ namespace Dyehard
 
         public void interact()
         {
-            // kill the hero if it's squished at the left edge of the screen
-            if (box.Collided(hero.getPosition()) && hero.getPosition().MinBound.X <= Game.leftEdge())
+            // kill the hero if its crushed
+            XNACS1Rectangle heroPosition = hero.getPosition();
+            if (box.Collided(heroPosition))
             {
-                hero.kill();
+                // make sure box is still completely on screen
+                if (box.MinBound.X > Game.leftEdge()) {
+                    // kill hero if squished between box and left edge of game
+                    if (heroPosition.MinBound.X <= Game.leftEdge())
+                    {
+                        if ((heroPosition.MinBound.Y < box.MaxBound.Y && heroPosition.MinBound.Y > box.MinBound.Y) ||
+                            (heroPosition.MaxBound.Y < box.MaxBound.Y && heroPosition.MaxBound.Y > box.MinBound.Y))
+                        {
+                            hero.kill();
+                        }
+                    }
+                }
+
             }
 
             // let the hero know if it is about to collide with the platform

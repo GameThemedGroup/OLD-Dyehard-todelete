@@ -10,15 +10,16 @@ namespace Dyehard
 {
     class Debris
     {
+        private static float size = 6f;
         private Obstacle obstacle;
 
         public Debris(Hero hero, List<Enemy> enemies, float minX, float maxX)
         {
-            float padding = hero.getPosition().Width * 3;
+            float padding = size;
 
             float randomX = XNACS1Base.RandomFloat(minX + padding, maxX - padding);
             float randomY = XNACS1Base.RandomFloat(Game.bottomEdge() + padding, Game.topEdge() - padding);
-            this.obstacle = new Obstacle(hero, enemies, new Vector2(randomX, randomY), 24f, 14f);
+            this.obstacle = new Obstacle(hero, enemies, new Vector2(randomX, randomY), size, size);
         }
 
         public void move()

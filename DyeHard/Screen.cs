@@ -9,29 +9,38 @@ namespace Dyehard
 {
     class Screen
     {
-        private XNACS1Rectangle window;
+        private XNACS1Rectangle screen;
 
         public Screen(string label)
         {
             float width = XNACS1Base.World.WorldMax.X;
             float height = XNACS1Base.World.WorldMax.Y;
             Vector2 center = new Vector2(width/2, height/2);
-            this.window = new XNACS1Rectangle(center, width, height);
+            this.screen = new XNACS1Rectangle(center, width, height);
 
-            this.window.Texture = "StartScreen_Background";
-            this.window.LabelColor = Color.White;
-            this.window.Label = label;
+            this.screen.Texture = "StartScreen_Background";
+            this.screen.LabelColor = Color.White;
+            this.screen.Label = label;
         }
 
         ~Screen()
         {
-            window.RemoveFromAutoDrawSet();
+            screen.RemoveFromAutoDrawSet();
         }
 
         public void draw()
         {
-            window.TopOfAutoDrawSet();
+            if (!screen.IsInAutoDrawSet())
+            {
+                screen.AddToAutoDrawSet();
+            }
+
+            screen.TopOfAutoDrawSet();
         }
 
+        public void remove()
+        {
+            screen.RemoveFromAutoDrawSet();
+        }
     }
 }

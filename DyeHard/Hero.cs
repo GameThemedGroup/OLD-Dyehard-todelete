@@ -15,6 +15,7 @@ namespace Dyehard
         private Weapon weapon;
         private List<PowerUp> powerups;
         private Obstacle boundary;
+        private const float boundaryLimit = 0.85f; // percentage of screen
 
         public Hero()
             : base(new Vector2(Game.rightEdge() / 3, Game.topEdge() / 2), 5f, 5f)
@@ -24,15 +25,36 @@ namespace Dyehard
             this.weapon = new Weapon(this);
             
             // set the maximum boundary for the hero
-            Vector2 center = new Vector2(7 * Game.rightEdge() / 8, Game.topEdge() / 2);
+            float width = (1 - boundaryLimit) * Game.rightEdge();
+            float boundaryX = Game.rightEdge() - (width / 2);
+            float boundaryY = Game.topEdge() / 2;
             // use an empty enemy list as we don't want to obstruct enemies
-            this.boundary = new Obstacle(this, new List<Enemy>(), center, Game.rightEdge() / 4, Game.topEdge());
+            this.boundary = new Obstacle(this, new List<Enemy>(), new Vector2(boundaryX, boundaryY), width, Game.topEdge());
         }
 
         public override void update()
         {
             // update character
             base.update();
+
+            // clamp velocity
+            if (position.LowerLeft.Y <= Game.bottomEdge() && position.VelocityY < 0)
+            {
+                position.VelocityY = 0f;
+            }
+            if ((position.LowerLeft.Y + position.Height) >= Game.topEdge() && position.VelocityY > 0)
+            {
+                position.VelocityY = 0f;
+            }
+            if (position.LowerLeft.X <= Game.leftEdge() && position.VelocityX < 0)
+            {
+                position.VelocityX = 0f;
+            }
+            if ((position.LowerLeft.X + position.Width) >= Game.rightEdge() && position.VelocityX > 0)
+            {
+                position.VelocityX = 0f;
+            }
+
             XNACS1Base.World.ClampAtWorldBound(position);
 
             // update weapon

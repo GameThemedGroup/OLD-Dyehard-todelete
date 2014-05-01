@@ -13,16 +13,16 @@ namespace Dyehard
 {
     public class Game : XNACS1Base
     {
+        private static bool FULLSCREEN = false;
+        
         // Dyehard Dye Colors
+        public static int colorCount = 6;
         public static Color Green = new Color(38, 153, 70);
         public static Color Red = new Color(193, 24, 30);
         public static Color Yellow = new Color(228, 225, 21);
         public static Color Teal = new Color(90, 184, 186);
         public static Color Pink = new Color(215, 59, 148);
         public static Color Blue = new Color(50, 75, 150);
-
-
-        private static bool FULLSCREEN = true;
 
         private enum State
         {
@@ -62,7 +62,7 @@ namespace Dyehard
         // Initialize the game world
         protected override void InitializeWorld()
         {
-            SetAppWindowPixelDimension(FULLSCREEN, 1280, 720);
+            SetAppWindowPixelDimension(FULLSCREEN, 1920, 1080);
             World.SetWorldCoordinate(new Vector2(0f, 0f), 100f);
 
             preloadTexturedObjects();
@@ -166,6 +166,7 @@ namespace Dyehard
                     if (KeyboardDevice.isKeyTapped(Keys.A))
                     {
                         state = State.PLAYING;
+                        startScreen.remove();
                     }
                     break;
 
@@ -224,8 +225,10 @@ namespace Dyehard
         {
             // get a random and unique subset of the available colors
 
-            List<int> range = Enumerable.Range(0,6).ToList();
+            List<int> range = Enumerable.Range(0,colorCount).ToList();
             List<int> sample = new List<int>();
+
+            // set up the indexes in the sample list
             for (int i = 0; i < count; i++)
             {
                 int choice = RandomInt(range.Count);
@@ -233,6 +236,7 @@ namespace Dyehard
                 range.RemoveAt(choice);
             }
 
+            // get the colors from the indexes in the sample list
             List<Color> colors = new List<Color>();
             foreach (int i in sample)
             {

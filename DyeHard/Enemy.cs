@@ -68,7 +68,7 @@ namespace Dyehard
             if (Environment.Speed != 0)
             {
                 Vector2 direction = Vector2.Normalize(hero.getPosition().Center - position.Center);
-                position.Velocity = (direction * 0.1f);
+                position.Velocity = (direction * 0.2f);
             }
             else
             {
@@ -79,7 +79,7 @@ namespace Dyehard
 
         public void moveLeft()
         {
-            position.CenterX -= Environment.Speed;
+            position.CenterX -= Environment.Speed / 2;
         }
 
 

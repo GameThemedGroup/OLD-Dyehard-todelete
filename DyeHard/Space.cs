@@ -10,12 +10,13 @@ namespace Dyehard
     class Space : EnvironmentElement
     {
         public static float width = Game.rightEdge() * 4f;
-        public static int powerupCount = 6;
+        public static int powerupCount = 14;
+        public static int debrisCount = 20;
+
         private XNACS1Rectangle space;
         private Hero hero;
         private List<PowerUp> powerups;
-        private Debris debris1;
-        private Debris debris2;
+        private List<Debris> debris;
         private Trail trail;
 
         public Space(Hero hero, List<Enemy> enemies, float leftEdge) : base()
@@ -23,6 +24,7 @@ namespace Dyehard
             this.hero = hero;
 
             this.powerups = new List<PowerUp>();
+            this.debris = new List<Debris>();
             this.trail = new Trail(hero);
 
             float height = Game.topEdge();
@@ -32,18 +34,25 @@ namespace Dyehard
             this.space.Visible = false;
 
             // add powerups to space region
-            List<Color> colors = Game.randomColorSet(powerupCount);
+            List<Color> colors = Game.randomColorSet(Game.colorCount);
             float rightEdge = space.CenterX + space.Width / 2;
             float region = (rightEdge - leftEdge) / powerupCount;
             for (int i = 0; i < powerupCount; i++)
             {
                 float regionLeft = leftEdge + (i * region);
                 float regionRight = regionLeft + region;
-                powerups.Add(new PowerUp(hero, regionLeft, regionRight, colors[i]));
+                this.powerups.Add(new PowerUp(hero, regionLeft, regionRight, colors[i % Game.colorCount]));
             }
 
-            this.debris1 = new Debris(hero, enemies, leftEdge, rightEdge);
-            this.debris2 = new Debris(hero, enemies, leftEdge, rightEdge);
+            // offset the region to pad the space before the next element
+            // this makes the region slightly smaller than it actually should be otherwise
+            int offset = 1;
+            region = (rightEdge - leftEdge) / (debrisCount + offset);
+            for (int i = 0; i < debrisCount; i++) {
+                float regionLeft = leftEdge + (i * region);
+                float regionRight = regionLeft + region;
+                this.debris.Add(new Debris(hero, enemies, regionLeft, regionRight));
+            }
         }
 
         ~Space()
@@ -62,8 +71,10 @@ namespace Dyehard
                 p.move();
             }
 
-            debris1.move();
-            debris2.move();
+            foreach (Debris d in debris)
+            {
+                d.move();
+            }
         }
 
         public override void draw()
@@ -72,14 +83,15 @@ namespace Dyehard
 
             trail.draw();
 
-            debris1.draw();
-            debris2.draw();
-
             foreach (PowerUp p in powerups)
             {
                 p.draw();
             }
 
+            foreach (Debris d in debris)
+            {
+                d.draw();
+            }
         }
 
         public override void interact()
@@ -94,8 +106,10 @@ namespace Dyehard
                 trail.interact();
             }
 
-            debris1.interact();
-            debris2.interact();
+            foreach (Debris d in debris)
+            {
+                d.interact();
+            }
         }
 
         private bool contains(XNACS1Rectangle other)
