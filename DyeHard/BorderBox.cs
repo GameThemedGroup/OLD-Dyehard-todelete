@@ -13,12 +13,12 @@ namespace Dyehard
 
         public BorderBox(Vector2 center, float width, float height, float thickness, Color color)
         {
-            float drawWidth = width + thickness;
-            float drawHeight = height + thickness;
-            XNACS1Rectangle top = new XNACS1Rectangle(new Vector2(center.X, center.Y + (height / 2)), drawWidth, thickness);
-            XNACS1Rectangle bottom = new XNACS1Rectangle(new Vector2(center.X, center.Y - (height / 2)), drawWidth, thickness);
-            XNACS1Rectangle right = new XNACS1Rectangle(new Vector2(center.X + (width / 2), center.Y), thickness, drawHeight);
-            XNACS1Rectangle left = new XNACS1Rectangle(new Vector2(center.X - (width / 2), center.Y), thickness, drawHeight);
+            float drawWidth = width;
+            float drawHeight = height;
+            XNACS1Rectangle top = new XNACS1Rectangle(new Vector2(center.X, center.Y + (height / 2) - (thickness / 2)), drawWidth, thickness);
+            XNACS1Rectangle bottom = new XNACS1Rectangle(new Vector2(center.X, center.Y - (height / 2) + (thickness / 2)), drawWidth, thickness);
+            XNACS1Rectangle right = new XNACS1Rectangle(new Vector2(center.X + (width / 2) - (thickness / 2), center.Y), thickness, drawHeight);
+            XNACS1Rectangle left = new XNACS1Rectangle(new Vector2(center.X - (width / 2) + (thickness / 2), center.Y), thickness, drawHeight);
 
             this.edges = new List<XNACS1Rectangle>();
 

@@ -79,7 +79,7 @@ namespace Dyehard
 
         public void moveLeft()
         {
-            position.CenterX -= Environment.Speed / 2;
+            position.CenterX -= Environment.Speed;
         }
 
 

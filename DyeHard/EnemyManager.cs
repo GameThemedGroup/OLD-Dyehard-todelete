@@ -41,8 +41,8 @@ namespace Dyehard
             //generate new enemy
             if (newEnemyTimer.isDone())
             {
-                float randomY = XNACS1Base.RandomFloat(Game.topEdge() - 10, Game.bottomEdge() + 10);
-                Vector2 position = new Vector2(Game.rightEdge() + 10, randomY);
+                float randomY = XNACS1Base.RandomFloat(Game.topEdge() - 5, Game.bottomEdge() + 5);
+                Vector2 position = new Vector2(Game.rightEdge() + 5, randomY);
                 
                 switch (XNACS1Base.RandomInt(0,3))
                 {

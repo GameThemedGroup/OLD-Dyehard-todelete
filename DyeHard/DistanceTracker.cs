@@ -14,7 +14,6 @@ namespace Dyehard
         private float accumulatedDistance;
         private float factor;
         private XNACS1Rectangle distance;
-        private BorderBox border;
 
         public DistanceTracker(Hero hero)
         {
@@ -23,13 +22,12 @@ namespace Dyehard
             this.factor = hero.getPosition().Width;
             this.accumulatedDistance = 0.0f;
 
-            float height = 2.5f;
-            float width = 5.5f;
-            Vector2 position = new Vector2((Game.rightEdge() / 2) + width, Game.topEdge() - height);            
+            float height = Game.panelSize - 1;
+            float width = 20f;
+            Vector2 position = new Vector2((Game.rightEdge() / 2) + width, Game.topEdge() + (Game.panelSize / 2));            
             this.distance = new XNACS1Rectangle(position, width, height);
             this.distance.Color = Color.Transparent;
             this.distance.LabelColor = Color.White;
-            this.border = new BorderBox(position, width, height, .2f, Color.Red);
         }
 
         ~DistanceTracker()
@@ -44,13 +42,12 @@ namespace Dyehard
             float heroOffset = hero.getPosition().CenterX - startPoint.X;
 
             // update textbox
-            distance.Label = String.Format("{0:F1}", (accumulatedDistance + heroOffset) / factor);
+            distance.Label = ((accumulatedDistance + heroOffset) / factor).ToString("00000000.0");
         }
 
         public void draw()
         {
             distance.TopOfAutoDrawSet();
-            border.draw();
         }
 
 

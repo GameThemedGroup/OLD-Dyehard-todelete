@@ -22,8 +22,8 @@ namespace Dyehard
             this.speed = speed;
             this.stars = new Queue<XNACS1Circle>();
 
-            // pre-fill game
-            for (float i = 0; i < Game.rightEdge(); i += spacing)
+            // fill background
+            for (float i = 0; i < Background.width; i += spacing)
             {
                 stars.Enqueue(starAt(i));
             }
@@ -58,10 +58,10 @@ namespace Dyehard
 
         private float randomPosition()
         {
-            return XNACS1Base.RandomFloat(Game.topEdge());
+            return XNACS1Base.RandomFloat(Background.height);
         }
 
-        private Color randomStarColor()
+        private static Color randomStarColor()
         {
             int r = XNACS1Base.RandomInt(200, 256);
             int g = XNACS1Base.RandomInt(200, 256);

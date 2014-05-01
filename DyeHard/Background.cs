@@ -9,7 +9,8 @@ namespace Dyehard
 {
     class Background
     {
-       
+        public static float width = XNACS1Base.World.WorldMax.X;
+        public static float height = XNACS1Base.World.WorldMax.Y;
 
         private XNACS1Rectangle world;
         private Starfield foreground;
@@ -18,8 +19,6 @@ namespace Dyehard
 
         public Background()
         {
-            float width = XNACS1Base.World.WorldMax.X;
-            float height = XNACS1Base.World.WorldMax.Y;
             Vector2 center = new Vector2(width/2, height/2);
             this.world = new XNACS1Rectangle(center, width, height);
 

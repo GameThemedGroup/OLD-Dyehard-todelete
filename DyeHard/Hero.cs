@@ -34,30 +34,41 @@ namespace Dyehard
 
         public override void update()
         {
-            // update character
+            // update base character object
             base.update();
 
-            // clamp velocity
-            if (position.LowerLeft.Y <= Game.bottomEdge() && position.VelocityY < 0)
+            // clamp position and velocity to game boundaries
+            if (position.LowerLeft.Y <= Game.bottomEdge())
             {
-                position.VelocityY = 0f;
+                position.CenterY = Game.bottomEdge() + (position.Height / 2);
+                if (position.VelocityY < 0)
+                {
+                    position.VelocityY = 0f;
+                }
             }
-            if ((position.LowerLeft.Y + position.Height) >= Game.topEdge() && position.VelocityY > 0)
+            if ((position.LowerLeft.Y + position.Height) >= Game.topEdge())
             {
-                position.VelocityY = 0f;
+                position.CenterY = Game.topEdge() - (position.Height / 2);
+                if (position.VelocityY > 0) {
+                    position.VelocityY = 0f;
+                }
             }
-            if (position.LowerLeft.X <= Game.leftEdge() && position.VelocityX < 0)
+            if (position.LowerLeft.X <= Game.leftEdge())
             {
-                position.VelocityX = 0f;
+                position.CenterX = Game.leftEdge() + (position.Width / 2);
+                if (position.VelocityX < 0)
+                {
+                    position.VelocityX = 0f;
+                }
             }
-            if ((position.LowerLeft.X + position.Width) >= Game.rightEdge() && position.VelocityX > 0)
+            if ((position.LowerLeft.X + position.Width) >= Game.rightEdge())
             {
-                position.VelocityX = 0f;
+                position.CenterX = Game.rightEdge() - (position.Width / 2);
+                if (position.VelocityX > 0) {
+                    position.VelocityX = 0f;
+                }
             }
 
-            XNACS1Base.World.ClampAtWorldBound(position);
-
-            // update weapon
             weapon.update();
         }
 

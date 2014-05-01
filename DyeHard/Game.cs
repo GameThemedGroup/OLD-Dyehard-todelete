@@ -13,8 +13,8 @@ namespace Dyehard
 {
     public class Game : XNACS1Base
     {
-        private static bool FULLSCREEN = false;
-        
+        private static bool FULLSCREEN = true;
+
         // Dyehard Dye Colors
         public static int colorCount = 6;
         public static Color Green = new Color(38, 153, 70);
@@ -23,6 +23,8 @@ namespace Dyehard
         public static Color Teal = new Color(90, 184, 186);
         public static Color Pink = new Color(215, 59, 148);
         public static Color Blue = new Color(50, 75, 150);
+
+        public static float panelSize = 4f;
 
         private enum State
         {
@@ -41,8 +43,7 @@ namespace Dyehard
         // game objects
         private Player player;
         private Hero hero;
-        private DistanceTracker distanceTracker;
-        private PowerUpTracker powerupTracker;
+        private InfoPanel infoPanel;
         private Environment environment;
 
         // game state
@@ -90,6 +91,8 @@ namespace Dyehard
             new PowerUp(preload, -200f, -100f, Red);
             new PowerUp(preload, -200f, -100f, Pink);
             new PowerUp(preload, -200f, -100f, Teal);
+
+            new PowerUpMeter(0);
         }
 
 
@@ -100,8 +103,7 @@ namespace Dyehard
             hero = new Hero();
             player = new Player(hero);
             environment = new Environment(hero);
-            distanceTracker = new DistanceTracker(hero);
-            powerupTracker = new PowerUpTracker(hero);
+            infoPanel = new InfoPanel(hero);
         }
 
 
@@ -119,8 +121,7 @@ namespace Dyehard
                 case State.PAUSED:
                     environment.draw();
                     hero.draw();
-                    distanceTracker.draw();
-                    powerupTracker.draw();
+                    infoPanel.draw();
 
                     pauseScreen.draw();
                     break;
@@ -129,20 +130,17 @@ namespace Dyehard
                     player.update();
                     environment.update();
                     hero.update();
-                    distanceTracker.update();
-                    powerupTracker.update();
+                    infoPanel.update();
 
 
                     environment.draw();
                     hero.draw();
-                    distanceTracker.draw();
-                    powerupTracker.draw();
+                    infoPanel.draw();
                     break;
 
                 case State.DEAD:
                     environment.draw();
-                    distanceTracker.draw();
-                    powerupTracker.draw();
+                    infoPanel.draw();
 
                     deathScreen.draw();
                     break;
@@ -216,7 +214,7 @@ namespace Dyehard
 
         public static float topEdge()
         {
-            return World.WorldMax.Y;
+            return World.WorldMax.Y - panelSize;
         }
 
         public static float bottomEdge()
@@ -227,7 +225,7 @@ namespace Dyehard
         public static List<Color> randomColorSet(int count)
         {
             // get a random and unique subset of the available colors
-
+            
             List<int> range = Enumerable.Range(0,colorCount).ToList();
             List<int> sample = new List<int>();
 

@@ -75,8 +75,8 @@
     <Compile Include="Debris.cs" />
     <Compile Include="HaloEmitter.cs" />
     <Compile Include="InfinityShip.cs" />
+    <Compile Include="InfoPanel.cs" />
     <Compile Include="Obstacle.cs" />
-    <Compile Include="PowerUpTracker.cs" />
     <Compile Include="EnvironmentElement.cs" />
     <Compile Include="DistanceTracker.cs" />
     <Compile Include="Gate.cs" />
@@ -85,7 +85,6 @@
     <Compile Include="Game.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="ShipTile.cs" />
     <Compile Include="Starfield.cs" />
     <Compile Include="Trail.cs" />
     <Compile Include="WhiteRobot.cs" />
@@ -154,6 +153,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Resources\Textures\Particle001.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Resources\Textures\PowerUp_Box1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Resources\Textures\StartScreen_Background.png">

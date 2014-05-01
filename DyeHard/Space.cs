@@ -83,14 +83,14 @@ namespace Dyehard
 
             trail.draw();
 
-            foreach (PowerUp p in powerups)
-            {
-                p.draw();
-            }
-
             foreach (Debris d in debris)
             {
                 d.draw();
+            }
+
+            foreach (PowerUp p in powerups)
+            {
+                p.draw();
             }
         }
 
