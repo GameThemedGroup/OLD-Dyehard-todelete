@@ -10,8 +10,6 @@ namespace Dyehard
     class Window
     {
         private XNACS1Rectangle window;
-        private BorderBox border;
-
         public Window(string label)
         {
             float width = XNACS1Base.World.WorldMax.X;
@@ -22,8 +20,6 @@ namespace Dyehard
             this.window.Color = new Color(Color.Gray, 125);
             this.window.LabelColor = Color.White;
             this.window.Label = label;
-
-            this.border = new BorderBox(center, window.Width, window.Height, .4f, Color.DarkSlateGray);
         }
 
         ~Window()
@@ -33,8 +29,16 @@ namespace Dyehard
 
         public void draw()
         {
+            if (!window.IsInAutoDrawSet())
+            {
+                window.AddToAutoDrawSet();
+            }
             window.TopOfAutoDrawSet();
-            border.draw();
+        }
+
+        public void remove()
+        {
+            window.RemoveFromAutoDrawSet();
         }
     }
 }

@@ -157,7 +157,7 @@ namespace Dyehard
 
             if (KeyboardDevice.isKeyDown(Keys.Escape))
             {
-                Exit(); // allow user exit game
+                Exit();
             }
 
             switch (state)
@@ -174,10 +174,12 @@ namespace Dyehard
                     if (KeyboardDevice.isKeyTapped(Keys.A))
                     {
                         state = State.PLAYING;
+                        pauseScreen.remove();
                     }
                     if (KeyboardDevice.isKeyTapped(Keys.Q))
                     {
                         initializeObjects();
+                        pauseScreen.remove();
                     }
                     break;
 
@@ -196,6 +198,7 @@ namespace Dyehard
                     if (KeyboardDevice.isKeyTapped(Keys.A))
                     {
                         initializeObjects();
+                        deathScreen.remove();
                     }
                     break;
             }
