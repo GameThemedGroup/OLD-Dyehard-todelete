@@ -9,18 +9,19 @@ namespace Dyehard
 {
     class Weapon
     {
-        private HaloEmitter p;
+        
         private static float bulletSpeed = 1.2f;
         private static float bulletSize = 1f;
         private Hero hero;
         private Queue<XNACS1Circle> bullets;
         private List<Enemy> enemies;
+        private List<Explosion> explosions;
 
         public Weapon(Hero hero)
         {
             this.hero = hero;
             bullets = new Queue<XNACS1Circle>();
-            p = new HaloEmitter(new Vector2(), 50, 0.75f, Color.Transparent, 1);
+            explosions = new List<Explosion>();
         }
 
         ~Weapon()
@@ -29,6 +30,7 @@ namespace Dyehard
             {
                 b.RemoveFromAutoDrawSet();
             }
+
         }
 
         public void update()
@@ -56,16 +58,21 @@ namespace Dyehard
                     if (e.getPosition().Collided(b) && b.Visible)
                     {
                         e.gotShot(b.Color);
-                        p = new HaloEmitter(b.Center, 60, 0.5f, b.Color, 1.5f);
-                        p.DrawHalo(50);
-                        
                         b.Visible = false;
+                        explosions.Add(new Explosion(hero, e));
                     }
                     
                 }
                 
             }
-            p.TopOfAutoDrawSet();
+
+            foreach (Explosion e in explosions)
+            {
+                e.update();
+                e.interactEnemy(enemies);
+            }
+            explosions.RemoveAll(explosion => explosion.deletedOrNot()); 
+            
         }
 
         // fire the weapon

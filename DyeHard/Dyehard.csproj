@@ -73,6 +73,7 @@
     <Compile Include="BorderBox.cs" />
     <Compile Include="BrainRobot.cs" />
     <Compile Include="Debris.cs" />
+    <Compile Include="Explosion.cs" />
     <Compile Include="HaloEmitter.cs" />
     <Compile Include="InfinityShip.cs" />
     <Compile Include="InfoPanel.cs" />
