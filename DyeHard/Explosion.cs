@@ -12,7 +12,7 @@ namespace Dyehard
     
     class Explosion
     {
-        private float explosionRadius = 3.0f;
+        private float explosionRadius = 2.5f;
         private HaloEmitter p;
         protected XNACS1Circle position;
         Timer timer;
@@ -23,11 +23,12 @@ namespace Dyehard
         {
             isDelete = false;
             position = new XNACS1Circle(e.getPosition().Center, explosionRadius);
-            p = new HaloEmitter(e.getPosition().Center, 30, 1, h.getColor(), 2);
-            p.DrawHalo(10);
+            p = new HaloEmitter(e.getPosition().Center, 30, 0.7f, h.getColor(), 2);
+            p.DrawHalo(20);
             timer = new Timer(explosionExistTime);
             position.Color = h.getColor();
             position.Label = "Boom";
+            position.Visible = false;
         }
 
         public void update()

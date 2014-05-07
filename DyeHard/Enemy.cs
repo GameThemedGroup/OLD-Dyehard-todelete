@@ -68,7 +68,7 @@ namespace Dyehard
             if (Environment.Speed != 0)
             {
                 Vector2 direction = Vector2.Normalize(hero.getPosition().Center - position.Center);
-                position.Velocity = (direction * 0.2f);
+                position.Velocity = (direction * 0.15f);
             }
             else
             {

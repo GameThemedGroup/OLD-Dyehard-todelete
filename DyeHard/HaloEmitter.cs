@@ -22,7 +22,7 @@ namespace Dyehard
         float m_Speed;
 
         public HaloEmitter(Vector2 center, int initialParticleLife, float particleSize, Color color, float radius)
-            : base(center, initialParticleLife, particleSize, "", color)
+            : base(center, initialParticleLife, particleSize, "Particle001", color)
         {
             AutoEmitEnabled = false;
             m_Radius = radius;

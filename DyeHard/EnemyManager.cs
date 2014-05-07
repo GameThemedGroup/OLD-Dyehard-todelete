@@ -19,7 +19,7 @@ namespace Dyehard
         {
             theHero = currentHero;
             enemies = new List<Enemy>();
-            newEnemyTimer = new Timer(7);
+            newEnemyTimer = new Timer(12);
         }
 
         public void update()
