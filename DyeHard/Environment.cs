@@ -13,6 +13,8 @@ namespace Dyehard
         private const float START_SPEED = 0.2f;
 
         public static float Speed;
+        public static Vector2 Gravity = new Vector2(0, -0.02f);
+
         private float SpeedReference;
         private bool stop;
         private Timer timer;

@@ -71,7 +71,8 @@ namespace Dyehard
                 e.update();
                 e.interactEnemy(enemies);
             }
-            explosions.RemoveAll(explosion => explosion.deletedOrNot()); 
+
+            explosions.RemoveAll(explosion => explosion.isDone()); 
             
         }
 

@@ -11,7 +11,7 @@ namespace Dyehard
     {
         private Color color;
         private XNACS1Rectangle path;
-        private XNACS1Rectangle gate;
+        private XNACS1Rectangle deathGate;
         private XNACS1Rectangle preview;
         private Hero hero;
         private List<Enemy> enemies;
@@ -31,9 +31,10 @@ namespace Dyehard
             this.path = new XNACS1Rectangle(new Vector2(position, drawOffset), Stargate.width, drawHeight - (Platform.height * 2));
             this.path.Color = new Color(color, 100);
 
-            this.gate = new XNACS1Rectangle(new Vector2(leftEdge + 0.25f, path.CenterY), 0.5f, path.Height);
-            this.gate.Color = Color.Maroon;
-            gate.Visible = false;
+            // gate is slightly set back from left edge to avoid killing when adjacent but not overlapping
+            this.deathGate = new XNACS1Rectangle(new Vector2(leftEdge + 0.3f, path.CenterY), 0.5f, path.Height);
+            this.deathGate.Color = Color.Maroon;
+            deathGate.Visible = false;
 
             this.preview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 4f, 0f);
             this.preview.Color = this.path.Color;
@@ -43,14 +44,14 @@ namespace Dyehard
         ~Gate()
         {
             path.RemoveFromAutoDrawSet();
-            gate.RemoveFromAutoDrawSet();
+            deathGate.RemoveFromAutoDrawSet();
             preview.RemoveFromAutoDrawSet();
         }
 
         public void move()
         {
             path.CenterX -= Environment.Speed;
-            gate.CenterX -= Environment.Speed;
+            deathGate.CenterX -= Environment.Speed;
             preview.Visible = path.LowerLeft.X > (preview.LowerLeft.X + preview.Width) && (Game.rightEdge() + (Space.width * 0.7f)) > path.LowerLeft.X;
             if (preview.Visible)
             {
@@ -62,20 +63,20 @@ namespace Dyehard
         {
             preview.TopOfAutoDrawSet();
             path.TopOfAutoDrawSet();
-            gate.TopOfAutoDrawSet();
+            deathGate.TopOfAutoDrawSet();
         }
 
         public void interact()
         {
 
-            if (hero.getColor() != color && gate.Collided(hero.getPosition()))
+            if (hero.getColor() != color && deathGate.Collided(hero.getPosition()))
             {
                 hero.kill();
             }
 
             foreach (Enemy e in enemies)
             {
-                if (e.getColor() != color && gate.Collided(e.getPosition()))
+                if (e.getColor() != color && deathGate.Collided(e.getPosition()))
                 {
                     e.kill();
                 }

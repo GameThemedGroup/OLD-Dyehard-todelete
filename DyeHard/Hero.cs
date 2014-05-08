@@ -11,7 +11,6 @@ namespace Dyehard
     {
         private const float horizontalSpeedLimit = 0.8f;
         private static float drag = 0.96f;  // smaller number means more reduction
-        private Vector2 gravity = new Vector2(0, -0.02f);
         private Weapon weapon;
         private List<PowerUp> powerups;
         private Obstacle boundary;
@@ -100,7 +99,7 @@ namespace Dyehard
             }
 
             // update velocity
-            position.Velocity = (position.Velocity + direction + gravity) * drag;
+            position.Velocity = (position.Velocity + direction + Environment.Gravity) * drag;
 
             if (position.VelocityX < 0)
             {

@@ -79,20 +79,22 @@ namespace Dyehard
         private static void preloadTexturedObjects()
         {
             // dont save references to any preloaded objects
-            Hero preload = new Hero();
+            Hero preloadHero = new Hero();
 
-            new BrainRobot(new Vector2(-100f, -100f), 0, 0, preload);
-            new WhiteRobot(new Vector2(-100f, -100f), 0, 0, preload);
-            new BlackRobot(new Vector2(-100f, -100f), 0, 0, preload);
+            Enemy preloadEnemy = new BrainRobot(new Vector2(-100f, -100f), 0, 0, preloadHero);
+            new WhiteRobot(new Vector2(-100f, -100f), 0, 0, preloadHero);
+            new BlackRobot(new Vector2(-100f, -100f), 0, 0, preloadHero);
 
-            new PowerUp(preload, -200f, -100f, Blue);
-            new PowerUp(preload, -200f, -100f, Green);
-            new PowerUp(preload, -200f, -100f, Yellow);
-            new PowerUp(preload, -200f, -100f, Red);
-            new PowerUp(preload, -200f, -100f, Pink);
-            new PowerUp(preload, -200f, -100f, Teal);
+            new PowerUp(preloadHero, -200f, -100f, Blue);
+            new PowerUp(preloadHero, -200f, -100f, Green);
+            new PowerUp(preloadHero, -200f, -100f, Yellow);
+            new PowerUp(preloadHero, -200f, -100f, Red);
+            new PowerUp(preloadHero, -200f, -100f, Pink);
+            new PowerUp(preloadHero, -200f, -100f, Teal);
 
             new PowerUpMeter(0);
+
+            new Explosion(preloadHero, preloadEnemy);
         }
 
 
