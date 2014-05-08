@@ -11,8 +11,8 @@ namespace Dyehard
     {
         public static float width = Game.rightEdge() * 2.0f;
         public const int GATE_COUNT = 4;
-        Gate[] gates;
-        Platform[] platforms;
+        private Gate[] gates;
+        private Platform[] platforms;
         private XNACS1Rectangle backdrop;
         
         public Stargate(Hero hero, List<Enemy> enemies, float leftEdge) : base()

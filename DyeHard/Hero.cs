@@ -13,61 +13,53 @@ namespace Dyehard
         private static float drag = 0.96f;  // smaller number means more reduction
         private Weapon weapon;
         private List<PowerUp> powerups;
-        private Obstacle boundary;
-        private const float boundaryLimit = 0.85f; // percentage of screen
+        private List<Obstacle> boundaries;
+        private const float rightBoundaryLimit = 0.85f; // percentage of screen
 
         public Hero()
             : base(new Vector2(Game.rightEdge() / 3, Game.topEdge() / 2), 5f, 5f)
         {
             base.setLabel("Dye");
             this.powerups = new List<PowerUp>();
+            this.boundaries = new List<Obstacle>();
             this.weapon = new Weapon(this);
-            
-            // set the maximum boundary for the hero
-            float width = (1 - boundaryLimit) * Game.rightEdge();
+
+            setUpBoundaries();
+        }
+
+        private void setUpBoundaries()
+        {
+            // determine the maximum horizontal boundary for the hero
+            List<Enemy> emptyList = new List<Enemy>();
+            float width = (1 - rightBoundaryLimit) * Game.rightEdge();
             float boundaryX = Game.rightEdge() - (width / 2);
             float boundaryY = Game.topEdge() / 2;
-            // use an empty enemy list as we don't want to obstruct enemies
-            this.boundary = new Obstacle(this, new List<Enemy>(), new Vector2(boundaryX, boundaryY), width, Game.topEdge());
+            Obstacle boundary = new Obstacle(this, emptyList, new Vector2(boundaryX, boundaryY), width, Game.topEdge());
+            boundaries.Add(boundary);
+
+            // determine minumum vertical and horizontal, and maximum vertical boundaries for hero
+            float screenCenterX = (Game.rightEdge() - Game.leftEdge()) / 2;
+            float screenCenterY = (Game.topEdge() - Game.bottomEdge()) / 2;
+            boundary = new Obstacle(this, emptyList, new Vector2(screenCenterX, Game.bottomEdge() - screenCenterY), screenCenterX * 2, screenCenterY * 2);
+            boundaries.Add(boundary);
+            boundary = new Obstacle(this, emptyList, new Vector2(screenCenterX, Game.topEdge() + screenCenterY), screenCenterX * 2, screenCenterY * 2);
+            boundaries.Add(boundary);
+            boundary = new Obstacle(this, emptyList, new Vector2(Game.leftEdge() - screenCenterX, screenCenterY), screenCenterX * 2, screenCenterY * 2);
+            boundaries.Add(boundary);
         }
 
         public override void update()
         {
-            // update base character object
+            // restrict the hero's movement to the boundary
+            foreach (Obstacle b in boundaries)
+            {
+                b.interact();
+            }
+
+            // update base character object (collisions, etc.)
             base.update();
 
-            // clamp position and velocity to game boundaries
-            if (position.LowerLeft.Y <= Game.bottomEdge())
-            {
-                position.CenterY = Game.bottomEdge() + (position.Height / 2);
-                if (position.VelocityY < 0)
-                {
-                    position.VelocityY = 0f;
-                }
-            }
-            if ((position.LowerLeft.Y + position.Height) >= Game.topEdge())
-            {
-                position.CenterY = Game.topEdge() - (position.Height / 2);
-                if (position.VelocityY > 0) {
-                    position.VelocityY = 0f;
-                }
-            }
-            if (position.LowerLeft.X <= Game.leftEdge())
-            {
-                position.CenterX = Game.leftEdge() + (position.Width / 2);
-                if (position.VelocityX < 0)
-                {
-                    position.VelocityX = 0f;
-                }
-            }
-            if ((position.LowerLeft.X + position.Width) >= Game.rightEdge())
-            {
-                position.CenterX = Game.rightEdge() - (position.Width / 2);
-                if (position.VelocityX > 0) {
-                    position.VelocityX = 0f;
-                }
-            }
-
+            // update the hero's weapon
             weapon.update();
         }
 
@@ -109,9 +101,6 @@ namespace Dyehard
             {
                 position.VelocityX = Math.Min(position.VelocityX, horizontalSpeedLimit);
             }
-
-            // restrict the hero's movement to the boundary
-            boundary.interact();
         }
 
         public void setEnemies(List<Enemy> enemies)

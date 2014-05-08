@@ -21,7 +21,7 @@ namespace Dyehard
             this.character = character;
             this.trail = new Queue<Footprint>();
             this.pool = new Queue<Footprint>();
-            this.timer = new Timer(0.15f);
+            this.timer = new Timer(0.2f);
         }
 
         public void draw()
