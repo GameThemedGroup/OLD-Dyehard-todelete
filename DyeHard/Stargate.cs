@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Stargate : EnvironmentElement
+    class Stargate : Environment
     {
         public static float width = Game.rightEdge() * 2.0f;
         public const int GATE_COUNT = 4;
@@ -18,7 +18,7 @@ namespace Dyehard
         public Stargate(Hero hero, List<Enemy> enemies, float leftEdge) : base()
         {
 
-            List<Color> colors = Game.randomColorSet(GATE_COUNT);
+            List<Color> colors = GameWorld.randomColorSet(GATE_COUNT);
             this.gates = new Gate[GATE_COUNT];
             for (int i = 0; i < this.gates.Length; i++)
             {
@@ -44,7 +44,7 @@ namespace Dyehard
 
         public override void move()
         {
-            backdrop.CenterX -= Environment.Speed;
+            backdrop.CenterX -= GameWorld.Speed;
 
             foreach (Gate g in gates)
             {

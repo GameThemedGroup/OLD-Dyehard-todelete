@@ -33,7 +33,7 @@ namespace Dyehard
             }
 
             // prevent generating enemy
-            if (Environment.Speed != 0)
+            if (GameWorld.Speed != 0)
             {
                 newEnemyTimer.update();
             }

@@ -28,7 +28,7 @@ namespace Dyehard
             : base(center, width, height)
         {
             this.hero = hero;
-            setColor(Game.randomColor());
+            setColor(GameWorld.randomColor());
             enemyState = EnemyState.BEGIN;
             timer = new Timer(behaviorChangeTime);
         }
@@ -65,7 +65,7 @@ namespace Dyehard
 
         public void chaseHero()
         {
-            if (Environment.Speed != 0)
+            if (GameWorld.Speed != 0)
             {
                 Vector2 direction = Vector2.Normalize(hero.getPosition().Center - position.Center);
                 position.Velocity = (direction * 0.15f);
@@ -79,7 +79,7 @@ namespace Dyehard
 
         public void moveLeft()
         {
-            position.CenterX -= Environment.Speed;
+            position.CenterX -= GameWorld.Speed;
         }
 
 

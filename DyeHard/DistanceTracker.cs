@@ -38,7 +38,7 @@ namespace Dyehard
         public void update()
         {
             // update distance
-            accumulatedDistance += Environment.Speed;
+            accumulatedDistance += GameWorld.Speed;
             float heroOffset = hero.getPosition().CenterX - startPoint.X;
 
             // update textbox

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Space : EnvironmentElement
+    class Space : Environment
     {
         public static float width = Game.rightEdge() * 3f;
         public static int powerupCount = 13;
@@ -34,14 +34,14 @@ namespace Dyehard
             this.space.Visible = false;
 
             // add powerups to space region
-            List<Color> colors = Game.randomColorSet(Game.colorCount);
+            List<Color> colors = GameWorld.randomColorSet(GameWorld.colorCount);
             float rightEdge = space.CenterX + space.Width / 2;
             float region = (rightEdge - leftEdge) / powerupCount;
             for (int i = 0; i < powerupCount; i++)
             {
                 float regionLeft = leftEdge + (i * region);
                 float regionRight = regionLeft + region;
-                this.powerups.Add(new PowerUp(hero, regionLeft, regionRight, colors[i % Game.colorCount]));
+                this.powerups.Add(new PowerUp(hero, regionLeft, regionRight, colors[i % GameWorld.colorCount]));
             }
 
             // offset the region to pad the space before the next element
@@ -62,7 +62,7 @@ namespace Dyehard
 
         public override void move()
         {
-            space.CenterX -= Environment.Speed;
+            space.CenterX -= GameWorld.Speed;
 
             trail.move();
 

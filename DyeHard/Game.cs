@@ -15,14 +15,7 @@ namespace Dyehard
     {
         private static bool FULLSCREEN = true;
 
-        // Dyehard Dye Colors
-        public static int colorCount = 6;
-        public static Color Green = new Color(38, 153, 70);
-        public static Color Red = new Color(193, 24, 30);
-        public static Color Yellow = new Color(228, 225, 21);
-        public static Color Teal = new Color(90, 184, 186);
-        public static Color Pink = new Color(215, 59, 148);
-        public static Color Blue = new Color(50, 75, 150);
+
 
         public static float panelSize = 4f;
 
@@ -31,30 +24,20 @@ namespace Dyehard
             BEGIN,
             PAUSED,
             PLAYING,
-            DEAD
+            GAMEOVER
         };
 
         // screen objects
         private Background background;
         private Screen startScreen;
         private Window pauseScreen;
-        private Window deathScreen;
+        private Window gameOverScreen;
 
         // game objects
-        private Player player;
-        private Hero hero;
-        private InfoPanel infoPanel;
-        private Environment environment;
+        private GameWorld world;
 
         // game state
         private State state;
-
-        private const string controls = "\n\nControls:\n" +
-                                        "Move:        arrow keys\n" +
-                                        "Fire dye gun:          'F'\n" +
-                                        "Pause game:          'A'\n" +
-                                        "Quit game:          'ESC'\n" + 
-                                        "Stop the world:       'W'";
         
         // constructor
         public Game() {
@@ -65,49 +48,12 @@ namespace Dyehard
         {
             SetAppWindowPixelDimension(FULLSCREEN, 1920, 1080);
             World.SetWorldCoordinate(new Vector2(0f, 0f), 100f);
-
             preloadTexturedObjects();
-            
-            background = new Background();
-            startScreen = new Screen("Press 'A' to begin." + controls);
-            pauseScreen = new Window("Paused.\nResume game:    'A'\nRestart game:     'Q'" + controls);
-            deathScreen = new Window("YOU HAVE DIED...\n\n'A' to continue.");
-            initializeObjects();
-        }
+            loadControllerObjects();
 
-        // preload any game objects that have textures
-        private static void preloadTexturedObjects()
-        {
-            // dont save references to any preloaded objects
-            Hero preloadHero = new Hero();
-
-            Enemy preloadEnemy = new BrainRobot(new Vector2(-100f, -100f), 0, 0, preloadHero);
-            new WhiteRobot(new Vector2(-100f, -100f), 0, 0, preloadHero);
-            new BlackRobot(new Vector2(-100f, -100f), 0, 0, preloadHero);
-
-            new PowerUp(preloadHero, -200f, -100f, Blue);
-            new PowerUp(preloadHero, -200f, -100f, Green);
-            new PowerUp(preloadHero, -200f, -100f, Yellow);
-            new PowerUp(preloadHero, -200f, -100f, Red);
-            new PowerUp(preloadHero, -200f, -100f, Pink);
-            new PowerUp(preloadHero, -200f, -100f, Teal);
-
-            new PowerUpMeter(0);
-
-            new Explosion(preloadHero, preloadEnemy);
-        }
-
-
-        // initialize the objects for a new game
-        private void initializeObjects()
-        {
             state = State.BEGIN;
-            hero = new Hero();
-            player = new Player(hero);
-            environment = new Environment(hero);
-            infoPanel = new InfoPanel(hero);
+            world = new GameWorld();
         }
-
 
         protected override void UpdateWorld()
         {
@@ -118,37 +64,25 @@ namespace Dyehard
             {
                 case State.BEGIN:
                     startScreen.draw();
+
                     break;
 
                 case State.PAUSED:
-                    environment.draw();
-                    hero.draw();
-                    infoPanel.draw();
-
+                    world.draw();
                     pauseScreen.draw();
                     break;
 
                 case State.PLAYING:
-                    player.update();
-                    environment.update();
-                    hero.update();
-                    infoPanel.update();
+                    world.update();
+                    world.draw();
 
-
-                    environment.draw();
-                    hero.draw();
-                    infoPanel.draw();
                     break;
 
-                case State.DEAD:
-                    environment.draw();
-                    infoPanel.draw();
-
-                    deathScreen.draw();
+                case State.GAMEOVER:
+                    world.draw();
+                    gameOverScreen.draw();
                     break;
             }
-            
-            
         }
 
         private void checkControl()
@@ -178,7 +112,8 @@ namespace Dyehard
                     }
                     if (KeyboardDevice.isKeyTapped(Keys.Q))
                     {
-                        initializeObjects();
+                        state = State.BEGIN;
+                        world = new GameWorld();
                         pauseScreen.remove();
                     }
                     break;
@@ -188,17 +123,18 @@ namespace Dyehard
                     {
                         state = State.PAUSED;
                     }
-                    else if (!hero.isAlive())
+                    else if (world.gameOver())
                     {
-                        state = State.DEAD;
+                        state = State.GAMEOVER;
                     }
                     break;
 
-                case State.DEAD:
+                case State.GAMEOVER:
                     if (KeyboardDevice.isKeyTapped(Keys.A))
                     {
-                        initializeObjects();
-                        deathScreen.remove();
+                        state = State.BEGIN;
+                        world = new GameWorld();
+                        gameOverScreen.remove();
                     }
                     break;
             }
@@ -224,49 +160,48 @@ namespace Dyehard
             return World.WorldMin.Y;
         }
 
-        public static List<Color> randomColorSet(int count)
+
+        // game text
+        private const string startText = "Press 'A' to begin.";
+        private const string pauseText = "Paused.\nResume game:    'A'\nRestart game:     'Q'";
+        private const string deathText = "YOU HAVE DIED...\n\n'A' to continue.";
+        private const string controls = "\n\nControls:\n" +
+                                        "Move:        arrow keys\n" +
+                                        "Fire dye gun:          'F'\n" +
+                                        "Pause game:          'A'\n" +
+                                        "Quit game:          'ESC'\n" +
+                                        "Stop the world:       'W'";
+
+
+        // preload any game objects that have textures
+        private static void preloadTexturedObjects()
         {
-            // get a random and unique subset of the available colors
-            
-            List<int> range = Enumerable.Range(0,colorCount).ToList();
-            List<int> sample = new List<int>();
+            // dont save references to any preloaded objects
+            Hero preloadHero = new Hero();
 
-            // set up the indexes in the sample list
-            for (int i = 0; i < count; i++)
-            {
-                int choice = RandomInt(range.Count);
-                sample.Add(range.ElementAt(choice));
-                range.RemoveAt(choice);
-            }
+            Enemy preloadEnemy = new BrainRobot(new Vector2(-100f, -100f), 0, 0, preloadHero);
+            new WhiteRobot(new Vector2(-100f, -100f), 0, 0, preloadHero);
+            new BlackRobot(new Vector2(-100f, -100f), 0, 0, preloadHero);
 
-            // get the colors from the indexes in the sample list
-            List<Color> colors = new List<Color>();
-            foreach (int i in sample)
-            {
-                colors.Add(colorPicker(i));
-            }
+            new PowerUp(preloadHero, -200f, -100f, GameWorld.Blue);
+            new PowerUp(preloadHero, -200f, -100f, GameWorld.Green);
+            new PowerUp(preloadHero, -200f, -100f, GameWorld.Yellow);
+            new PowerUp(preloadHero, -200f, -100f, GameWorld.Red);
+            new PowerUp(preloadHero, -200f, -100f, GameWorld.Pink);
+            new PowerUp(preloadHero, -200f, -100f, GameWorld.Teal);
 
-            return colors;
+            new PowerUpMeter(0);
+
+            new Explosion(preloadHero, preloadEnemy);
         }
 
-        public static Color randomColor()
+        private void loadControllerObjects()
         {
-            // get a single random color
-            return colorPicker(RandomInt(6));
+            background = new Background();
+            startScreen = new Screen(startText + controls);
+            pauseScreen = new Window(pauseText + controls);
+            gameOverScreen = new Window(deathText);
         }
 
-        private static Color colorPicker(int choice)
-        {
-            switch (choice)
-            {
-                case 0: return Green;
-                case 1: return Red;
-                case 2: return Yellow;
-                case 3: return Teal;
-                case 4: return Pink;
-                case 5: return Blue;
-            }
-            return Color.Black;
-        }
     }
 }

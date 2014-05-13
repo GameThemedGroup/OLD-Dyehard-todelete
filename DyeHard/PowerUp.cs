@@ -34,7 +34,7 @@ namespace Dyehard
 
         public void move()
         {
-            box.CenterX -= Environment.Speed;
+            box.CenterX -= GameWorld.Speed;
         }
 
         public virtual void interact()
@@ -54,12 +54,12 @@ namespace Dyehard
 
         private static String getTexture(Color color)
         {
-            if (color == Game.Green) return "Dye_Green";
-            if (color == Game.Blue) return "Dye_Blue";
-            if (color == Game.Yellow) return "Dye_Yellow";
-            if (color == Game.Teal) return "Dye_Teal";
-            if (color == Game.Pink) return "Dye_Pink";
-            if (color == Game.Red) return "Dye_Red";
+            if (color == GameWorld.Green) return "Dye_Green";
+            if (color == GameWorld.Blue) return "Dye_Blue";
+            if (color == GameWorld.Yellow) return "Dye_Yellow";
+            if (color == GameWorld.Teal) return "Dye_Teal";
+            if (color == GameWorld.Pink) return "Dye_Pink";
+            if (color == GameWorld.Red) return "Dye_Red";
             return "";
         }
     }

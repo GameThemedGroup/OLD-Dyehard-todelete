@@ -17,7 +17,7 @@ namespace Dyehard
         public Character(Vector2 position, float width, float height)
         {
             this.position = new XNACS1Rectangle(position, width, height);
-            this.position.Color = Game.randomColor();
+            this.position.Color = GameWorld.randomColor();
             this.nextPosition = new XNACS1Rectangle(position, width, height);
             this.nextPosition.Visible = false;
 

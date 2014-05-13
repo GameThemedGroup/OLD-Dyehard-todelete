@@ -29,7 +29,7 @@ namespace Dyehard
 
         public void move()
         {
-            box.CenterX -= Environment.Speed;
+            box.CenterX -= GameWorld.Speed;
         }
 
         public void draw()

@@ -91,7 +91,7 @@ namespace Dyehard
             }
 
             // update velocity
-            position.Velocity = (position.Velocity + direction + Environment.Gravity) * drag;
+            position.Velocity = (position.Velocity + direction + GameWorld.Gravity) * drag;
 
             if (position.VelocityX < 0)
             {

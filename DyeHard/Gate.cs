@@ -50,8 +50,8 @@ namespace Dyehard
 
         public void move()
         {
-            path.CenterX -= Environment.Speed;
-            deathGate.CenterX -= Environment.Speed;
+            path.CenterX -= GameWorld.Speed;
+            deathGate.CenterX -= GameWorld.Speed;
             preview.Visible = path.LowerLeft.X > (preview.LowerLeft.X + preview.Width) && (Game.rightEdge() + (Space.width * 0.7f)) > path.LowerLeft.X;
             if (preview.Visible)
             {
