@@ -19,10 +19,10 @@ namespace Dyehard
 
         public InfoPanel(Hero hero)
         {
-            float centerY = Game.topEdge() + (Game.panelSize / 2);
-            float centerX = Game.rightEdge() / 2;
+            float centerY = GameWorld.topEdge + (GameWorld.panelSize / 2);
+            float centerX = GameWorld.rightEdge / 2;
             Vector2 center = new Vector2(centerX, centerY);
-            this.background = new XNACS1Rectangle(center, Game.rightEdge(), Game.panelSize);
+            this.background = new XNACS1Rectangle(center, GameWorld.rightEdge, GameWorld.panelSize);
             this.background.Color = new Color(Color.Black, 175);
 
 
@@ -66,12 +66,12 @@ namespace Dyehard
         public PowerUpMeter(int sequenceNumber)
         {
             float padding = 1f;
-            float height = Game.panelSize;
+            float height = GameWorld.panelSize;
             float width = height;
 
-            float offset = Game.leftEdge() + (sequenceNumber + 1) * (padding) + sequenceNumber * width + width / 2;
+            float offset = GameWorld.leftEdge + (sequenceNumber + 1) * (padding) + sequenceNumber * width + width / 2;
 
-            this.box = new XNACS1Rectangle(new Vector2(offset, Game.topEdge() + (Game.panelSize / 2)), width, height);
+            this.box = new XNACS1Rectangle(new Vector2(offset, GameWorld.topEdge + (GameWorld.panelSize / 2)), width, height);
             this.box.Texture = "PowerUp_Box1";
         }
 

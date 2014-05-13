@@ -9,7 +9,7 @@ namespace Dyehard
 {
     class Stargate : Environment
     {
-        public static float width = Game.rightEdge() * 2.0f;
+        public static float width = GameWorld.rightEdge * 2.0f;
         public const int GATE_COUNT = 4;
         private Gate[] gates;
         private Platform[] platforms;
@@ -18,7 +18,7 @@ namespace Dyehard
         public Stargate(Hero hero, List<Enemy> enemies, float leftEdge) : base()
         {
 
-            List<Color> colors = GameWorld.randomColorSet(GATE_COUNT);
+            List<Color> colors = Game.randomColorSet(GATE_COUNT);
             this.gates = new Gate[GATE_COUNT];
             for (int i = 0; i < this.gates.Length; i++)
             {
@@ -31,7 +31,7 @@ namespace Dyehard
                 this.platforms[i] = new Platform(i, hero, enemies, leftEdge, boundary);
             }
 
-            float height = Game.topEdge();
+            float height = GameWorld.topEdge;
             float Xposition = (width * 0.5f) + leftEdge;
             this.backdrop = new XNACS1Rectangle(new Vector2(Xposition, height/2), width, height);
             this.backdrop.Color = new Color(Color.Black, 130);
@@ -84,7 +84,7 @@ namespace Dyehard
 
         public override bool isOffScreen()
         {
-            return backdrop.MaxBound.X <= Game.leftEdge();
+            return backdrop.MaxBound.X <= GameWorld.leftEdge;
         }
 
         public override float rightEdge()

@@ -22,9 +22,9 @@ namespace Dyehard
             this.factor = hero.getPosition().Width;
             this.accumulatedDistance = 0.0f;
 
-            float height = Game.panelSize - 1;
+            float height = GameWorld.panelSize - 1;
             float width = 20f;
-            Vector2 position = new Vector2((Game.rightEdge() / 2) + width, Game.topEdge() + (Game.panelSize / 2));            
+            Vector2 position = new Vector2((GameWorld.rightEdge / 2) + width, GameWorld.topEdge + (GameWorld.panelSize / 2));            
             this.distance = new XNACS1Rectangle(position, width, height);
             this.distance.Color = Color.Transparent;
             this.distance.LabelColor = Color.White;

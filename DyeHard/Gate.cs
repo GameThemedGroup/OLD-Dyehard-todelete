@@ -25,7 +25,7 @@ namespace Dyehard
             // set up pipe
             float position = (Stargate.width * 0.5f) + leftEdge;
 
-            float drawHeight =  Game.topEdge() / Stargate.GATE_COUNT;
+            float drawHeight = GameWorld.topEdge / Stargate.GATE_COUNT;
             float drawOffset = drawHeight * (offset + 0.5f);
             
             this.path = new XNACS1Rectangle(new Vector2(position, drawOffset), Stargate.width, drawHeight - (Platform.height * 2));
@@ -36,7 +36,7 @@ namespace Dyehard
             this.deathGate.Color = Color.Maroon;
             deathGate.Visible = false;
 
-            this.preview = new XNACS1Rectangle(new Vector2(Game.rightEdge(), drawOffset), 4f, 0f);
+            this.preview = new XNACS1Rectangle(new Vector2(GameWorld.rightEdge, drawOffset), 4f, 0f);
             this.preview.Color = this.path.Color;
             this.preview.Visible = false;
         }
@@ -52,7 +52,7 @@ namespace Dyehard
         {
             path.CenterX -= GameWorld.Speed;
             deathGate.CenterX -= GameWorld.Speed;
-            preview.Visible = path.LowerLeft.X > (preview.LowerLeft.X + preview.Width) && (Game.rightEdge() + (Space.width * 0.7f)) > path.LowerLeft.X;
+            preview.Visible = path.LowerLeft.X > (preview.LowerLeft.X + preview.Width) && (GameWorld.rightEdge + (Space.width * 0.7f)) > path.LowerLeft.X;
             if (preview.Visible)
             {
                 preview.Height = ((path.Height + (Platform.height * 2)) * (1 - ((path.LowerLeft.X - (preview.LowerLeft.X + preview.Width)) / (Space.width * 0.7f))));

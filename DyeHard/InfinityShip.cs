@@ -19,7 +19,7 @@ namespace Dyehard
             this.shipTiles = new Queue<ShipTile>();
             this.pool = new Queue<ShipTile>();
 
-            shipTiles.Enqueue(new ShipTile(Game.rightEdge()));
+            shipTiles.Enqueue(new ShipTile(GameWorld.rightEdge));
         }
 
         public void update()
@@ -35,7 +35,7 @@ namespace Dyehard
                 pool.Enqueue(shipTiles.Dequeue());
             }
 
-            if (shipTiles.Last().rightEdge() <= Game.rightEdge())
+            if (shipTiles.Last().rightEdge() <= GameWorld.rightEdge)
             {
                 if (pool.Count > 0)
                 {
@@ -105,7 +105,7 @@ namespace Dyehard
 
         public bool isOffScreen()
         {
-            return rightEdge() < Game.leftEdge();
+            return rightEdge() < GameWorld.leftEdge;
         }
 
         public void draw()

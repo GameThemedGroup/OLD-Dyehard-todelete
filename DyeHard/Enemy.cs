@@ -28,7 +28,7 @@ namespace Dyehard
             : base(center, width, height)
         {
             this.hero = hero;
-            setColor(GameWorld.randomColor());
+            setColor(Game.randomColor());
             enemyState = EnemyState.BEGIN;
             timer = new Timer(behaviorChangeTime);
         }

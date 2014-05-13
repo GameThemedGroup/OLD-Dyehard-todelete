@@ -20,7 +20,7 @@ namespace Dyehard
             float padding = hero.getPosition().Width * 2;
 
             float randomX = XNACS1Base.RandomFloat(minX + padding, maxX - padding);
-            float randomY = XNACS1Base.RandomFloat(Game.bottomEdge() + padding, Game.topEdge() - padding);
+            float randomY = XNACS1Base.RandomFloat(GameWorld.bottomEdge + padding, GameWorld.topEdge - padding);
             this.box = new XNACS1Rectangle(new Vector2(randomX, randomY), 3.46f, 4f);
             this.box.Color = color;
 
@@ -54,12 +54,12 @@ namespace Dyehard
 
         private static String getTexture(Color color)
         {
-            if (color == GameWorld.Green) return "Dye_Green";
-            if (color == GameWorld.Blue) return "Dye_Blue";
-            if (color == GameWorld.Yellow) return "Dye_Yellow";
-            if (color == GameWorld.Teal) return "Dye_Teal";
-            if (color == GameWorld.Pink) return "Dye_Pink";
-            if (color == GameWorld.Red) return "Dye_Red";
+            if (color == Game.Green) return "Dye_Green";
+            if (color == Game.Blue) return "Dye_Blue";
+            if (color == Game.Yellow) return "Dye_Yellow";
+            if (color == Game.Teal) return "Dye_Teal";
+            if (color == Game.Pink) return "Dye_Pink";
+            if (color == Game.Red) return "Dye_Red";
             return "";
         }
     }

@@ -17,7 +17,7 @@ namespace Dyehard
         private const float rightBoundaryLimit = 0.85f; // percentage of screen
 
         public Hero()
-            : base(new Vector2(Game.rightEdge() / 3, Game.topEdge() / 2), 5f, 5f)
+            : base(new Vector2(GameWorld.rightEdge / 3, GameWorld.topEdge / 2), 5f, 5f)
         {
             base.setLabel("Dye");
             this.powerups = new List<PowerUp>();
@@ -25,27 +25,6 @@ namespace Dyehard
             this.weapon = new Weapon(this);
 
             setUpBoundaries();
-        }
-
-        private void setUpBoundaries()
-        {
-            // determine the maximum horizontal boundary for the hero
-            List<Enemy> emptyList = new List<Enemy>();
-            float width = (1 - rightBoundaryLimit) * Game.rightEdge();
-            float boundaryX = Game.rightEdge() - (width / 2);
-            float boundaryY = Game.topEdge() / 2;
-            Obstacle boundary = new Obstacle(this, emptyList, new Vector2(boundaryX, boundaryY), width, Game.topEdge());
-            boundaries.Add(boundary);
-
-            // determine minumum vertical and horizontal, and maximum vertical boundaries for hero
-            float screenCenterX = (Game.rightEdge() - Game.leftEdge()) / 2;
-            float screenCenterY = (Game.topEdge() - Game.bottomEdge()) / 2;
-            boundary = new Obstacle(this, emptyList, new Vector2(screenCenterX, Game.bottomEdge() - screenCenterY), screenCenterX * 2, screenCenterY * 2);
-            boundaries.Add(boundary);
-            boundary = new Obstacle(this, emptyList, new Vector2(screenCenterX, Game.topEdge() + screenCenterY), screenCenterX * 2, screenCenterY * 2);
-            boundaries.Add(boundary);
-            boundary = new Obstacle(this, emptyList, new Vector2(Game.leftEdge() - screenCenterX, screenCenterY), screenCenterX * 2, screenCenterY * 2);
-            boundaries.Add(boundary);
         }
 
         public override void update()
@@ -106,6 +85,27 @@ namespace Dyehard
         public void setEnemies(List<Enemy> enemies)
         {
             weapon.setEnemies(enemies);
+        }
+
+        private void setUpBoundaries()
+        {
+            // determine the maximum horizontal boundary for the hero
+            List<Enemy> emptyList = new List<Enemy>();
+            float width = (1 - rightBoundaryLimit) * GameWorld.rightEdge;
+            float boundaryX = GameWorld.rightEdge - (width / 2);
+            float boundaryY = GameWorld.topEdge / 2;
+            Obstacle boundary = new Obstacle(this, emptyList, new Vector2(boundaryX, boundaryY), width, GameWorld.topEdge);
+            boundaries.Add(boundary);
+
+            // determine minumum vertical and horizontal, and maximum vertical boundaries for hero
+            float screenCenterX = (GameWorld.rightEdge - GameWorld.leftEdge) / 2;
+            float screenCenterY = (GameWorld.topEdge - GameWorld.bottomEdge) / 2;
+            boundary = new Obstacle(this, emptyList, new Vector2(screenCenterX, GameWorld.bottomEdge - screenCenterY), screenCenterX * 2, screenCenterY * 2);
+            boundaries.Add(boundary);
+            boundary = new Obstacle(this, emptyList, new Vector2(screenCenterX, GameWorld.topEdge + screenCenterY), screenCenterX * 2, screenCenterY * 2);
+            boundaries.Add(boundary);
+            boundary = new Obstacle(this, emptyList, new Vector2(GameWorld.leftEdge - screenCenterX, screenCenterY), screenCenterX * 2, screenCenterY * 2);
+            boundaries.Add(boundary);
         }
     }
 }

@@ -44,7 +44,7 @@ namespace Dyehard
                 b.CenterX += bulletSpeed;
             }
 
-            while (bullets.Count > 0 && (bullets.First().CenterX - bullets.First().Radius) > Game.rightEdge())
+            while (bullets.Count > 0 && (bullets.First().CenterX - bullets.First().Radius) > GameWorld.rightEdge)
             {
                 bullets.Dequeue().RemoveFromAutoDrawSet();
             }

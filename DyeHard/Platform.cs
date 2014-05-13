@@ -20,10 +20,9 @@ namespace Dyehard
             this.hero = hero;
             this.enemies = enemies;
             this.obstacles = new List<Obstacle>();
-            // set up platform
-;
-            float Ypos = ((offset * 1f) / Stargate.GATE_COUNT) * Game.topEdge();
 
+            // set up platform
+            float Ypos = ((offset * 1f) / Stargate.GATE_COUNT) * GameWorld.topEdge;
 
             if (continuous)
             {

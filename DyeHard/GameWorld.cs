@@ -10,18 +10,13 @@ namespace Dyehard
 {
     class GameWorld
     {
+        public static readonly float panelSize = 4f;
+        public static readonly float rightEdge = XNACS1Base.World.WorldMax.X;
+        public static readonly float leftEdge = XNACS1Base.World.WorldMin.X;
+        public static readonly float topEdge = XNACS1Base.World.WorldMax.Y - panelSize;
+        public static readonly float bottomEdge = XNACS1Base.World.WorldMin.Y;
 
-        // Dyehard Dye Colors
-        public static int colorCount = 6;
-        public static Color Green = new Color(38, 153, 70);
-        public static Color Red = new Color(193, 24, 30);
-        public static Color Yellow = new Color(228, 225, 21);
-        public static Color Teal = new Color(90, 184, 186);
-        public static Color Pink = new Color(215, 59, 148);
-        public static Color Blue = new Color(50, 75, 150);
-
-
-        private const float START_SPEED = 0.2f;
+        private const float StartSpeed = 0.2f;
 
         public static float Speed;
         public static Vector2 Gravity = new Vector2(0, -0.02f);
@@ -46,7 +41,7 @@ namespace Dyehard
             stop = false;
             timer = new Timer(15);
 
-            SpeedReference = START_SPEED;
+            SpeedReference = StartSpeed;
             Speed = SpeedReference;
 
             
@@ -57,10 +52,10 @@ namespace Dyehard
             hero.setEnemies(eManager.getEnemies());
 
             // first element on screen
-            onscreen.Enqueue(new Space(hero, eManager.getEnemies(), Game.leftEdge()));
+            onscreen.Enqueue(new Space(hero, eManager.getEnemies(), leftEdge));
 
             // fill the rest of the exisiting screen
-            while (onscreen.Last().rightEdge() <= Game.rightEdge())
+            while (onscreen.Last().rightEdge() <= rightEdge)
             {
                 onscreen.Enqueue(nextElement(onscreen));
             }
@@ -164,7 +159,7 @@ namespace Dyehard
                 onscreen.Dequeue();
             }
 
-            if (onscreen.Last().rightEdge() <= Game.rightEdge())
+            if (onscreen.Last().rightEdge() <= rightEdge)
             {
                 // move item from upcoming to end of onscreen
                 upcoming.Enqueue(nextElement(upcoming));
@@ -187,53 +182,6 @@ namespace Dyehard
         public bool gameOver()
         {
             return !hero.isAlive();
-        }
-
-
-
-        public static List<Color> randomColorSet(int count)
-        {
-            // get a random and unique subset of the available colors
-
-            List<int> range = Enumerable.Range(0, colorCount).ToList();
-            List<int> sample = new List<int>();
-
-            // set up the indexes in the sample list
-            for (int i = 0; i < count; i++)
-            {
-                int choice = XNACS1Base.RandomInt(range.Count);
-                sample.Add(range.ElementAt(choice));
-                range.RemoveAt(choice);
-            }
-
-            // get the colors from the indexes in the sample list
-            List<Color> colors = new List<Color>();
-            foreach (int i in sample)
-            {
-                colors.Add(colorPicker(i));
-            }
-
-            return colors;
-        }
-
-        public static Color randomColor()
-        {
-            // get a single random color
-            return colorPicker(XNACS1Base.RandomInt(6));
-        }
-
-        private static Color colorPicker(int choice)
-        {
-            switch (choice)
-            {
-                case 0: return Green;
-                case 1: return Red;
-                case 2: return Yellow;
-                case 3: return Teal;
-                case 4: return Pink;
-                case 5: return Blue;
-            }
-            return Color.Black;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Dyehard
 {
     class Space : Environment
     {
-        public static float width = Game.rightEdge() * 3f;
+        public static float width = GameWorld.rightEdge * 3f;
         public static int powerupCount = 13;
         public static int debrisCount = 18;
 
@@ -27,21 +27,21 @@ namespace Dyehard
             this.debris = new List<Debris>();
             this.trail = new Trail(hero);
 
-            float height = Game.topEdge();
+            float height = GameWorld.topEdge;
             float position = (width * 0.5f) + leftEdge;
 
             this.space = new XNACS1Rectangle(new Vector2(position, height/2), width, height);
             this.space.Visible = false;
 
             // add powerups to space region
-            List<Color> colors = GameWorld.randomColorSet(GameWorld.colorCount);
+            List<Color> colors = Game.randomColorSet(Game.colorCount);
             float rightEdge = space.CenterX + space.Width / 2;
             float region = (rightEdge - leftEdge) / powerupCount;
             for (int i = 0; i < powerupCount; i++)
             {
                 float regionLeft = leftEdge + (i * region);
                 float regionRight = regionLeft + region;
-                this.powerups.Add(new PowerUp(hero, regionLeft, regionRight, colors[i % GameWorld.colorCount]));
+                this.powerups.Add(new PowerUp(hero, regionLeft, regionRight, colors[i % Game.colorCount]));
             }
 
             // offset the region to pad the space before the next element

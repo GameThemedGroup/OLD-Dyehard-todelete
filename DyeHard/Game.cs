@@ -15,9 +15,14 @@ namespace Dyehard
     {
         private static bool FULLSCREEN = true;
 
-
-
-        public static float panelSize = 4f;
+        // Dyehard Dye Colors
+        public static int colorCount = 6;
+        public static Color Green = new Color(38, 153, 70);
+        public static Color Red = new Color(193, 24, 30);
+        public static Color Yellow = new Color(228, 225, 21);
+        public static Color Teal = new Color(90, 184, 186);
+        public static Color Pink = new Color(215, 59, 148);
+        public static Color Blue = new Color(50, 75, 150);
 
         private enum State
         {
@@ -140,26 +145,50 @@ namespace Dyehard
             }
         }
 
-        public static float rightEdge()
+        public static List<Color> randomColorSet(int count)
         {
-            return World.WorldMax.X;
+            // get a random and unique subset of the available colors
+
+            List<int> range = Enumerable.Range(0, colorCount).ToList();
+            List<int> sample = new List<int>();
+
+            // set up the indexes in the sample list
+            for (int i = 0; i < count; i++)
+            {
+                int choice = XNACS1Base.RandomInt(range.Count);
+                sample.Add(range.ElementAt(choice));
+                range.RemoveAt(choice);
+            }
+
+            // get the colors from the indexes in the sample list
+            List<Color> colors = new List<Color>();
+            foreach (int i in sample)
+            {
+                colors.Add(colorPicker(i));
+            }
+
+            return colors;
         }
 
-        public static float leftEdge()
+        public static Color randomColor()
         {
-            return World.WorldMin.X;
+            // get a single random color
+            return colorPicker(XNACS1Base.RandomInt(6));
         }
 
-        public static float topEdge()
+        private static Color colorPicker(int choice)
         {
-            return World.WorldMax.Y - panelSize;
+            switch (choice)
+            {
+                case 0: return Green;
+                case 1: return Red;
+                case 2: return Yellow;
+                case 3: return Teal;
+                case 4: return Pink;
+                case 5: return Blue;
+            }
+            return Color.Black;
         }
-
-        public static float bottomEdge()
-        {
-            return World.WorldMin.Y;
-        }
-
 
         // game text
         private const string startText = "Press 'A' to begin.";
@@ -183,12 +212,12 @@ namespace Dyehard
             new WhiteRobot(new Vector2(-100f, -100f), 0, 0, preloadHero);
             new BlackRobot(new Vector2(-100f, -100f), 0, 0, preloadHero);
 
-            new PowerUp(preloadHero, -200f, -100f, GameWorld.Blue);
-            new PowerUp(preloadHero, -200f, -100f, GameWorld.Green);
-            new PowerUp(preloadHero, -200f, -100f, GameWorld.Yellow);
-            new PowerUp(preloadHero, -200f, -100f, GameWorld.Red);
-            new PowerUp(preloadHero, -200f, -100f, GameWorld.Pink);
-            new PowerUp(preloadHero, -200f, -100f, GameWorld.Teal);
+            new PowerUp(preloadHero, -200f, -100f, Blue);
+            new PowerUp(preloadHero, -200f, -100f, Green);
+            new PowerUp(preloadHero, -200f, -100f, Yellow);
+            new PowerUp(preloadHero, -200f, -100f, Red);
+            new PowerUp(preloadHero, -200f, -100f, Pink);
+            new PowerUp(preloadHero, -200f, -100f, Teal);
 
             new PowerUpMeter(0);
 

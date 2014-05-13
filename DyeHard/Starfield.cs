@@ -47,10 +47,10 @@ namespace Dyehard
             }
 
             // recycle stars to right edge of screen
-            if (stars.First().CenterX <= Game.leftEdge())
+            if (stars.First().CenterX <= GameWorld.leftEdge)
             {
                 XNACS1Circle star = stars.Dequeue();
-                star.CenterX = Game.rightEdge();
+                star.CenterX = GameWorld.rightEdge;
                 star.CenterY = randomPosition();
                 stars.Enqueue(star);
             }
