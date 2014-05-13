@@ -22,17 +22,9 @@ namespace Dyehard
             this.window.Label = label;
         }
 
-        ~Window()
-        {
-            window.RemoveFromAutoDrawSet();
-        }
-
         public void draw()
         {
-            if (!window.IsInAutoDrawSet())
-            {
-                window.AddToAutoDrawSet();
-            }
+            window.AddToAutoDrawSet();
             window.TopOfAutoDrawSet();
         }
 

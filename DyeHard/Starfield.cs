@@ -29,14 +29,6 @@ namespace Dyehard
             }
         }
 
-        ~Starfield()
-        {
-            foreach (XNACS1Circle star in stars)
-            {
-                star.RemoveFromAutoDrawSet();
-            }
-        }
-
         public void update()
         {
             // move stars, and redraw

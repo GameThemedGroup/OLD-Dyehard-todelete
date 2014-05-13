@@ -29,6 +29,8 @@ namespace Dyehard
 
         ~Character()
         {
+            position.Visible = false;
+            nextPosition.Visible = false;
             position.RemoveFromAutoDrawSet();
             nextPosition.RemoveFromAutoDrawSet();
         }

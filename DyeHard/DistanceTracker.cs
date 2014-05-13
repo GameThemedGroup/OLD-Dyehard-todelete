@@ -32,6 +32,7 @@ namespace Dyehard
 
         ~DistanceTracker()
         {
+            distance.Visible = false;
             distance.RemoveFromAutoDrawSet();
         }
 

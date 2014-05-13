@@ -88,6 +88,7 @@ namespace Dyehard
 
         ~Footprint()
         {
+            box.Visible = false;
             box.RemoveFromAutoDrawSet();
         }
 

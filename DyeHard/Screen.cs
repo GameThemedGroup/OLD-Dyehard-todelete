@@ -23,18 +23,9 @@ namespace Dyehard
             this.screen.Label = label;
         }
 
-        ~Screen()
-        {
-            screen.RemoveFromAutoDrawSet();
-        }
-
         public void draw()
         {
-            if (!screen.IsInAutoDrawSet())
-            {
-                screen.AddToAutoDrawSet();
-            }
-
+            screen.AddToAutoDrawSet();
             screen.TopOfAutoDrawSet();
         }
 

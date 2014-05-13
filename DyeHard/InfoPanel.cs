@@ -15,7 +15,7 @@ namespace Dyehard
         private DistanceTracker distanceTracker;
 
         private List<PowerUpMeter> powerups;
-        private static int powerupMeterCount = 4;
+        private static int powerupMeterCount = 6;
 
         public InfoPanel(Hero hero)
         {
@@ -65,7 +65,7 @@ namespace Dyehard
 
         public PowerUpMeter(int sequenceNumber)
         {
-            float padding = 1f;
+            float padding = 0.5f;
             float height = GameWorld.panelSize;
             float width = height;
 
@@ -73,6 +73,12 @@ namespace Dyehard
 
             this.box = new XNACS1Rectangle(new Vector2(offset, GameWorld.topEdge + (GameWorld.panelSize / 2)), width, height);
             this.box.Texture = "PowerUp_Box1";
+        }
+
+        ~PowerUpMeter()
+        {
+            box.Visible = false;
+            box.RemoveFromAutoDrawSet();
         }
 
         public void update()

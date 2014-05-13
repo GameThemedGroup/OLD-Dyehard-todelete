@@ -29,6 +29,7 @@ namespace Dyehard
 
         ~PowerUp()
         {
+            box.Visible = false;
             box.RemoveFromAutoDrawSet();
         }
 

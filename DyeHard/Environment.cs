@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    abstract class Environment
+    abstract class GameWorldRegion
     {
         abstract public void interact();
         abstract public void move();

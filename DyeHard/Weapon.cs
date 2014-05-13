@@ -28,6 +28,7 @@ namespace Dyehard
         {
             foreach (XNACS1Circle b in bullets)
             {
+                b.Visible = false;
                 b.RemoveFromAutoDrawSet();
             }
 

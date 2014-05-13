@@ -21,6 +21,35 @@ namespace Dyehard
             this.enemies = enemies;
             this.obstacles = new List<Obstacle>();
 
+            fillPlatform(offset, leftEdge, continuous);
+        }
+
+        public void move()
+        {
+            foreach (Obstacle obstacle in obstacles)
+            {
+                obstacle.move();
+            }
+        }
+
+        public void draw()
+        {
+            foreach (Obstacle obstacle in obstacles)
+            {
+                obstacle.draw();
+            }
+        }
+
+        public void interact()
+        {
+            foreach (Obstacle obstacle in obstacles)
+            {
+                obstacle.interact();
+            }
+        }
+
+        private void fillPlatform(int offset, float leftEdge, bool continuous)
+        {
             // set up platform
             float Ypos = ((offset * 1f) / Stargate.GATE_COUNT) * GameWorld.topEdge;
 
@@ -48,35 +77,12 @@ namespace Dyehard
                     }
 
                     consecutiveChance -= 2;
-                    if (XNACS1Base.RandomInt(consecutiveChance) == 0) {
+                    if (XNACS1Base.RandomInt(consecutiveChance) == 0)
+                    {
                         platform = !platform;
-                        consecutiveChance = 10;    
-                    }   
+                        consecutiveChance = 10;
+                    }
                 }
-            }
-        }
-
-        public void move()
-        {
-            foreach (Obstacle obstacle in obstacles)
-            {
-                obstacle.move();
-            }
-        }
-
-        public void draw()
-        {
-            foreach (Obstacle obstacle in obstacles)
-            {
-                obstacle.draw();
-            }
-        }
-
-        public void interact()
-        {
-            foreach (Obstacle obstacle in obstacles)
-            {
-                obstacle.interact();
             }
         }
     }

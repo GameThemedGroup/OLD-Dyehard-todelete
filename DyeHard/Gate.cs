@@ -43,6 +43,10 @@ namespace Dyehard
 
         ~Gate()
         {
+            path.Visible = false;
+            deathGate.Visible = false;
+            preview.Visible = false;
+
             path.RemoveFromAutoDrawSet();
             deathGate.RemoveFromAutoDrawSet();
             preview.RemoveFromAutoDrawSet();

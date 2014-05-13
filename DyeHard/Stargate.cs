@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Stargate : Environment
+    class Stargate : GameWorldRegion
     {
         public static float width = GameWorld.rightEdge * 2.0f;
         public const int GATE_COUNT = 4;
@@ -39,6 +39,7 @@ namespace Dyehard
 
         ~Stargate()
         {
+            backdrop.Visible = false;
             backdrop.RemoveFromAutoDrawSet();
         }
 

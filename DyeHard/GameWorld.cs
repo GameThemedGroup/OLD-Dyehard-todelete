@@ -10,7 +10,7 @@ namespace Dyehard
 {
     class GameWorld
     {
-        public static readonly float panelSize = 4f;
+        public static readonly float panelSize = 3.5f;
         public static readonly float rightEdge = XNACS1Base.World.WorldMax.X;
         public static readonly float leftEdge = XNACS1Base.World.WorldMin.X;
         public static readonly float topEdge = XNACS1Base.World.WorldMax.Y - panelSize;
@@ -23,10 +23,10 @@ namespace Dyehard
 
         private float SpeedReference;
         private bool stop;
-        private Timer timer;
+        private Timer accelerationTimer;
 
-        private Queue<Environment> onscreen;
-        private Queue<Environment> upcoming;
+        private Queue<GameWorldRegion> onscreen;
+        private Queue<GameWorldRegion> upcoming;
         private Hero hero;
         private EnemyManager eManager;
         private Player player;
@@ -38,15 +38,15 @@ namespace Dyehard
             player = new Player(hero);
             infoPanel = new InfoPanel(hero);
             eManager = new EnemyManager(hero);
-            stop = false;
-            timer = new Timer(15);
 
+
+            stop = false;
+            accelerationTimer = new Timer(15);
             SpeedReference = StartSpeed;
             Speed = SpeedReference;
-
             
-            onscreen = new Queue<Environment>();
-            upcoming = new Queue<Environment>();
+            onscreen = new Queue<GameWorldRegion>();
+            upcoming = new Queue<GameWorldRegion>();
 
             // set the enemy manager for the weapon
             hero.setEnemies(eManager.getEnemies());
@@ -72,37 +72,38 @@ namespace Dyehard
 
             player.update();
 
-            foreach (Environment e in onscreen)
+            foreach (GameWorldRegion e in onscreen)
             {
                 e.move();
             }
 
-            foreach (Environment e in upcoming)
+            foreach (GameWorldRegion e in upcoming)
             {
                 e.move();
             }
 
             updateSequence();
 
-            foreach (Environment e in onscreen)
+            hero.update();
+            eManager.update();
+
+            foreach (GameWorldRegion e in onscreen)
             {
                 e.interact();
             }
 
-            eManager.update();
-            hero.update();
 
             infoPanel.update();
         }
 
         public void draw()
         {
-            foreach (Environment e in onscreen)
+            foreach (GameWorldRegion e in onscreen)
             {
                 e.draw();
             }
 
-            foreach (Environment e in upcoming)
+            foreach (GameWorldRegion e in upcoming)
             {
                 e.draw();
             }
@@ -140,13 +141,13 @@ namespace Dyehard
         {
             if (!stop)
             {
-                timer.update();
+                accelerationTimer.update();
                 Speed = SpeedReference;
             }
 
-            if (timer.isDone())
+            if (accelerationTimer.isDone())
             {
-                timer.reset();
+                accelerationTimer.reset();
                 SpeedReference += 0.01f;
             }
         }
@@ -167,7 +168,7 @@ namespace Dyehard
             }
         }
 
-        private Environment nextElement(Queue<Environment> seq)
+        private GameWorldRegion nextElement(Queue<GameWorldRegion> seq)
         {
             if (seq.Last().GetType() == typeof(Stargate))
             {

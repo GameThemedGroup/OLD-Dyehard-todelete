@@ -24,7 +24,7 @@ namespace Dyehard
             this.boundaries = new List<Obstacle>();
             this.weapon = new Weapon(this);
 
-            setUpBoundaries();
+            setBoundaries();
         }
 
         public override void update()
@@ -32,7 +32,7 @@ namespace Dyehard
             // restrict the hero's movement to the boundary
             foreach (Obstacle b in boundaries)
             {
-                b.interact();
+                b.checkCollisions();
             }
 
             // update base character object (collisions, etc.)
@@ -87,7 +87,7 @@ namespace Dyehard
             weapon.setEnemies(enemies);
         }
 
-        private void setUpBoundaries()
+        private void setBoundaries()
         {
             // determine the maximum horizontal boundary for the hero
             List<Enemy> emptyList = new List<Enemy>();

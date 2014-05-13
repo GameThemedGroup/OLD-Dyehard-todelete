@@ -24,12 +24,31 @@ namespace Dyehard
 
         ~Obstacle()
         {
+            box.Visible = false;
             box.RemoveFromAutoDrawSet();
         }
 
         public void move()
         {
             box.CenterX -= GameWorld.Speed;
+            checkCollisions();
+        }
+
+        public void checkCollisions()
+        {
+            // let the hero know if it is about to collide with the platform
+            if (box.Collided(hero.getNextPosition()))
+            {
+                hero.addCollision(box);
+            }
+
+            foreach (Enemy e in enemies)
+            {
+                if (box.Collided(e.getNextPosition()))
+                {
+                    e.addCollision(box);
+                }
+            }
         }
 
         public void draw()
@@ -39,7 +58,7 @@ namespace Dyehard
 
         public void interact()
         {
-            // kill the hero if its crushed
+            // kill the hero if its crushed at screen edge
             XNACS1Rectangle heroPosition = hero.getPosition();
             if (box.Collided(heroPosition))
             {
@@ -56,20 +75,6 @@ namespace Dyehard
                     }
                 }
 
-            }
-
-            // let the hero know if it is about to collide with the platform
-            if (box.Collided(hero.getNextPosition()))
-            {
-                hero.addCollision(box);
-            }
-
-            foreach (Enemy e in enemies)
-            {
-                if (box.Collided(e.getNextPosition()))
-                {
-                    e.addCollision(box);
-                }
             }
         }
     }

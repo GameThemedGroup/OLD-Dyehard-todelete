@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Space : Environment
+    class Space : GameWorldRegion
     {
         public static float width = GameWorld.rightEdge * 3f;
         public static int powerupCount = 13;
@@ -57,6 +57,7 @@ namespace Dyehard
 
         ~Space()
         {
+            space.Visible = false;
             space.RemoveFromAutoDrawSet();
         }
 
@@ -77,23 +78,6 @@ namespace Dyehard
             }
         }
 
-        public override void draw()
-        {
-            space.TopOfAutoDrawSet();
-
-            trail.draw();
-
-            foreach (Debris d in debris)
-            {
-                d.draw();
-            }
-
-            foreach (PowerUp p in powerups)
-            {
-                p.draw();
-            }
-        }
-
         public override void interact()
         {
             foreach (PowerUp p in powerups)
@@ -109,6 +93,23 @@ namespace Dyehard
             foreach (Debris d in debris)
             {
                 d.interact();
+            }
+        }
+
+        public override void draw()
+        {
+            space.TopOfAutoDrawSet();
+
+            trail.draw();
+
+            foreach (Debris d in debris)
+            {
+                d.draw();
+            }
+
+            foreach (PowerUp p in powerups)
+            {
+                p.draw();
             }
         }
 

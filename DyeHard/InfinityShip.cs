@@ -64,7 +64,7 @@ namespace Dyehard
     {
         private const float width = 40;
         private const float height = 25f;
-        private float gap = 1.5f;
+        private float gap = 1.5f; // force gap between ship tiles to show overlap
         private XNACS1Rectangle tile;
         private XNACS1Rectangle window;
 
@@ -73,17 +73,11 @@ namespace Dyehard
             float Xpos = leftEdge + (width * 0.5f);
             float Ypos = (Background.height / 2);
             Vector2 position = new Vector2(Xpos, Ypos);
-            this.tile = new XNACS1Rectangle(position, width - gap, height); // - value to force a little gap between tiles
+            this.tile = new XNACS1Rectangle(position, width - gap, height);
             this.tile.Color = Color.DimGray;
 
             this.window = new XNACS1Rectangle(position, 1, 1);
             this.window.Color = Color.Gray;
-        }
-
-        ~ShipTile()
-        {
-            tile.RemoveFromAutoDrawSet();
-            window.RemoveFromAutoDrawSet();
         }
 
         public void update()
@@ -100,7 +94,7 @@ namespace Dyehard
 
         public float rightEdge()
         {
-            return tile.MaxBound.X + (gap / 2); // + value to correct for temporary gap
+            return tile.MaxBound.X + (gap / 2);
         }
 
         public bool isOffScreen()
