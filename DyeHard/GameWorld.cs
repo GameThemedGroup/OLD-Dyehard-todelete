@@ -39,7 +39,6 @@ namespace Dyehard
             infoPanel = new InfoPanel(hero);
             eManager = new EnemyManager(hero);
 
-
             stop = false;
             accelerationTimer = new Timer(15);
             SpeedReference = StartSpeed;
@@ -62,7 +61,6 @@ namespace Dyehard
 
             // prep upcoming elements
             upcoming.Enqueue(nextElement(onscreen));
-
         }
 
         public void update()
@@ -91,7 +89,6 @@ namespace Dyehard
             {
                 e.interact();
             }
-
 
             infoPanel.update();
         }

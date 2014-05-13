@@ -212,14 +212,19 @@ namespace Dyehard
             new WhiteRobot(new Vector2(-100f, -100f), 0, 0, preloadHero);
             new BlackRobot(new Vector2(-100f, -100f), 0, 0, preloadHero);
 
-            new PowerUp(preloadHero, -200f, -100f, Blue);
-            new PowerUp(preloadHero, -200f, -100f, Green);
-            new PowerUp(preloadHero, -200f, -100f, Yellow);
-            new PowerUp(preloadHero, -200f, -100f, Red);
-            new PowerUp(preloadHero, -200f, -100f, Pink);
-            new PowerUp(preloadHero, -200f, -100f, Teal);
+            new DyePack(preloadHero, -200f, -100f, Blue);
+            new DyePack(preloadHero, -200f, -100f, Green);
+            new DyePack(preloadHero, -200f, -100f, Yellow);
+            new DyePack(preloadHero, -200f, -100f, Red);
+            new DyePack(preloadHero, -200f, -100f, Pink);
+            new DyePack(preloadHero, -200f, -100f, Teal);
 
-            new PowerUpMeter(0);
+            new SpeedUp(preloadHero, -200f, -100f);
+            new Ghost(preloadHero, -200f, -100f);
+            new LowGrav(preloadHero, -200f, -100f);
+            new Invincibility(preloadHero, -200f, -100f);
+
+            new PowerUpMeter(0, Blue);
 
             new Explosion(preloadHero, preloadEnemy);
         }

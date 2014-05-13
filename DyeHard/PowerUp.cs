@@ -5,26 +5,21 @@ using System.Text;
 using XNACS1Lib;
 using Microsoft.Xna.Framework;
 
-
 namespace Dyehard
 {
-    class PowerUp
+    abstract class PowerUp
     {
         protected Hero hero;
         protected XNACS1Rectangle box;
 
-        public PowerUp(Hero hero, float minX, float maxX, Color color)
+        public PowerUp(Hero hero, float minX, float maxX)
         {
             this.hero = hero;
 
             float padding = hero.getPosition().Width * 2;
-
             float randomX = XNACS1Base.RandomFloat(minX + padding, maxX - padding);
             float randomY = XNACS1Base.RandomFloat(GameWorld.bottomEdge + padding, GameWorld.topEdge - padding);
-            this.box = new XNACS1Rectangle(new Vector2(randomX, randomY), 3.46f, 4f);
-            this.box.Color = color;
-
-            this.box.Texture = getTexture(color);
+            box = new XNACS1Rectangle(new Vector2(randomX, randomY), 6f, 2.32f);
         }
 
         ~PowerUp()
@@ -42,8 +37,7 @@ namespace Dyehard
         {
             if (box.Collided(hero.getPosition()) && box.Visible)
             {
-                hero.collect(this);
-                hero.setColor(box.Color);
+                activate();
                 box.Visible = false;
             }
         }
@@ -53,15 +47,146 @@ namespace Dyehard
             box.TopOfAutoDrawSet();
         }
 
-        private static String getTexture(Color color)
+        abstract public void activate(); // hero will need to maintain reference to powerup when it is activated
+
+        public static PowerUp randomPowerUp(Hero hero, float minX, float maxX)
         {
-            if (color == Game.Green) return "Dye_Green";
-            if (color == Game.Blue) return "Dye_Blue";
-            if (color == Game.Yellow) return "Dye_Yellow";
-            if (color == Game.Teal) return "Dye_Teal";
-            if (color == Game.Pink) return "Dye_Pink";
-            if (color == Game.Red) return "Dye_Red";
-            return "";
+            switch (XNACS1Base.RandomInt(4))
+            {
+                case 0:
+                    return new SpeedUp(hero, minX, maxX);
+                case 1:
+                    return new Ghost(hero, minX, maxX);
+                case 2:
+                    return new Invincibility(hero, minX, maxX);
+                case 3:  // default
+                default:
+                    return new LowGrav(hero, minX, maxX);
+            }
+        }
+    }
+
+    class SpeedUp : PowerUp
+    {
+        public static PowerUpMeter meter = new PowerUpMeter(0, Game.Green);
+
+        public SpeedUp(Hero hero, float minX, float maxX)
+            : base(hero, minX, maxX)
+        {
+            box.Texture = "PowerUp_Green";
+        }
+
+        public override void activate()
+        {
+            meter.reset(5);
+        }
+    }
+
+    class Ghost : PowerUp
+    {
+        public static PowerUpMeter meter = new PowerUpMeter(1, Game.Blue);
+
+        public Ghost(Hero hero, float minX, float maxX)
+            : base(hero, minX, maxX)
+        {
+            box.Texture = "PowerUp_Blue";
+        }
+
+        public override void activate()
+        {
+            meter.reset(5);
+        }
+    }
+
+    class Invincibility : PowerUp
+    {
+        public static PowerUpMeter meter = new PowerUpMeter(2, Game.Pink);
+
+        public Invincibility(Hero hero, float minX, float maxX)
+            : base(hero, minX, maxX)
+        {
+            box.Texture = "PowerUp_Pink";
+        }
+
+        public override void activate()
+        {
+            meter.reset(5);
+        }
+    }
+
+    class LowGrav : PowerUp
+    {
+        public static PowerUpMeter meter = new PowerUpMeter(3, Game.Red);
+
+        public LowGrav(Hero hero, float minX, float maxX)
+            : base(hero, minX, maxX)
+        {
+            box.Texture = "PowerUp_Red";
+        }
+
+        public override void activate()
+        {
+            meter.reset(5);
+        }
+    }
+
+    class PowerUpMeter
+    {
+        private XNACS1Rectangle box;
+        private XNACS1Rectangle meter;
+        private Timer timer;
+        private float initialTime;
+        private float initialMeterHeight;
+
+        public PowerUpMeter(int sequenceNumber, Color color)
+        {
+            initialTime = 0f;
+            timer = new Timer(0);
+            float padding = 0.75f;
+            float height = GameWorld.panelSize;
+            float width = height;
+
+            float offset = GameWorld.leftEdge + (sequenceNumber + 1) * (padding) + sequenceNumber * width + width / 2;
+
+            box = new XNACS1Rectangle(new Vector2(offset, GameWorld.topEdge + (GameWorld.panelSize / 2)), width, height);
+            box.Texture = "PowerUp_Box1";
+
+            initialMeterHeight = height / 1.75f;
+            meter = new XNACS1Rectangle(box.Center, width / 1.75f, initialMeterHeight);
+            meter.Color = color;
+        }
+
+        ~PowerUpMeter()
+        {
+            box.Visible = false;
+            box.RemoveFromAutoDrawSet();
+        }
+
+        public void update()
+        {
+            if (timer.isDone())
+            {
+                meter.Visible = false;
+            }
+            else
+            {
+                timer.update();
+                meter.Visible = true;
+                meter.Height = initialMeterHeight * Math.Max(0, timer.currentTime() / initialTime);
+                meter.CenterY = box.CenterY - ((initialMeterHeight - meter.Height) / 2);
+            }
+        }
+
+        public void reset(float time)
+        {
+            initialTime = time;
+            timer = new Timer(time);
+        }
+
+        public void draw()
+        {
+            box.TopOfAutoDrawSet();
+            meter.TopOfAutoDrawSet();
         }
     }
 }

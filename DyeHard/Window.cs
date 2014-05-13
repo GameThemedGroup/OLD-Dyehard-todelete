@@ -17,7 +17,7 @@ namespace Dyehard
             Vector2 center = new Vector2(width/2, height/2);
             this.window = new XNACS1Rectangle(center, width/3, height/3);
 
-            this.window.Color = new Color(Color.Gray, 125);
+            this.window.Color = new Color(Color.Gray, 50);
             this.window.LabelColor = Color.White;
             this.window.Label = label;
         }

@@ -10,12 +10,14 @@ namespace Dyehard
     class Space : GameWorldRegion
     {
         public static float width = GameWorld.rightEdge * 3f;
-        public static int powerupCount = 13;
-        public static int debrisCount = 18;
+        public static int powerupCount = 6;
+        public static int dyepackCount = 13;
+        public static int debrisCount = 16;
 
         private XNACS1Rectangle space;
         private Hero hero;
         private List<PowerUp> powerups;
+        private List<DyePack> dyepacks;
         private List<Debris> debris;
         private Trail trail;
 
@@ -23,26 +25,38 @@ namespace Dyehard
         {
             this.hero = hero;
 
-            this.powerups = new List<PowerUp>();
-            this.debris = new List<Debris>();
-            this.trail = new Trail(hero);
+            powerups = new List<PowerUp>();
+            dyepacks = new List<DyePack>();
+            debris = new List<Debris>();
+            trail = new Trail(hero);
 
             float height = GameWorld.topEdge;
             float position = (width * 0.5f) + leftEdge;
 
-            this.space = new XNACS1Rectangle(new Vector2(position, height/2), width, height);
-            this.space.Visible = false;
+            space = new XNACS1Rectangle(new Vector2(position, height/2), width, height);
+            space.Visible = false;
 
-            // add powerups to space region
+            // add dyepacks to space region
             List<Color> colors = Game.randomColorSet(Game.colorCount);
             float rightEdge = space.CenterX + space.Width / 2;
-            float region = (rightEdge - leftEdge) / powerupCount;
+            float region = (rightEdge - leftEdge) / dyepackCount;
+            for (int i = 0; i < dyepackCount; i++)
+            {
+                float regionLeft = leftEdge + (i * region);
+                float regionRight = regionLeft + region;
+                dyepacks.Add(new DyePack(hero, regionLeft, regionRight, colors[i % Game.colorCount]));
+            }
+
+
+            region = (rightEdge - leftEdge) / powerupCount;
             for (int i = 0; i < powerupCount; i++)
             {
                 float regionLeft = leftEdge + (i * region);
                 float regionRight = regionLeft + region;
-                this.powerups.Add(new PowerUp(hero, regionLeft, regionRight, colors[i % Game.colorCount]));
+                powerups.Add(PowerUp.randomPowerUp(hero, regionLeft, regionRight));
             }
+
+
 
             // offset the region to pad the space before the next element
             // this makes the region slightly smaller than it actually should be otherwise
@@ -51,7 +65,7 @@ namespace Dyehard
             for (int i = 0; i < debrisCount; i++) {
                 float regionLeft = leftEdge + (i * region);
                 float regionRight = regionLeft + region;
-                this.debris.Add(new Debris(hero, enemies, regionLeft, regionRight));
+                debris.Add(new Debris(hero, enemies, regionLeft, regionRight));
             }
         }
 
@@ -67,6 +81,11 @@ namespace Dyehard
 
             trail.move();
 
+            foreach (DyePack p in dyepacks)
+            {
+                p.move();
+            }
+
             foreach (PowerUp p in powerups)
             {
                 p.move();
@@ -80,6 +99,11 @@ namespace Dyehard
 
         public override void interact()
         {
+            foreach (DyePack p in dyepacks)
+            {
+                p.interact();
+            }
+
             foreach (PowerUp p in powerups)
             {
                 p.interact();
@@ -105,6 +129,11 @@ namespace Dyehard
             foreach (Debris d in debris)
             {
                 d.draw();
+            }
+
+            foreach (DyePack p in dyepacks)
+            {
+                p.draw();
             }
 
             foreach (PowerUp p in powerups)

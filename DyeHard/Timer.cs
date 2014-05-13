@@ -32,5 +32,10 @@ namespace Dyehard
         {
             ticks = initialTicks;
         }
+
+        public float currentTime()
+        {
+            return ticks / XNACS1Base.World.TicksInASecond;
+        }
     }
 }

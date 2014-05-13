@@ -11,18 +11,21 @@ namespace Dyehard
     {
         private const float horizontalSpeedLimit = 0.8f;
         private static float drag = 0.96f;  // smaller number means more reduction
-        private Weapon weapon;
-        private List<PowerUp> powerups;
-        private List<Obstacle> boundaries;
         private const float rightBoundaryLimit = 0.85f; // percentage of screen
+
+        private Weapon weapon;
+        private List<Obstacle> boundaries;
+        private float gravityFactor;
 
         public Hero()
             : base(new Vector2(GameWorld.rightEdge / 3, GameWorld.topEdge / 2), 5f, 5f)
         {
+
             base.setLabel("Dye");
-            this.powerups = new List<PowerUp>();
-            this.boundaries = new List<Obstacle>();
-            this.weapon = new Weapon(this);
+            boundaries = new List<Obstacle>();
+            weapon = new Weapon(this);
+
+            gravityFactor = 1f;
 
             setBoundaries();
         }
@@ -48,16 +51,6 @@ namespace Dyehard
             base.draw();
         }
 
-        public void collect(PowerUp p)
-        {
-            powerups.Add(p);
-        }
-
-        public int getPowerUpCount()
-        {
-            return powerups.Count;
-        }
-
         public void push(Vector2 direction)
         {
             // scale direction
@@ -70,7 +63,7 @@ namespace Dyehard
             }
 
             // update velocity
-            position.Velocity = (position.Velocity + direction + GameWorld.Gravity) * drag;
+            position.Velocity = (position.Velocity + direction + (GameWorld.Gravity * gravityFactor)) * drag;
 
             if (position.VelocityX < 0)
             {
@@ -106,6 +99,16 @@ namespace Dyehard
             boundaries.Add(boundary);
             boundary = new Obstacle(this, emptyList, new Vector2(GameWorld.leftEdge - screenCenterX, screenCenterY), screenCenterX * 2, screenCenterY * 2);
             boundaries.Add(boundary);
+        }
+     
+        public void lowerGravity()
+        {
+            gravityFactor = 0.2f;
+        }
+
+        public void normalizeGravity()
+        {
+            gravityFactor = 1f;
         }
     }
 }

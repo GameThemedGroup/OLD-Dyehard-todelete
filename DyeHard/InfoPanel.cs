@@ -14,8 +14,8 @@ namespace Dyehard
 
         private DistanceTracker distanceTracker;
 
-        private List<PowerUpMeter> powerups;
-        private static int powerupMeterCount = 6;
+        public static List<PowerUpMeter> powerups;
+        private static int powerupMeterCount = 4;
 
         public InfoPanel(Hero hero)
         {
@@ -25,15 +25,14 @@ namespace Dyehard
             this.background = new XNACS1Rectangle(center, GameWorld.rightEdge, GameWorld.panelSize);
             this.background.Color = new Color(Color.Black, 175);
 
-
             this.distanceTracker = new DistanceTracker(hero);
 
+            powerups = new List<PowerUpMeter>();
 
-            this.powerups = new List<PowerUpMeter>();
-            for (int i = 0; i < powerupMeterCount; i++)
-            {
-                powerups.Add(new PowerUpMeter(i));
-            }
+            powerups.Add(SpeedUp.meter);
+            powerups.Add(Ghost.meter);
+            powerups.Add(Invincibility.meter);
+            powerups.Add(LowGrav.meter);
         }
 
         public void draw()
@@ -57,39 +56,4 @@ namespace Dyehard
             }
         }
     }
-
-
-    class PowerUpMeter
-    {
-        private XNACS1Rectangle box;
-
-        public PowerUpMeter(int sequenceNumber)
-        {
-            float padding = 0.5f;
-            float height = GameWorld.panelSize;
-            float width = height;
-
-            float offset = GameWorld.leftEdge + (sequenceNumber + 1) * (padding) + sequenceNumber * width + width / 2;
-
-            this.box = new XNACS1Rectangle(new Vector2(offset, GameWorld.topEdge + (GameWorld.panelSize / 2)), width, height);
-            this.box.Texture = "PowerUp_Box1";
-        }
-
-        ~PowerUpMeter()
-        {
-            box.Visible = false;
-            box.RemoveFromAutoDrawSet();
-        }
-
-        public void update()
-        {
-
-        }
-
-        public void draw()
-        {
-            box.TopOfAutoDrawSet();
-        }
-    }
-
 }
