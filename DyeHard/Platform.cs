@@ -9,8 +9,9 @@ namespace Dyehard
 {
     class Platform
     {
-        private const int SEGMENT_COUNT = 20;
-        public static float height = 1.2f;
+        private const int SEGMENT_COUNT = 30;
+        public static float height = 1.25f;
+        private const float mask = 0.1f; // overlap between platform segments
         private Hero hero;
         private List<Enemy> enemies;
         private List<Obstacle> obstacles;
@@ -56,7 +57,7 @@ namespace Dyehard
             if (continuous)
             {
                 float Xpos = leftEdge + (Stargate.width / 2);
-                Obstacle obstacle = new Obstacle(hero, enemies, new Vector2(Xpos, Ypos), Stargate.width, height);
+                Obstacle obstacle = new Obstacle(hero, enemies, new Vector2(Xpos, Ypos), Stargate.width + mask, height);
                 obstacles.Add(obstacle);
             }
             else
@@ -72,7 +73,7 @@ namespace Dyehard
                     if (platform)
                     {
                         float Xpos = (width * 0.5f) + leftEdge + (i * width);
-                        obstacle = new Obstacle(hero, enemies, new Vector2(Xpos, Ypos), width, height);
+                        obstacle = new Obstacle(hero, enemies, new Vector2(Xpos, Ypos), width + mask, height);
                         obstacles.Add(obstacle);
                     }
 

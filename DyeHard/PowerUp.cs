@@ -151,8 +151,8 @@ namespace Dyehard
             box = new XNACS1Rectangle(new Vector2(offset, GameWorld.topEdge + (GameWorld.panelSize / 2)), width, height);
             box.Texture = "PowerUp_Box1";
 
-            initialMeterHeight = height / 1.75f;
-            meter = new XNACS1Rectangle(box.Center, width / 1.75f, initialMeterHeight);
+            initialMeterHeight = height / 1.8f;
+            meter = new XNACS1Rectangle(box.Center, width / 1.8f, initialMeterHeight);
             meter.Color = color;
         }
 

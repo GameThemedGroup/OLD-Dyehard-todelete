@@ -14,8 +14,7 @@ namespace Dyehard
 
         private DistanceTracker distanceTracker;
 
-        public static List<PowerUpMeter> powerups;
-        private static int powerupMeterCount = 4;
+        public static List<PowerUpMeter> meters;
 
         public InfoPanel(Hero hero)
         {
@@ -27,12 +26,17 @@ namespace Dyehard
 
             this.distanceTracker = new DistanceTracker(hero);
 
-            powerups = new List<PowerUpMeter>();
+            meters = new List<PowerUpMeter>();
 
-            powerups.Add(SpeedUp.meter);
-            powerups.Add(Ghost.meter);
-            powerups.Add(Invincibility.meter);
-            powerups.Add(LowGrav.meter);
+            meters.Add(SpeedUp.meter);
+            meters.Add(Ghost.meter);
+            meters.Add(Invincibility.meter);
+            meters.Add(LowGrav.meter);
+
+            foreach (PowerUpMeter meter in meters)
+            {
+                meter.reset(0f);
+            }
         }
 
         public void draw()
@@ -40,7 +44,7 @@ namespace Dyehard
             background.TopOfAutoDrawSet();
             distanceTracker.draw();
 
-            foreach (PowerUpMeter p in powerups)
+            foreach (PowerUpMeter p in meters)
             {
                 p.draw();
             }
@@ -50,7 +54,7 @@ namespace Dyehard
         {
             distanceTracker.update();
 
-            foreach (PowerUpMeter p in powerups)
+            foreach (PowerUpMeter p in meters)
             {
                 p.update();
             }
