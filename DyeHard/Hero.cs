@@ -23,7 +23,7 @@ namespace Dyehard
 
             base.setLabel("Dye");
             boundaries = new List<Obstacle>();
-            weapon = new Weapon(this);
+            weapon = new OverHeatWeapon(this);
 
             gravityFactor = 1f;
 

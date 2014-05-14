@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,24 +8,27 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Weapon
+    class OverHeatWeapon : Weapon
     {
-        
-        protected static float bulletSpeed = 1.2f;
-        protected static float bulletSize = 1f;
-        protected Hero hero;
-        protected Queue<XNACS1Circle> bullets;
-        protected List<Enemy> enemies;
-        protected List<Explosion> explosions;
+        private float overHeatRange  = 10.0f;
+        private float coolDownSpeed = 0.05f;
+        private bool overheatOrNot;
+        private float currentHeat;
+        private XNACS1Rectangle tempTracker;
 
-        public Weapon(Hero hero) 
+
+        public OverHeatWeapon(Hero hero)
+            : base(hero)
         {
             this.hero = hero;
             bullets = new Queue<XNACS1Circle>();
             explosions = new List<Explosion>();
+            overheatOrNot = false;
+            currentHeat = 0;
+            tempTracker = new XNACS1Rectangle(new Vector2(5, 5), 4, 4);
         }
 
-        ~Weapon()
+        ~OverHeatWeapon()
         {
             foreach (XNACS1Circle b in bullets)
             {
@@ -34,12 +38,34 @@ namespace Dyehard
 
         }
 
-        public virtual void update()
+        public override void update()
         {
-            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.F))
+            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.F)  && 
+                overheatOrNot == false)
             {
                 fire();
+                currentHeat = currentHeat + 1.0f;
             }
+
+            if (currentHeat > overHeatRange)
+            {
+                overheatOrNot = true;
+                tempTracker.Color = Color.Red;
+            }
+
+            if (currentHeat >= 0)
+            {
+                currentHeat = currentHeat - coolDownSpeed;
+            }
+
+            if (currentHeat <= 0)
+            {
+                tempTracker.Color = Color.Green;
+                overheatOrNot = false;
+            }
+
+            tempTracker.Label = currentHeat.ToString("0.0");
+            tempTracker.TopOfAutoDrawSet();
 
             foreach (XNACS1Circle b in bullets) {
                 b.CenterX += bulletSpeed;
@@ -77,25 +103,5 @@ namespace Dyehard
             
         }
 
-        // fire the weapon
-        protected void fire()
-        {
-            XNACS1Circle bullet = new XNACS1Circle(hero.getPosition().Center, bulletSize);
-            bullet.Color = hero.getColor();
-            bullets.Enqueue(bullet);
-        }
-
-        public void draw()
-        {
-            foreach (XNACS1Circle b in bullets)
-            {
-                b.TopOfAutoDrawSet();
-            }
-        }
-
-        public void setEnemies(List<Enemy> enemies)
-        {
-            this.enemies = enemies;
-        }
     }
 }

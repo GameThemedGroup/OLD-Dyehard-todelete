@@ -83,6 +83,7 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyManager.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="OverHeatWeapon.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PowerUp.cs" />
