@@ -31,9 +31,9 @@ namespace Dyehard
                 b.Visible = false;
                 b.RemoveFromAutoDrawSet();
             }
-
         }
 
+        // update bullets, create explosions
         public virtual void update()
         {
             foreach (XNACS1Circle b in bullets) {
@@ -78,6 +78,7 @@ namespace Dyehard
             bullets.Enqueue(bullet);
         }
 
+        // draw bullets
         public virtual void draw()
         {
             foreach (XNACS1Circle b in bullets)
@@ -89,11 +90,6 @@ namespace Dyehard
         public void setEnemies(List<Enemy> enemies)
         {
             this.enemies = enemies;
-        }
-
-        public virtual void recharge()
-        {
-          
         }
     }
 }

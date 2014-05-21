@@ -26,7 +26,7 @@ namespace Dyehard
             ammoTracker.RemoveFromAutoDrawSet();
         }
 
-        public override void recharge()
+        public void recharge()
         {
             ammo = reloadAmount;
         }

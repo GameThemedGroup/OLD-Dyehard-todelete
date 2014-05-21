@@ -25,9 +25,11 @@ namespace Dyehard
             timer = new Timer(duration);
             splash.Color = h.getColor();
             splash.Visible = false;
+            splash.RemoveFromAutoDrawSet();
 
             emitter = new ExplosionEmitter(e.getPosition().Center, duration, 0.6f, h.getColor());
             emitter.DrawHalo(20);
+            emitter.AutoRemoveDeadParticles = true;
         }
 
         public void update()

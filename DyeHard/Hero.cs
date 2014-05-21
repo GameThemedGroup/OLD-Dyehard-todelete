@@ -16,22 +16,19 @@ namespace Dyehard
         private Weapon weapon;
         private List<Obstacle> boundaries;
         private float gravityFactor;
-        private int sizeOfWeaponRack = 4;
-        private Weapon[] weaponRack;
+        private List<Weapon> weaponRack;
 
         public Hero()
             : base(new Vector2(GameWorld.rightEdge / 3, GameWorld.topEdge / 2), 5f, 5f)
         {
-
             base.setLabel("Dye");
             boundaries = new List<Obstacle>();
-            weaponRack = new Weapon[sizeOfWeaponRack];
-            weaponRack[0] = new Weapon(this);
-            weaponRack[1] = new OverHeatWeapon(this);
-            weaponRack[2] = new LimitedAmmoWeapon(this);
-            weaponRack[3] = new SpreadFireWeapon(this);
 
-            weapon = weaponRack[0];
+            weaponRack = new List<Weapon>();
+            createWeapons();
+
+            // set initial weapon to first
+            weapon = weaponRack.First();
 
             gravityFactor = 1f;
             setBoundaries();
@@ -39,6 +36,7 @@ namespace Dyehard
 
         public override void update()
         {
+
             // restrict the hero's movement to the boundary
             foreach (Obstacle b in boundaries)
             {
@@ -49,39 +47,26 @@ namespace Dyehard
             base.update();
 
 
-            foreach (Weapon w in weaponRack)
-            {
-                w.update();
-            }
+            // update hero's weapons
+            selectWeapon();
 
             if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.F))
             {
                 weapon.fire();
             }
 
-            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D1))
+            foreach (Weapon w in weaponRack)
             {
-                changeWeapon(0);
-            }
-            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D2))
-            {
-                changeWeapon(1);
-            }
-            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D3))
-            {
-                changeWeapon(2);
-            }
-            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D4))
-            {
-                changeWeapon(3);
+                w.update();
             }
         }
+
 
         public void gotDyed()
         {
             if (weapon.GetType() == typeof(LimitedAmmoWeapon))
             {
-                weapon.recharge();
+                ((LimitedAmmoWeapon)weapon).recharge();
             }
         }
 
@@ -117,11 +102,9 @@ namespace Dyehard
 
         public void setEnemies(List<Enemy> enemies)
         {
-           // weapon.setEnemies(enemies);
-
-            for (int x = 0; x < sizeOfWeaponRack; x++)
+            foreach (Weapon w in weaponRack)
             {
-                weaponRack[x].setEnemies(enemies);
+                w.setEnemies(enemies);
             }
         }
 
@@ -146,6 +129,7 @@ namespace Dyehard
             boundaries.Add(boundary);
         }
      
+        // functions for powerup interaction
         public void lowerGravity()
         {
             gravityFactor = 0.2f;
@@ -156,16 +140,34 @@ namespace Dyehard
             gravityFactor = 1f;
         }
 
-        public void changeWeapon(int weaponNum)
+
+        private void selectWeapon()
         {
-            if (weaponNum >= 0 && weaponNum < sizeOfWeaponRack)
+            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D1))
             {
-                weapon = weaponRack[weaponNum];
+                weapon = weaponRack[0];
             }
-
-
+            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D2))
+            {
+                weapon = weaponRack[1];
+            }
+            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D3))
+            {
+                weapon = weaponRack[2];
+            }
+            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D4))
+            {
+                weapon = weaponRack[3];
+            }
         }
 
+        private void createWeapons()
+        {
+            weaponRack.Add(new Weapon(this));
+            weaponRack.Add(new OverHeatWeapon(this));
+            weaponRack.Add(new LimitedAmmoWeapon(this));
+            weaponRack.Add(new SpreadFireWeapon(this));
+        }
 
     }
 }

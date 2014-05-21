@@ -66,8 +66,6 @@ namespace Dyehard
                 base.fire();
                 currentHeatLevel += 1;
             }
-
         }
-
     }
 }
