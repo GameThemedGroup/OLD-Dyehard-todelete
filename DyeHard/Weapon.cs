@@ -36,11 +36,6 @@ namespace Dyehard
 
         public virtual void update()
         {
-            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.F))
-            {
-                fire();
-            }
-
             foreach (XNACS1Circle b in bullets) {
                 b.CenterX += bulletSpeed;
             }
@@ -51,7 +46,6 @@ namespace Dyehard
             }
             
             
-
             foreach (XNACS1Circle b in bullets)
             {
                 foreach (Enemy e in enemies)
@@ -78,14 +72,14 @@ namespace Dyehard
         }
 
         // fire the weapon
-        protected void fire()
+        public virtual void fire()
         {
             XNACS1Circle bullet = new XNACS1Circle(hero.getPosition().Center, bulletSize);
             bullet.Color = hero.getColor();
             bullets.Enqueue(bullet);
         }
 
-        public void draw()
+        public virtual void draw()
         {
             foreach (XNACS1Circle b in bullets)
             {

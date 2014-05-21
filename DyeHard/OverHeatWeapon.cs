@@ -10,97 +10,63 @@ namespace Dyehard
 {
     class OverHeatWeapon : Weapon
     {
-        private float overHeatRange  = 10.0f;
-        private float coolDownSpeed = 0.05f;
-        private bool overheatOrNot;
-        private float currentHeat;
+        private const float heatLimit  = 10.0f;
+        private const float cooldownRate = 0.05f;
+        private float currentHeatLevel;
+        private bool overheated;
         private XNACS1Rectangle tempTracker;
 
 
         public OverHeatWeapon(Hero hero)
             : base(hero)
         {
-            this.hero = hero;
-            bullets = new Queue<XNACS1Circle>();
-            explosions = new List<Explosion>();
-            overheatOrNot = false;
-            currentHeat = 0;
-            tempTracker = new XNACS1Rectangle(new Vector2(25, 55), 4, 4);
+            overheated = false;
+            currentHeatLevel = 0;
+            tempTracker = new XNACS1Rectangle(new Vector2(GameWorld.leftEdge + 4, GameWorld.topEdge - 4), 4, 4);
         }
 
         ~OverHeatWeapon()
         {
-            foreach (XNACS1Circle b in bullets)
-            {
-                b.Visible = false;
-                b.RemoveFromAutoDrawSet();
-            }
-
+            tempTracker.RemoveFromAutoDrawSet();
         }
 
         public override void update()
         {
-            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.F)  && 
-                overheatOrNot == false)
-            {
-                fire();
-                currentHeat = currentHeat + 1.0f;
-            }
 
-            if (currentHeat > overHeatRange)
+            if (currentHeatLevel > heatLimit)
             {
-                overheatOrNot = true;
+                overheated = true;
                 tempTracker.Color = Color.Red;
             }
 
-            if (currentHeat >= 0)
+            if (currentHeatLevel >= 0)
             {
-                currentHeat = currentHeat - coolDownSpeed;
+                currentHeatLevel = currentHeatLevel - cooldownRate;
             }
 
-            if (currentHeat <= 0)
+            if (currentHeatLevel <= 0)
             {
                 tempTracker.Color = Color.Green;
-                overheatOrNot = false;
+                overheated = false;
             }
 
-            tempTracker.Label = currentHeat.ToString("0.0");
+            base.update();   
+        }
+
+        public override void draw() {
+            tempTracker.Label = currentHeatLevel.ToString("0.0");
             tempTracker.TopOfAutoDrawSet();
+            base.draw();
+        }
 
-            foreach (XNACS1Circle b in bullets) {
-                b.CenterX += bulletSpeed;
-            }
-
-            while (bullets.Count > 0 && (bullets.First().CenterX - bullets.First().Radius) > GameWorld.rightEdge)
+        public override void fire()
+        {
+            if (!overheated)
             {
-                bullets.Dequeue().RemoveFromAutoDrawSet();
-            }
-            
-            
-
-            foreach (XNACS1Circle b in bullets)
-            {
-                foreach (Enemy e in enemies)
-                {
-                    if (e.getPosition().Collided(b) && b.Visible)
-                    {
-                        e.gotShot(b.Color);
-                        b.Visible = false;
-                        explosions.Add(new Explosion(hero, e));
-                    }
-                    
-                }
-                
+                base.fire();
+                currentHeatLevel += 1;
             }
 
-            foreach (Explosion e in explosions)
-            {
-                e.update();
-                e.interactEnemy(enemies);
-            }
-
-            explosions.RemoveAll(explosion => explosion.isDone()); 
-            
         }
 
     }

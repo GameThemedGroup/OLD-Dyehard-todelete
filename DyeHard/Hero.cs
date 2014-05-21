@@ -16,7 +16,7 @@ namespace Dyehard
         private Weapon weapon;
         private List<Obstacle> boundaries;
         private float gravityFactor;
-        private int sizeOfWeaponRack = 3;
+        private int sizeOfWeaponRack = 4;
         private Weapon[] weaponRack;
 
         public Hero()
@@ -28,12 +28,12 @@ namespace Dyehard
             weaponRack = new Weapon[sizeOfWeaponRack];
             weaponRack[0] = new Weapon(this);
             weaponRack[1] = new OverHeatWeapon(this);
-            weaponRack[2] = new LimitedBulletWeapon(this);
+            weaponRack[2] = new LimitedAmmoWeapon(this);
+            weaponRack[3] = new SpreadFireWeapon(this);
+
             weapon = weaponRack[0];
 
-
             gravityFactor = 1f;
-
             setBoundaries();
         }
 
@@ -48,15 +48,16 @@ namespace Dyehard
             // update base character object (collisions, etc.)
             base.update();
 
-            // update the hero's weapon
 
-            //for (int x = 0; x < sizeOfWeaponRack; x++)
-          // {
-              // weaponRack[x].update();
-           // }
-                //charles update all weapon
-                weapon.update();
+            foreach (Weapon w in weaponRack)
+            {
+                w.update();
+            }
 
+            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.F))
+            {
+                weapon.fire();
+            }
 
             if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D1))
             {
@@ -70,11 +71,15 @@ namespace Dyehard
             {
                 changeWeapon(2);
             }
+            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D4))
+            {
+                changeWeapon(3);
+            }
         }
 
         public void gotDyed()
         {
-            if (weapon.GetType() == typeof(LimitedBulletWeapon))
+            if (weapon.GetType() == typeof(LimitedAmmoWeapon))
             {
                 weapon.recharge();
             }
