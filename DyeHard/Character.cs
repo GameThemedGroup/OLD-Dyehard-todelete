@@ -110,83 +110,124 @@ namespace Dyehard
         {
             if (pending.Collided(obstacle))
             {
-                if (position.CenterY < obstacle.CenterY && position.CenterX < obstacle.CenterX)
+                // Common case logic
+                if ((position.MinBound.Y < obstacle.MaxBound.Y && position.MinBound.Y > obstacle.MinBound.Y) ||
+                    (position.MaxBound.Y < obstacle.MaxBound.Y && position.MaxBound.Y > obstacle.MinBound.Y) ||
+                    (obstacle.MinBound.Y < position.MaxBound.Y && obstacle.MinBound.Y > position.MinBound.Y) ||
+                    (obstacle.MaxBound.Y < position.MaxBound.Y && obstacle.MaxBound.Y > position.MinBound.Y))
                 {
-                    // character collided into lower left corner of box
-                    // get the smaller of the two overlaps from the next position
-                    float Xoverlap = Math.Max(0, pending.MaxBound.X - obstacle.MinBound.X);
-                    float Yoverlap = Math.Max(0, pending.MaxBound.Y - obstacle.MinBound.Y);
-
-                    if (Yoverlap < Xoverlap)
+                    if (position.Center.X <= obstacle.Center.X)
                     {
-                        // adjust to the Y side (since it is less)
-                        position.CenterY += (obstacle.MinBound.Y - position.MaxBound.Y);
-                        position.VelocityY = Math.Min(0, position.VelocityY);
-                    }
-                    else
-                    {
-                        // adjust to the X side (since it is less)
+                        // character is to the left of the obstacle
                         position.CenterX += (obstacle.MinBound.X - position.MaxBound.X);
                         position.VelocityX = Math.Min(0, position.VelocityX);
                     }
-                }
-                else if (position.CenterY < obstacle.CenterY && position.CenterX >= obstacle.CenterX)
-                {
-                    // character collided into lower right corner of box
-                    // get the smaller of the two overlaps from the next position
-                    float Xoverlap = Math.Max(0, obstacle.MaxBound.X - pending.MinBound.X);
-                    float Yoverlap = Math.Max(0, pending.MaxBound.Y - obstacle.MinBound.Y);
-
-                    if (Yoverlap < Xoverlap)
-                    {
-                        // adjust to the Y side (since it is less)
-                        position.CenterY += (obstacle.MinBound.Y - position.MaxBound.Y);
-                        position.VelocityY = Math.Min(0, position.VelocityY);
-                    }
                     else
                     {
-                        // adjust to the X side (since it is less)
+                        // character is to the right of the obstacle
                         position.CenterX -= (position.MinBound.X - obstacle.MaxBound.X);
                         position.VelocityX = Math.Max(0, position.VelocityX);
                     }
                 }
-                else if (position.CenterY >= obstacle.CenterY && position.CenterX < obstacle.CenterX)
+                else if ((position.MinBound.X < obstacle.MaxBound.X && position.MinBound.X > obstacle.MinBound.X) ||
+                         (position.MaxBound.X < obstacle.MaxBound.X && position.MaxBound.X > obstacle.MinBound.X) ||
+                         (obstacle.MinBound.X < position.MaxBound.X && obstacle.MinBound.X > position.MinBound.X) ||
+                         (obstacle.MaxBound.X < position.MaxBound.X && obstacle.MaxBound.X > position.MinBound.X))
                 {
-                    // character collided into upper left corner of box
-                    // get the smaller of the two overlaps from the next position
-                    float Xoverlap = Math.Max(0, pending.MaxBound.X - obstacle.MinBound.X);
-                    float Yoverlap = Math.Max(0, obstacle.MaxBound.Y - pending.MinBound.Y);
-
-                    if (Yoverlap < Xoverlap)
+                    if (position.Center.Y <= obstacle.Center.Y)
                     {
-                        // adjust to the Y side (since it is less)
-                        position.CenterY -= (position.MinBound.Y - obstacle.MaxBound.Y);
-                        position.VelocityY = Math.Max(0, position.VelocityY);
+                        // character is below the obstacle
+                        position.CenterY += (obstacle.MinBound.Y - position.MaxBound.Y);
+                        position.VelocityY = Math.Min(0, position.VelocityY);
                     }
                     else
                     {
-                        // adjust to the X side (since it is less)
-                        position.CenterX += (obstacle.MinBound.X - position.MaxBound.X);
-                        position.VelocityX = Math.Min(0, position.VelocityX);
+                        // character is to the above the obstacle
+                        position.CenterY -= (position.MinBound.Y - obstacle.MaxBound.Y);
+                        position.VelocityY = Math.Max(0, position.VelocityY);
                     }
                 }
                 else
                 {
-                    // character collided into upper right corner
-                    float Xoverlap = Math.Max(0, obstacle.MaxBound.X - pending.MinBound.X);
-                    float Yoverlap = Math.Max(0, obstacle.MaxBound.Y - pending.MinBound.Y);
-
-                    if (Yoverlap < Xoverlap)
+                    // Corner case logic (literally)
+                    if (position.CenterY < obstacle.CenterY && position.CenterX < obstacle.CenterX)
                     {
-                        // adjust to the Y side (since it is less)
-                        position.CenterY -= (position.MinBound.Y - obstacle.MaxBound.Y);
-                        position.VelocityY = Math.Max(0, position.VelocityY);
+                        // character collided into lower left corner of box
+                        // get the smaller of the two overlaps from the next position
+                        float Xoverlap = Math.Max(0, pending.MaxBound.X - obstacle.MinBound.X);
+                        float Yoverlap = Math.Max(0, pending.MaxBound.Y - obstacle.MinBound.Y);
+
+                        if (Yoverlap < Xoverlap)
+                        {
+                            // adjust to the Y side (since it is less)
+                            position.CenterY += (obstacle.MinBound.Y - position.MaxBound.Y);
+                            position.VelocityY = Math.Min(0, position.VelocityY);
+                        }
+                        else
+                        {
+                            // adjust to the X side (since it is less)
+                            position.CenterX += (obstacle.MinBound.X - position.MaxBound.X);
+                            position.VelocityX = Math.Min(0, position.VelocityX);
+                        }
+                    }
+                    else if (position.CenterY < obstacle.CenterY && position.CenterX >= obstacle.CenterX)
+                    {
+                        // character collided into lower right corner of box
+                        // get the smaller of the two overlaps from the next position
+                        float Xoverlap = Math.Max(0, obstacle.MaxBound.X - pending.MinBound.X);
+                        float Yoverlap = Math.Max(0, pending.MaxBound.Y - obstacle.MinBound.Y);
+
+                        if (Yoverlap < Xoverlap)
+                        {
+                            // adjust to the Y side (since it is less)
+                            position.CenterY += (obstacle.MinBound.Y - position.MaxBound.Y);
+                            position.VelocityY = Math.Min(0, position.VelocityY);
+                        }
+                        else
+                        {
+                            // adjust to the X side (since it is less)
+                            position.CenterX -= (position.MinBound.X - obstacle.MaxBound.X);
+                            position.VelocityX = Math.Max(0, position.VelocityX);
+                        }
+                    }
+                    else if (position.CenterY >= obstacle.CenterY && position.CenterX < obstacle.CenterX)
+                    {
+                        // character collided into upper left corner of box
+                        // get the smaller of the two overlaps from the next position
+                        float Xoverlap = Math.Max(0, pending.MaxBound.X - obstacle.MinBound.X);
+                        float Yoverlap = Math.Max(0, obstacle.MaxBound.Y - pending.MinBound.Y);
+
+                        if (Yoverlap < Xoverlap)
+                        {
+                            // adjust to the Y side (since it is less)
+                            position.CenterY -= (position.MinBound.Y - obstacle.MaxBound.Y);
+                            position.VelocityY = Math.Max(0, position.VelocityY);
+                        }
+                        else
+                        {
+                            // adjust to the X side (since it is less)
+                            position.CenterX += (obstacle.MinBound.X - position.MaxBound.X);
+                            position.VelocityX = Math.Min(0, position.VelocityX);
+                        }
                     }
                     else
                     {
-                        // adjust to the X side (since it is less)
-                        position.CenterX -= (position.MinBound.X - obstacle.MaxBound.X);
-                        position.VelocityX = Math.Max(0, position.VelocityX);
+                        // character collided into upper right corner
+                        float Xoverlap = Math.Max(0, obstacle.MaxBound.X - pending.MinBound.X);
+                        float Yoverlap = Math.Max(0, obstacle.MaxBound.Y - pending.MinBound.Y);
+
+                        if (Yoverlap < Xoverlap)
+                        {
+                            // adjust to the Y side (since it is less)
+                            position.CenterY -= (position.MinBound.Y - obstacle.MaxBound.Y);
+                            position.VelocityY = Math.Max(0, position.VelocityY);
+                        }
+                        else
+                        {
+                            // adjust to the X side (since it is less)
+                            position.CenterX -= (position.MinBound.X - obstacle.MaxBound.X);
+                            position.VelocityX = Math.Max(0, position.VelocityX);
+                        }
                     }
                 }
             }

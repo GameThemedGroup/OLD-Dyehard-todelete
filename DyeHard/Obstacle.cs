@@ -68,7 +68,9 @@ namespace Dyehard
                     if (heroPosition.MinBound.X <= GameWorld.leftEdge)
                     {
                         if ((heroPosition.MinBound.Y < box.MaxBound.Y && heroPosition.MinBound.Y > box.MinBound.Y) ||
-                            (heroPosition.MaxBound.Y < box.MaxBound.Y && heroPosition.MaxBound.Y > box.MinBound.Y))
+                            (heroPosition.MaxBound.Y < box.MaxBound.Y && heroPosition.MaxBound.Y > box.MinBound.Y) ||
+                            (box.MinBound.Y < heroPosition.MaxBound.Y && box.MinBound.Y > heroPosition.MinBound.Y) ||
+                            (box.MaxBound.Y < heroPosition.MaxBound.Y && box.MaxBound.Y > heroPosition.MinBound.Y))
                         {
                             hero.kill();
                         }
