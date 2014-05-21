@@ -44,8 +44,7 @@ namespace Dyehard
             {
                 bullets.Dequeue().RemoveFromAutoDrawSet();
             }
-            
-            
+             
             foreach (XNACS1Circle b in bullets)
             {
                 foreach (Enemy e in enemies)
