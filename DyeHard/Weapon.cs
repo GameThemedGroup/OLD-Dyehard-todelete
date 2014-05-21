@@ -29,11 +29,6 @@ namespace Dyehard
             {
                 b.RemoveFromAutoDrawSet();
             }
-
-            foreach (Explosion e in explosions)
-            {
-                e.remove();
-            }
         }
 
         // update bullets, create explosions

@@ -210,9 +210,9 @@ namespace Dyehard
             // dont save references to any preloaded objects
             Hero preloadHero = new Hero();
 
-            Enemy preloadEnemy = new BrainRobot(new Vector2(-100f, -100f), 0, 0, preloadHero);
-            new WhiteRobot(new Vector2(-100f, -100f), 0, 0, preloadHero);
-            new BlackRobot(new Vector2(-100f, -100f), 0, 0, preloadHero);
+            Enemy preloadEnemy = new BrainEnemy(new Vector2(-100f, -100f), 0, preloadHero);
+            new RedBeamEnemy(new Vector2(-100f, -100f), 0, preloadHero);
+            new SpiderEnemy(new Vector2(-100f, -100f), 0, preloadHero);
 
             new DyePack(preloadHero, -200f, -100f, Blue);
             new DyePack(preloadHero, -200f, -100f, Green);

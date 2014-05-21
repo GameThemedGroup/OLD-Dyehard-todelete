@@ -69,9 +69,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Background.cs" />
-    <Compile Include="BlackRobot.cs" />
     <Compile Include="BorderBox.cs" />
-    <Compile Include="BrainRobot.cs" />
     <Compile Include="Debris.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Explosion.cs" />
@@ -92,7 +90,6 @@
     <Compile Include="PowerUp.cs" />
     <Compile Include="Starfield.cs" />
     <Compile Include="Trail.cs" />
-    <Compile Include="WhiteRobot.cs" />
     <Compile Include="Screen.cs" />
     <Compile Include="Window.cs" />
     <Compile Include="Hero.cs" />
@@ -136,10 +133,7 @@
     <Content Include="Content\Resources\Textures\Beak.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Resources\Textures\BlackRobot.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Resources\Textures\BrainRobot.png">
+    <Content Include="Content\Resources\Textures\Brain Enemy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Resources\Textures\Dye_Blue.png">
@@ -178,10 +172,13 @@
     <Content Include="Content\Resources\Textures\PowerUp_Red.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Resources\Textures\StartScreen_Background.png">
+    <Content Include="Content\Resources\Textures\Red Beam Enemy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Resources\Textures\WhiteRobot.png">
+    <Content Include="Content\Resources\Textures\Spider Enemy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Resources\Textures\StartScreen_Background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Resources\Textures\Window.png">

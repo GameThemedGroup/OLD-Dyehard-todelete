@@ -86,4 +86,34 @@ namespace Dyehard
             this.setColor(color);
         }
     }
+
+    class BrainEnemy : Enemy
+    {
+        private const float widthToHeightRatio = 0.59f;
+        public BrainEnemy(Vector2 center, float height, Hero currentHero)
+            : base(center, height * widthToHeightRatio, height, currentHero)
+        {
+            this.setTexture("Brain Enemy");
+        }
+    }
+
+    class RedBeamEnemy : Enemy
+    {
+        private const float widthToHeightRatio = 0.7f;
+        public RedBeamEnemy(Vector2 center, float height, Hero currentHero)
+            : base(center, height * widthToHeightRatio, height, currentHero)
+        {
+            this.setTexture("Red Beam Enemy");
+        }
+    }
+
+    class SpiderEnemy : Enemy
+    {
+        private const float widthToHeightRatio = 0.985f;
+        public SpiderEnemy(Vector2 center, float height, Hero currentHero)
+            : base(center, height * widthToHeightRatio, height, currentHero)
+        {
+            this.setTexture("Spider Enemy");
+        }
+    }
 }
