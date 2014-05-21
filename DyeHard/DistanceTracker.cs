@@ -30,9 +30,8 @@ namespace Dyehard
             this.distance.LabelColor = Color.White;
         }
 
-        ~DistanceTracker()
+        public void remove()
         {
-            distance.Visible = false;
             distance.RemoveFromAutoDrawSet();
         }
 

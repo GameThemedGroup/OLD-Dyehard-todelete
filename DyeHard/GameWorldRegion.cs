@@ -9,9 +9,12 @@ namespace Dyehard
 {
     abstract class GameWorldRegion
     {
+        abstract public void remove();
+
         abstract public void interact();
         abstract public void move();
         abstract public void draw();
+
         abstract public bool isOffScreen();
         abstract public float rightEdge();
     }

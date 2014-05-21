@@ -22,7 +22,7 @@ namespace Dyehard
             info.Color = Color.Blue;
         }
 
-        ~SpreadFireWeapon()
+        public override void remove()
         {
             info.RemoveFromAutoDrawSet();
 
@@ -30,6 +30,8 @@ namespace Dyehard
             {
                 b.RemoveFromAutoDrawSet();
             }
+
+            base.remove();
         }
 
         public override void update()

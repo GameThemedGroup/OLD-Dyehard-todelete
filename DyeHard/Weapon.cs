@@ -24,12 +24,16 @@ namespace Dyehard
             explosions = new List<Explosion>();
         }
 
-        ~Weapon()
+        public virtual void remove()
         {
             foreach (XNACS1Circle b in bullets)
             {
-                b.Visible = false;
                 b.RemoveFromAutoDrawSet();
+            }
+
+            foreach (Explosion e in explosions)
+            {
+                e.remove();
             }
         }
 

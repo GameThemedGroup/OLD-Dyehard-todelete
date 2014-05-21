@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    
     class Explosion
     {
         private static float splashRadius = 2.5f;
@@ -30,6 +29,11 @@ namespace Dyehard
             emitter = new ExplosionEmitter(e.getPosition().Center, duration, 0.6f, h.getColor());
             emitter.DrawHalo(20);
             emitter.AutoRemoveDeadParticles = true;
+        }
+
+        public void remove()
+        {
+            // stub
         }
 
         public void update()

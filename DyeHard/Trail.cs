@@ -11,6 +11,7 @@ namespace Dyehard
 {
     class Trail
     {
+        private const float interval = 0.2f;
         private Character character;
         private Queue<Footprint> trail;
         private Queue<Footprint> pool;
@@ -21,7 +22,15 @@ namespace Dyehard
             this.character = character;
             this.trail = new Queue<Footprint>();
             this.pool = new Queue<Footprint>();
-            this.timer = new Timer(0.2f);
+            this.timer = new Timer(interval);
+        }
+
+        public void remove()
+        {
+            foreach (Footprint t in trail)
+            {
+                t.remove();
+            }
         }
 
         public void draw()
@@ -84,12 +93,6 @@ namespace Dyehard
             this.box = new XNACS1Rectangle(charBox.Center, charBox.Width, charBox.Height);
             this.box.Color = this.color;
             box.AddToAutoDrawSet();
-        }
-
-        ~Footprint()
-        {
-            box.Visible = false;
-            box.RemoveFromAutoDrawSet();
         }
 
         public void move()

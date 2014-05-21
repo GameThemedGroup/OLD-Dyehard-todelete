@@ -21,7 +21,7 @@ namespace Dyehard
             ammoTracker = new XNACS1Rectangle(new Vector2(GameWorld.leftEdge + 8, GameWorld.topEdge - 4), 4, 4);
         }
 
-        ~LimitedAmmoWeapon()
+        public override void remove()
         {
             ammoTracker.RemoveFromAutoDrawSet();
         }
@@ -61,6 +61,5 @@ namespace Dyehard
             ammoTracker.TopOfAutoDrawSet();
             base.draw();
         }
-
     }
 }

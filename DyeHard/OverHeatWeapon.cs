@@ -25,7 +25,7 @@ namespace Dyehard
             tempTracker = new XNACS1Rectangle(new Vector2(GameWorld.leftEdge + 4, GameWorld.topEdge - 4), 4, 4);
         }
 
-        ~OverHeatWeapon()
+        public override void remove()
         {
             tempTracker.RemoveFromAutoDrawSet();
         }

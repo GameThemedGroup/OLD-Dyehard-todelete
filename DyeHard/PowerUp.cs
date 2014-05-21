@@ -23,9 +23,8 @@ namespace Dyehard
             box = new XNACS1Rectangle(new Vector2(randomX, randomY), width, width * 0.39f);
         }
 
-        ~PowerUp()
+        public void remove()
         {
-            box.Visible = false;
             box.RemoveFromAutoDrawSet();
         }
 

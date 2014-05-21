@@ -37,8 +37,13 @@ namespace Dyehard
                     break;
             }
 
-
             obstacle = new Obstacle(hero, enemies, texture.Center, texture.Width * .9f, texture.Height * .9f);
+        }
+
+        public void remove()
+        {
+            obstacle.remove();
+            texture.RemoveFromAutoDrawSet();
         }
 
         public void move()
@@ -50,7 +55,6 @@ namespace Dyehard
         public void draw()
         {
             texture.TopOfAutoDrawSet();
-            //obstacle.draw();
         }
 
         public void interact()

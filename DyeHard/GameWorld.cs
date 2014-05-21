@@ -63,6 +63,26 @@ namespace Dyehard
             upcoming.Enqueue(nextElement(onscreen));
         }
 
+        public void remove()
+        {
+            // clean up game objects - remove from draw set
+            // GameWorld expects this to be called before destroying the GameWorld instance
+            // -- that is, it does not restore game objects to draw set
+            foreach (GameWorldRegion region in onscreen)
+            {
+                region.remove();
+            }
+
+            foreach (GameWorldRegion region in upcoming)
+            {
+                region.remove();
+            }
+
+            hero.remove();
+            eManager.remove();
+            infoPanel.remove();
+        }
+
         public void update()
         {
             checkControl();

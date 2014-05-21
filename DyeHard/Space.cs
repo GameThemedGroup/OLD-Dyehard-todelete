@@ -47,7 +47,6 @@ namespace Dyehard
                 dyepacks.Add(new DyePack(hero, regionLeft, regionRight, colors[i % Game.colorCount]));
             }
 
-
             region = (rightEdge - leftEdge) / powerupCount;
             for (int i = 0; i < powerupCount; i++)
             {
@@ -55,8 +54,6 @@ namespace Dyehard
                 float regionRight = regionLeft + region;
                 powerups.Add(PowerUp.randomPowerUp(hero, regionLeft, regionRight));
             }
-
-
 
             // offset the region to pad the space before the next element
             // this makes the region slightly smaller than it actually should be otherwise
@@ -69,11 +66,27 @@ namespace Dyehard
             }
         }
 
-        ~Space()
-        {
-            space.Visible = false;
+
+        public override void remove() {
             space.RemoveFromAutoDrawSet();
+            trail.remove();
+
+            foreach (PowerUp p in powerups)
+            {
+                p.remove();
+            }
+
+            foreach (DyePack p in dyepacks)
+            {
+                p.remove();
+            }
+
+            foreach (Debris d in debris)
+            {
+                d.remove();
+            }
         }
+
 
         public override void move()
         {

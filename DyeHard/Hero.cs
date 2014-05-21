@@ -34,6 +34,21 @@ namespace Dyehard
             setBoundaries();
         }
 
+        public override void remove()
+        {
+            foreach (Obstacle b in boundaries)
+            {
+                b.remove();
+            }
+
+            foreach (Weapon w in weaponRack)
+            {
+                w.remove();
+            }
+
+            base.remove();
+        }
+
         public override void update()
         {
 

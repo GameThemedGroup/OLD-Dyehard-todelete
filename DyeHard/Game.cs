@@ -13,7 +13,7 @@ namespace Dyehard
 {
     public class Game : XNACS1Base
     {
-        private static bool FULLSCREEN = false;
+        private static bool FULLSCREEN = true;
 
         // Dyehard Dye Colors
         public static int colorCount = 6;
@@ -118,6 +118,7 @@ namespace Dyehard
                     if (KeyboardDevice.isKeyTapped(Keys.Q))
                     {
                         state = State.BEGIN;
+                        world.remove();
                         world = new GameWorld();
                         pauseScreen.remove();
                     }
@@ -138,6 +139,7 @@ namespace Dyehard
                     if (KeyboardDevice.isKeyTapped(Keys.A))
                     {
                         state = State.BEGIN;
+                        world.remove();
                         world = new GameWorld();
                         gameOverScreen.remove();
                     }

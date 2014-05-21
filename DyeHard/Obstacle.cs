@@ -22,9 +22,8 @@ namespace Dyehard
             this.box.Color = Color.SlateGray;
         }
 
-        ~Obstacle()
+        public void remove()
         {
-            box.Visible = false;
             box.RemoveFromAutoDrawSet();
         }
 

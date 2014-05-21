@@ -11,9 +11,7 @@ namespace Dyehard
     class InfoPanel
     {
         private XNACS1Rectangle background;
-
         private DistanceTracker distanceTracker;
-
         public static List<PowerUpMeter> meters;
 
         public InfoPanel(Hero hero)
@@ -37,6 +35,12 @@ namespace Dyehard
             {
                 meter.reset(0f);
             }
+        }
+
+        public void remove()
+        {
+            background.RemoveFromAutoDrawSet();
+            distanceTracker.remove();
         }
 
         public void draw()

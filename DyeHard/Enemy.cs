@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-   class Enemy : Character
+    class Enemy : Character
     {
 
         protected enum EnemyState
@@ -21,8 +21,8 @@ namespace Dyehard
 
         protected Hero hero;
         protected EnemyState enemyState;
-        Timer timer;
-        int behaviorChangeTime = 5;
+        private Timer timer;
+        private int behaviorChangeTime = 5;
 
         public Enemy(Vector2 center, float width, float height, Hero hero)
             : base(center, width, height)
@@ -32,7 +32,6 @@ namespace Dyehard
             enemyState = EnemyState.BEGIN;
             timer = new Timer(behaviorChangeTime);
         }
-
 
         public override void update()
         {

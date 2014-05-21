@@ -26,9 +26,8 @@ namespace Dyehard
             box.Texture = getTexture(color);
         }
 
-        ~DyePack()
+        public void remove()
         {
-            box.Visible = false;
             box.RemoveFromAutoDrawSet();
         }
 

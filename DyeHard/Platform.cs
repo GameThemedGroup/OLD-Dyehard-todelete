@@ -25,6 +25,14 @@ namespace Dyehard
             fillPlatform(offset, leftEdge, continuous);
         }
 
+        public void remove()
+        {
+            foreach (Obstacle obstacle in obstacles)
+            {
+                obstacle.remove();
+            }
+        }
+
         public void move()
         {
             foreach (Obstacle obstacle in obstacles)

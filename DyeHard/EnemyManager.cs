@@ -8,18 +8,25 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-     class EnemyManager
+    class EnemyManager
     {
-        Hero theHero;
-
+        private const float enemyFrequency = 12f;
+        private Hero hero;
         private List<Enemy> enemies;
-        Timer newEnemyTimer;
+        private Timer newEnemyTimer;
 
-        public EnemyManager(Hero currentHero)
+        public EnemyManager(Hero hero)
         {
-            theHero = currentHero;
+            this.hero = hero;
             enemies = new List<Enemy>();
-            newEnemyTimer = new Timer(12);
+            newEnemyTimer = new Timer(enemyFrequency);
+        }
+
+        public void remove()
+        {
+            foreach (Enemy e in enemies) {
+                e.remove();
+            }
         }
 
         public void update()
@@ -47,13 +54,13 @@ namespace Dyehard
                 switch (XNACS1Base.RandomInt(0,3))
                 {
                     case 1:
-                        enemies.Add(new BrainRobot(position, 3.25f, 6, theHero));
+                        enemies.Add(new BrainRobot(position, 3.25f, 6, hero));
                         break;
                     case 2:
-                        enemies.Add(new WhiteRobot(position, 4.14f, 6, theHero));
+                        enemies.Add(new WhiteRobot(position, 4.14f, 6, hero));
                         break;
                     default:
-                        enemies.Add(new BlackRobot(position, 3.6f, 6, theHero));
+                        enemies.Add(new BlackRobot(position, 3.6f, 6, hero));
                         break;
                 }
 

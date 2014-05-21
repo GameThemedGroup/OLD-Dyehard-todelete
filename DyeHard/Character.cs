@@ -27,10 +27,8 @@ namespace Dyehard
             this.pendingCollisions = new List<XNACS1Rectangle>();
         }
 
-        ~Character()
+        public virtual void remove()
         {
-            position.Visible = false;
-            nextPosition.Visible = false;
             position.RemoveFromAutoDrawSet();
             nextPosition.RemoveFromAutoDrawSet();
         }

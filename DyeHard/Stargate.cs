@@ -5,6 +5,7 @@ using System.Text;
 using XNACS1Lib;
 using Microsoft.Xna.Framework;
 
+
 namespace Dyehard
 {
     class Stargate : GameWorldRegion
@@ -37,10 +38,20 @@ namespace Dyehard
             this.backdrop.Color = new Color(Color.Black, 130);
         }
 
-        ~Stargate()
+        public override void remove()
         {
-            backdrop.Visible = false;
             backdrop.RemoveFromAutoDrawSet();
+
+            foreach (Gate gate in gates)
+            {
+                gate.remove();
+            }
+
+            foreach (Platform platform in platforms)
+            {
+                platform.remove();
+            }
+
         }
 
         public override void move()
