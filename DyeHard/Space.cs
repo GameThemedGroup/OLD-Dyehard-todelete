@@ -10,9 +10,9 @@ namespace Dyehard
     class Space : GameWorldRegion
     {
         public static float width = GameWorld.rightEdge * 3f;
-        public static int powerupCount = 6;
-        public static int dyepackCount = 13;
-        public static int debrisCount = 16;
+        public static int powerupCount = 5;
+        public static int dyepackCount = 11;
+        public static int debrisCount = 10;
 
         private XNACS1Rectangle space;
         private Hero hero;

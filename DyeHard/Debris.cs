@@ -12,6 +12,7 @@ namespace Dyehard
     {
         private static float size = 6f;
         private Obstacle obstacle;
+        private XNACS1Rectangle texture;
 
         public Debris(Hero hero, List<Enemy> enemies, float minX, float maxX)
         {
@@ -19,17 +20,37 @@ namespace Dyehard
 
             float randomX = XNACS1Base.RandomFloat(minX + padding, maxX - padding);
             float randomY = XNACS1Base.RandomFloat(GameWorld.bottomEdge + padding, GameWorld.topEdge - padding);
-            this.obstacle = new Obstacle(hero, enemies, new Vector2(randomX, randomY), size, size);
+            texture = new XNACS1Rectangle(new Vector2(randomX, randomY), size, size);
+
+            switch (XNACS1Base.RandomInt(3)) {
+                case 0:
+                    texture.Texture = "Beak";
+                    break;
+
+                case 1:
+                    texture.Texture = "Window";
+                    break;
+
+                case 2:
+                    texture.Texture = "Wing2";
+                    texture.Width = texture.Height * 1.8f;
+                    break;
+            }
+
+
+            obstacle = new Obstacle(hero, enemies, texture.Center, texture.Width * .9f, texture.Height * .9f);
         }
 
         public void move()
         {
+            texture.CenterX -= GameWorld.Speed;
             obstacle.move();
         }
 
         public void draw()
         {
-            obstacle.draw();
+            texture.TopOfAutoDrawSet();
+            //obstacle.draw();
         }
 
         public void interact()
