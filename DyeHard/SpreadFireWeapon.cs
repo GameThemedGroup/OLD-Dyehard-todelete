@@ -100,6 +100,5 @@ namespace Dyehard
 
             base.draw();
         }
-
     }
 }

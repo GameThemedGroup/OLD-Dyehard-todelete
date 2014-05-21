@@ -110,26 +110,26 @@ namespace Dyehard
             }
         }
 
-        public override void interact()
+        public override void update()
         {
             foreach (DyePack p in dyepacks)
             {
-                p.interact();
+                p.update();
             }
 
             foreach (PowerUp p in powerups)
             {
-                p.interact();
+                p.update();
             }
 
             if (contains(hero.getPosition()))
             {
-                trail.interact();
+                trail.update();
             }
 
             foreach (Debris d in debris)
             {
-                d.interact();
+                d.update();
             }
         }
 

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class InfoPanel
+    class InfoPanel : GameObject
     {
         private XNACS1Rectangle background;
         private DistanceTracker distanceTracker;
@@ -37,13 +37,13 @@ namespace Dyehard
             }
         }
 
-        public void remove()
+        public override void remove()
         {
             background.RemoveFromAutoDrawSet();
             distanceTracker.remove();
         }
 
-        public void draw()
+        public override void draw()
         {
             background.TopOfAutoDrawSet();
             distanceTracker.draw();
@@ -54,7 +54,7 @@ namespace Dyehard
             }
         }
 
-        public void update()
+        public override void update()
         {
             distanceTracker.update();
 

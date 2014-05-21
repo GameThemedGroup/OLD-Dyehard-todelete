@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class EnemyManager
+    class EnemyManager : GameObject
     {
         private const float enemyFrequency = 12f;
         private Hero hero;
@@ -22,14 +22,14 @@ namespace Dyehard
             newEnemyTimer = new Timer(enemyFrequency);
         }
 
-        public void remove()
+        public override void remove()
         {
             foreach (Enemy e in enemies) {
                 e.remove();
             }
         }
 
-        public void update()
+        public override void update()
         {
             // remove any dead enemies
             enemies.RemoveAll(enemy => !enemy.isAlive());
@@ -68,7 +68,7 @@ namespace Dyehard
             }
         }
 
-        public void draw()
+        public override void draw()
         {
             foreach (Enemy b in enemies)
             {

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Obstacle
+    class Obstacle : GameObject
     {
         private Hero hero;
         private List<Enemy> enemies;
@@ -22,7 +22,7 @@ namespace Dyehard
             this.box.Color = Color.SlateGray;
         }
 
-        public void remove()
+        public override void remove()
         {
             box.RemoveFromAutoDrawSet();
         }
@@ -50,12 +50,12 @@ namespace Dyehard
             }
         }
 
-        public void draw()
+        public override void draw()
         {
             box.TopOfAutoDrawSet();
         }
 
-        public void interact()
+        public override void update()
         {
             // kill the hero if its crushed at screen edge
             XNACS1Rectangle heroPosition = hero.getPosition();

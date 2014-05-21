@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Character
+    class Character : GameObject
     {
         private bool alive;
         protected XNACS1Rectangle position;
@@ -27,13 +27,13 @@ namespace Dyehard
             this.pendingCollisions = new List<XNACS1Rectangle>();
         }
 
-        public virtual void remove()
+        public override void remove()
         {
             position.RemoveFromAutoDrawSet();
             nextPosition.RemoveFromAutoDrawSet();
         }
 
-        public virtual void draw()
+        public override void draw()
         {
             position.TopOfAutoDrawSet();
         }
@@ -80,7 +80,7 @@ namespace Dyehard
             return nextPosition;
         }
 
-        public virtual void update()
+        public override void update()
         {
             interpretCollisions();
 

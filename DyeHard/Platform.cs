@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Platform
+    class Platform : GameObject
     {
         private const int SEGMENT_COUNT = 30;
         public static float height = 1.25f;
@@ -25,7 +25,7 @@ namespace Dyehard
             fillPlatform(offset, leftEdge, continuous);
         }
 
-        public void remove()
+        public override void remove()
         {
             foreach (Obstacle obstacle in obstacles)
             {
@@ -41,7 +41,7 @@ namespace Dyehard
             }
         }
 
-        public void draw()
+        public override void draw()
         {
             foreach (Obstacle obstacle in obstacles)
             {
@@ -49,11 +49,11 @@ namespace Dyehard
             }
         }
 
-        public void interact()
+        public override void update()
         {
             foreach (Obstacle obstacle in obstacles)
             {
-                obstacle.interact();
+                obstacle.update();
             }
         }
 
@@ -77,14 +77,12 @@ namespace Dyehard
                 bool platform = true;
                 for (int i = 0; i < SEGMENT_COUNT; i++)
                 {
-
                     if (platform)
                     {
                         float Xpos = (width * 0.5f) + leftEdge + (i * width);
                         obstacle = new Obstacle(hero, enemies, new Vector2(Xpos, Ypos), width + mask, height);
                         obstacles.Add(obstacle);
                     }
-
                     consecutiveChance -= 2;
                     if (XNACS1Base.RandomInt(consecutiveChance) == 0)
                     {

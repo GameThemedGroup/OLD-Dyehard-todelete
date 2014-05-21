@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Gate
+    class Gate : GameObject
     {
         private Color color;
         private XNACS1Rectangle path;
@@ -41,7 +41,7 @@ namespace Dyehard
             this.preview.Visible = false;
         }
 
-        public void remove()
+        public override void remove()
         {
             path.RemoveFromAutoDrawSet();
             deathGate.RemoveFromAutoDrawSet();
@@ -50,6 +50,8 @@ namespace Dyehard
 
         public void move()
         {
+            // called before update
+
             path.CenterX -= GameWorld.Speed;
             deathGate.CenterX -= GameWorld.Speed;
             preview.Visible = path.LowerLeft.X > (preview.LowerLeft.X + preview.Width) && (GameWorld.rightEdge + (Space.width * 0.7f)) > path.LowerLeft.X;
@@ -59,21 +61,22 @@ namespace Dyehard
             }
         }
 
-        public void draw()
+        public override void draw()
         {
             preview.TopOfAutoDrawSet();
             path.TopOfAutoDrawSet();
             deathGate.TopOfAutoDrawSet();
         }
 
-        public void interact()
+        public override void update()
         {
-
+            // kill the hero at the death wall
             if (hero.getColor() != color && deathGate.Collided(hero.getPosition()))
             {
                 hero.kill();
             }
 
+            // kill any enemies at the death wall
             foreach (Enemy e in enemies)
             {
                 if (e.getColor() != color && deathGate.Collided(e.getPosition()))
@@ -82,11 +85,13 @@ namespace Dyehard
                 }
             }
 
+            // dye the hero
             if (contains(hero.getPosition()))
             {
                 hero.setColor(color);
             }
 
+            // dye any enemies
             foreach (Enemy e in enemies)
             {
                 if (contains(e.getPosition()))

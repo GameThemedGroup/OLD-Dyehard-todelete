@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Explosion
+    class Explosion : GameObject
     {
         private static float splashRadius = 2.5f;
         private static float duration = 1.5f;
@@ -31,16 +31,23 @@ namespace Dyehard
             emitter.AutoRemoveDeadParticles = true;
         }
 
-        public void remove()
+        public override void remove()
         {
-            // stub
+            throw new NotImplementedException();
         }
 
-        public void update()
+        public override void draw()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void update()
         {
             timer.update();
             emitter.TopOfAutoDrawSet();
         }
+
+
 
         public bool isDone()
         {

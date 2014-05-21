@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Debris
+    class Debris : GameObject
     {
         private static float size = 6f;
         private Obstacle obstacle;
@@ -40,7 +40,7 @@ namespace Dyehard
             obstacle = new Obstacle(hero, enemies, texture.Center, texture.Width * .9f, texture.Height * .9f);
         }
 
-        public void remove()
+        public override void remove()
         {
             obstacle.remove();
             texture.RemoveFromAutoDrawSet();
@@ -52,14 +52,14 @@ namespace Dyehard
             obstacle.move();
         }
 
-        public void draw()
+        public override void draw()
         {
             texture.TopOfAutoDrawSet();
         }
 
-        public void interact()
+        public override void update()
         {
-            obstacle.interact();
+            obstacle.update();
         }   
     }
 }

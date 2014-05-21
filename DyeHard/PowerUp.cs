@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    abstract class PowerUp
+    abstract class PowerUp : GameObject
     {
         private const float width = 5f;
         protected Hero hero;
@@ -23,7 +23,7 @@ namespace Dyehard
             box = new XNACS1Rectangle(new Vector2(randomX, randomY), width, width * 0.39f);
         }
 
-        public void remove()
+        public override void remove()
         {
             box.RemoveFromAutoDrawSet();
         }
@@ -33,7 +33,7 @@ namespace Dyehard
             box.CenterX -= GameWorld.Speed;
         }
 
-        public virtual void interact()
+        public override void update()
         {
             if (box.Collided(hero.getPosition()) && box.Visible)
             {
@@ -42,7 +42,7 @@ namespace Dyehard
             }
         }
 
-        public void draw()
+        public override void draw()
         {
             box.TopOfAutoDrawSet();
         }

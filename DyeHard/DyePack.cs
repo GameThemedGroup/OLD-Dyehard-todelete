@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class DyePack
+    class DyePack : GameObject
     {
         private const float height = 3.5f;
         protected Hero hero;
@@ -26,7 +26,7 @@ namespace Dyehard
             box.Texture = getTexture(color);
         }
 
-        public void remove()
+        public override void remove()
         {
             box.RemoveFromAutoDrawSet();
         }
@@ -36,7 +36,7 @@ namespace Dyehard
             box.CenterX -= GameWorld.Speed;
         }
 
-        public virtual void interact()
+        public override void update()
         {
             if (box.Collided(hero.getPosition()) && box.Visible)
             {
@@ -46,7 +46,7 @@ namespace Dyehard
             }
         }
 
-        public void draw()
+        public override void draw()
         {
             box.TopOfAutoDrawSet();
         }

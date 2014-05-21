@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Dyehard
 {
-    class GameWorld
+    class GameWorld : GameObject
     {
         public static readonly float panelSize = 3.5f;
         public static readonly float rightEdge = XNACS1Base.World.WorldMax.X;
@@ -63,7 +63,7 @@ namespace Dyehard
             upcoming.Enqueue(nextElement(onscreen));
         }
 
-        public void remove()
+        public override void remove()
         {
             // clean up game objects - remove from draw set
             // GameWorld expects this to be called before destroying the GameWorld instance
@@ -83,7 +83,7 @@ namespace Dyehard
             infoPanel.remove();
         }
 
-        public void update()
+        public override void update()
         {
             checkControl();
             accelerateGame();
@@ -107,13 +107,13 @@ namespace Dyehard
 
             foreach (GameWorldRegion e in onscreen)
             {
-                e.interact();
+                e.update();
             }
 
             infoPanel.update();
         }
 
-        public void draw()
+        public override void draw()
         {
             foreach (GameWorldRegion e in onscreen)
             {

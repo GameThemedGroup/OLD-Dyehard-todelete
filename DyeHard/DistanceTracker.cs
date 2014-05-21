@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class DistanceTracker
+    class DistanceTracker : GameObject
     {
         private Hero hero;
         private Vector2 startPoint;
@@ -30,12 +30,12 @@ namespace Dyehard
             this.distance.LabelColor = Color.White;
         }
 
-        public void remove()
+        public override void remove()
         {
             distance.RemoveFromAutoDrawSet();
         }
 
-        public void update()
+        public override void update()
         {
             // update distance
             accumulatedDistance += GameWorld.Speed;
@@ -45,7 +45,7 @@ namespace Dyehard
             distance.Label = ((accumulatedDistance + heroOffset) / factor).ToString("00000000.0");
         }
 
-        public void draw()
+        public override void draw()
         {
             distance.TopOfAutoDrawSet();
         }

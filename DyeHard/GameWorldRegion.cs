@@ -7,13 +7,9 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    abstract class GameWorldRegion
+    abstract class GameWorldRegion : GameObject
     {
-        abstract public void remove();
-
-        abstract public void interact();
-        abstract public void move();
-        abstract public void draw();
+        abstract public void move(); // called before update
 
         abstract public bool isOffScreen();
         abstract public float rightEdge();

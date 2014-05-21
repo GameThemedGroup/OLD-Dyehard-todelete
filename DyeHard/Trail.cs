@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Trail
+    class Trail : GameObject
     {
         private const float interval = 0.2f;
         private Character character;
@@ -25,7 +25,7 @@ namespace Dyehard
             this.timer = new Timer(interval);
         }
 
-        public void remove()
+        public override void remove()
         {
             foreach (Footprint t in trail)
             {
@@ -33,7 +33,7 @@ namespace Dyehard
             }
         }
 
-        public void draw()
+        public override void draw()
         {
             if (trail.Count > 0 && trail.First().faded())
             {
@@ -55,9 +55,17 @@ namespace Dyehard
             }
         }
 
-        public void interact()
+        public override void update()
         {
-            timer.update();
+            if (GameWorld.Speed != 0)
+            {
+                timer.update();
+                foreach (Footprint t in trail)
+                {
+                    t.update();
+                }
+            }
+
             if (timer.isDone())
             {
                 timer.reset();
@@ -72,11 +80,9 @@ namespace Dyehard
                 }
             }
         }
-
-        
     }
 
-    class Footprint
+    class Footprint : GameObject
     {
         private XNACS1Rectangle box;
         private Color color;
@@ -100,7 +106,7 @@ namespace Dyehard
             box.CenterX -= GameWorld.Speed;
         }
 
-        public void draw()
+        public override void update()
         {
             // fade the footprint
             color.A = (byte)Math.Max(0, color.A - 6);
@@ -112,7 +118,10 @@ namespace Dyehard
             // shrink the footprint
             box.Height *= .98f;
             box.Width *= .98f;
+        }
 
+        public override void draw()
+        {
             box.TopOfAutoDrawSet();
         }
 
@@ -122,7 +131,7 @@ namespace Dyehard
             return box.Height < 0.3f;
         }
 
-        public void remove()
+        public override void remove()
         {
             box.RemoveFromAutoDrawSet();
         }

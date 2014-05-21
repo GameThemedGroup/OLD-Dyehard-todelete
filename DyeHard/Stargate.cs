@@ -82,15 +82,15 @@ namespace Dyehard
             }
         }
 
-        public override void interact()
+        public override void update()
         {
             foreach (Gate g in gates)
             {
-                g.interact();
+                g.update();
             }
 
             foreach (Platform p in platforms) {
-                p.interact();
+                p.update();
             }
         }
 

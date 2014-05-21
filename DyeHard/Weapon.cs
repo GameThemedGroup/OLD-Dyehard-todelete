@@ -7,11 +7,10 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Weapon
+    class Weapon : GameObject
     {
-        
-        protected static float bulletSpeed = 1.2f;
-        protected static float bulletSize = 1f;
+        protected static float bulletSpeed = 1f;
+        protected static float bulletSize = .75f;
         protected Hero hero;
         protected Queue<XNACS1Circle> bullets;
         protected List<Enemy> enemies;
@@ -24,7 +23,7 @@ namespace Dyehard
             explosions = new List<Explosion>();
         }
 
-        public virtual void remove()
+        public override void remove()
         {
             foreach (XNACS1Circle b in bullets)
             {
@@ -38,7 +37,7 @@ namespace Dyehard
         }
 
         // update bullets, create explosions
-        public virtual void update()
+        public override void update()
         {
             foreach (XNACS1Circle b in bullets) {
                 b.CenterX += bulletSpeed;
@@ -83,7 +82,7 @@ namespace Dyehard
         }
 
         // draw bullets
-        public virtual void draw()
+        public override void draw()
         {
             foreach (XNACS1Circle b in bullets)
             {
