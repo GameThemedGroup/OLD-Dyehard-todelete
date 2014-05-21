@@ -172,3 +172,5 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+DyeHard/Content/Resources/Textures/Thumbs.db
+DyeHard/Content/Resources/Textures/originals/Thumbs.db
