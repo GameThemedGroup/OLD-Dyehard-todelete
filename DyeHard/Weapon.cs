@@ -53,9 +53,7 @@ namespace Dyehard
                         b.Visible = false;
                         explosions.Add(new Explosion(hero, e));
                     }
-                    
                 }
-                
             }
 
             foreach (Explosion e in explosions)
@@ -65,7 +63,6 @@ namespace Dyehard
             }
 
             explosions.RemoveAll(explosion => explosion.isDone()); 
-            
         }
 
         // fire the weapon

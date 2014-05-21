@@ -209,24 +209,25 @@ namespace Dyehard
         {
             // dont save references to any preloaded objects
             Hero preloadHero = new Hero();
+            preloadHero.remove();
 
             Enemy preloadEnemy = new BrainEnemy(new Vector2(-100f, -100f), 0, preloadHero);
-            new RedBeamEnemy(new Vector2(-100f, -100f), 0, preloadHero);
-            new SpiderEnemy(new Vector2(-100f, -100f), 0, preloadHero);
+            preloadEnemy.remove();
 
-            new DyePack(preloadHero, -200f, -100f, Blue);
-            new DyePack(preloadHero, -200f, -100f, Green);
-            new DyePack(preloadHero, -200f, -100f, Yellow);
-            new DyePack(preloadHero, -200f, -100f, Red);
-            new DyePack(preloadHero, -200f, -100f, Pink);
-            new DyePack(preloadHero, -200f, -100f, Teal);
+            (new RedBeamEnemy(new Vector2(-100f, -100f), 0, preloadHero)).remove();
+            (new SpiderEnemy(new Vector2(-100f, -100f), 0, preloadHero)).remove();
 
-            new SpeedUp(preloadHero, -200f, -100f);
-            new Ghost(preloadHero, -200f, -100f);
-            new LowGrav(preloadHero, -200f, -100f);
-            new Invincibility(preloadHero, -200f, -100f);
-
-            new PowerUpMeter(0, Blue);
+            (new DyePack(preloadHero, -200f, -100f, Blue)).remove();
+            (new DyePack(preloadHero, -200f, -100f, Green)).remove();
+            (new DyePack(preloadHero, -200f, -100f, Yellow)).remove();
+            (new DyePack(preloadHero, -200f, -100f, Red)).remove();
+            (new DyePack(preloadHero, -200f, -100f, Pink)).remove();
+            (new DyePack(preloadHero, -200f, -100f, Teal)).remove();
+            
+            (new SpeedUp(preloadHero, -200f, -100f)).remove();
+            (new Ghost(preloadHero, -200f, -100f)).remove();
+            (new LowGrav(preloadHero, -200f, -100f)).remove();
+            (new Invincibility(preloadHero, -200f, -100f)).remove();
 
             new Explosion(preloadHero, preloadEnemy);
         }

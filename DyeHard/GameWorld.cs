@@ -174,7 +174,7 @@ namespace Dyehard
             if (onscreen.First().isOffScreen())
             {
                 // remove off screen element
-                onscreen.Dequeue();
+                onscreen.Dequeue().remove();
             }
 
             if (onscreen.Last().rightEdge() <= rightEdge)

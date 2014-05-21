@@ -32,11 +32,16 @@ namespace Dyehard
         public override void update()
         {
             // remove any dead enemies
+            foreach (Enemy e in enemies.Where(enemy => !enemy.isAlive()))
+            {
+                e.remove();
+            }
             enemies.RemoveAll(enemy => !enemy.isAlive());
 
-            foreach (Enemy currentEnemy in enemies)
+
+            foreach (Enemy e in enemies)
             {
-                currentEnemy.update();
+                e.update();
             }
 
             // prevent generating enemy
@@ -78,6 +83,11 @@ namespace Dyehard
 
         public void killAll()
         {
+            foreach (Enemy e in enemies)
+            {
+                e.remove();
+            }
+
             enemies.Clear();
         }
 

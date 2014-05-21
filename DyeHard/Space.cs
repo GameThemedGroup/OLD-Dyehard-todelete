@@ -122,14 +122,14 @@ namespace Dyehard
                 p.update();
             }
 
-            if (contains(hero.getPosition()))
-            {
-                trail.update();
-            }
-
             foreach (Debris d in debris)
             {
                 d.update();
+            }
+
+            if (contains(hero.getPosition()))
+            {
+                trail.update();
             }
         }
 
@@ -137,7 +137,10 @@ namespace Dyehard
         {
             space.TopOfAutoDrawSet();
 
-            trail.draw();
+            if (contains(hero.getPosition()))
+            {
+                trail.draw();
+            }
 
             foreach (Debris d in debris)
             {
