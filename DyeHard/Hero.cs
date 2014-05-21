@@ -16,6 +16,8 @@ namespace Dyehard
         private Weapon weapon;
         private List<Obstacle> boundaries;
         private float gravityFactor;
+        private int sizeOfWeaponRack = 3;
+        private Weapon[] weaponRack;
 
         public Hero()
             : base(new Vector2(GameWorld.rightEdge / 3, GameWorld.topEdge / 2), 5f, 5f)
@@ -23,7 +25,12 @@ namespace Dyehard
 
             base.setLabel("Dye");
             boundaries = new List<Obstacle>();
-            weapon = new OverHeatWeapon(this);
+            weaponRack = new Weapon[sizeOfWeaponRack];
+            weaponRack[0] = new Weapon(this);
+            weaponRack[1] = new OverHeatWeapon(this);
+            weaponRack[2] = new LimitedBulletWeapon(this);
+            weapon = weaponRack[0];
+
 
             gravityFactor = 1f;
 
@@ -42,7 +49,35 @@ namespace Dyehard
             base.update();
 
             // update the hero's weapon
-            weapon.update();
+
+            //for (int x = 0; x < sizeOfWeaponRack; x++)
+          // {
+              // weaponRack[x].update();
+           // }
+                //charles update all weapon
+                weapon.update();
+
+
+            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D1))
+            {
+                changeWeapon(0);
+            }
+            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D2))
+            {
+                changeWeapon(1);
+            }
+            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D3))
+            {
+                changeWeapon(2);
+            }
+        }
+
+        public void gotDyed()
+        {
+            if (weapon.GetType() == typeof(LimitedBulletWeapon))
+            {
+                weapon.recharge();
+            }
         }
 
         public override void draw()
@@ -77,7 +112,12 @@ namespace Dyehard
 
         public void setEnemies(List<Enemy> enemies)
         {
-            weapon.setEnemies(enemies);
+           // weapon.setEnemies(enemies);
+
+            for (int x = 0; x < sizeOfWeaponRack; x++)
+            {
+                weaponRack[x].setEnemies(enemies);
+            }
         }
 
         private void setBoundaries()
@@ -110,5 +150,17 @@ namespace Dyehard
         {
             gravityFactor = 1f;
         }
+
+        public void changeWeapon(int weaponNum)
+        {
+            if (weaponNum >= 0 && weaponNum < sizeOfWeaponRack)
+            {
+                weapon = weaponRack[weaponNum];
+            }
+
+
+        }
+
+
     }
 }

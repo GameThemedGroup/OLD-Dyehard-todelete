@@ -41,6 +41,7 @@ namespace Dyehard
             if (box.Collided(hero.getPosition()) && box.Visible)
             {
                 hero.setColor(box.Color);
+                hero.gotDyed();
                 box.Visible = false;
             }
         }

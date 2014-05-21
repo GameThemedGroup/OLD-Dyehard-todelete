@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,24 +8,24 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
-    class Weapon
+    class LimitedBulletWeapon : Weapon
     {
-        
-        protected static float bulletSpeed = 1.2f;
-        protected static float bulletSize = 1f;
-        protected Hero hero;
-        protected Queue<XNACS1Circle> bullets;
-        protected List<Enemy> enemies;
-        protected List<Explosion> explosions;
+        private int maxBullet = 10;
+        private int currentBulletNum;
+        private XNACS1Rectangle tempTracker;
 
-        public Weapon(Hero hero) 
+
+        public LimitedBulletWeapon(Hero hero)
+            : base(hero)
         {
             this.hero = hero;
             bullets = new Queue<XNACS1Circle>();
             explosions = new List<Explosion>();
+            currentBulletNum = 10;
+            tempTracker = new XNACS1Rectangle(new Vector2(30, 55), 4, 4);
         }
 
-        ~Weapon()
+        ~LimitedBulletWeapon()
         {
             foreach (XNACS1Circle b in bullets)
             {
@@ -34,14 +35,37 @@ namespace Dyehard
 
         }
 
-        public virtual void update()
+        public override void recharge()
         {
-            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.F))
+            currentBulletNum = maxBullet;
+        }
+
+        public override void update()
+        {
+            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.F) &&  
+                currentBulletNum > 0)
             {
                 fire();
+                currentBulletNum--;
             }
 
-            foreach (XNACS1Circle b in bullets) {
+            if (currentBulletNum <=0)
+            {
+                tempTracker.Color = Color.Red;
+            }
+
+
+            if (currentBulletNum > 0)
+            {
+                tempTracker.Color = Color.Green;
+
+            }
+
+            tempTracker.Label = currentBulletNum.ToString();
+            tempTracker.TopOfAutoDrawSet();
+
+            foreach (XNACS1Circle b in bullets)
+            {
                 b.CenterX += bulletSpeed;
             }
 
@@ -49,8 +73,8 @@ namespace Dyehard
             {
                 bullets.Dequeue().RemoveFromAutoDrawSet();
             }
-            
-            
+
+
 
             foreach (XNACS1Circle b in bullets)
             {
@@ -62,9 +86,9 @@ namespace Dyehard
                         b.Visible = false;
                         explosions.Add(new Explosion(hero, e));
                     }
-                    
+
                 }
-                
+
             }
 
             foreach (Explosion e in explosions)
@@ -73,34 +97,9 @@ namespace Dyehard
                 e.interactEnemy(enemies);
             }
 
-            explosions.RemoveAll(explosion => explosion.isDone()); 
-            
+            explosions.RemoveAll(explosion => explosion.isDone());
+
         }
 
-        // fire the weapon
-        protected void fire()
-        {
-            XNACS1Circle bullet = new XNACS1Circle(hero.getPosition().Center, bulletSize);
-            bullet.Color = hero.getColor();
-            bullets.Enqueue(bullet);
-        }
-
-        public void draw()
-        {
-            foreach (XNACS1Circle b in bullets)
-            {
-                b.TopOfAutoDrawSet();
-            }
-        }
-
-        public void setEnemies(List<Enemy> enemies)
-        {
-            this.enemies = enemies;
-        }
-
-        public virtual void recharge()
-        {
-          
-        }
     }
 }
