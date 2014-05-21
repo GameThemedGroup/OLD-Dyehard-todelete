@@ -25,7 +25,7 @@ namespace Dyehard
             explosions = new List<Explosion>();
             overheatOrNot = false;
             currentHeat = 0;
-            tempTracker = new XNACS1Rectangle(new Vector2(5, 5), 4, 4);
+            tempTracker = new XNACS1Rectangle(new Vector2(25, 55), 4, 4);
         }
 
         ~OverHeatWeapon()
