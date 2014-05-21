@@ -11,14 +11,12 @@ namespace Dyehard
     class SpreadFireWeapon : Weapon
     {
         private XNACS1Rectangle info;
-        private Queue<XNACS1Circle> bulletsUp;
-        private Queue<XNACS1Circle> bulletsDown;
+        private Queue<XNACS1Circle> angledBullets;
 
         public SpreadFireWeapon(Hero hero)
             : base(hero)
         {
-            bulletsUp = new Queue<XNACS1Circle>();
-            bulletsDown = new Queue<XNACS1Circle>();
+            angledBullets = new Queue<XNACS1Circle>();
 
             info = new XNACS1Rectangle(new Vector2(GameWorld.leftEdge + 12, GameWorld.topEdge - 4), 4, 4);
             info.Color = Color.Blue;
@@ -28,12 +26,7 @@ namespace Dyehard
         {
             info.RemoveFromAutoDrawSet();
 
-            foreach (XNACS1Circle b in bulletsDown)
-            {
-                b.RemoveFromAutoDrawSet();
-            }
-
-            foreach (XNACS1Circle b in bulletsUp)
+            foreach (XNACS1Circle b in angledBullets)
             {
                 b.RemoveFromAutoDrawSet();
             }
@@ -41,43 +34,30 @@ namespace Dyehard
 
         public override void update()
         {
-            foreach (XNACS1Circle b in bulletsUp)
+            // we have to maintain our own bullet queue because Weapon class will otherwise
+            // just move bullet horizontally
+
+            for (int i = 0; i < angledBullets.Count; i++)
             {
+                XNACS1Circle b = angledBullets.ElementAt(i);
                 b.CenterX += bulletSpeed;
-                b.CenterY += bulletSpeed / 2;
-            }
-
-            foreach (XNACS1Circle b in bulletsDown)
-            {
-                b.CenterX += bulletSpeed;
-                b.CenterY -= bulletSpeed / 2;
-            }
-
-
-            while (bulletsUp.Count > 0 && (bulletsUp.First().CenterX - bulletsUp.First().Radius) > GameWorld.rightEdge)
-            {
-                bulletsUp.Dequeue().RemoveFromAutoDrawSet();
-            }
-
-            while (bulletsDown.Count > 0 && (bulletsDown.First().CenterX - bulletsDown.First().Radius) > GameWorld.rightEdge)
-            {
-                bulletsDown.Dequeue().RemoveFromAutoDrawSet();
-            }
-
-            foreach (XNACS1Circle b in bulletsUp)
-            {
-                foreach (Enemy e in enemies)
+                if (i % 2 == 0)
                 {
-                    if (e.getPosition().Collided(b) && b.Visible)
-                    {
-                        e.gotShot(b.Color);
-                        b.Visible = false;
-                        explosions.Add(new Explosion(hero, e));
-                    }
+                    b.CenterY -= bulletSpeed / 2;
+                }
+                else
+                {
+                    b.CenterY += bulletSpeed / 2;
+
                 }
             }
 
-            foreach (XNACS1Circle b in bulletsDown)
+            while (angledBullets.Count > 0 && (angledBullets.First().CenterX - angledBullets.First().Radius) > GameWorld.rightEdge)
+            {
+                angledBullets.Dequeue().RemoveFromAutoDrawSet();
+            }
+
+            foreach (XNACS1Circle b in angledBullets)
             {
                 foreach (Enemy e in enemies)
                 {
@@ -99,11 +79,11 @@ namespace Dyehard
 
             XNACS1Circle bullet = new XNACS1Circle(hero.getPosition().Center, bulletSize);
             bullet.Color = hero.getColor();
-            bulletsDown.Enqueue(bullet);
+            angledBullets.Enqueue(bullet);
 
             bullet = new XNACS1Circle(hero.getPosition().Center, bulletSize);
             bullet.Color = hero.getColor();
-            bulletsUp.Enqueue(bullet);
+            angledBullets.Enqueue(bullet);
         }
 
         public override void draw()
@@ -111,12 +91,7 @@ namespace Dyehard
             info.Label = "spread";
             info.TopOfAutoDrawSet();
 
-            foreach (XNACS1Circle b in bulletsDown)
-            {
-                b.TopOfAutoDrawSet();
-            }
-
-            foreach (XNACS1Circle b in bulletsUp)
+            foreach (XNACS1Circle b in angledBullets)
             {
                 b.TopOfAutoDrawSet();
             }

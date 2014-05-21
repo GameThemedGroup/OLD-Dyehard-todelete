@@ -9,6 +9,7 @@ namespace Dyehard
 {
     class DyePack
     {
+        private const float height = 3.5f;
         protected Hero hero;
         protected XNACS1Rectangle box;
 
@@ -20,7 +21,7 @@ namespace Dyehard
 
             float randomX = XNACS1Base.RandomFloat(minX + padding, maxX - padding);
             float randomY = XNACS1Base.RandomFloat(GameWorld.bottomEdge + padding, GameWorld.topEdge - padding);
-            box = new XNACS1Rectangle(new Vector2(randomX, randomY), 3.46f, 4f);
+            box = new XNACS1Rectangle(new Vector2(randomX, randomY), 0.865f * height, height);
             box.Color = color;
             box.Texture = getTexture(color);
         }

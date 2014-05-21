@@ -9,6 +9,7 @@ namespace Dyehard
 {
     abstract class PowerUp
     {
+        private const float width = 5f;
         protected Hero hero;
         protected XNACS1Rectangle box;
 
@@ -19,7 +20,7 @@ namespace Dyehard
             float padding = hero.getPosition().Width * 2;
             float randomX = XNACS1Base.RandomFloat(minX + padding, maxX - padding);
             float randomY = XNACS1Base.RandomFloat(GameWorld.bottomEdge + padding, GameWorld.topEdge - padding);
-            box = new XNACS1Rectangle(new Vector2(randomX, randomY), 6f, 2.32f);
+            box = new XNACS1Rectangle(new Vector2(randomX, randomY), width, width * 0.39f);
         }
 
         ~PowerUp()
