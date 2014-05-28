@@ -230,6 +230,10 @@ namespace Dyehard
             {
                 weapon = weaponRack[3];
             }
+            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D5))
+            {
+                weapon = weaponRack[4];
+            }
         }
 
         private void createWeapons()
@@ -238,6 +242,7 @@ namespace Dyehard
             weaponRack.Add(new OverHeatWeapon(this));
             weaponRack.Add(new LimitedAmmoWeapon(this));
             weaponRack.Add(new SpreadFireWeapon(this));
+            weaponRack.Add(new Weapon2(this));
         }
 
     }
