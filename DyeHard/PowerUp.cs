@@ -7,16 +7,19 @@ using Microsoft.Xna.Framework;
 
 namespace Dyehard
 {
+    delegate void DeactivateDelegate();
+
     abstract class PowerUp : GameObject
     {
+
+        public const float Duration = 5f;
+
         private const float width = 5f;
         protected Hero hero;
         protected XNACS1Rectangle box;
-
         public PowerUp(Hero hero, float minX, float maxX)
         {
             this.hero = hero;
-
             float padding = hero.getPosition().Width * 2;
             float randomX = XNACS1Base.RandomFloat(minX + padding, maxX - padding);
             float randomY = XNACS1Base.RandomFloat(GameWorld.bottomEdge + padding, GameWorld.topEdge - padding);
@@ -50,7 +53,7 @@ namespace Dyehard
         {
             box.Visible = false;
         }
-
+        
         public static PowerUp randomPowerUp(Hero hero, float minX, float maxX)
         {
             switch (XNACS1Base.RandomInt(4))
@@ -61,12 +64,12 @@ namespace Dyehard
                     return new Ghost(hero, minX, maxX);
                 case 2:
                     return new Invincibility(hero, minX, maxX);
-                case 3:  // default
                 default:
-                    return new LowGrav(hero, minX, maxX);
+                    return new Overload(hero, minX, maxX);
             }
         }
     }
+
 
     class SpeedUp : PowerUp
     {
@@ -80,10 +83,13 @@ namespace Dyehard
 
         public override void activate()
         {
-            meter.reset(5);
+            hero.increaseSpeed();
+            meter.reset(Duration, hero.normalizeSpeed);
             base.activate();
         }
+
     }
+
 
     class Ghost : PowerUp
     {
@@ -97,7 +103,8 @@ namespace Dyehard
 
         public override void activate()
         {
-            meter.reset(5);
+            hero.setInvisible();
+            meter.reset(Duration, hero.setVisible);
             base.activate();
         }
     }
@@ -114,16 +121,17 @@ namespace Dyehard
 
         public override void activate()
         {
-            meter.reset(5);
+            meter.reset(Duration, null);
             base.activate();
         }
     }
 
-    class LowGrav : PowerUp
+
+    class Overload : PowerUp
     {
         public static PowerUpMeter meter = new PowerUpMeter(3, Game.Red);
 
-        public LowGrav(Hero hero, float minX, float maxX)
+        public Overload(Hero hero, float minX, float maxX)
             : base(hero, minX, maxX)
         {
             box.Texture = "PowerUp_Red";
@@ -131,10 +139,12 @@ namespace Dyehard
 
         public override void activate()
         {
-            meter.reset(5);
+            meter.reset(Duration, null);
             base.activate();
         }
     }
+
+
 
     class PowerUpMeter
     {
@@ -143,6 +153,7 @@ namespace Dyehard
         private Timer timer;
         private float initialTime;
         private float initialMeterHeight;
+        private DeactivateDelegate deactivate;
 
         public PowerUpMeter(int sequenceNumber, Color color)
         {
@@ -160,6 +171,7 @@ namespace Dyehard
             initialMeterHeight = height / 1.8f;
             meter = new XNACS1Rectangle(box.Center, width / 1.8f, initialMeterHeight);
             meter.Color = color;
+            deactivate = null;
         }
 
         ~PowerUpMeter()
@@ -173,6 +185,11 @@ namespace Dyehard
             if (timer.isDone())
             {
                 meter.Visible = false;
+                if (deactivate != null)
+                {
+                    deactivate();
+                    deactivate = null;
+                }
             }
             else
             {
@@ -183,10 +200,11 @@ namespace Dyehard
             }
         }
 
-        public void reset(float time)
+        public void reset(float time, DeactivateDelegate d)
         {
             initialTime = time;
             timer = new Timer(time);
+            deactivate = d;
         }
 
         public void draw()

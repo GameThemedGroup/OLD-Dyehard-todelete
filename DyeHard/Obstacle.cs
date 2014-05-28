@@ -57,26 +57,7 @@ namespace Dyehard
 
         public override void update()
         {
-            // kill the hero if its crushed at screen edge
-            XNACS1Rectangle heroPosition = hero.getPosition();
-            if (box.Collided(heroPosition))
-            {
-                // make sure box is still completely on screen
-                if (box.MinBound.X > GameWorld.leftEdge) {
-                    // kill hero if squished between box and left edge of game
-                    if (heroPosition.MinBound.X <= GameWorld.leftEdge)
-                    {
-                        if ((heroPosition.MinBound.Y < box.MaxBound.Y && heroPosition.MinBound.Y > box.MinBound.Y) ||
-                            (heroPosition.MaxBound.Y < box.MaxBound.Y && heroPosition.MaxBound.Y > box.MinBound.Y) ||
-                            (box.MinBound.Y < heroPosition.MaxBound.Y && box.MinBound.Y > heroPosition.MinBound.Y) ||
-                            (box.MaxBound.Y < heroPosition.MaxBound.Y && box.MaxBound.Y > heroPosition.MinBound.Y))
-                        {
-                            hero.kill();
-                        }
-                    }
-                }
-
-            }
+            // do nothing
         }
     }
 }

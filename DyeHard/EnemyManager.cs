@@ -59,13 +59,13 @@ namespace Dyehard
                 switch (XNACS1Base.RandomInt(0,3))
                 {
                     case 1:
-                        enemies.Add(new BrainEnemy(position, 6.5f, hero));
+                        enemies.Add(new BrainEnemy(position, 7.5f, hero));
                         break;
                     case 2:
-                        enemies.Add(new RedBeamEnemy(position, 6.5f, hero));
+                        enemies.Add(new RedBeamEnemy(position, 7.5f, hero));
                         break;
                     default:
-                        enemies.Add(new SpiderEnemy(position, 6.5f, hero));
+                        enemies.Add(new SpiderEnemy(position, 7.5f, hero));
                         break;
                 }
 

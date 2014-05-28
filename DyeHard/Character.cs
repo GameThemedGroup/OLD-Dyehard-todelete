@@ -74,7 +74,7 @@ namespace Dyehard
             return position;
         }
 
-        public XNACS1Rectangle getNextPosition()
+        public virtual XNACS1Rectangle getNextPosition()
         {
             nextPosition.Center = position.Center + position.Velocity;
             return nextPosition;

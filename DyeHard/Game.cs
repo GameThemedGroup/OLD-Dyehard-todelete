@@ -13,7 +13,7 @@ namespace Dyehard
 {
     public class Game : XNACS1Base
     {
-        private static bool FULLSCREEN = true;
+        private static bool FULLSCREEN = false;
 
         // Dyehard Dye Colors
         public static int colorCount = 6;
@@ -52,7 +52,7 @@ namespace Dyehard
         protected override void InitializeWorld()
         {
             SetAppWindowPixelDimension(FULLSCREEN, 1920, 1080);
-            World.SetWorldCoordinate(new Vector2(0f, 0f), 100f);
+            World.SetWorldCoordinate(new Vector2(0f, 0f), 100);
             preloadTexturedObjects();
             loadControllerObjects();
 
@@ -226,7 +226,7 @@ namespace Dyehard
             
             (new SpeedUp(preloadHero, -200f, -100f)).remove();
             (new Ghost(preloadHero, -200f, -100f)).remove();
-            (new LowGrav(preloadHero, -200f, -100f)).remove();
+            (new Overload(preloadHero, -200f, -100f)).remove();
             (new Invincibility(preloadHero, -200f, -100f)).remove();
 
             new Explosion(preloadHero, preloadEnemy);

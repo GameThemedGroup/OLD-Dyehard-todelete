@@ -15,30 +15,31 @@ namespace Dyehard
 
         private Weapon weapon;
         private List<Obstacle> boundaries;
-        private float gravityFactor;
         private List<Weapon> weaponRack;
         private int collectedDyepacks;
         private int collectedPowerups;
-        private List<PowerUp> activePowerups;
+
+        private float speedFactor;
+        private bool invisible;
 
         public Hero()
             : base(new Vector2(GameWorld.rightEdge / 3, GameWorld.topEdge / 2), 5f, 5f)
         {
             base.setLabel("Dye");
+
             weaponRack = new List<Weapon>();
             createWeapons();
-
-            // set initial weapon to first
-            weapon = weaponRack.First();
-
-            gravityFactor = 1f;
+            weapon = weaponRack.First(); // set initial weapon to first
 
             collectedDyepacks = 0;
             collectedPowerups = 0;
-            activePowerups = new List<PowerUp>();
 
             boundaries = new List<Obstacle>();
             setBoundaries();
+
+            // initialize powerup variables
+            speedFactor = 1.0f;
+            invisible = false;
         }
 
         public override void remove()
@@ -58,16 +59,16 @@ namespace Dyehard
 
         public override void update()
         {
-
             // restrict the hero's movement to the boundary
+            bool holdVisibility = invisible;
+            invisible = false;
             foreach (Obstacle b in boundaries)
             {
                 b.checkCollisions();
             }
-
             // update base character object (collisions, etc.)
             base.update();
-
+            invisible = holdVisibility;
 
             // update hero's weapons
             selectWeapon();
@@ -97,9 +98,8 @@ namespace Dyehard
 
         public void collect(PowerUp powerup)
         {
-            collectedPowerups += 1;
             powerup.activate();
-            activePowerups.Add(powerup);
+            collectedPowerups += 1;
         }
 
         public override void draw()
@@ -121,7 +121,7 @@ namespace Dyehard
         public void push(Vector2 direction)
         {
             // scale direction
-            direction = direction / 12f;
+            direction = (direction / 12f) * speedFactor;
 
             // add 'jetpack' factor
             if (direction.Y > 0)
@@ -130,7 +130,7 @@ namespace Dyehard
             }
 
             // update velocity
-            position.Velocity = (position.Velocity + direction + (GameWorld.Gravity * gravityFactor)) * drag;
+            position.Velocity = (position.Velocity + direction + (GameWorld.Gravity)) * drag;
 
             if (position.VelocityX < 0)
             {
@@ -147,6 +147,47 @@ namespace Dyehard
             foreach (Weapon w in weaponRack)
             {
                 w.setEnemies(enemies);
+            }
+        }
+
+
+        //
+        // powerup functions
+        //
+
+        public void increaseSpeed()
+        {
+            Console.WriteLine("speed increased");
+            speedFactor = 1.5f;
+        }
+
+        public void normalizeSpeed()
+        {
+            Console.WriteLine("speed normalized");
+            speedFactor = 1.0f;
+        }
+
+        public void setInvisible()
+        {
+            Console.WriteLine("invisible");
+            invisible = true;
+        }
+
+        public void setVisible()
+        {
+            Console.WriteLine("visible");
+            invisible = false;
+        }
+
+        public override XNACS1Rectangle getNextPosition()
+        {
+            if (invisible)
+            {
+                XNACS1Rectangle dummy = new XNACS1Rectangle(new Vector2(50, -200), 0, 0);
+                dummy.RemoveFromAutoDrawSet();
+                return dummy;
+            } else {
+                return base.getNextPosition();
             }
         }
 
@@ -170,18 +211,6 @@ namespace Dyehard
             boundary = new Obstacle(this, emptyList, new Vector2(GameWorld.leftEdge - screenCenterX, screenCenterY), screenCenterX * 2, screenCenterY * 2);
             boundaries.Add(boundary);
         }
-     
-        // functions for powerup interaction
-        public void lowerGravity()
-        {
-            gravityFactor = 0.2f;
-        }
-
-        public void normalizeGravity()
-        {
-            gravityFactor = 1f;
-        }
-
 
         private void selectWeapon()
         {
@@ -189,15 +218,15 @@ namespace Dyehard
             {
                 weapon = weaponRack[0];
             }
-            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D2))
+            else if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D2))
             {
                 weapon = weaponRack[1];
             }
-            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D3))
+            else if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D3))
             {
                 weapon = weaponRack[2];
             }
-            if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D4))
+            else if (KeyboardDevice.isKeyTapped(Microsoft.Xna.Framework.Input.Keys.D4))
             {
                 weapon = weaponRack[3];
             }

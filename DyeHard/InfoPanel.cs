@@ -29,12 +29,7 @@ namespace Dyehard
             meters.Add(SpeedUp.meter);
             meters.Add(Ghost.meter);
             meters.Add(Invincibility.meter);
-            meters.Add(LowGrav.meter);
-
-            foreach (PowerUpMeter meter in meters)
-            {
-                meter.reset(0f);
-            }
+            meters.Add(Overload.meter);
         }
 
         public override void remove()
