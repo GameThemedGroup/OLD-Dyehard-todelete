@@ -74,6 +74,7 @@
     <Compile Include="Explosion.cs" />
     <Compile Include="InfinityShip.cs" />
     <Compile Include="InfoPanel.cs" />
+    <Compile Include="Laser.cs" />
     <Compile Include="SpreadFireWeapon.cs" />
     <Compile Include="LimitedAmmoWeapon.cs" />
     <Compile Include="Obstacle.cs" />

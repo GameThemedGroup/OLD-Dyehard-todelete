@@ -31,6 +31,7 @@ namespace Dyehard
         private EnemyManager eManager;
         private Player player;
         private InfoPanel infoPanel;
+        private Laser laser;
    
         public GameWorld()
         {
@@ -38,6 +39,7 @@ namespace Dyehard
             player = new Player(hero);
             infoPanel = new InfoPanel(hero);
             eManager = new EnemyManager(hero);
+            laser = new Laser(hero);
 
             stop = false;
             accelerationTimer = new Timer(15);
@@ -81,6 +83,7 @@ namespace Dyehard
             hero.remove();
             eManager.remove();
             infoPanel.remove();
+            laser.remove();
         }
 
         public override void update()
@@ -104,6 +107,7 @@ namespace Dyehard
 
             hero.update();
             eManager.update();
+            laser.update();
 
             foreach (GameWorldRegion e in onscreen)
             {
@@ -127,6 +131,7 @@ namespace Dyehard
             eManager.draw();
 
             hero.draw();
+            laser.draw();
             infoPanel.draw();
         }
 
