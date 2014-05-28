@@ -37,8 +37,7 @@ namespace Dyehard
         {
             if (box.Collided(hero.getPosition()) && box.Visible)
             {
-                activate();
-                box.Visible = false;
+                hero.collect(this);
             }
         }
 
@@ -47,7 +46,10 @@ namespace Dyehard
             box.TopOfAutoDrawSet();
         }
 
-        abstract public void activate(); // hero will need to maintain reference to powerup when it is activated
+        public virtual void activate()
+        {
+            box.Visible = false;
+        }
 
         public static PowerUp randomPowerUp(Hero hero, float minX, float maxX)
         {
@@ -79,6 +81,7 @@ namespace Dyehard
         public override void activate()
         {
             meter.reset(5);
+            base.activate();
         }
     }
 
@@ -95,6 +98,7 @@ namespace Dyehard
         public override void activate()
         {
             meter.reset(5);
+            base.activate();
         }
     }
 
@@ -111,6 +115,7 @@ namespace Dyehard
         public override void activate()
         {
             meter.reset(5);
+            base.activate();
         }
     }
 
@@ -127,6 +132,7 @@ namespace Dyehard
         public override void activate()
         {
             meter.reset(5);
+            base.activate();
         }
     }
 

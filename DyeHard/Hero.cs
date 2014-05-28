@@ -17,13 +17,14 @@ namespace Dyehard
         private List<Obstacle> boundaries;
         private float gravityFactor;
         private List<Weapon> weaponRack;
+        private int collectedDyepacks;
+        private int collectedPowerups;
+        private List<PowerUp> activePowerups;
 
         public Hero()
             : base(new Vector2(GameWorld.rightEdge / 3, GameWorld.topEdge / 2), 5f, 5f)
         {
             base.setLabel("Dye");
-            boundaries = new List<Obstacle>();
-
             weaponRack = new List<Weapon>();
             createWeapons();
 
@@ -31,6 +32,12 @@ namespace Dyehard
             weapon = weaponRack.First();
 
             gravityFactor = 1f;
+
+            collectedDyepacks = 0;
+            collectedPowerups = 0;
+            activePowerups = new List<PowerUp>();
+
+            boundaries = new List<Obstacle>();
             setBoundaries();
         }
 
@@ -77,18 +84,38 @@ namespace Dyehard
         }
 
 
-        public void gotDyed()
+        public void collect(DyePack dye)
         {
+            dye.activate();
+            collectedDyepacks += 1;
+
             if (weapon.GetType() == typeof(LimitedAmmoWeapon))
             {
                 ((LimitedAmmoWeapon)weapon).recharge();
             }
         }
 
+        public void collect(PowerUp powerup)
+        {
+            collectedPowerups += 1;
+            powerup.activate();
+            activePowerups.Add(powerup);
+        }
+
         public override void draw()
         {
             weapon.draw();
             base.draw();
+        }
+
+        public int dyepacksCollected()
+        {
+            return collectedDyepacks;
+        }
+
+        public int powerupsCollected()
+        {
+            return collectedPowerups;
         }
 
         public void push(Vector2 direction)

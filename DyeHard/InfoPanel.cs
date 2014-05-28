@@ -11,7 +11,7 @@ namespace Dyehard
     class InfoPanel : GameObject
     {
         private XNACS1Rectangle background;
-        private DistanceTracker distanceTracker;
+        private ScoreTracker scoreTracker;
         public static List<PowerUpMeter> meters;
 
         public InfoPanel(Hero hero)
@@ -22,7 +22,7 @@ namespace Dyehard
             this.background = new XNACS1Rectangle(center, GameWorld.rightEdge, GameWorld.panelSize);
             this.background.Color = new Color(Color.Black, 175);
 
-            this.distanceTracker = new DistanceTracker(hero);
+            this.scoreTracker = new ScoreTracker(hero);
 
             meters = new List<PowerUpMeter>();
 
@@ -40,13 +40,13 @@ namespace Dyehard
         public override void remove()
         {
             background.RemoveFromAutoDrawSet();
-            distanceTracker.remove();
+            scoreTracker.remove();
         }
 
         public override void draw()
         {
             background.TopOfAutoDrawSet();
-            distanceTracker.draw();
+            scoreTracker.draw();
 
             foreach (PowerUpMeter p in meters)
             {
@@ -56,7 +56,7 @@ namespace Dyehard
 
         public override void update()
         {
-            distanceTracker.update();
+            scoreTracker.update();
 
             foreach (PowerUpMeter p in meters)
             {

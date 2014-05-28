@@ -79,7 +79,7 @@
     <Compile Include="LimitedAmmoWeapon.cs" />
     <Compile Include="Obstacle.cs" />
     <Compile Include="GameWorldRegion.cs" />
-    <Compile Include="DistanceTracker.cs" />
+    <Compile Include="ScoreTracker.cs" />
     <Compile Include="Gate.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyManager.cs" />

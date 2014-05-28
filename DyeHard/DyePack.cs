@@ -40,10 +40,14 @@ namespace Dyehard
         {
             if (box.Collided(hero.getPosition()) && box.Visible)
             {
-                hero.setColor(box.Color);
-                hero.gotDyed();
-                box.Visible = false;
+                hero.collect(this);
             }
+        }
+
+        public void activate()
+        {
+            hero.setColor(box.Color);
+            box.Visible = false;
         }
 
         public override void draw()
