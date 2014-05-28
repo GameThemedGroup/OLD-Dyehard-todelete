@@ -19,10 +19,10 @@ namespace Dyehard
             float centerY = GameWorld.topEdge + (GameWorld.panelSize / 2);
             float centerX = GameWorld.rightEdge / 2;
             Vector2 center = new Vector2(centerX, centerY);
-            this.background = new XNACS1Rectangle(center, GameWorld.rightEdge, GameWorld.panelSize);
-            this.background.Color = new Color(Color.Black, 175);
+            background = new XNACS1Rectangle(center, GameWorld.rightEdge, GameWorld.panelSize);
+            background.Color = new Color(Color.Black, 175);
 
-            this.scoreTracker = new ScoreTracker(hero);
+            scoreTracker = new ScoreTracker(hero);
 
             meters = new List<PowerUpMeter>();
 
@@ -30,12 +30,20 @@ namespace Dyehard
             meters.Add(Ghost.meter);
             meters.Add(Invincibility.meter);
             meters.Add(Overload.meter);
+
+            foreach (PowerUpMeter p in meters)
+            {
+                p.reset(0, null);
+            }
         }
 
         public override void remove()
         {
             background.RemoveFromAutoDrawSet();
             scoreTracker.remove();
+            foreach (PowerUpMeter p in meters) {
+                p.reset(0, null);
+            }
         }
 
         public override void draw()

@@ -174,12 +174,6 @@ namespace Dyehard
             deactivate = null;
         }
 
-        ~PowerUpMeter()
-        {
-            box.Visible = false;
-            box.RemoveFromAutoDrawSet();
-        }
-
         public void update()
         {
             if (timer.isDone())

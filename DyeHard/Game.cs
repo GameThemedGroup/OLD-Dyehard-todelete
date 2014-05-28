@@ -13,7 +13,7 @@ namespace Dyehard
 {
     public class Game : XNACS1Base
     {
-        private static bool FULLSCREEN = false;
+        private static bool FULLSCREEN = true;
 
         // Dyehard Dye Colors
         public static int colorCount = 6;
