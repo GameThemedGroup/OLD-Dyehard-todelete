@@ -10,7 +10,7 @@ namespace Dyehard
 {
     class GameWorld : GameObject
     {
-        public static readonly float panelSize = 3.5f;
+        public static readonly float panelSize = 2.75f;
         public static readonly float rightEdge = XNACS1Base.World.WorldMax.X;
         public static readonly float leftEdge = XNACS1Base.World.WorldMin.X;
         public static readonly float topEdge = XNACS1Base.World.WorldMax.Y - panelSize;

@@ -159,11 +159,11 @@ namespace Dyehard
         {
             initialTime = 0f;
             timer = new Timer(0);
-            float padding = 0.75f;
+            float padding = 1f;
             float height = GameWorld.panelSize;
             float width = height;
-
-            float offset = GameWorld.leftEdge + (sequenceNumber + 1) * (padding) + sequenceNumber * width + width / 2;
+            float startingPoint = GameWorld.leftEdge + 25f;
+            float offset = startingPoint + (sequenceNumber + 1) * (padding) + sequenceNumber * width + width / 2;
 
             box = new XNACS1Rectangle(new Vector2(offset, GameWorld.topEdge + (GameWorld.panelSize / 2)), width, height);
             box.Texture = "PowerUp_Box1";

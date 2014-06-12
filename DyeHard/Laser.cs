@@ -16,8 +16,8 @@ namespace Dyehard
         {
             this.hero = hero;
             float height = GameWorld.topEdge - GameWorld.bottomEdge;
-            float width  = 2f;
-            float padding = 2f;
+            float width  = 1.5f;
+            float padding = 1f;
             laserbeam = new XNACS1Rectangle(new Vector2(width / 2 + padding, height / 2), width, height);
             laserbeam.Color = new Color(Color.LightSkyBlue, 100);
         }

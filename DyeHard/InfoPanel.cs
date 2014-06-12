@@ -20,7 +20,7 @@ namespace Dyehard
             float centerX = GameWorld.rightEdge / 2;
             Vector2 center = new Vector2(centerX, centerY);
             background = new XNACS1Rectangle(center, GameWorld.rightEdge, GameWorld.panelSize);
-            background.Color = new Color(Color.Black, 175);
+            background.Color = new Color(20, 20, 20, 20);
 
             scoreTracker = new ScoreTracker(hero);
 
