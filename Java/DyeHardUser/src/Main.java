@@ -5,12 +5,11 @@ public class Main extends GameWindow
 {
   public Main()
   {
-    setRunner(new RectangleTest());
+    setRunner(new DyeHard());
   }
 
   public static void main(String[] args)
   {
     (new Main()).startProgram();
-    
   }
 }
