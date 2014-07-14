@@ -1,14 +1,12 @@
-import java.util.ArrayList;
-
 import Engine.Rectangle;
 import Engine.Vector2;
 
 public class Character extends GameObject {
 	
-	private boolean alive;
+	//private boolean alive;
     protected Rectangle position;
     private Rectangle nextPosition;
-    private ArrayList<Rectangle> pendingCollisions;
+    //private ArrayList<Rectangle> pendingCollisions;
     
     public Character(Vector2 position, float width, float height)
     {
@@ -25,8 +23,8 @@ public class Character extends GameObject {
 
     	// set object into motion;
     	this.position.velocity = new Vector2(0, 0);
-    	this.alive = true;
-    	this.pendingCollisions = new ArrayList<Rectangle>();
+    	//this.alive = true;
+    	//this.pendingCollisions = new ArrayList<Rectangle>();
     }
 	
 	public void remove() {

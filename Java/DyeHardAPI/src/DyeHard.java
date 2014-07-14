@@ -24,10 +24,10 @@ public class DyeHard extends LibraryCode {
     };
     
     //screen objects
-    private Background background;
-    private Screen startScreen;
-    private Window pauseScreen;
-    private Window gameOverScreen;
+//    private Background background;
+//    private Screen startScreen;
+//    private Window pauseScreen;
+//    private Window gameOverScreen;
 
     //game objects
     private GameWorld world;
@@ -53,6 +53,8 @@ public class DyeHard extends LibraryCode {
     			world.update();
     			world.draw();
     			break;
+      default:
+        break;
     	}
     }
     

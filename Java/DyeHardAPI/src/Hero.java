@@ -4,10 +4,10 @@ public class Hero extends Character {
 	
 	private final float horizontalSpeedLimit = 0.8f;
     private static float drag = 0.96f;  // smaller number means more reduction
-	private final float rightBoundaryLimit = 0.85f; // percentage of screen
+//	private final float rightBoundaryLimit = 0.85f; // percentage of screen
 	
-	private int collectedDyepacks;
-	private int collectedPowerups;
+//	private int collectedDyepacks;
+//	private int collectedPowerups;
 	
 	private float speedFactor;
 	private boolean invisible;
@@ -15,8 +15,8 @@ public class Hero extends Character {
 	public Hero() {
 		super(new Vector2(20f, 20f), 5f, 5f);
 		
-		collectedDyepacks = 0;
-        collectedPowerups = 0;
+//		collectedDyepacks = 0;
+//        collectedPowerups = 0;
 		
 		// initialize powerup variables
         speedFactor = 1.0f;
