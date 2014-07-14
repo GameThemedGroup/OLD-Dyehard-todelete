@@ -1,3 +1,3 @@
-package Dyehard;
+package Dyehard.Powerups;
 public class Overload {
 }

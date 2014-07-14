@@ -1,4 +1,7 @@
-package Dyehard;
+package Dyehard.World;
+
+import Dyehard.GameObject;
+import Dyehard.Player.Hero;
 import Engine.KeyboardInput;
 import Engine.Vector2;
 
@@ -27,7 +30,7 @@ public class GameWorld extends GameObject {
     }
 
     public boolean gameOver() {
-        return !this.hero.isAlive();
+        return !hero.isAlive();
     }
 
     @Override

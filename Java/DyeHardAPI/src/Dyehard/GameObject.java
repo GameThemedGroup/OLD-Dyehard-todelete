@@ -1,5 +1,6 @@
 package Dyehard;
-abstract class GameObject {
+
+public abstract class GameObject {
     public abstract void draw();
 
     public abstract void remove();

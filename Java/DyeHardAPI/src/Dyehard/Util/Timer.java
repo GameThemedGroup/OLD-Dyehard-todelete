@@ -1,3 +1,3 @@
-package Dyehard;
+package Dyehard.Util;
 public class Timer {
 }

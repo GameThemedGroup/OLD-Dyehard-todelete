@@ -1,6 +1,8 @@
-package Dyehard;
+package Dyehard.Player;
 import java.awt.event.KeyEvent;
 
+import Dyehard.Character;
+import Dyehard.World.GameWorld;
 import Engine.KeyboardInput;
 import Engine.Vector2;
 
