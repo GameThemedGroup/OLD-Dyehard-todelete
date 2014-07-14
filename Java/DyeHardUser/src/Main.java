@@ -5,7 +5,7 @@ public class Main extends GameWindow
 {
   public Main()
   {
-    setRunner(new DyeHard());
+    setRunner(new UserCode());
   }
 
   public static void main(String[] args)
