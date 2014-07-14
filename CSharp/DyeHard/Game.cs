@@ -51,7 +51,7 @@ namespace Dyehard
         // Initialize the game world
         protected override void InitializeWorld()
         {
-            SetAppWindowPixelDimension(FULLSCREEN, 1920, 1080);
+            //SetAppWindowPixelDimension(FULLSCREEN, 1920, 1080);
             World.SetWorldCoordinate(new Vector2(0f, 0f), 100);
             preloadTexturedObjects();
             loadControllerObjects();
