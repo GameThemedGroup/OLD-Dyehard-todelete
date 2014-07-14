@@ -1,3 +1,5 @@
+import Dyehard.DyeHard;
+
 
 public class UserCode extends DyeHard {
 
