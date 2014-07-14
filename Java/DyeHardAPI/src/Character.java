@@ -1,13 +1,13 @@
+import java.awt.Color;
 import java.util.ArrayList;
 
 import Engine.Rectangle;
 import Engine.Vector2;
 
 public class Character extends GameObject {
-    private boolean alive;
     protected Rectangle position;
+    private boolean alive;
     private Rectangle nextPosition;
-
     private ArrayList<Rectangle> pendingCollisions;
 
     public Character(Vector2 position, float width, float height) {
@@ -27,6 +27,12 @@ public class Character extends GameObject {
     }
 
     @Override
+    public void remove() {
+        position.removeFromAutoDrawSet();
+        nextPosition.removeFromAutoDrawSet();
+    }
+
+    @Override
     public void draw() {
         // .TopOfAutoDrawSet
         // There is a function in the library under the ResourceHandler
@@ -37,24 +43,46 @@ public class Character extends GameObject {
         position.addToAutoDrawSet();
     }
 
+    public void setColor(Color color) {
+        position.color = color;
+        // position.TextureTintColor = color;
+    }
+
+    public Color getColor() {
+        return position.color;
+    }
+
+    public void setTexture(String resourceName) {
+        throw new UnsupportedOperationException();
+        // position.texture = resourceName;
+    }
+
+    public void setLabel(String label) {
+        throw new UnsupportedOperationException();
+        // position.Label = label;
+    }
+
     public boolean isAlive() {
         return this.alive;
     }
 
-    @Override
-    public void remove() {
-        position.removeFromAutoDrawSet();
-        nextPosition.removeFromAutoDrawSet();
+    public void kill() {
+        alive = false;
     }
 
-    @Override
-    public void update() {
-        position.center.add(position.velocity);
+    public Rectangle getPosition() {
+        return position;
     }
 
     public Rectangle getNextPosition() {
         nextPosition.center = position.center.add(position.velocity);
         return nextPosition;
+    }
+
+    @Override
+    public void update() {
+        interpretCollisions();
+        position.center.add(position.velocity);
     }
 
     public void addCollision(Rectangle box) {
