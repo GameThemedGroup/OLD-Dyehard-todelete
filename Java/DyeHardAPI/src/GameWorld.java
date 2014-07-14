@@ -12,14 +12,12 @@ public class GameWorld extends GameObject {
     // private Queue<GameWorldRegion> onscreen;
     // private Queue<GameWorldRegion> upcoming;
     private Hero hero;
-    // private EnemyManager eManager;
-    private Player player;
 
+    // private EnemyManager eManager;
     // private InfoPanel infoPanel;
     // private Laser laser;
     public GameWorld(KeyboardInput keyboard) {
-        hero = new Hero();
-        player = new Player(hero, keyboard);
+        hero = new Hero(keyboard);
     }
 
     @Override
@@ -38,7 +36,6 @@ public class GameWorld extends GameObject {
 
     @Override
     public void update() {
-        player.update();
         hero.update();
     }
 }
