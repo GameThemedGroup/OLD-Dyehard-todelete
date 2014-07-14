@@ -27,6 +27,10 @@ public class GameWorld extends GameObject {
         hero.draw();
     }
 
+    public boolean gameOver() {
+        return !this.hero.isAlive();
+    }
+
     @Override
     public void remove() {
         hero.remove();

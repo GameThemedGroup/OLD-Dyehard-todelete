@@ -4,7 +4,7 @@ import Engine.Rectangle;
 import Engine.Vector2;
 
 public class Character extends GameObject {
-    // private boolean alive;
+    private boolean alive;
     protected Rectangle position;
     private Rectangle nextPosition;
 
@@ -22,7 +22,7 @@ public class Character extends GameObject {
         nextPosition.visible = false;
         // set object into motion;
         this.position.velocity = new Vector2(0, 0);
-        // this.alive = true;
+        this.alive = true;
         // this.pendingCollisions = new ArrayList<Rectangle>();
     }
 
@@ -35,6 +35,10 @@ public class Character extends GameObject {
         // Primitive class so this will have to do.
         position.removeFromAutoDrawSet();
         position.addToAutoDrawSet();
+    }
+
+    public boolean isAlive() {
+        return this.alive;
     }
 
     @Override

@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 import Engine.LibraryCode;
@@ -51,6 +52,53 @@ public class DyeHard extends LibraryCode {
     // Game state
     private State state;
 
+    private void checkControl() {
+        this.keyboard.update();
+
+        if (this.keyboard.isButtonDown(KeyEvent.VK_ESCAPE)) {
+            this.window.close();
+        }
+
+        switch (this.state) {
+        case BEGIN:
+            if (this.keyboard.isButtonDown(KeyEvent.VK_A)) {
+                this.state = State.PLAYING;
+                // startScreen.remove();
+            }
+            break;
+
+        case PAUSED:
+            if (this.keyboard.isButtonDown(KeyEvent.VK_A)) {
+                this.state = State.PLAYING;
+                // pauseScreen.remove();
+            }
+            if (this.keyboard.isButtonDown(KeyEvent.VK_Q)) {
+                this.state = State.BEGIN;
+                this.world.remove();
+                this.world = new GameWorld(this.keyboard);
+                // pauseScreen.remove();
+            }
+            break;
+
+        case PLAYING:
+            if (this.keyboard.isButtonDown(KeyEvent.VK_A)) {
+                this.state = State.PAUSED;
+            } else if (this.world.gameOver()) {
+                this.state = State.GAMEOVER;
+            }
+            break;
+
+        case GAMEOVER:
+            if (this.keyboard.isButtonDown(KeyEvent.VK_A)) {
+                this.state = State.BEGIN;
+                this.world.remove();
+                this.world = new GameWorld(this.keyboard);
+                // gameOverScreen.remove();
+            }
+            break;
+        }
+    }
+
     @Override
     public void initializeWorld() {
         super.initializeWorld();
@@ -66,6 +114,8 @@ public class DyeHard extends LibraryCode {
 
     @Override
     public void updateWorld() {
+        checkControl();
+
         switch (this.state) {
         case PLAYING:
             world.update();
