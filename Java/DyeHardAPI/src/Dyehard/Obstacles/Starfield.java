@@ -1,3 +1,3 @@
-package Dyehard;
+package Dyehard.Obstacles;
 public class Starfield {
 }

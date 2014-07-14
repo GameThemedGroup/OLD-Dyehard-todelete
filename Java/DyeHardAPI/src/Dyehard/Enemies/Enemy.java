@@ -4,8 +4,8 @@ import java.awt.Color;
 
 import Dyehard.Character;
 import Dyehard.DyeHard;
-import Dyehard.GameWorld;
-import Dyehard.Hero;
+import Dyehard.Player.Hero;
+import Dyehard.World.GameWorld;
 import Engine.Vector2;
 
 public class Enemy extends Character {

@@ -1,3 +1,3 @@
-package Dyehard;
+package Dyehard.World;
 public class GameWorldRegion {
 }

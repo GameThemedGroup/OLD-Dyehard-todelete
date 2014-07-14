@@ -1,6 +1,6 @@
 package Dyehard.Enemies;
 
-import Dyehard.Hero;
+import Dyehard.Player.Hero;
 import Engine.Vector2;
 
 public class BrainEnemy extends Enemy {

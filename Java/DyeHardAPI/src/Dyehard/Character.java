@@ -1,4 +1,5 @@
 package Dyehard;
+
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class Character extends GameObject {
         nextPosition.visible = false;
         // set object into motion;
         this.position.velocity = new Vector2(0, 0);
-        this.alive = true;
+        alive = true;
         // this.pendingCollisions = new ArrayList<Rectangle>();
     }
 
@@ -64,7 +65,7 @@ public class Character extends GameObject {
     }
 
     public boolean isAlive() {
-        return this.alive;
+        return alive;
     }
 
     public void kill() {
@@ -82,7 +83,7 @@ public class Character extends GameObject {
 
     @Override
     public void update() {
-        interpretCollisions();
+        // interpretCollisions();
         position.center.add(position.velocity);
     }
 
