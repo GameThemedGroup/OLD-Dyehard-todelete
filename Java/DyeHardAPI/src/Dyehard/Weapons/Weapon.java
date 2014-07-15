@@ -23,7 +23,7 @@ public class Weapon extends GameObject {
         for (Rectangle b : bullets) {
             b.center.setX(b.center.getX() + bulletSpeed);
         }
-        // 480 is a temporary place holder for the rightEdge variable
+        // TODO: 480 is a temporary place holder for the rightEdge variable
         while (bullets.size() > 0
                 && (bullets.peek().center.getX() - bullets.peek().size.getX()) > 480) {
             bullets.remove().removeFromAutoDrawSet();
@@ -42,7 +42,6 @@ public class Weapon extends GameObject {
     // Draw the bullets
     @Override
     public void draw() {
-        // Might not work
         for (Rectangle b : bullets) {
             b.removeFromAutoDrawSet();
             b.addToAutoDrawSet();
@@ -51,7 +50,6 @@ public class Weapon extends GameObject {
 
     @Override
     public void remove() {
-        // Might not work
         for (Rectangle b : bullets) {
             b.removeFromAutoDrawSet();
         }
