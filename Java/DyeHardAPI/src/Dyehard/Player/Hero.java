@@ -1,7 +1,10 @@
 package Dyehard.Player;
+
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import Dyehard.Character;
+import Dyehard.Weapons.Weapon;
 import Dyehard.World.GameWorld;
 import Engine.KeyboardInput;
 import Engine.Vector2;
@@ -10,24 +13,30 @@ public class Hero extends Character {
     private final float horizontalSpeedLimit = 0.8f;
     private static float drag = 0.96f; // smaller number means more reduction
     // private final float rightBoundaryLimit = 0.85f; // percentage of screen
-    // private int collectedDyepacks;
-    // private int collectedPowerups;
+    private int collectedDyepacks;
+    private int collectedPowerups;
     private float speedFactor;
     private boolean invisible;
     private KeyboardInput keyboard;
+    private Weapon weapon;
+    private ArrayList<Weapon> weaponRack;
 
     public Hero(KeyboardInput keyboard) {
         super(new Vector2(20f, 20f), 5f, 5f);
-        // collectedDyepacks = 0;
-        // collectedPowerups = 0;
+        collectedDyepacks = 0;
+        collectedPowerups = 0;
         // initialize powerup variables
         speedFactor = 1.0f;
         invisible = false;
         this.keyboard = keyboard;
+        weaponRack = new ArrayList<Weapon>();
+        createWeapons();
+        weapon = weaponRack.get(0); // set initial weapon to first
     }
 
     @Override
     public void draw() {
+        weapon.draw();
         super.draw();
     }
 
@@ -53,6 +62,9 @@ public class Hero extends Character {
 
     @Override
     public void remove() {
+        for (Weapon w : weaponRack) {
+            w.remove();
+        }
         super.remove();
     }
 
@@ -65,6 +77,10 @@ public class Hero extends Character {
         // update base character object (collisions, etc.)
         super.update();
         invisible = holdVisibility;
+        selectWeapon();
+        for (Weapon w : weaponRack) {
+            w.update();
+        }
     }
 
     private void handleInput() {
@@ -84,6 +100,43 @@ public class Hero extends Character {
         if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
             inputDirection.add(new Vector2(0.75f, 0f));
         }
+        if (keyboard.isButtonDown(KeyEvent.VK_F)) {
+            weapon.fire();
+        }
         push(inputDirection);
+    }
+
+    private void selectWeapon() {
+        if (keyboard.isButtonTapped(KeyEvent.VK_1)) {
+            weapon = weaponRack.get(0);
+        }
+    }
+
+    private void createWeapons() {
+        weaponRack.add(new Weapon(this));
+    }
+
+    public int dyepacksCollected() {
+        return collectedDyepacks;
+    }
+
+    public int powerupsCollected() {
+        return collectedPowerups;
+    }
+
+    public void increaseSpeed() {
+        speedFactor = 1.5f;
+    }
+
+    public void normalizeSpeed() {
+        speedFactor = 1.0f;
+    }
+
+    public void setInvisible() {
+        invisible = true;
+    }
+
+    public void setVisible() {
+        invisible = false;
     }
 }
