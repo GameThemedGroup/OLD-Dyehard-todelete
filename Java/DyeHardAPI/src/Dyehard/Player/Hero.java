@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import Dyehard.Character;
+import Dyehard.Powerups.DyePack;
 import Dyehard.Weapons.Weapon;
 import Dyehard.World.GameWorld;
 import Engine.KeyboardInput;
@@ -110,6 +111,11 @@ public class Hero extends Character {
         if (keyboard.isButtonTapped(KeyEvent.VK_1)) {
             weapon = weaponRack.get(0);
         }
+    }
+
+    public void collect(DyePack dye) {
+        dye.activate();
+        collectedDyepacks += 1;
     }
 
     private void createWeapons() {

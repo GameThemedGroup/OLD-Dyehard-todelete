@@ -106,7 +106,7 @@ public class DyeHard extends LibraryCode {
         // I pass keyboard into GameWorld when creating it because
         // I need access to BaseCode for keyboard inputs.
         world = new GameWorld(keyboard);
-        System.out.println("Width = " + getInitWidth() + " Length = "
+        System.out.println("Width = " + getInitWidth() + " Height = "
                 + getInitHeight());
     }
 

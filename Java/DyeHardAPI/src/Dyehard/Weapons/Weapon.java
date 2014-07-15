@@ -9,7 +9,9 @@ import Engine.Rectangle;
 
 public class Weapon extends GameObject {
     protected static float bulletSpeed = 1f;
-    protected static float bulletSize = .75f;
+    // Was 0.75f, but it was a radius and we are not
+    // working with circles
+    protected static float bulletSize = 1.5f;
     protected Hero hero;
     protected Queue<Rectangle> bullets;
 
@@ -23,9 +25,9 @@ public class Weapon extends GameObject {
         for (Rectangle b : bullets) {
             b.center.setX(b.center.getX() + bulletSpeed);
         }
-        // TODO: 480 is a temporary place holder for the rightEdge variable
+        // TODO: 800 is a temporary place holder for the rightEdge variable
         while (bullets.size() > 0
-                && (bullets.peek().center.getX() - bullets.peek().size.getX()) > 480) {
+                && (bullets.peek().center.getX() - bullets.peek().size.getX()) > 800) {
             bullets.remove().removeFromAutoDrawSet();
         }
     }
