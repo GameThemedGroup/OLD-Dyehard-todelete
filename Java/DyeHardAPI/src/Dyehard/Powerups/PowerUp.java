@@ -23,6 +23,7 @@ public class PowerUp extends GameObject {
         // TODO: 480f and 0f are place holders for topEdge and bottomEdge
         float randomY = (480f - padding - 0f + padding) * rand.nextFloat() + 0f
                 + padding;
+        box = new Rectangle();
         box.center.set(new Vector2(randomX, randomY));
         box.size.set(width, width * 0.39f);
     }
