@@ -79,4 +79,13 @@ public class DyePack extends GameObject {
         }
         return "";
     }
+    /*
+     * public static void preloadResources(ResourceHandler resources) { if
+     * (resources != null) { resources.preloadImage("Textures/Dye_Green.png");
+     * resources.preloadImage("Textures/Dye_Blue.png");
+     * resources.preloadImage("Textures/Dye_Yellow.png");
+     * resources.preloadImage("Textures/Dye_Teal.png");
+     * resources.preloadImage("Textures/Dye_Pink.png");
+     * resources.preloadImage("Textures/Dye_Red.png"); } }
+     */
 }

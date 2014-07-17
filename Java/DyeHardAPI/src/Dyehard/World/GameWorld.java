@@ -1,5 +1,6 @@
 package Dyehard.World;
 
+import Dyehard.DeveloperControls;
 import Dyehard.GameObject;
 import Dyehard.Player.Hero;
 import Engine.KeyboardInput;
@@ -16,12 +17,14 @@ public class GameWorld extends GameObject {
     // private Queue<GameWorldRegion> onscreen;
     // private Queue<GameWorldRegion> upcoming;
     private Hero hero;
+    private DeveloperControls dev;
 
     // private EnemyManager eManager;
     // private InfoPanel infoPanel;
     // private Laser laser;
     public GameWorld(KeyboardInput keyboard) {
         hero = new Hero(keyboard);
+        dev = new DeveloperControls(keyboard, hero);
     }
 
     @Override
@@ -41,5 +44,6 @@ public class GameWorld extends GameObject {
     @Override
     public void update() {
         hero.update();
+        dev.update();
     }
 }
