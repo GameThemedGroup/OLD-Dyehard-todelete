@@ -3,24 +3,21 @@ package Dyehard.Obstacles;
 import java.awt.Color;
 import java.util.List;
 
-import Dyehard.Enemies.Enemy;
-import Dyehard.Player.Hero;
-import Dyehard.World.GameWorld;
+import Dyehard.Character;
 import Engine.Rectangle;
 import Engine.Vector2;
 
 public class Obstacle extends Rectangle {
-    private Hero hero;
+    List<Character> characters;
 
-    public Obstacle(Hero hero, List<Enemy> enemies, Vector2 center,
-            float width, float height) {
-        // super(center, width, height);
+    public Obstacle(List<Character> characters, Vector2 center, Vector2 size,
+            Vector2 velocity) {
         this.center = center;
-        size = new Vector2(width, height);
+        this.size = size;
+        this.velocity = velocity;
         shouldTravel = true;
-        velocity = new Vector2(-GameWorld.Speed, 0);
         color = Color.GREEN;
-        this.hero = hero;
+        this.characters = characters;
     }
 
     @Override
@@ -34,8 +31,10 @@ public class Obstacle extends Rectangle {
             destroy();
             return;
         }
-        if (collided(hero.getPosition())) {
-            pushOutCircle(hero.getPosition());
+        for (Character c : characters) {
+            if (collided(c.getPosition())) {
+                pushOutCircle(c.getPosition());
+            }
         }
     }
 }
