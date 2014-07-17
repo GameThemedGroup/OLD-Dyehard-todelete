@@ -7,6 +7,7 @@ import Dyehard.DyeHard;
 import Dyehard.GameObject;
 import Dyehard.Player.Hero;
 import Dyehard.World.GameWorld;
+import Engine.BaseCode;
 import Engine.Rectangle;
 import Engine.Vector2;
 
@@ -28,7 +29,8 @@ public class DyePack extends GameObject {
         box.center.set(new Vector2(randomX, randomY));
         box.size.set(0.865f * height, height);
         box.color = color;
-        box.setImage("Textures/" + getTexture(color));
+        box.texture = BaseCode.resources.loadImage("Textures/"
+                + getTexture(color));
     }
 
     @Override
@@ -79,13 +81,4 @@ public class DyePack extends GameObject {
         }
         return "";
     }
-    /*
-     * public static void preloadResources(ResourceHandler resources) { if
-     * (resources != null) { resources.preloadImage("Textures/Dye_Green.png");
-     * resources.preloadImage("Textures/Dye_Blue.png");
-     * resources.preloadImage("Textures/Dye_Yellow.png");
-     * resources.preloadImage("Textures/Dye_Teal.png");
-     * resources.preloadImage("Textures/Dye_Pink.png");
-     * resources.preloadImage("Textures/Dye_Red.png"); } }
-     */
 }
