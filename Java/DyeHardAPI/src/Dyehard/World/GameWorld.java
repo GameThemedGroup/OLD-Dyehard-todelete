@@ -14,12 +14,14 @@ import Engine.Vector2;
 
 public class GameWorld extends GameObject {
     // private final float StartSpeed = 0.2f;
-    public static float Speed = .05f;
+    public static float Speed = .5f;
     public static Vector2 Gravity = new Vector2(0, -0.02f);
     private Hero hero;
     private DeveloperControls dev;
     private List<Primitive> primitives;
     private List<Character> characters;
+    private static final int TimeToSpawnDebris = 40;
+    int frameCount = 0;
 
     public GameWorld(KeyboardInput keyboard) {
         hero = new Hero(keyboard);
@@ -27,12 +29,22 @@ public class GameWorld extends GameObject {
         characters = new ArrayList<Character>();
         characters.add(hero);
         primitives = new ArrayList<Primitive>();
-        primitives.add(new Obstacle(characters, new Vector2(50, 5),
-                new Vector2(5, 5), new Vector2(-Speed, 0)));
-        primitives.add(new Obstacle(characters, new Vector2(55, 25),
-                new Vector2(5, 5), new Vector2(-Speed, 0)));
-        primitives.add(new Obstacle(characters, new Vector2(60, 40),
-                new Vector2(5, 5), new Vector2(-Speed, 0)));
+    }
+
+    // Increments the timer used to generate obstacles
+    // If the timer's duration has been reached, an obstacle is generated and
+    // added to the list of primitives
+    private void generateObstacle() {
+        frameCount++;
+        if (frameCount < TimeToSpawnDebris) {
+            return;
+        }
+        frameCount = 0;
+        float startY = (float) (Math.random() * 80 + 5);
+        Vector2 position = new Vector2(100, startY);
+        Vector2 size = new Vector2(5, 5);
+        Vector2 speed = new Vector2(-Speed, 0);
+        primitives.add(new Obstacle(characters, position, size, speed));
     }
 
     @Override
@@ -51,6 +63,7 @@ public class GameWorld extends GameObject {
 
     @Override
     public void update() {
+        generateObstacle();
         hero.update();
         dev.update();
         for (Primitive p : primitives) {
