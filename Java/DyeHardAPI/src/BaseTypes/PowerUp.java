@@ -21,8 +21,8 @@ public class PowerUp extends Rectangle {
         Random rand = new Random();
         float randomX = (maxX - padding - minX + padding) * rand.nextFloat()
                 + minX + padding;
-        // TODO: 480f and 0f are place holders for topEdge and bottomEdge
-        float randomY = (480f - padding - 0f + padding) * rand.nextFloat() + 0f
+        // TODO: 50f and 0f are place holders for topEdge and bottomEdge
+        float randomY = (50f - padding - 0f + padding) * rand.nextFloat() + 0f
                 + padding;
         center.set(new Vector2(randomX, randomY));
         size.set(width, width * 0.39f);
