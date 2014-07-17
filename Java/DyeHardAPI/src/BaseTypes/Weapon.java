@@ -1,4 +1,4 @@
-package Dyehard.Weapons;
+package BaseTypes;
 
 import java.util.LinkedList;
 import java.util.Queue;

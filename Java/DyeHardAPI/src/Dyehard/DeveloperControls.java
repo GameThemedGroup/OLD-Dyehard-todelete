@@ -2,12 +2,12 @@ package Dyehard;
 
 import java.awt.event.KeyEvent;
 
+import BaseTypes.DyePack;
+import BaseTypes.PowerUp;
 import Dyehard.Player.Hero;
-import Dyehard.Powerups.DyePack;
 import Dyehard.Powerups.Ghost;
 import Dyehard.Powerups.Invincibility;
 import Dyehard.Powerups.Overload;
-import Dyehard.Powerups.PowerUp;
 import Dyehard.Powerups.SpeedUp;
 import Engine.KeyboardInput;
 

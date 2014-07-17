@@ -1,8 +1,7 @@
-package Dyehard.Enemies;
+package BaseTypes;
 
 import java.awt.Color;
 
-import Dyehard.Character;
 import Dyehard.DyeHard;
 import Dyehard.Player.Hero;
 import Dyehard.World.GameWorld;

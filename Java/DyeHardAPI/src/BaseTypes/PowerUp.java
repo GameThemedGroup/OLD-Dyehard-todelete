@@ -1,8 +1,12 @@
-package Dyehard.Powerups;
+package BaseTypes;
 
 import java.util.Random;
 
 import Dyehard.Player.Hero;
+import Dyehard.Powerups.Ghost;
+import Dyehard.Powerups.Invincibility;
+import Dyehard.Powerups.Overload;
+import Dyehard.Powerups.SpeedUp;
 import Engine.Rectangle;
 import Engine.Vector2;
 

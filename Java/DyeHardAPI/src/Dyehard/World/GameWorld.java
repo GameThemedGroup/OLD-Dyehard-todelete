@@ -3,9 +3,9 @@ package Dyehard.World;
 import java.util.ArrayList;
 import java.util.List;
 
-import Dyehard.Character;
+import BaseTypes.Character;
+import BaseTypes.Obstacle;
 import Dyehard.DeveloperControls;
-import Dyehard.Obstacles.Obstacle;
 import Dyehard.Player.Hero;
 import Engine.KeyboardInput;
 import Engine.Primitive;

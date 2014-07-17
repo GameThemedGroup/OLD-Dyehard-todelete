@@ -1,4 +1,4 @@
-package Dyehard.Powerups;
+package BaseTypes;
 
 import java.awt.Color;
 import java.util.Random;

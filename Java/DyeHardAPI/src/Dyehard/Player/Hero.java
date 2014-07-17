@@ -3,10 +3,10 @@ package Dyehard.Player;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import Dyehard.Character;
-import Dyehard.Powerups.DyePack;
-import Dyehard.Powerups.PowerUp;
-import Dyehard.Weapons.Weapon;
+import BaseTypes.Character;
+import BaseTypes.DyePack;
+import BaseTypes.PowerUp;
+import BaseTypes.Weapon;
 import Engine.BaseCode;
 import Engine.KeyboardInput;
 import Engine.Vector2;

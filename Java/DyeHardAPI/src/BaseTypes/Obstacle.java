@@ -1,9 +1,8 @@
-package Dyehard.Obstacles;
+package BaseTypes;
 
 import java.awt.Color;
 import java.util.List;
 
-import Dyehard.Character;
 import Engine.Rectangle;
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
