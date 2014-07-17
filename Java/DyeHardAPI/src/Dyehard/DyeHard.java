@@ -100,8 +100,6 @@ public class DyeHard extends LibraryCode {
     @Override
     public void initializeWorld() {
         super.initializeWorld();
-        // resources.setClassInJar(new JarResources());
-        // DyePack.preloadResources(resources);
         // Starting state should be begin
         // Using playing to test controls
         state = State.PLAYING;
