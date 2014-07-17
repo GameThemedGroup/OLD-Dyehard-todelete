@@ -9,34 +9,48 @@ import Dyehard.Powerups.Ghost;
 import Dyehard.Powerups.Invincibility;
 import Dyehard.Powerups.Overload;
 import Dyehard.Powerups.SpeedUp;
+import Dyehard.World.GameWorld;
 import Engine.KeyboardInput;
 
 public class DeveloperControls {
     private KeyboardInput keyboard;
-    private DyePack dye;
     private Hero hero;
-    private PowerUp power;
+    private Space space;
 
-    public DeveloperControls(KeyboardInput keyboard, Hero hero) {
+    public DeveloperControls(GameWorld world, Space space, Hero hero,
+            KeyboardInput keyboard) {
+        this.space = space;
         this.keyboard = keyboard;
         this.hero = hero;
     }
 
     public void update() {
+        // 'D' to generate debris
+        if (keyboard.isButtonDown(KeyEvent.VK_D)) {
+            space.generateDebris();
+        }
+        // 'E' to add enemies
+        if (keyboard.isButtonDown(KeyEvent.VK_E)) {
+            // space.AddEnemy(new Enemy());
+        }
+        // 'P' to add random powerups
+        if (keyboard.isButtonDown(KeyEvent.VK_P)) {
+            space.AddPowerup(PowerUp.randomPowerUp(hero, 0, 100));
+        }
         if (keyboard.isButtonDown(KeyEvent.VK_0)) {
-            dye = new DyePack(hero, 0f, 800f, DyeHard.randomColor());
+            space.AddDyepack(new DyePack(hero, 0f, 100f, DyeHard.randomColor()));
         }
         if (keyboard.isButtonDown(KeyEvent.VK_9)) {
-            power = new Ghost(hero, 0f, 800f);
+            space.AddPowerup(new Ghost(hero, 0f, 100f));
         }
         if (keyboard.isButtonDown(KeyEvent.VK_8)) {
-            power = new Invincibility(hero, 0f, 800f);
+            space.AddPowerup(new Invincibility(hero, 0f, 100f));
         }
         if (keyboard.isButtonDown(KeyEvent.VK_7)) {
-            power = new Overload(hero, 0f, 800f);
+            space.AddPowerup(new Overload(hero, 0f, 100f));
         }
         if (keyboard.isButtonDown(KeyEvent.VK_6)) {
-            power = new SpeedUp(hero, 0f, 800f);
+            space.AddPowerup(new SpeedUp(hero, 0f, 100f));
         }
     }
 }
