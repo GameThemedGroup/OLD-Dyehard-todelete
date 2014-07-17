@@ -8,8 +8,10 @@ import Dyehard.Powerups.DyePack;
 import Dyehard.Powerups.PowerUp;
 import Dyehard.Weapons.Weapon;
 import Dyehard.World.GameWorld;
+import Engine.BaseCode;
 import Engine.KeyboardInput;
 import Engine.Vector2;
+import Engine.World.BoundCollidedStatus;
 
 public class Hero extends Character {
     private final float horizontalSpeedLimit = 0.8f;
@@ -84,6 +86,17 @@ public class Hero extends Character {
         for (Weapon w : weaponRack) {
             w.update();
         }
+        BoundCollidedStatus collisionStatus = position.collideWorldBound();
+        if (collisionStatus != BoundCollidedStatus.INSIDEBOUND) {
+            if (collisionStatus == BoundCollidedStatus.LEFT
+                    || collisionStatus == BoundCollidedStatus.RIGHT) {
+                position.velocity.setX(0);
+            } else if (collisionStatus == BoundCollidedStatus.TOP
+                    || collisionStatus == BoundCollidedStatus.BOTTOM) {
+                position.velocity.setY(0);
+            }
+        }
+        BaseCode.world.clampAtWorldBound(position);
     }
 
     private void handleInput() {
