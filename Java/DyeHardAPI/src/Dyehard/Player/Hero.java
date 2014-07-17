@@ -7,16 +7,19 @@ import BaseTypes.Character;
 import BaseTypes.DyePack;
 import BaseTypes.PowerUp;
 import BaseTypes.Weapon;
+import Dyehard.World.GameWorld;
 import Engine.BaseCode;
 import Engine.KeyboardInput;
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
 
 public class Hero extends Character {
+    private float speedLimit = 0.8f;
+    private static float thrustMagnitude = 0.04f;
+    private static float drag = 0.99f; // smaller number means more reduction
     // private final float rightBoundaryLimit = 0.85f; // percentage of screen
     private int collectedDyepacks;
     private int collectedPowerups;
-    private boolean invisible;
     private KeyboardInput keyboard;
     private Weapon weapon;
     private ArrayList<Weapon> weaponRack;
@@ -26,7 +29,6 @@ public class Hero extends Character {
         super(new Vector2(20f, 20f), 5f, 5f);
         collectedDyepacks = 0;
         collectedPowerups = 0;
-        invisible = false;
         this.keyboard = keyboard;
         weaponRack = new ArrayList<Weapon>();
         createWeapons();
@@ -39,29 +41,14 @@ public class Hero extends Character {
         super.draw();
     }
 
-    public void push(Vector2 direction) {
-        // scale direction
-        // direction.set(direction.getX() / 12f, direction.getY() / 12f);
-        // direction.mult(speedFactor);
-        // // add 'jetpack' factor
-        // if (direction.getY() > 0) {
-        // direction.setY(direction.getY() * 1.7f);
-        // }
-        // update velocity
-        acceleration.set(direction.mult(0.1f));
-        acceleration.add(new Vector2(0f, -0.05f));
-        // acceleration.add(GameWorld.Gravity);
-        // position.velocity = (position.velocity.add(direction
-        // .add(GameWorld.Gravity))).mult(drag);
-        //
-        //
-        // if (position.velocity.getX() < 0) {
-        // position.velocity.setX(Math.max(position.velocity.getX(), -1
-        // * horizontalSpeedLimit));
-        // } else {
-        // position.velocity.setX(Math.min(position.velocity.getX(),
-        // horizontalSpeedLimit));
-        // }
+    public void updateMovement() {
+        acceleration.add(GameWorld.Gravity);
+        velocity.add(acceleration);
+        if (velocity.lengthSQRD() > speedLimit * speedLimit) {
+            velocity = velocity.normalized().mult(speedLimit);
+        }
+        velocity.mult(drag);
+        center.add(velocity);
     }
 
     @Override
@@ -75,16 +62,16 @@ public class Hero extends Character {
     @Override
     public void update() {
         handleInput();
-        // restrict the hero's movement to the boundary
-        boolean holdVisibility = invisible;
-        invisible = false;
-        // update base character object (collisions, etc.)
-        super.update();
-        invisible = holdVisibility;
+        updateMovement();
         selectWeapon();
         for (Weapon w : weaponRack) {
             w.update();
         }
+        clampToWorldBounds();
+    }
+
+    private void clampToWorldBounds() {
+        // restrict the hero's movement to the boundary
         BoundCollidedStatus collisionStatus = collideWorldBound();
         if (collisionStatus != BoundCollidedStatus.INSIDEBOUND) {
             if (collisionStatus == BoundCollidedStatus.LEFT
@@ -102,23 +89,23 @@ public class Hero extends Character {
         // The C# version uses joystick input to control the hero
         // I found 0.75 by printing out the value of the vector
         // being returned by the joy stick control
-        Vector2 inputDirection = new Vector2(0, 0);
+        Vector2 totalThrust = new Vector2();
         if (keyboard.isButtonDown(KeyEvent.VK_UP)) {
-            inputDirection.add(new Vector2(0f, 0.75f));
+            totalThrust.add(new Vector2(0f, thrustMagnitude));
         }
         if (keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
-            inputDirection.add(new Vector2(-0.75f, 0f));
+            totalThrust.add(new Vector2(-thrustMagnitude, 0f));
         }
         if (keyboard.isButtonDown(KeyEvent.VK_DOWN)) {
-            inputDirection.add(new Vector2(0f, -0.75f));
+            totalThrust.add(new Vector2(0f, -thrustMagnitude));
         }
         if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
-            inputDirection.add(new Vector2(0.75f, 0f));
+            totalThrust.add(new Vector2(thrustMagnitude, 0));
         }
         if (keyboard.isButtonDown(KeyEvent.VK_F)) {
             weapon.fire();
         }
-        push(inputDirection);
+        acceleration = totalThrust;
     }
 
     private void selectWeapon() {
@@ -145,6 +132,7 @@ public class Hero extends Character {
         return collectedDyepacks;
     }
 
+    // Powerups Functions
     public int powerupsCollected() {
         return collectedPowerups;
     }
@@ -156,10 +144,8 @@ public class Hero extends Character {
     }
 
     public void setInvisible() {
-        invisible = true;
     }
 
     public void setVisible() {
-        invisible = false;
     }
 }

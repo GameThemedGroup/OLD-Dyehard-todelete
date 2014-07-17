@@ -9,7 +9,7 @@ import Engine.Vector2;
 public class GameWorld {
     // private final float StartSpeed = 0.2f;
     public static float Speed = .5f;
-    public static Vector2 Gravity = new Vector2(0, -0.02f);
+    public static Vector2 Gravity = new Vector2(0, -0.01f);
     private Hero hero;
     private DeveloperControls dev;
     private Space space;
