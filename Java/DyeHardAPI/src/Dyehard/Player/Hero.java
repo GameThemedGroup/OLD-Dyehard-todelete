@@ -23,6 +23,7 @@ public class Hero extends Character {
     private ArrayList<Weapon> weaponRack;
 
     public Hero(KeyboardInput keyboard) {
+        // TODO: The position 20f, 20f is a temporary value.
         super(new Vector2(20f, 20f), 5f, 5f);
         collectedDyepacks = 0;
         collectedPowerups = 0;
