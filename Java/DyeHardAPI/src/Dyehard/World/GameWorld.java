@@ -3,16 +3,15 @@ package Dyehard.World;
 import java.util.ArrayList;
 import java.util.List;
 
-import Dyehard.DeveloperControls;
 import Dyehard.Character;
-import Dyehard.GameObject;
+import Dyehard.DeveloperControls;
 import Dyehard.Obstacles.Obstacle;
 import Dyehard.Player.Hero;
 import Engine.KeyboardInput;
 import Engine.Primitive;
 import Engine.Vector2;
 
-public class GameWorld extends GameObject {
+public class GameWorld extends Primitive {
     // private final float StartSpeed = 0.2f;
     public static float Speed = .5f;
     public static Vector2 Gravity = new Vector2(0, -0.02f);
@@ -57,8 +56,8 @@ public class GameWorld extends GameObject {
     }
 
     @Override
-    public void remove() {
-        hero.remove();
+    public void destroy() {
+        hero.destroy();
     }
 
     @Override

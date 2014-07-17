@@ -12,9 +12,9 @@ import Engine.World.BoundCollidedStatus;
  * Obstacles represent objects that friendly and enemy units are unable to pass.
  * Obstacles can range from moving platforms that the player is able to jump
  * onto to walls that can be combined to form a maze.
- * 
+ *
  * @author Rodelle Ladia Jr.
- * 
+ *
  */
 public class Obstacle extends Rectangle {
     List<Character> characters;
@@ -48,8 +48,8 @@ public class Obstacle extends Rectangle {
         // obstacle. This causes the player and enemy units to glide along the
         // edges of the obstacle
         for (Character c : characters) {
-            if (collided(c.getPosition())) {
-                pushOutCircle(c.getPosition());
+            if (collided(c)) {
+                pushOutCircle(c);
             }
         }
     }

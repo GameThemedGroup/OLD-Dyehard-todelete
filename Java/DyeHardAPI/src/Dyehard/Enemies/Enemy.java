@@ -41,7 +41,7 @@ public class Enemy extends Character {
         default:
             break;
         }
-        if (getPosition().collided(hero.getPosition())) {
+        if (collided(hero)) {
             hero.kill();
         }
         update();
@@ -49,16 +49,16 @@ public class Enemy extends Character {
 
     public void chaseHero() {
         if (GameWorld.Speed != 0) {
-            Vector2 direction = hero.getPosition().center.sub(position.center);
+            Vector2 direction = hero.center.sub(center);
             direction.normalize();
-            position.velocity = direction.mult(0.15f);
+            velocity = direction.mult(0.15f);
         } else {
-            position.velocity = new Vector2(0, 0);
+            velocity = new Vector2(0, 0);
         }
     }
 
     public void moveLeft() {
-        position.center.sub(new Vector2(-GameWorld.Speed, 0));
+        center.sub(new Vector2(-GameWorld.Speed, 0));
     }
 
     public void gotShot(Color color) {

@@ -3,11 +3,10 @@ package Dyehard.Weapons;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import Dyehard.GameObject;
 import Dyehard.Player.Hero;
 import Engine.Rectangle;
 
-public class Weapon extends GameObject {
+public class Weapon extends Rectangle {
     protected static float bulletSpeed = 1f;
     // Was 0.75f, but it was a radius and we are not
     // working with circles
@@ -35,7 +34,7 @@ public class Weapon extends GameObject {
     // Fire the weapon
     public void fire() {
         Rectangle bullet = new Rectangle();
-        bullet.center.set(hero.getPosition().center);
+        bullet.center.set(hero.center);
         bullet.size.set(bulletSize, bulletSize);
         bullet.color = hero.getColor();
         bullets.add(bullet);
@@ -51,9 +50,10 @@ public class Weapon extends GameObject {
     }
 
     @Override
-    public void remove() {
+    public void destroy() {
         for (Rectangle b : bullets) {
             b.removeFromAutoDrawSet();
         }
+        super.destroy();
     }
 }

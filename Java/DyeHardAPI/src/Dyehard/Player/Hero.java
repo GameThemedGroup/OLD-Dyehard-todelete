@@ -7,19 +7,15 @@ import Dyehard.Character;
 import Dyehard.Powerups.DyePack;
 import Dyehard.Powerups.PowerUp;
 import Dyehard.Weapons.Weapon;
-import Dyehard.World.GameWorld;
 import Engine.BaseCode;
 import Engine.KeyboardInput;
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
 
 public class Hero extends Character {
-    private final float horizontalSpeedLimit = 0.8f;
-    private static float drag = 0.96f; // smaller number means more reduction
     // private final float rightBoundaryLimit = 0.85f; // percentage of screen
     private int collectedDyepacks;
     private int collectedPowerups;
-    private float speedFactor;
     private boolean invisible;
     private KeyboardInput keyboard;
     private Weapon weapon;
@@ -30,8 +26,6 @@ public class Hero extends Character {
         super(new Vector2(20f, 20f), 5f, 5f);
         collectedDyepacks = 0;
         collectedPowerups = 0;
-        // initialize powerup variables
-        speedFactor = 1.0f;
         invisible = false;
         this.keyboard = keyboard;
         weaponRack = new ArrayList<Weapon>();
@@ -47,30 +41,35 @@ public class Hero extends Character {
 
     public void push(Vector2 direction) {
         // scale direction
-        direction.set(direction.getX() / 12f, direction.getY() / 12f);
-        direction.mult(speedFactor);
-        // add 'jetpack' factor
-        if (direction.getY() > 0) {
-            direction.setY(direction.getY() * 1.7f);
-        }
+        // direction.set(direction.getX() / 12f, direction.getY() / 12f);
+        // direction.mult(speedFactor);
+        // // add 'jetpack' factor
+        // if (direction.getY() > 0) {
+        // direction.setY(direction.getY() * 1.7f);
+        // }
         // update velocity
-        position.velocity = (position.velocity.add(direction
-                .add(GameWorld.Gravity))).mult(drag);
-        if (position.velocity.getX() < 0) {
-            position.velocity.setX(Math.max(position.velocity.getX(), -1
-                    * horizontalSpeedLimit));
-        } else {
-            position.velocity.setX(Math.min(position.velocity.getX(),
-                    horizontalSpeedLimit));
-        }
+        acceleration.set(direction.mult(0.1f));
+        acceleration.add(new Vector2(0f, -0.05f));
+        // acceleration.add(GameWorld.Gravity);
+        // position.velocity = (position.velocity.add(direction
+        // .add(GameWorld.Gravity))).mult(drag);
+        //
+        //
+        // if (position.velocity.getX() < 0) {
+        // position.velocity.setX(Math.max(position.velocity.getX(), -1
+        // * horizontalSpeedLimit));
+        // } else {
+        // position.velocity.setX(Math.min(position.velocity.getX(),
+        // horizontalSpeedLimit));
+        // }
     }
 
     @Override
-    public void remove() {
+    public void destroy() {
         for (Weapon w : weaponRack) {
-            w.remove();
+            w.destroy();
         }
-        super.remove();
+        super.destroy();
     }
 
     @Override
@@ -86,17 +85,17 @@ public class Hero extends Character {
         for (Weapon w : weaponRack) {
             w.update();
         }
-        BoundCollidedStatus collisionStatus = position.collideWorldBound();
+        BoundCollidedStatus collisionStatus = collideWorldBound();
         if (collisionStatus != BoundCollidedStatus.INSIDEBOUND) {
             if (collisionStatus == BoundCollidedStatus.LEFT
                     || collisionStatus == BoundCollidedStatus.RIGHT) {
-                position.velocity.setX(0);
+                velocity.setX(0);
             } else if (collisionStatus == BoundCollidedStatus.TOP
                     || collisionStatus == BoundCollidedStatus.BOTTOM) {
-                position.velocity.setY(0);
+                velocity.setY(0);
             }
         }
-        BaseCode.world.clampAtWorldBound(position);
+        BaseCode.world.clampAtWorldBound(this);
     }
 
     private void handleInput() {
@@ -151,11 +150,9 @@ public class Hero extends Character {
     }
 
     public void increaseSpeed() {
-        speedFactor = 1.5f;
     }
 
     public void normalizeSpeed() {
-        speedFactor = 1.0f;
     }
 
     public void setInvisible() {

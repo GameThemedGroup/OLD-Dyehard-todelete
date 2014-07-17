@@ -7,7 +7,7 @@ public class Ghost extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(1, Game.Blue);
     public Ghost(Hero hero, float minX, float maxX) {
         super(hero, minX, maxX);
-        box.texture = BaseCode.resources.loadImage("Textures/PowerUp_Blue.png");
+        texture = BaseCode.resources.loadImage("Textures/PowerUp_Blue.png");
     }
 
     @Override

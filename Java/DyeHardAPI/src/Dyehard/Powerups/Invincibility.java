@@ -7,7 +7,7 @@ public class Invincibility extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(2, Game.Pink);
     public Invincibility(Hero hero, float minX, float maxX) {
         super(hero, minX, maxX);
-        box.texture = BaseCode.resources.loadImage("Textures/PowerUp_Pink.png");
+        texture = BaseCode.resources.loadImage("Textures/PowerUp_Pink.png");
     }
 
     @Override

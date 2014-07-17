@@ -7,8 +7,7 @@ public class SpeedUp extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(0, DyeHard.Green);
     public SpeedUp(Hero hero, float minX, float maxX) {
         super(hero, minX, maxX);
-        box.texture = BaseCode.resources
-                .loadImage("Textures/PowerUp_Green.png");
+        texture = BaseCode.resources.loadImage("Textures/PowerUp_Green.png");
     }
 
     @Override

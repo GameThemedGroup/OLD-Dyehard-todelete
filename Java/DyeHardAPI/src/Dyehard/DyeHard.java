@@ -74,7 +74,7 @@ public class DyeHard extends LibraryCode {
             }
             if (keyboard.isButtonDown(KeyEvent.VK_Q)) {
                 state = State.BEGIN;
-                world.remove();
+                world.destroy();
                 world = new GameWorld(keyboard);
                 // pauseScreen.remove();
             }
@@ -89,7 +89,7 @@ public class DyeHard extends LibraryCode {
         case GAMEOVER:
             if (keyboard.isButtonDown(KeyEvent.VK_A)) {
                 state = State.BEGIN;
-                world.remove();
+                world.destroy();
                 world = new GameWorld(keyboard);
                 // gameOverScreen.remove();
             }
