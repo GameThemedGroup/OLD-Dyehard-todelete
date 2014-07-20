@@ -14,7 +14,7 @@ public class Enemy extends Character {
 
     protected Hero hero;
     protected EnemyState enemyState;
-    private int behaviorChangeTime = 5;
+    private float behaviorChangeTime = 5f;
     private long startTime;
 
     public Enemy(Vector2 center, float width, float height, Hero hero) {
