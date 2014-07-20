@@ -1,5 +1,6 @@
 package BaseTypes;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -13,6 +14,7 @@ public class Weapon extends Rectangle {
     protected static float bulletSize = 1.5f;
     protected Hero hero;
     protected Queue<Rectangle> bullets;
+    protected ArrayList<Enemy> enemies;
 
     public Weapon(Hero hero) {
         this.hero = hero;
@@ -28,6 +30,14 @@ public class Weapon extends Rectangle {
         while (bullets.size() > 0
                 && (bullets.peek().center.getX() - bullets.peek().size.getX()) > 800) {
             bullets.remove().removeFromAutoDrawSet();
+        }
+        for (Rectangle b : bullets) {
+            for (Enemy e : enemies) {
+                if (e.collided(b) && b.visible) {
+                    e.gotShot(b.color);
+                    b.visible = false;
+                }
+            }
         }
     }
 
@@ -55,5 +65,9 @@ public class Weapon extends Rectangle {
             b.removeFromAutoDrawSet();
         }
         super.destroy();
+    }
+
+    public void setEnemies(ArrayList<Enemy> enemies) {
+        this.enemies = enemies;
     }
 }

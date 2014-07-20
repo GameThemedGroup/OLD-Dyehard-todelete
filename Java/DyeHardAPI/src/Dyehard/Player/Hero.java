@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import BaseTypes.Character;
 import BaseTypes.DyePack;
+import BaseTypes.Enemy;
 import BaseTypes.PowerUp;
 import BaseTypes.Weapon;
 import Dyehard.World.GameWorld;
@@ -111,6 +112,12 @@ public class Hero extends Character {
     private void selectWeapon() {
         if (keyboard.isButtonTapped(KeyEvent.VK_1)) {
             weapon = weaponRack.get(0);
+        }
+    }
+
+    public void setEnemies(ArrayList<Enemy> enemies) {
+        for (Weapon w : weaponRack) {
+            w.setEnemies(enemies);
         }
     }
 
