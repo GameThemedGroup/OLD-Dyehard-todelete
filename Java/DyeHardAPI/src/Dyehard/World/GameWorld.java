@@ -2,6 +2,7 @@ package Dyehard.World;
 
 import Dyehard.DeveloperControls;
 import Dyehard.Space;
+import Dyehard.Enemies.EnemyManager;
 import Dyehard.Player.Hero;
 import Engine.KeyboardInput;
 import Engine.Vector2;
@@ -13,12 +14,14 @@ public class GameWorld {
     private Hero hero;
     private DeveloperControls dev;
     private Space space;
+    private EnemyManager eManager;
 
     public GameWorld(KeyboardInput keyboard) {
         hero = new Hero(keyboard);
         space = new Space(hero);
         space.AddPrimitive(hero);
         dev = new DeveloperControls(this, space, hero, keyboard);
+        eManager = new EnemyManager(hero);
     }
 
     public boolean gameOver() {
