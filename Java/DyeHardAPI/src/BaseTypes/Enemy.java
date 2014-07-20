@@ -43,7 +43,7 @@ public class Enemy extends Character {
         if (collided(hero)) {
             hero.kill();
         }
-        update();
+        super.update();
     }
 
     public void chaseHero() {
