@@ -20,9 +20,9 @@ public class GameWorld {
         hero = new Hero(keyboard);
         space = new Space(hero);
         space.AddPrimitive(hero);
-        dev = new DeveloperControls(this, space, hero, keyboard, eManager);
         eManager = new EnemyManager(hero);
         hero.setEnemies(eManager.getEnemies());
+        dev = new DeveloperControls(this, space, hero, keyboard, eManager);
     }
 
     public boolean gameOver() {

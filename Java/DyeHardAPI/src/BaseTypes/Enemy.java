@@ -14,22 +14,22 @@ public class Enemy extends Character {
 
     protected Hero hero;
     protected EnemyState enemyState;
+    private int behaviorChangeTime = 5;
+    private long startTime;
 
     public Enemy(Vector2 center, float width, float height, Hero hero) {
         super(center, width, height);
         this.hero = hero;
         setColor(DyeHard.randomColor());
         enemyState = EnemyState.BEGIN;
-        // timer = new Timer(behaviorChangeTime);
+        startTime = System.nanoTime();
     }
 
     @Override
     public void update() {
-        // timer.update();
-        // if (timer.isDone())
-        // {
-        // enemyState = EnemyState.CHASEHERO;
-        // }
+        if (System.nanoTime() >= startTime + (behaviorChangeTime * 1000000000)) {
+            enemyState = EnemyState.CHASEHERO;
+        }
         switch (enemyState) {
         case BEGIN:
             moveLeft();
@@ -48,7 +48,8 @@ public class Enemy extends Character {
 
     public void chaseHero() {
         if (GameWorld.Speed != 0) {
-            Vector2 direction = hero.center.sub(center);
+            Vector2 direction = new Vector2(hero.center.getX() - center.getX(),
+                    hero.center.getY() - center.getY());
             direction.normalize();
             velocity = direction.mult(0.15f);
         } else {
@@ -57,7 +58,7 @@ public class Enemy extends Character {
     }
 
     public void moveLeft() {
-        center.sub(new Vector2(-GameWorld.Speed, 0));
+        center.sub(new Vector2(GameWorld.Speed, 0));
     }
 
     public void gotShot(Color color) {
