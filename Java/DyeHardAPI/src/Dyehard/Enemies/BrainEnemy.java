@@ -2,6 +2,7 @@ package Dyehard.Enemies;
 
 import BaseTypes.Enemy;
 import Dyehard.Player.Hero;
+import Engine.BaseCode;
 import Engine.Vector2;
 
 public class BrainEnemy extends Enemy {
@@ -9,6 +10,6 @@ public class BrainEnemy extends Enemy {
 
     public BrainEnemy(Vector2 center, float height, Hero currentHero) {
         super(center, height * widthToHeightRatio, height, currentHero);
-        setTexture("Brain Enemy");
+        texture = BaseCode.resources.loadImage("Textures/Brain Enemy.png");
     }
 }
