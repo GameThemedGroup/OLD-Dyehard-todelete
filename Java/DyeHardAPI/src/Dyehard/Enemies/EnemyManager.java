@@ -1,7 +1,6 @@
 package Dyehard.Enemies;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import BaseTypes.Enemy;
@@ -13,7 +12,7 @@ import Engine.Vector2;
 public class EnemyManager extends Rectangle {
     private final float enemyFrequency = 12f;
     private Hero hero;
-    private List<Enemy> enemies;
+    private ArrayList<Enemy> enemies;
     private long startTime;
 
     public EnemyManager(Hero hero) {
@@ -80,7 +79,7 @@ public class EnemyManager extends Rectangle {
         enemies.clear();
     }
 
-    public List<Enemy> getEnemies() {
+    public ArrayList<Enemy> getEnemies() {
         return enemies;
     }
 }

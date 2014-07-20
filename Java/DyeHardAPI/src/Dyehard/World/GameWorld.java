@@ -20,8 +20,9 @@ public class GameWorld {
         hero = new Hero(keyboard);
         space = new Space(hero);
         space.AddPrimitive(hero);
-        dev = new DeveloperControls(this, space, hero, keyboard);
+        dev = new DeveloperControls(this, space, hero, keyboard, eManager);
         eManager = new EnemyManager(hero);
+        hero.setEnemies(eManager.getEnemies());
     }
 
     public boolean gameOver() {
@@ -32,5 +33,6 @@ public class GameWorld {
         hero.update();
         dev.update();
         space.update();
+        eManager.update();
     }
 }
