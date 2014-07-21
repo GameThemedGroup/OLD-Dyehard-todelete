@@ -5,6 +5,7 @@ import java.util.Random;
 
 import Dyehard.DyeHard;
 import Dyehard.Player.Hero;
+import Dyehard.World.GameWorld;
 import Engine.BaseCode;
 import Engine.Rectangle;
 import Engine.Vector2;
@@ -24,12 +25,15 @@ public class DyePack extends Rectangle {
                 + padding;
         center.set(new Vector2(randomX, randomY));
         size.set(0.865f * height, height);
+        velocity = new Vector2(-GameWorld.Speed, 0f);
+        shouldTravel = true;
         this.color = color;
         texture = BaseCode.resources.loadImage("Textures/" + getTexture(color));
     }
 
     @Override
     public void update() {
+        super.update();
         if (collided(hero) && visible) {
             hero.collect(this);
         }

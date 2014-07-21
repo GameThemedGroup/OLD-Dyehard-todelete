@@ -7,6 +7,7 @@ import Dyehard.Powerups.Ghost;
 import Dyehard.Powerups.Invincibility;
 import Dyehard.Powerups.Overload;
 import Dyehard.Powerups.SpeedUp;
+import Dyehard.World.GameWorld;
 import Engine.Rectangle;
 import Engine.Vector2;
 
@@ -26,10 +27,13 @@ public class PowerUp extends Rectangle {
                 + padding;
         center.set(new Vector2(randomX, randomY));
         size.set(width, width * 0.39f);
+        velocity = new Vector2(-GameWorld.Speed, 0f);
+        shouldTravel = true;
     }
 
     @Override
     public void update() {
+        super.update();
         if (collided(hero) && visible) {
             hero.collect(this);
         }

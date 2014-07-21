@@ -1,3 +1,78 @@
 package Dyehard.Obstacles;
-public class Debris {
+
+import java.awt.Color;
+import java.util.List;
+import java.util.Random;
+
+import BaseTypes.Character;
+import Dyehard.World.GameWorld;
+import Engine.BaseCode;
+import Engine.Rectangle;
+import Engine.Vector2;
+import Engine.World.BoundCollidedStatus;
+
+/**
+ * Obstacles represent objects that friendly and enemy units are unable to pass.
+ * Obstacles can range from moving platforms that the player is able to jump
+ * onto to walls that can be combined to form a maze.
+ * 
+ * @author Rodelle Ladia Jr.
+ * 
+ */
+public class Debris extends Rectangle {
+    private static float height = 6f;
+    List<Character> characters;
+
+    public Debris(List<Character> characters, float minX, float maxX) {
+        float padding = height;
+        Random rand = new Random();
+        float randomX = (maxX - padding - minX + padding) * rand.nextFloat()
+                + minX + padding;
+        // TODO: 50f and 0f are place holders for topEdge and bottomEdge
+        float randomY = (50f - padding - 0f + padding) * rand.nextFloat() + 0f
+                + padding;
+        center.set(new Vector2(randomX, randomY));
+        size.set(height, height);
+        velocity = new Vector2(-GameWorld.Speed, 0f);
+        shouldTravel = true;
+        color = Color.GREEN;
+        this.characters = characters;
+        switch (rand.nextInt(3)) {
+        case 0:
+            texture = BaseCode.resources.loadImage("Textures/Beak.png");
+            break;
+        case 1:
+            texture = BaseCode.resources.loadImage("Textures/Window.png");
+            break;
+        case 2:
+            texture = BaseCode.resources.loadImage("Textures/Wing2.png");
+            size.setX(size.getY() * 1.8f);
+            break;
+        }
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        checkCollisions();
+    }
+
+    private void checkCollisions() {
+        // The obstacle is destroyed once it leaves the map through the left,
+        // top, or bottom portion of the map.
+        BoundCollidedStatus collisionStatus = collideWorldBound();
+        if (!isInsideWorldBound()
+                && collisionStatus != BoundCollidedStatus.RIGHT) {
+            destroy();
+            return;
+        }
+        // Check collisions with each character and push them out of the
+        // obstacle. This causes the player and enemy units to glide along the
+        // edges of the obstacle
+        for (Character c : characters) {
+            if (collided(c)) {
+                pushOutCircle(c);
+            }
+        }
+    }
 }

@@ -6,31 +6,60 @@ import java.util.List;
 import BaseTypes.Character;
 import BaseTypes.DyePack;
 import BaseTypes.Enemy;
-import BaseTypes.Obstacle;
 import BaseTypes.PowerUp;
+import Dyehard.Obstacles.Debris;
 import Dyehard.Player.Hero;
 import Dyehard.World.GameWorld;
+import Dyehard.World.GameWorldRegion;
 import Engine.Primitive;
 import Engine.Vector2;
 
-public class Space {
+public class Space extends GameWorldRegion {
+    // TODO: 100f is a placeholder for rightEdge
+    public static float width = 100f * 3f;
+    public static int powerupCount = 5;
+    public static int dyepackCount = 11;
+    public static int debrisCount = 10;
     Character hero;
     List<Primitive> primitives;
-    List<Obstacle> obstacles;
+    List<Debris> debris;
     List<PowerUp> powerups;
     List<Character> characters;
     List<DyePack> dyepacks;
-    private static final int TimeToSpawnDebris = 40;
-    int debrisTimer = 0;
 
-    public Space(Hero hero) {
+    public Space(Hero hero, ArrayList<Enemy> enemies, float leftEdge) {
         characters = new ArrayList<Character>();
         this.hero = hero;
         characters.add(hero);
-        obstacles = new ArrayList<Obstacle>();
+        characters.addAll(enemies);
+        debris = new ArrayList<Debris>();
         powerups = new ArrayList<PowerUp>();
         dyepacks = new ArrayList<DyePack>();
         primitives = new ArrayList<Primitive>();
+        // TODO: 50f is a placeholder for topEdge
+        float height = 50f;
+        center.set((width * 0.5f) + leftEdge, height / 2);
+        size.set(width, height);
+        velocity = new Vector2(-GameWorld.Speed, 0f);
+        shouldTravel = true;
+        visible = false;
+        float rightEdge = center.getX() + size.getX() / 2;
+        float region = (rightEdge - leftEdge) / powerupCount;
+        for (int i = 0; i < powerupCount; i++) {
+            float regionLeft = leftEdge + (i * region);
+            float regionRight = regionLeft + region;
+            powerups.add(PowerUp.randomPowerUp(hero, regionLeft, regionRight));
+        }
+        // offset the region to pad the space before the next element
+        // this makes the region slightly smaller than it actually should be
+        // otherwise
+        int offset = 1;
+        region = (rightEdge - leftEdge) / (debrisCount + offset);
+        for (int i = 0; i < debrisCount; i++) {
+            float regionLeft = leftEdge + (i * region);
+            float regionRight = regionLeft + region;
+            debris.add(new Debris(characters, regionLeft, regionRight));
+        }
     }
 
     public void AddPrimitive(Primitive primitive) {
@@ -50,8 +79,26 @@ public class Space {
         primitives.add(powerup);
     }
 
+    @Override
+    public void destroy() {
+        super.destroy();
+        for (PowerUp p : powerups) {
+            p.destroy();
+        }
+        for (DyePack p : dyepacks) {
+            p.destroy();
+        }
+        for (Debris d : debris) {
+            d.destroy();
+        }
+        for (Primitive p : primitives) {
+            p.destroy();
+        }
+    }
+
+    @Override
     public void update() {
-        updateTimers();
+        super.update();
         for (Primitive p : primitives) {
             p.update();
         }
@@ -60,24 +107,24 @@ public class Space {
                 primitives.remove(i);
             }
         }
-    }
-
-    private void updateTimers() {
-        debrisTimer++;
-        if (debrisTimer >= TimeToSpawnDebris) {
-            generateDebris();
-            debrisTimer = 0;
+        for (DyePack p : dyepacks) {
+            p.update();
+        }
+        for (PowerUp p : powerups) {
+            p.update();
+        }
+        for (Debris d : debris) {
+            d.update();
         }
     }
 
-    // Increments the timer used to generate obstacles
-    // If the timer's duration has been reached, an obstacle is generated and
-    // added to the list of primitives
-    public void generateDebris() {
-        float startY = (float) (Math.random() * 80 + 5);
-        Vector2 position = new Vector2(100, startY);
-        Vector2 size = new Vector2(5, 5);
-        Vector2 speed = new Vector2(-GameWorld.Speed, 0);
-        primitives.add(new Obstacle(characters, position, size, speed));
+    @Override
+    public boolean isOffScreen() {
+        return center.getX() + size.getX() / 2 <= 0;
+    }
+
+    @Override
+    public float rightEdge() {
+        return center.getX() + size.getX() / 2;
     }
 }
