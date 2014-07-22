@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+import Dyehard.World.Background;
 import Dyehard.World.GameWorld;
 import Engine.LibraryCode;
 
@@ -22,8 +23,6 @@ public class DyeHard extends LibraryCode {
     public static Color Pink = new Color(215, 59, 148);
     public static Color Blue = new Color(50, 75, 150);;
 
-    // screen objects
-    // private Background background;
     // private Screen startScreen;
     // private Window pauseScreen;
     // private Window gameOverScreen;
@@ -51,7 +50,9 @@ public class DyeHard extends LibraryCode {
     }
 
     // game objects
+    private Background background;
     private GameWorld world;
+
     // Game state
     private State state;
 
@@ -101,6 +102,7 @@ public class DyeHard extends LibraryCode {
         // Starting state should be begin
         // Using playing to test controls
         state = State.PLAYING;
+        background = new Background();
         // I pass keyboard into GameWorld when creating it because
         // I need access to BaseCode for keyboard inputs.
         world = new GameWorld(keyboard);
@@ -113,6 +115,7 @@ public class DyeHard extends LibraryCode {
         checkControl();
         switch (state) {
         case PLAYING:
+            background.update();
             world.update();
             break;
         default:

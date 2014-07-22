@@ -21,6 +21,7 @@ public class GameWorld {
     private LinkedList<GameWorldRegion> upcoming;
     public static final float leftEdge = 0f;
     public static final float rightEdge = 100f;
+    public static final float Height = 75f;
 
     public GameWorld(KeyboardInput keyboard) {
         hero = new Hero(keyboard);
