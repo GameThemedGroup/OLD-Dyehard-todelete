@@ -43,12 +43,12 @@ public class InfinityShip {
         }
 
         public void setLeftEdgeAt(float leftEdge) {
-            tile.center.setX(leftEdge + ((tile.size.getX() + gap / 2f)));
+            tile.center.setX(leftEdge + ((tile.size.getX() + gap) / 2f));
             window.center = tile.center;
         }
 
         public float rightEdge() {
-            return tile.center.getX() + tile.size.getX() / 2f + gap / 2f;
+            return tile.center.getX() + (tile.size.getX() + gap) / 2f;
         }
 
         public boolean isOffScreen() {
@@ -58,14 +58,18 @@ public class InfinityShip {
 
     public static float Speed = 0f;
     private Deque<ShipTile> displayedTiles;
-    private Deque<ShipTile> previousTiles;
+    private Deque<ShipTile> upcomingTiles;
 
     public InfinityShip(float speed) {
         Speed = speed;
         displayedTiles = new ArrayDeque<ShipTile>();
-        previousTiles = new ArrayDeque<ShipTile>();
+        upcomingTiles = new ArrayDeque<ShipTile>();
 
         displayedTiles.add(new ShipTile(GameWorld.rightEdge));
+
+        upcomingTiles.add(new ShipTile(GameWorld.rightEdge));
+        upcomingTiles.add(new ShipTile(GameWorld.rightEdge));
+        upcomingTiles.add(new ShipTile(GameWorld.rightEdge));
     }
 
     public void update() {
@@ -75,25 +79,19 @@ public class InfinityShip {
 
         // Save the tile to be reused at a later time
         if (displayedTiles.getFirst().isOffScreen()) {
-            previousTiles.add(displayedTiles.pop());
+            upcomingTiles.add(displayedTiles.pop());
+        }
+
+        if (upcomingTiles.size() == 0) {
+            return;
         }
 
         ShipTile rightMostTile = displayedTiles.getLast();
 
+        // Add an upcoming tile to the queue of displayed tiles
         if (rightMostTile.rightEdge() <= GameWorld.rightEdge) {
-            generateNewTile();
-        }
-    }
-
-    private void generateNewTile() {
-        if (previousTiles.size() > 0) {
-            // draw a tile from the randomTiles
-            ShipTile tile = previousTiles.removeFirst();
+            ShipTile tile = upcomingTiles.pollFirst();
             tile.setLeftEdgeAt(displayedTiles.getLast().rightEdge());
-            displayedTiles.add(tile);
-        } else {
-            // randomTiles is empty, create new ship tile
-            ShipTile tile = new ShipTile(displayedTiles.getLast().rightEdge());
             displayedTiles.add(tile);
         }
     }
