@@ -47,12 +47,12 @@ public class InfinityShip {
             window.center = tile.center;
         }
 
-        public float rightEdge() {
+        public float RIGHT_EDGE() {
             return tile.center.getX() + (tile.size.getX() + gap) / 2f;
         }
 
         public boolean isOffScreen() {
-            return rightEdge() < GameWorld.leftEdge;
+            return RIGHT_EDGE() < GameWorld.LEFT_EDGE;
         }
     }
 
@@ -65,11 +65,11 @@ public class InfinityShip {
         displayedTiles = new ArrayDeque<ShipTile>();
         upcomingTiles = new ArrayDeque<ShipTile>();
 
-        displayedTiles.add(new ShipTile(GameWorld.rightEdge));
+        displayedTiles.add(new ShipTile(GameWorld.RIGHT_EDGE));
 
-        upcomingTiles.add(new ShipTile(GameWorld.rightEdge));
-        upcomingTiles.add(new ShipTile(GameWorld.rightEdge));
-        upcomingTiles.add(new ShipTile(GameWorld.rightEdge));
+        upcomingTiles.add(new ShipTile(GameWorld.RIGHT_EDGE));
+        upcomingTiles.add(new ShipTile(GameWorld.RIGHT_EDGE));
+        upcomingTiles.add(new ShipTile(GameWorld.RIGHT_EDGE));
     }
 
     public void update() {
@@ -89,9 +89,9 @@ public class InfinityShip {
         ShipTile rightMostTile = displayedTiles.getLast();
 
         // Add an upcoming tile to the queue of displayed tiles
-        if (rightMostTile.rightEdge() <= GameWorld.rightEdge) {
+        if (rightMostTile.RIGHT_EDGE() <= GameWorld.RIGHT_EDGE) {
             ShipTile tile = upcomingTiles.pollFirst();
-            tile.setLeftEdgeAt(displayedTiles.getLast().rightEdge());
+            tile.setLeftEdgeAt(displayedTiles.getLast().RIGHT_EDGE());
             displayedTiles.add(tile);
         }
     }

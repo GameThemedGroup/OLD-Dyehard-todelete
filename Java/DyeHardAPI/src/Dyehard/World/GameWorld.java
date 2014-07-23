@@ -6,11 +6,17 @@ import Dyehard.DeveloperControls;
 import Dyehard.Space;
 import Dyehard.Enemies.EnemyManager;
 import Dyehard.Player.Hero;
+import Engine.BaseCode;
 import Engine.KeyboardInput;
 import Engine.Vector2;
 
 public class GameWorld {
     // private final float StartSpeed = 0.2f;
+    public static final float LEFT_EDGE = BaseCode.world.getPositionX();
+    public static final float RIGHT_EDGE = BaseCode.world.getWidth();
+    public static final float TOP_EDGE = BaseCode.world.getHeight();
+    public static final float BOTTOM_EDGE = BaseCode.world.getWorldPositionY();
+
     public static float Speed = .5f;
     public static Vector2 Gravity = new Vector2(0, -0.01f);
     private Hero hero;
@@ -19,9 +25,6 @@ public class GameWorld {
     private EnemyManager eManager;
     private LinkedList<GameWorldRegion> onscreen;
     private LinkedList<GameWorldRegion> upcoming;
-    public static final float leftEdge = 0f;
-    public static final float rightEdge = 100f;
-    public static final float Height = 75f;
 
     public GameWorld(KeyboardInput keyboard) {
         hero = new Hero(keyboard);
@@ -31,9 +34,10 @@ public class GameWorld {
         // set the enemy manager for the weapon
         hero.setEnemies(eManager.getEnemies());
         // first element on screen
-        onscreen.addLast(new Space(hero, eManager.getEnemies(), leftEdge));
-        // fill the rest of the exisiting screen
-        while (onscreen.getLast().rightEdge() <= rightEdge) {
+        onscreen.addLast(new Space(hero, eManager.getEnemies(),
+                GameWorld.LEFT_EDGE));
+        // fill the rest of the existing screen
+        while (onscreen.getLast().rightEdge() <= GameWorld.RIGHT_EDGE) {
             onscreen.addLast(nextElement(onscreen));
         }
         // prep upcoming elements
@@ -61,7 +65,7 @@ public class GameWorld {
             // remove off screen element
             onscreen.removeFirst().destroy();
         }
-        if (onscreen.getLast().rightEdge() <= rightEdge) {
+        if (onscreen.getLast().rightEdge() <= GameWorld.RIGHT_EDGE) {
             // move item from upcoming to end of onscreen
             upcoming.addLast(nextElement(upcoming));
             onscreen.addLast(upcoming.removeFirst());

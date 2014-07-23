@@ -19,7 +19,7 @@ public class Starfield {
         this.speed = speed;
         stars = new ArrayDeque<Rectangle>();
         // fill background
-        for (float xPos = 0; xPos < GameWorld.rightEdge; xPos += spacing) {
+        for (float xPos = 0; xPos < GameWorld.RIGHT_EDGE; xPos += spacing) {
             stars.add(createStarAt(xPos));
         }
     }
@@ -30,10 +30,10 @@ public class Starfield {
         }
 
         // recycle stars to right edge of screen
-        if (stars.element().center.getX() <= GameWorld.leftEdge) {
+        if (stars.element().center.getX() <= GameWorld.LEFT_EDGE) {
             Rectangle star = stars.remove();
-            star.center.setX(GameWorld.rightEdge);
-            star.center.setY(RANDOM.nextFloat() * GameWorld.Height);
+            star.center.setX(GameWorld.RIGHT_EDGE);
+            star.center.setY(RANDOM.nextFloat() * GameWorld.TOP_EDGE);
             stars.add(star);
         }
     }
@@ -49,7 +49,7 @@ public class Starfield {
     private Rectangle createStarAt(float xPos) {
         Rectangle star = new Rectangle();
 
-        float randomYPos = RANDOM.nextFloat() * GameWorld.Height;
+        float randomYPos = RANDOM.nextFloat() * GameWorld.TOP_EDGE;
         Vector2 position = new Vector2(xPos, randomYPos);
 
         star.center = position;

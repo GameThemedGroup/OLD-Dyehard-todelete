@@ -15,8 +15,7 @@ import Engine.Primitive;
 import Engine.Vector2;
 
 public class Space extends GameWorldRegion {
-    // TODO: 100f is a placeholder for rightEdge
-    public static float width = 100f * 3f;
+    public static float width = GameWorld.RIGHT_EDGE * 3f;
     public static int powerupCount = 5;
     public static int dyepackCount = 11;
     public static int debrisCount = 10;
@@ -36,8 +35,7 @@ public class Space extends GameWorldRegion {
         powerups = new ArrayList<PowerUp>();
         dyepacks = new ArrayList<DyePack>();
         primitives = new ArrayList<Primitive>();
-        // TODO: 50f is a placeholder for topEdge
-        float height = 50f;
+        float height = GameWorld.TOP_EDGE;
         center.set((width * 0.5f) + leftEdge, height / 2);
         size.set(width, height);
         velocity = new Vector2(-GameWorld.Speed, 0f);

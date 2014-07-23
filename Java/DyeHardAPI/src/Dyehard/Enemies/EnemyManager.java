@@ -44,10 +44,10 @@ public class EnemyManager extends Rectangle {
         if (System.nanoTime() >= startTime + (enemyFrequency * 1000000000)
                 && GameWorld.Speed != 0) {
             Random rand = new Random();
-            // TODO: 50f and 0f are place holders for topEdge and bottomEdge
-            float randomY = (50f - 5f - 0f + 5f) * rand.nextFloat() + 0f + 5f;
-            // TODO: 83.3f is a temporary place holder for rightEdge
-            Vector2 position = new Vector2(83.3f + 5, randomY);
+            // TODO: Replace magic numbers
+            float randomY = (GameWorld.TOP_EDGE - 5f - GameWorld.BOTTOM_EDGE + 5f)
+                    * rand.nextFloat() + 0f + 5f;
+            Vector2 position = new Vector2(GameWorld.RIGHT_EDGE + 5, randomY);
             switch (rand.nextInt(3)) {
             case 1:
                 enemies.add(new BrainEnemy(position, 7.5f, hero));

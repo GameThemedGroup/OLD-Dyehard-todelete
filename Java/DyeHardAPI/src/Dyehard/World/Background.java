@@ -7,15 +7,14 @@ import Engine.Vector2;
 
 public class Background {
 
-    public static float width = GameWorld.rightEdge;
-    public static float height = GameWorld.Height;
-
     private Rectangle backdrop;
     private Starfield foreground;
     private Starfield background;
     private InfinityShip ship;
 
     public Background() {
+        float width = GameWorld.RIGHT_EDGE - GameWorld.LEFT_EDGE;
+        float height = GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE;
 
         // Create a black background to represent space
         backdrop = new Rectangle();

@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import Dyehard.Player.Hero;
+import Dyehard.World.GameWorld;
 import Engine.Rectangle;
 
 public class Weapon extends Rectangle {
@@ -26,9 +27,8 @@ public class Weapon extends Rectangle {
         for (Rectangle b : bullets) {
             b.center.setX(b.center.getX() + bulletSpeed);
         }
-        // TODO: 800 is a temporary place holder for the rightEdge variable
         while (bullets.size() > 0
-                && (bullets.peek().center.getX() - bullets.peek().size.getX()) > 800) {
+                && (bullets.peek().center.getX() - bullets.peek().size.getX()) > GameWorld.RIGHT_EDGE) {
             bullets.remove().removeFromAutoDrawSet();
         }
         for (Rectangle b : bullets) {
