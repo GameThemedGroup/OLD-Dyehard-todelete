@@ -2,6 +2,9 @@ package Dyehard;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import Dyehard.World.Background;
@@ -52,7 +55,6 @@ public class DyeHard extends LibraryCode {
     // game objects
     private Background background;
     private GameWorld world;
-
     // Game state
     private State state;
 
@@ -94,6 +96,21 @@ public class DyeHard extends LibraryCode {
             }
             break;
         }
+    }
+
+    public static List<Color> randomColorSet(int count) {
+        // get a random and unique subset of the available colors
+        List<Integer> range = new ArrayList<Integer>();
+        for (int i = 0; i < colorCount; i++) {
+            range.add(i);
+        }
+        Collections.shuffle(range);
+        // get the colors from the indexes in the sample list
+        List<Color> colors = new ArrayList<Color>();
+        for (int i : range) {
+            colors.add(colorPicker(i));
+        }
+        return colors;
     }
 
     @Override
