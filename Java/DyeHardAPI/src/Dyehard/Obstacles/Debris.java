@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import BaseTypes.Character;
+import Dyehard.Util.Collision;
 import Dyehard.World.GameWorld;
 import Engine.BaseCode;
 import Engine.Rectangle;
@@ -70,8 +71,27 @@ public class Debris extends Rectangle {
         // obstacle. This causes the player and enemy units to glide along the
         // edges of the obstacle
         for (Character c : characters) {
-            if (collided(c)) {
-                pushOutCircle(c);
+            Vector2 out = new Vector2(0, 0);
+            if (Collision.isOverlap(c, this, out)) {
+                // Move the character so that it's no longer overlapping the
+                // debris
+                c.center.add(out);
+
+                // Stop the character from moving if they collide with the
+                // debris
+                if (Math.abs(out.getX()) > 0.01f) {
+                    if (Math.signum(out.getX()) != Math.signum(c.velocity
+                            .getX())) {
+                        c.velocity.setX(0f);
+                    }
+                }
+
+                if (Math.abs(out.getY()) > 0.01f) {
+                    if (Math.signum(out.getY()) != Math.signum(c.velocity
+                            .getY())) {
+                        c.velocity.setY(0f);
+                    }
+                }
             }
         }
     }
