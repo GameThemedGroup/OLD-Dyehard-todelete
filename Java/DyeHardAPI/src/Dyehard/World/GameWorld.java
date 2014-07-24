@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import Dyehard.DeveloperControls;
 import Dyehard.Space;
 import Dyehard.Enemies.EnemyManager;
+import Dyehard.Obstacles.Stargate;
 import Dyehard.Player.Hero;
 import Engine.BaseCode;
 import Engine.KeyboardInput;
@@ -16,7 +17,6 @@ public class GameWorld {
     public static final float RIGHT_EDGE = BaseCode.world.getWidth();
     public static final float TOP_EDGE = BaseCode.world.getHeight();
     public static final float BOTTOM_EDGE = BaseCode.world.getWorldPositionY();
-
     public static float Speed = .5f;
     public static Vector2 Gravity = new Vector2(0, -0.01f);
     private Hero hero;
@@ -73,6 +73,12 @@ public class GameWorld {
     }
 
     private GameWorldRegion nextElement(LinkedList<GameWorldRegion> seq) {
-        return new Space(hero, eManager.getEnemies(), seq.getLast().rightEdge());
+        if (seq.getLast() instanceof Stargate) {
+            return new Space(hero, eManager.getEnemies(), seq.getLast()
+                    .rightEdge());
+        } else {
+            return new Stargate(hero, eManager.getEnemies(), seq.getLast()
+                    .rightEdge());
+        }
     }
 }
