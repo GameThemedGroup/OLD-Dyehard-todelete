@@ -51,6 +51,17 @@ public class Debris extends Rectangle {
         }
     }
 
+    public Debris(List<Character> characters, Vector2 center, Vector2 size,
+            Color color) {
+        this.center = center;
+        this.size = size;
+        velocity = new Vector2(-GameWorld.Speed, 0f);
+        shouldTravel = true;
+        this.color = color;
+        this.characters = characters;
+        this.color = color;
+    }
+
     @Override
     public void update() {
         super.update();

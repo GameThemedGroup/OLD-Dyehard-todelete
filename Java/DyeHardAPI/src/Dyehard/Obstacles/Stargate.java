@@ -60,9 +60,6 @@ public class Stargate extends GameWorldRegion {
         for (Gate g : gates) {
             g.draw();
         }
-        for (Platform p : platforms) {
-            p.draw();
-        }
     }
 
     @Override
