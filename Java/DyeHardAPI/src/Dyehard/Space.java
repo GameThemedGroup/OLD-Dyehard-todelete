@@ -1,14 +1,14 @@
 package Dyehard;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-import BaseTypes.Actor;
 import BaseTypes.DyePack;
 import BaseTypes.Enemy;
 import BaseTypes.PowerUp;
 import Dyehard.Obstacles.Debris;
-import Dyehard.Obstacles.Obstacle;
 import Dyehard.Obstacles.ObstacleManager;
 import Dyehard.Player.Hero;
 import Dyehard.World.GameWorld;
@@ -21,34 +21,46 @@ public class Space extends GameWorldRegion {
     public static int powerupCount = 5;
     public static int dyepackCount = 11;
     public static int debrisCount = 10;
-    Actor hero;
+
+    private static Random RANDOM = new Random();
+    Hero hero;
     List<Primitive> primitives;
-    List<Debris> debris;
-    List<PowerUp> powerups;
-    List<Actor> characters;
-    List<DyePack> dyepacks;
 
     public Space(Hero hero, ArrayList<Enemy> enemies, float leftEdge) {
-        characters = new ArrayList<Actor>();
         this.hero = hero;
-        characters.add(hero);
-        characters.addAll(enemies);
-        debris = new ArrayList<Debris>();
-        powerups = new ArrayList<PowerUp>();
-        dyepacks = new ArrayList<DyePack>();
-        primitives = new ArrayList<Primitive>();
+
         float height = GameWorld.TOP_EDGE;
+        visible = false;
         center.set((width * 0.5f) + leftEdge, height / 2);
         size.set(width, height);
         velocity = new Vector2(-GameWorld.Speed, 0f);
         shouldTravel = true;
-        visible = false;
+
+        generateCollectibles(leftEdge);
+    }
+
+    private void generateCollectibles(float leftEdge) {
+        primitives = new ArrayList<Primitive>();
+
         float rightEdge = center.getX() + size.getX() / 2;
         float region = (rightEdge - leftEdge) / powerupCount;
+
+        List<Color> colorSet = DyeHard.randomColorSet(DyeHard.colorCount);
+        for (int i = 0; i < dyepackCount; i++) {
+            float regionLeft = leftEdge + (i * region);
+            float regionRight = regionLeft + region;
+            Color randomColor = colorSet.get(RANDOM.nextInt(colorSet.size()));
+            DyePack dye = new DyePack(hero, regionLeft, regionRight,
+                    randomColor);
+            primitives.add(dye);
+        }
+
         for (int i = 0; i < powerupCount; i++) {
             float regionLeft = leftEdge + (i * region);
             float regionRight = regionLeft + region;
-            powerups.add(PowerUp.randomPowerUp(hero, regionLeft, regionRight));
+            PowerUp powerup = PowerUp.randomPowerUp(hero, regionLeft,
+                    regionRight);
+            primitives.add(powerup);
         }
         // offset the region to pad the space before the next element
         // this makes the region slightly smaller than it actually should be
@@ -60,6 +72,7 @@ public class Space extends GameWorldRegion {
             float regionRight = regionLeft + region;
             Debris debris = new Debris(regionLeft, regionRight);
             ObstacleManager.registerObstacle(debris);
+            // primitives.add(debris);
         }
     }
 
@@ -69,7 +82,6 @@ public class Space extends GameWorldRegion {
 
     public void AddEnemy(Enemy enemy) {
         primitives.add(enemy);
-        characters.add(enemy);
     }
 
     public void AddDyepack(DyePack dyepack) {
@@ -83,15 +95,6 @@ public class Space extends GameWorldRegion {
     @Override
     public void destroy() {
         super.destroy();
-        for (PowerUp p : powerups) {
-            p.destroy();
-        }
-        for (DyePack p : dyepacks) {
-            p.destroy();
-        }
-        for (Obstacle d : debris) {
-            d.destroy();
-        }
         for (Primitive p : primitives) {
             p.destroy();
         }
@@ -107,15 +110,6 @@ public class Space extends GameWorldRegion {
             if (primitives.get(i).visible == false) {
                 primitives.remove(i);
             }
-        }
-        for (DyePack p : dyepacks) {
-            p.update();
-        }
-        for (PowerUp p : powerups) {
-            p.update();
-        }
-        for (Obstacle d : debris) {
-            d.update();
         }
     }
 
