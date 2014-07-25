@@ -51,10 +51,10 @@ public class GameWorld {
     }
 
     public void update() {
+        updateSequence();
         hero.update();
         dev.update();
         eManager.update();
-        updateSequence();
         for (GameWorldRegion e : onscreen) {
             e.update();
         }

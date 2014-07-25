@@ -13,11 +13,13 @@ public class EnemyManager extends Rectangle {
     private final float enemyFrequency = 12f;
     private Hero hero;
     private ArrayList<Enemy> enemies;
+    private ArrayList<Enemy> enemiesToRemove;
     private long startTime;
 
     public EnemyManager(Hero hero) {
         this.hero = hero;
         enemies = new ArrayList<Enemy>();
+        enemiesToRemove = new ArrayList<Enemy>();
         startTime = System.nanoTime();
     }
 
@@ -34,9 +36,11 @@ public class EnemyManager extends Rectangle {
         for (Enemy e : enemies) {
             if (!e.isAlive()) {
                 e.destroy();
-                enemies.remove(e);
+                enemiesToRemove.add(e);
             }
         }
+        enemies.removeAll(enemiesToRemove);
+        enemiesToRemove.clear();
         for (Enemy e : enemies) {
             e.update();
         }

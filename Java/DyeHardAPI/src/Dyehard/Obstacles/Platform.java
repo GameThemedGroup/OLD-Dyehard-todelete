@@ -24,7 +24,6 @@ public class Platform {
         characters = new ArrayList<Character>();
         characters.add(hero);
         characters.addAll(enemies);
-
         platforms = new ArrayList<Debris>();
         fillPlatform(offset, leftEdge, continuous);
     }
@@ -45,7 +44,6 @@ public class Platform {
         // set up platform
         float Ypos = ((offset * 1f) / Stargate.GATE_COUNT) * GameWorld.TOP_EDGE;
         float width = Stargate.width / SEGMENT_COUNT;
-
         if (continuous) {
             float Xpos = leftEdge + (Stargate.width / 2);
             platforms.add(createPlatform(new Vector2(Xpos, Ypos)));
@@ -60,8 +58,11 @@ public class Platform {
                     platforms.add(createPlatform(new Vector2(Xpos, Ypos)));
                 }
                 consecutiveChance -= 2;
-                if (consecutiveChance > 0
-                        && rand.nextInt(consecutiveChance) == 0) {
+                if (consecutiveChance <= 0
+                        || rand.nextInt(consecutiveChance) == 0) {
+                    platform = !platform;
+                    consecutiveChance = 10;
+                } else if (rand.nextInt(consecutiveChance) == 0) {
                     platform = !platform;
                     consecutiveChance = 10;
                 }
@@ -71,12 +72,9 @@ public class Platform {
 
     private Debris createPlatform(Vector2 center) {
         float width = Stargate.width / SEGMENT_COUNT;
-
         Vector2 size = new Vector2(width + mask, height);
         Color color = new Color(112, 138, 144);
-
         Debris debris = new Debris(characters, center, size, color);
-
         return debris;
     }
 }

@@ -39,9 +39,9 @@ public class Gate extends Rectangle {
         deathGate = new Rectangle();
         deathGate.center = new Vector2(leftEdge + 0.3f, path.center.getY());
         deathGate.size.set(0.5f, path.size.getY());
-        // This color is maroon
-        deathGate.color = new Color(128, 0, 0);
-        deathGate.visible = false;
+        // This color is transparent
+        deathGate.color = new Color(128, 0, 0, 0);
+        deathGate.visible = true;
         deathGate.velocity = new Vector2(-GameWorld.Speed, 0f);
         deathGate.shouldTravel = true;
         preview = new Rectangle();
