@@ -11,22 +11,25 @@ import Engine.Rectangle;
 import Engine.Vector2;
 
 public class DyePack extends Rectangle {
+    private static Random RANDOM = new Random();
     private final float height = 3.5f;
+    private final float width = 3f;
     protected Hero hero;
 
     public DyePack(Hero hero, float minX, float maxX, Color color) {
         this.hero = hero;
-        float padding = hero.size.getX() * 2;
-        Random rand = new Random();
-        float randomX = (maxX - padding - minX + padding) * rand.nextFloat()
-                + minX + padding;
-        float randomY = (GameWorld.TOP_EDGE - padding - GameWorld.BOTTOM_EDGE + padding)
-                * rand.nextFloat() + 0f + padding;
+
+        float randomX = (maxX - minX - width) * RANDOM.nextFloat() + minX
+                + width / 2f;
+        float randomY = (GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE - height)
+                * RANDOM.nextFloat() + height / 2f;
+
         center.set(new Vector2(randomX, randomY));
-        size.set(0.865f * height, height);
+        size.set(width, height);
         velocity = new Vector2(-GameWorld.Speed, 0f);
         shouldTravel = true;
         this.color = color;
+
         texture = BaseCode.resources.loadImage("Textures/" + getTexture(color));
     }
 

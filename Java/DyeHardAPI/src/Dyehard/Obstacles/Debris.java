@@ -8,18 +8,20 @@ import Engine.Vector2;
 
 public class Debris extends Obstacle {
     private static Random RANDOM = new Random();
-    protected static float height = 6f;
+    private final float height = 6f;
+    private final float width = 6f;
 
     public Debris(float minX, float maxX) {
-        float padding = height;
-        float randomX = (maxX - padding - minX + padding) * RANDOM.nextFloat()
-                + minX + padding;
-        float randomY = (GameWorld.TOP_EDGE - padding - GameWorld.BOTTOM_EDGE + padding)
-                * RANDOM.nextFloat() + 0f + padding;
+        float randomX = (maxX - minX - width) * RANDOM.nextFloat() + minX
+                + width / 2f;
+        float randomY = (GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE - height)
+                * RANDOM.nextFloat() + height / 2f;
+
         center.set(new Vector2(randomX, randomY));
-        size.set(height, height);
+        size.set(width, height);
         velocity = new Vector2(-GameWorld.Speed, 0f);
         shouldTravel = true;
+
         initializeRandomTexture();
     }
 
