@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.List;
 import java.util.Random;
 
-import BaseTypes.Character;
+import BaseTypes.Actor;
 import Dyehard.Util.Collision;
 import Dyehard.World.GameWorld;
 import Engine.BaseCode;
@@ -22,9 +22,9 @@ import Engine.World.BoundCollidedStatus;
  */
 public class Debris extends Rectangle {
     private static float height = 6f;
-    List<Character> characters;
+    List<Actor> characters;
 
-    public Debris(List<Character> characters, float minX, float maxX) {
+    public Debris(List<Actor> characters, float minX, float maxX) {
         float padding = height;
         Random rand = new Random();
         float randomX = (maxX - padding - minX + padding) * rand.nextFloat()
@@ -51,7 +51,7 @@ public class Debris extends Rectangle {
         }
     }
 
-    public Debris(List<Character> characters, Vector2 center, Vector2 size,
+    public Debris(List<Actor> characters, Vector2 center, Vector2 size,
             Color color) {
         this.center = center;
         this.size = size;
@@ -80,7 +80,7 @@ public class Debris extends Rectangle {
         // Check collisions with each character and push them out of the
         // obstacle. This causes the player and enemy units to glide along the
         // edges of the obstacle
-        for (Character c : characters) {
+        for (Actor c : characters) {
             Vector2 out = new Vector2(0, 0);
             if (Collision.isOverlap(c, this, out)) {
                 // Move the character so that it's no longer overlapping the

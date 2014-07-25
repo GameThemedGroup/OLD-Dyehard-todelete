@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import BaseTypes.Character;
+import BaseTypes.Actor;
 import BaseTypes.Enemy;
 import Dyehard.Player.Hero;
 import Dyehard.World.GameWorld;
@@ -16,12 +16,12 @@ public class Platform {
     private final int SEGMENT_COUNT = 30;
     public static float height = 1.25f;
     private final float mask = 0.1f; // overlap between platform segments
-    private List<Character> characters;
+    private List<Actor> characters;
     private List<Debris> platforms;
 
     public Platform(int offset, Hero hero, ArrayList<Enemy> enemies,
             float leftEdge, boolean continuous) {
-        characters = new ArrayList<Character>();
+        characters = new ArrayList<Actor>();
         characters.add(hero);
         characters.addAll(enemies);
         platforms = new ArrayList<Debris>();

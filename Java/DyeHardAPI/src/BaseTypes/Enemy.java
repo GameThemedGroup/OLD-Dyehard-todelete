@@ -7,7 +7,7 @@ import Dyehard.Player.Hero;
 import Dyehard.World.GameWorld;
 import Engine.Vector2;
 
-public class Enemy extends Character {
+public class Enemy extends Actor {
     protected enum EnemyState {
         BEGIN, CHASEHERO, PLAYING, DEAD
     };

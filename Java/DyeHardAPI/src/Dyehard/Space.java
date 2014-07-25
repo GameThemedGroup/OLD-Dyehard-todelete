@@ -3,7 +3,7 @@ package Dyehard;
 import java.util.ArrayList;
 import java.util.List;
 
-import BaseTypes.Character;
+import BaseTypes.Actor;
 import BaseTypes.DyePack;
 import BaseTypes.Enemy;
 import BaseTypes.PowerUp;
@@ -19,15 +19,15 @@ public class Space extends GameWorldRegion {
     public static int powerupCount = 5;
     public static int dyepackCount = 11;
     public static int debrisCount = 10;
-    Character hero;
+    Actor hero;
     List<Primitive> primitives;
     List<Debris> debris;
     List<PowerUp> powerups;
-    List<Character> characters;
+    List<Actor> characters;
     List<DyePack> dyepacks;
 
     public Space(Hero hero, ArrayList<Enemy> enemies, float leftEdge) {
-        characters = new ArrayList<Character>();
+        characters = new ArrayList<Actor>();
         this.hero = hero;
         characters.add(hero);
         characters.addAll(enemies);

@@ -6,10 +6,10 @@ import Dyehard.DyeHard;
 import Engine.Rectangle;
 import Engine.Vector2;
 
-public class Character extends Rectangle {
+public class Actor extends Rectangle {
     private boolean alive;
 
-    public Character(Vector2 position, float width, float height) {
+    public Actor(Vector2 position, float width, float height) {
         center = position;
         size.set(width, height);
         color = DyeHard.randomColor();

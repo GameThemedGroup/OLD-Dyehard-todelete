@@ -3,7 +3,7 @@ package Dyehard.Player;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import BaseTypes.Character;
+import BaseTypes.Actor;
 import BaseTypes.DyePack;
 import BaseTypes.Enemy;
 import BaseTypes.PowerUp;
@@ -14,7 +14,7 @@ import Engine.KeyboardInput;
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
 
-public class Hero extends Character {
+public class Hero extends Actor {
     private float speedLimit = 0.8f;
     private static float thrustMagnitude = 0.04f;
     private static float drag = 0.99f; // smaller number means more reduction
