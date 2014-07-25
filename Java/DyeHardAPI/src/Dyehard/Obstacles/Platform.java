@@ -24,7 +24,7 @@ public class Platform {
         characters = new ArrayList<Actor>();
         characters.add(hero);
         characters.addAll(enemies);
-        platforms = new ArrayList<Debris>();
+        platforms = new ArrayList<Obstacle>();
         fillPlatform(offset, leftEdge, continuous);
     }
 
@@ -70,11 +70,11 @@ public class Platform {
         }
     }
 
-    private Debris createPlatform(Vector2 center) {
+    private Obstacle createPlatform(Vector2 center) {
         float width = Stargate.width / SEGMENT_COUNT;
         Vector2 size = new Vector2(width + mask, height);
         Color color = new Color(112, 138, 144);
-        Debris debris = new Debris(characters, center, size, color);
+        Obstacle debris = new Obstacle(characters, center, size, color);
         return debris;
     }
 }

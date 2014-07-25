@@ -20,11 +20,11 @@ import Engine.World.BoundCollidedStatus;
  * @author Rodelle Ladia Jr.
  * 
  */
-public class Debris extends Rectangle {
+public class Obstacle extends Rectangle {
     private static float height = 6f;
     List<Actor> characters;
 
-    public Debris(List<Actor> characters, float minX, float maxX) {
+    public Obstacle(List<Actor> characters, float minX, float maxX) {
         float padding = height;
         Random rand = new Random();
         float randomX = (maxX - padding - minX + padding) * rand.nextFloat()
@@ -51,7 +51,7 @@ public class Debris extends Rectangle {
         }
     }
 
-    public Debris(List<Actor> characters, Vector2 center, Vector2 size,
+    public Obstacle(List<Actor> characters, Vector2 center, Vector2 size,
             Color color) {
         this.center = center;
         this.size = size;
