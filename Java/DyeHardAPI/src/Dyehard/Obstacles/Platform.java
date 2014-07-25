@@ -17,7 +17,7 @@ public class Platform {
     public static float height = 1.25f;
     private final float mask = 0.1f; // overlap between platform segments
     private List<Actor> characters;
-    private List<Debris> platforms;
+    private List<Obstacle> platforms;
 
     public Platform(int offset, Hero hero, ArrayList<Enemy> enemies,
             float leftEdge, boolean continuous) {

@@ -7,6 +7,7 @@ import BaseTypes.Actor;
 import BaseTypes.DyePack;
 import BaseTypes.Enemy;
 import BaseTypes.PowerUp;
+import Dyehard.Obstacles.Debris;
 import Dyehard.Obstacles.Obstacle;
 import Dyehard.Player.Hero;
 import Dyehard.World.GameWorld;
@@ -21,7 +22,7 @@ public class Space extends GameWorldRegion {
     public static int debrisCount = 10;
     Actor hero;
     List<Primitive> primitives;
-    List<Obstacle> debris;
+    List<Debris> debris;
     List<PowerUp> powerups;
     List<Actor> characters;
     List<DyePack> dyepacks;
@@ -31,7 +32,7 @@ public class Space extends GameWorldRegion {
         this.hero = hero;
         characters.add(hero);
         characters.addAll(enemies);
-        debris = new ArrayList<Obstacle>();
+        debris = new ArrayList<Debris>();
         powerups = new ArrayList<PowerUp>();
         dyepacks = new ArrayList<DyePack>();
         primitives = new ArrayList<Primitive>();
@@ -56,7 +57,7 @@ public class Space extends GameWorldRegion {
         for (int i = 0; i < debrisCount; i++) {
             float regionLeft = leftEdge + (i * region);
             float regionRight = regionLeft + region;
-            debris.add(new Obstacle(characters, regionLeft, regionRight));
+            debris.add(new Debris(characters, regionLeft, regionRight));
         }
     }
 

@@ -2,12 +2,10 @@ package Dyehard.Obstacles;
 
 import java.awt.Color;
 import java.util.List;
-import java.util.Random;
 
 import BaseTypes.Actor;
 import Dyehard.Util.Collision;
 import Dyehard.World.GameWorld;
-import Engine.BaseCode;
 import Engine.Rectangle;
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
@@ -21,34 +19,14 @@ import Engine.World.BoundCollidedStatus;
  * 
  */
 public class Obstacle extends Rectangle {
-    private static float height = 6f;
     List<Actor> characters;
 
-    public Obstacle(List<Actor> characters, float minX, float maxX) {
-        float padding = height;
-        Random rand = new Random();
-        float randomX = (maxX - padding - minX + padding) * rand.nextFloat()
-                + minX + padding;
-        float randomY = (GameWorld.TOP_EDGE - padding - GameWorld.BOTTOM_EDGE + padding)
-                * rand.nextFloat() + 0f + padding;
-        center.set(new Vector2(randomX, randomY));
-        size.set(height, height);
-        velocity = new Vector2(-GameWorld.Speed, 0f);
-        shouldTravel = true;
-        color = Color.GREEN;
+    public Obstacle() {
+    }
+
+    public Obstacle(List<Actor> characters, Rectangle other) {
+        super(other);
         this.characters = characters;
-        switch (rand.nextInt(3)) {
-        case 0:
-            texture = BaseCode.resources.loadImage("Textures/Beak.png");
-            break;
-        case 1:
-            texture = BaseCode.resources.loadImage("Textures/Window.png");
-            break;
-        case 2:
-            texture = BaseCode.resources.loadImage("Textures/Wing2.png");
-            size.setX(size.getY() * 1.8f);
-            break;
-        }
     }
 
     public Obstacle(List<Actor> characters, Vector2 center, Vector2 size,
@@ -59,7 +37,6 @@ public class Obstacle extends Rectangle {
         shouldTravel = true;
         this.color = color;
         this.characters = characters;
-        this.color = color;
     }
 
     @Override
