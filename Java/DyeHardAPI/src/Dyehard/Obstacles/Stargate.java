@@ -27,7 +27,7 @@ public class Stargate extends GameWorldRegion {
         platforms = new Platform[GATE_COUNT + 1];
         for (int i = 0; i < platforms.length; i++) {
             boolean boundary = (i == 0) || (i == platforms.length - 1);
-            platforms[i] = new Platform(i, hero, enemies, leftEdge, boundary);
+            platforms[i] = new Platform(i, leftEdge + width, boundary);
         }
         float height = GameWorld.TOP_EDGE;
         float Xposition = (width * 0.5f) + leftEdge;
@@ -48,9 +48,6 @@ public class Stargate extends GameWorldRegion {
         for (Gate g : gates) {
             g.destroy();
         }
-        for (Platform p : platforms) {
-            p.destroy();
-        }
     }
 
     @Override
@@ -68,9 +65,6 @@ public class Stargate extends GameWorldRegion {
         backdrop.update();
         for (Gate g : gates) {
             g.update();
-        }
-        for (Platform p : platforms) {
-            p.update();
         }
     }
 

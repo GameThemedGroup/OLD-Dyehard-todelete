@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import Dyehard.DeveloperControls;
 import Dyehard.Space;
 import Dyehard.Enemies.EnemyManager;
+import Dyehard.Obstacles.ObstacleManager;
 import Dyehard.Obstacles.Stargate;
 import Dyehard.Player.Hero;
 import Engine.BaseCode;
@@ -28,6 +29,7 @@ public class GameWorld {
 
     public GameWorld(KeyboardInput keyboard) {
         hero = new Hero(keyboard);
+        ObstacleManager.registerActor(hero);
         eManager = new EnemyManager(hero);
         onscreen = new LinkedList<GameWorldRegion>();
         upcoming = new LinkedList<GameWorldRegion>();
@@ -55,6 +57,7 @@ public class GameWorld {
         hero.update();
         dev.update();
         eManager.update();
+        ObstacleManager.update();
         for (GameWorldRegion e : onscreen) {
             e.update();
         }

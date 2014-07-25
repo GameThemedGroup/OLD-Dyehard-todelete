@@ -9,6 +9,7 @@ import BaseTypes.Enemy;
 import BaseTypes.PowerUp;
 import Dyehard.Obstacles.Debris;
 import Dyehard.Obstacles.Obstacle;
+import Dyehard.Obstacles.ObstacleManager;
 import Dyehard.Player.Hero;
 import Dyehard.World.GameWorld;
 import Dyehard.World.GameWorldRegion;
@@ -57,7 +58,8 @@ public class Space extends GameWorldRegion {
         for (int i = 0; i < debrisCount; i++) {
             float regionLeft = leftEdge + (i * region);
             float regionRight = regionLeft + region;
-            debris.add(new Debris(characters, regionLeft, regionRight));
+            Debris debris = new Debris(regionLeft, regionRight);
+            ObstacleManager.registerObstacle(debris);
         }
     }
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import BaseTypes.Enemy;
+import Dyehard.Obstacles.ObstacleManager;
 import Dyehard.Player.Hero;
 import Dyehard.World.GameWorld;
 import Engine.Rectangle;
@@ -63,6 +64,7 @@ public class EnemyManager extends Rectangle {
                 enemies.add(new SpiderEnemy(position, 7.5f, hero));
                 break;
             }
+            ObstacleManager.registerActor(enemies.get(enemies.size() - 1));
             startTime = System.nanoTime();
         } else if (GameWorld.Speed == 0) {
             startTime = System.nanoTime();
