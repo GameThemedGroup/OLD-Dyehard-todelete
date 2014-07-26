@@ -7,8 +7,10 @@ import Dyehard.World.GameWorld;
 import Engine.Vector2;
 
 public class Platform {
-    private final int SEGMENT_COUNT = 30;
+    private static int SEGMENT_COUNT = 30;
+    private static float WIDTH = Stargate.WIDTH / SEGMENT_COUNT;
     public static float height = 1.25f;
+    private static Random RANDOM = new Random();
     private final float mask = 0.1f; // overlap between platform segments
 
     public Platform(int offset, float leftEdge, boolean continuous) {
@@ -27,18 +29,13 @@ public class Platform {
             int consecutiveChance = 10;
             boolean platform = true;
             for (int i = 0; i < SEGMENT_COUNT; i++) {
-                Random rand = new Random();
                 if (platform) {
-                    float Xpos = (Stargate.WIDTH * 0.5f) + leftEdge
-                            + (i * Stargate.WIDTH);
-                    createPlatform(new Vector2(Xpos, Ypos), Stargate.WIDTH);
+                    float Xpos = (WIDTH * 0.5f) + leftEdge + (i * WIDTH);
+                    createPlatform(new Vector2(Xpos, Ypos), WIDTH);
                 }
                 consecutiveChance -= 2;
                 if (consecutiveChance <= 0
-                        || rand.nextInt(consecutiveChance) == 0) {
-                    platform = !platform;
-                    consecutiveChance = 10;
-                } else if (rand.nextInt(consecutiveChance) == 0) {
+                        || RANDOM.nextInt(consecutiveChance) == 0) {
                     platform = !platform;
                     consecutiveChance = 10;
                 }
