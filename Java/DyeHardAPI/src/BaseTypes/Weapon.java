@@ -16,14 +16,21 @@ public class Weapon extends Rectangle {
     protected Hero hero;
     protected Queue<Rectangle> bullets;
     protected ArrayList<Enemy> enemies;
+    protected int lastTick;
+    protected int currentTick;
+    // Weapon fires 4 bullets/second
+    protected final int fireRate = 10;
 
     public Weapon(Hero hero) {
         this.hero = hero;
         bullets = new LinkedList<Rectangle>();
+        lastTick = 0;
+        currentTick = 0;
     }
 
     @Override
     public void update() {
+        currentTick++;
         for (Rectangle b : bullets) {
             b.center.setX(b.center.getX() + bulletSpeed);
         }
@@ -43,11 +50,14 @@ public class Weapon extends Rectangle {
 
     // Fire the weapon
     public void fire() {
-        Rectangle bullet = new Rectangle();
-        bullet.center.set(hero.center);
-        bullet.size.set(bulletSize, bulletSize);
-        bullet.color = hero.getColor();
-        bullets.add(bullet);
+        if (currentTick >= lastTick + fireRate) {
+            Rectangle bullet = new Rectangle();
+            bullet.center.set(hero.center);
+            bullet.size.set(bulletSize, bulletSize);
+            bullet.color = hero.getColor();
+            bullets.add(bullet);
+            lastTick = currentTick;
+        }
     }
 
     // Draw the bullets

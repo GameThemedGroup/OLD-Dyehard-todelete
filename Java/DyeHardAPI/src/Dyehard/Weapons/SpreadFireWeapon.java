@@ -65,17 +65,19 @@ public class SpreadFireWeapon extends Weapon {
 
     @Override
     public void fire() {
+        if (currentTick >= lastTick + fireRate) {
+            Rectangle bullet = new Rectangle();
+            bullet.center = new Vector2(hero.center);
+            bullet.size.set(bulletSize, bulletSize);
+            bullet.color = hero.getColor();
+            angledBullets.add(bullet);
+            bullet = new Rectangle();
+            bullet.center = new Vector2(hero.center);
+            bullet.size.set(bulletSize, bulletSize);
+            bullet.color = hero.getColor();
+            angledBullets.add(bullet);
+        }
         super.fire();
-        Rectangle bullet = new Rectangle();
-        bullet.center = new Vector2(hero.center);
-        bullet.size.set(bulletSize, bulletSize);
-        bullet.color = hero.getColor();
-        angledBullets.add(bullet);
-        bullet = new Rectangle();
-        bullet.center = new Vector2(hero.center);
-        bullet.size.set(bulletSize, bulletSize);
-        bullet.color = hero.getColor();
-        angledBullets.add(bullet);
     }
 
     @Override

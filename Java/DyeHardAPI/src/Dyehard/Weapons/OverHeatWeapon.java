@@ -49,7 +49,7 @@ public class OverHeatWeapon extends Weapon {
 
     @Override
     public void fire() {
-        if (!overheated) {
+        if (currentTick >= lastTick + fireRate && !overheated) {
             super.fire();
             currentHeatLevel += 1;
         }
