@@ -12,47 +12,48 @@ import Engine.Rectangle;
 import Engine.Vector2;
 
 public class Stargate extends GameWorldRegion {
-    public static float width = GameWorld.RIGHT_EDGE * 2.0f;
     public static final int GATE_COUNT = 4;
+    public static final float WIDTH = GameWorld.RIGHT_EDGE * 2.0f;
     private Gate[] gates;
     private Platform[] platforms;
     private Rectangle backdrop;
 
     public Stargate(Hero hero, ArrayList<Enemy> enemies, float leftEdge) {
+        width = Stargate.WIDTH;
+        position = leftEdge + width / 2f;
+        speed = -GameWorld.Speed;
+
         ArrayList<Color> colors = DyeHard.randomColorSet(GATE_COUNT);
+
         gates = new Gate[GATE_COUNT];
         for (int i = 0; i < gates.length; i++) {
-            gates[i] = new Gate(i, hero, enemies, leftEdge, colors.get(i));
+            gates[i] = new Gate(i, hero, enemies, leftEdge, colors.get(i),
+                    width);
         }
+
         platforms = new Platform[GATE_COUNT + 1];
         for (int i = 0; i < platforms.length; i++) {
             boolean boundary = (i == 0) || (i == platforms.length - 1);
-            platforms[i] = new Platform(i, leftEdge + width, boundary);
+            platforms[i] = new Platform(i, leftEdge, boundary);
         }
+
         float height = GameWorld.TOP_EDGE;
-        float Xposition = (width * 0.5f) + leftEdge;
         backdrop = new Rectangle();
-        backdrop.center = new Vector2(Xposition, height / 2);
+        backdrop.center = new Vector2(position, height / 2);
         backdrop.size.set(width, height);
-        // This color is black with an alpha of 130
         backdrop.color = new Color(0, 0, 0, 130);
-        visible = false;
-        backdrop.velocity = new Vector2(-GameWorld.Speed, 0f);
-        shouldTravel = true;
+        backdrop.velocity = new Vector2(-speed, 0f);
     }
 
     @Override
     public void destroy() {
-        super.destroy();
-        backdrop.removeFromAutoDrawSet();
+        backdrop.destroy();
         for (Gate g : gates) {
             g.destroy();
         }
     }
 
-    @Override
     public void draw() {
-        super.draw();
         backdrop.draw();
         for (Gate g : gates) {
             g.draw();
@@ -61,22 +62,10 @@ public class Stargate extends GameWorldRegion {
 
     @Override
     public void update() {
-        super.update();
+        position += speed;
         backdrop.update();
         for (Gate g : gates) {
             g.update();
         }
-    }
-
-    @Override
-    public boolean isOffScreen() {
-        // Was backdrop.MaxBound.X
-        return backdrop.center.getX() + (backdrop.size.getX() / 2) <= GameWorld.LEFT_EDGE;
-    }
-
-    @Override
-    public float rightEdge() {
-        // Was backdrop.MaxBound.X
-        return backdrop.center.getX() + (backdrop.size.getX() / 2);
     }
 }

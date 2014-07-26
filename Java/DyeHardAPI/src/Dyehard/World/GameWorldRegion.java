@@ -1,9 +1,23 @@
 package Dyehard.World;
 
-import Engine.Rectangle;
+public abstract class GameWorldRegion {
+    protected float width;
+    protected float position;
+    protected float speed;
 
-public abstract class GameWorldRegion extends Rectangle {
-    abstract public boolean isOffScreen();
+    public float leftEdge() {
+        return position - width / 2;
+    }
 
-    abstract public float rightEdge();
+    public float rightEdge() {
+        return position + width / 2;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public abstract void update();
+
+    public abstract void destroy();
 }

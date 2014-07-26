@@ -19,17 +19,17 @@ public class Gate extends Rectangle {
     private ArrayList<Enemy> enemies;
 
     public Gate(int offset, Hero hero, ArrayList<Enemy> enemies,
-            float leftEdge, Color color) {
+            float leftEdge, Color color, float width) {
         this.hero = hero;
         this.enemies = enemies;
         this.color = color;
         // set up pipe
-        float position = (Stargate.width * 0.5f) + leftEdge;
+        float position = (width * 0.5f) + leftEdge;
         float drawHeight = GameWorld.TOP_EDGE / Stargate.GATE_COUNT;
         float drawOffset = drawHeight * (offset + 0.5f);
         path = new Rectangle();
         path.center = new Vector2(position, drawOffset);
-        path.size.set(Stargate.width, drawHeight - (Platform.height * 2));
+        path.size.set(width, drawHeight - (Platform.height * 2));
         path.color = new Color(color.getRed(), color.getGreen(),
                 color.getBlue(), 100);
         path.velocity = new Vector2(-GameWorld.Speed, 0f);
@@ -57,11 +57,12 @@ public class Gate extends Rectangle {
         super.update();
         path.update();
         deathGate.update();
+
         // Was path.LowerLeft.X and preview.LowerLeft.X
         preview.visible = (path.center.getX() - (path.size.getX() / 2)) > ((preview.center
                 .getX() - (preview.size.getX() / 2)) + preview.size.getX())
         // Was path.LowerLeft.X
-                && (GameWorld.RIGHT_EDGE + (Space.width * 0.7f)) > (path.center
+                && (GameWorld.RIGHT_EDGE + (Space.WIDTH * 0.7f)) > (path.center
                         .getX() - (path.size.getX() / 2));
         if (preview.visible) {
             preview.size
@@ -69,7 +70,7 @@ public class Gate extends Rectangle {
                     .setY(((path.size.getY() + (Platform.height * 2)) * (1 - (((path.center
                             .getX() - (path.size.getX() / 2)) - ((preview.center
                             .getX() - (preview.size.getX() / 2)) + preview.size
-                            .getX())) / (Space.width * 0.7f)))));
+                            .getX())) / (Space.WIDTH)))));
         }
         // kill the hero at the death wall
         if (hero.getColor() != color && deathGate.collided(hero)) {

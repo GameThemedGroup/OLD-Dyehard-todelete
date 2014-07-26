@@ -24,28 +24,27 @@ public class GameWorld {
     private DeveloperControls dev;
     private Space space;
     private EnemyManager eManager;
-    private LinkedList<GameWorldRegion> onscreen;
-    private LinkedList<GameWorldRegion> upcoming;
+    private LinkedList<GameWorldRegion> gameRegions;
 
     public GameWorld(KeyboardInput keyboard) {
         hero = new Hero(keyboard);
         ObstacleManager.registerActor(hero);
         eManager = new EnemyManager(hero);
-        onscreen = new LinkedList<GameWorldRegion>();
-        upcoming = new LinkedList<GameWorldRegion>();
+        gameRegions = new LinkedList<GameWorldRegion>();
         hero.setEnemies(eManager.getEnemies());
 
         // first element on screen
-        onscreen.addLast(new Space(hero, eManager.getEnemies(),
+        gameRegions.add(new Space(hero, eManager.getEnemies(),
                 GameWorld.LEFT_EDGE));
+        gameRegions.add(new Stargate(hero, eManager.getEnemies(), 300f));
 
         // fill the rest of the existing screen
-        while (onscreen.getLast().rightEdge() <= GameWorld.RIGHT_EDGE) {
+        while (gameRegions.getLast().rightEdge() <= GameWorld.RIGHT_EDGE) {
             generateNewRegion();
         }
 
         dev = new DeveloperControls(this, space, hero, keyboard, eManager,
-                onscreen);
+                gameRegions);
     }
 
     public boolean gameOver() {
@@ -54,39 +53,40 @@ public class GameWorld {
 
     public void update() {
         updateSequence();
+
         hero.update();
         dev.update();
         eManager.update();
         ObstacleManager.update();
-        for (GameWorldRegion e : onscreen) {
+
+        for (GameWorldRegion e : gameRegions) {
             e.update();
         }
     }
 
     private void updateSequence() {
-        if (onscreen.peek().rightEdge() <= GameWorld.LEFT_EDGE) {
-            // remove off screen element
-            GameWorldRegion offscreen = onscreen.pop();
+        // remove game regions that have moved off screen
+        if (gameRegions.peek().rightEdge() <= GameWorld.LEFT_EDGE) {
+            GameWorldRegion offscreen = gameRegions.pop();
             offscreen.destroy();
         }
 
-        if (onscreen.peek().rightEdge() <= GameWorld.RIGHT_EDGE) {
+        // generate new game regions if the current one is about to end
+        if (gameRegions.getLast().rightEdge() <= GameWorld.RIGHT_EDGE + 100f) {
             generateNewRegion();
-            onscreen.addLast(upcoming.pop());
         }
     }
 
     private void generateNewRegion() {
-
+        // the new region will start where the last region ends
+        float startLocation = gameRegions.getLast().rightEdge();
         GameWorldRegion newRegion;
-        if (upcoming.getLast() instanceof Stargate) {
-            newRegion = new Space(hero, eManager.getEnemies(), seq.getLast()
-                    .rightEdge());
+        if (gameRegions.getLast() instanceof Stargate) {
+            newRegion = new Space(hero, eManager.getEnemies(), startLocation);
         } else {
-            newRegion = new Stargate(hero, eManager.getEnemies(), seq.getLast()
-                    .rightEdge());
+            newRegion = new Stargate(hero, eManager.getEnemies(), startLocation);
         }
 
-        upcoming.add(newRegion);
+        gameRegions.add(newRegion);
     }
 }
