@@ -1,10 +1,13 @@
 package BaseTypes;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 import Dyehard.DyeHard;
 import Dyehard.Player.Hero;
+import Dyehard.Util.ImageTint;
 import Dyehard.World.GameWorld;
+import Engine.BaseCode;
 import Engine.Vector2;
 
 public class Enemy extends Actor {
@@ -14,6 +17,7 @@ public class Enemy extends Actor {
 
     protected Hero hero;
     protected EnemyState enemyState;
+    protected BufferedImage baseTexture;
     private float behaviorChangeTime = 5f;
     private long startTime;
 
@@ -21,6 +25,16 @@ public class Enemy extends Actor {
         super(center, width, height);
         this.hero = hero;
         setColor(DyeHard.randomColor());
+        enemyState = EnemyState.BEGIN;
+        startTime = System.nanoTime();
+    }
+
+    protected Enemy(Vector2 center, float width, float height,
+            Hero currentHero, String texturePath) {
+        super(center, width, height);
+        hero = currentHero;
+        baseTexture = BaseCode.resources.loadImage(texturePath);
+        texture = baseTexture;
         enemyState = EnemyState.BEGIN;
         startTime = System.nanoTime();
     }
@@ -63,5 +77,6 @@ public class Enemy extends Actor {
 
     public void gotShot(Color color) {
         setColor(color);
+        texture = ImageTint.tintedImage(baseTexture, color, 0.25f);
     }
 }
