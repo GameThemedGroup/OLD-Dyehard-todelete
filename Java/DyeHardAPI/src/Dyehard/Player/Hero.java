@@ -8,6 +8,9 @@ import BaseTypes.DyePack;
 import BaseTypes.Enemy;
 import BaseTypes.PowerUp;
 import BaseTypes.Weapon;
+import Dyehard.Weapons.LimitedAmmoWeapon;
+import Dyehard.Weapons.OverHeatWeapon;
+import Dyehard.Weapons.SpreadFireWeapon;
 import Dyehard.World.GameWorld;
 import Engine.BaseCode;
 import Engine.KeyboardInput;
@@ -110,8 +113,14 @@ public class Hero extends Actor {
     }
 
     private void selectWeapon() {
-        if (keyboard.isButtonTapped(KeyEvent.VK_1)) {
+        if (keyboard.isButtonDown(KeyEvent.VK_1)) {
             weapon = weaponRack.get(0);
+        } else if (keyboard.isButtonDown(KeyEvent.VK_2)) {
+            weapon = weaponRack.get(1);
+        } else if (keyboard.isButtonDown(KeyEvent.VK_3)) {
+            weapon = weaponRack.get(2);
+        } else if (keyboard.isButtonDown(KeyEvent.VK_4)) {
+            weapon = weaponRack.get(3);
         }
     }
 
@@ -133,6 +142,9 @@ public class Hero extends Actor {
 
     private void createWeapons() {
         weaponRack.add(new Weapon(this));
+        weaponRack.add(new OverHeatWeapon(this));
+        weaponRack.add(new LimitedAmmoWeapon(this));
+        weaponRack.add(new SpreadFireWeapon(this));
     }
 
     public int dyepacksCollected() {
