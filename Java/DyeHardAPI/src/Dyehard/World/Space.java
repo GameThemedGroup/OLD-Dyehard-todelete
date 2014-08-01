@@ -1,17 +1,19 @@
-package Dyehard.World;
+package dyehard.World;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import Dyehard.Enemies.Enemy;
-import Dyehard.Obstacles.Debris;
-import Dyehard.Obstacles.ObstacleManager;
-import Dyehard.Player.Hero;
-import Dyehard.Util.Colors;
-import Dyehard.collectibles.DyePack;
-import Dyehard.collectibles.PowerUp;
+import dyehard.Collectibles.DyePack;
+import dyehard.Collectibles.PowerUp;
+import dyehard.Enemies.Enemy;
+import dyehard.Obstacles.Debris;
+import dyehard.Obstacles.ObstacleManager;
+import dyehard.Player.Hero;
+import dyehard.Util.Colors;
+
+
 import Engine.Primitive;
 
 public class Space extends GameWorldRegion {

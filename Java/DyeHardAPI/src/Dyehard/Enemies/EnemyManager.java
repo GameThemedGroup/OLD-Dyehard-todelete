@@ -1,12 +1,14 @@
-package Dyehard.Enemies;
+package dyehard.Enemies;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import Dyehard.Obstacles.ObstacleManager;
-import Dyehard.Player.Hero;
-import Dyehard.Util.Timer;
-import Dyehard.World.GameWorld;
+import dyehard.Obstacles.ObstacleManager;
+import dyehard.Player.Hero;
+import dyehard.Util.Timer;
+import dyehard.World.GameWorld;
+
+
 import Engine.Rectangle;
 import Engine.Vector2;
 

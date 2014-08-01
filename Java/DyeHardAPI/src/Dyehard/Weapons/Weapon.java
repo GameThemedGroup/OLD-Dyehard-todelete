@@ -1,13 +1,15 @@
-package Dyehard.Weapons;
+package dyehard.Weapons;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import Dyehard.Enemies.Enemy;
-import Dyehard.Player.Hero;
-import Dyehard.Util.Timer;
-import Dyehard.World.GameWorld;
+import dyehard.Enemies.Enemy;
+import dyehard.Player.Hero;
+import dyehard.Util.Timer;
+import dyehard.World.GameWorld;
+
+
 import Engine.Rectangle;
 
 public class Weapon extends Rectangle {

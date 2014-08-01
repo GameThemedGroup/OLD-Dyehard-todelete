@@ -1,10 +1,13 @@
-package Dyehard.Obstacles;
+package dyehard.Obstacles;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import Dyehard.Actor;
-import Dyehard.Util.Collision;
+import dyehard.Actor;
+import dyehard.Util.Collision;
+
+
+
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
 

@@ -1,8 +1,10 @@
-package Dyehard.Obstacles;
+package dyehard.Obstacles;
 
 import java.util.Random;
 
-import Dyehard.World.GameWorld;
+import dyehard.World.GameWorld;
+
+
 import Engine.BaseCode;
 import Engine.Vector2;
 

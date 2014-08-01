@@ -1,6 +1,6 @@
-package Dyehard.collectibles;
+package dyehard.Collectibles;
 
-import Dyehard.Player.Hero;
+import dyehard.Player.Hero;
 import Engine.BaseCode;
 
 public class Overload extends PowerUp {

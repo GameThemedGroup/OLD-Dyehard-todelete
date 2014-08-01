@@ -1,8 +1,10 @@
-package Dyehard;
+package dyehard;
 
 import java.awt.Color;
 
-import Dyehard.Util.Colors;
+import dyehard.Util.Colors;
+
+
 import Engine.Rectangle;
 import Engine.Vector2;
 

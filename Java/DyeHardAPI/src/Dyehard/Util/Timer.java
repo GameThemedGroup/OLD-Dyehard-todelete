@@ -1,4 +1,4 @@
-package Dyehard.Util;
+package dyehard.Util;
 
 public class Timer {
     // All times are in nanoseconds

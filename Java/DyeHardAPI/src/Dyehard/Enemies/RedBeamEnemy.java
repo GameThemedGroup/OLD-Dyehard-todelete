@@ -1,6 +1,6 @@
-package Dyehard.Enemies;
+package dyehard.Enemies;
 
-import Dyehard.Player.Hero;
+import dyehard.Player.Hero;
 import Engine.Vector2;
 
 public class RedBeamEnemy extends Enemy {

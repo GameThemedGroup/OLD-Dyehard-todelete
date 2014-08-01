@@ -1,4 +1,4 @@
-package Dyehard.collectibles;
+package dyehard.Collectibles;
 
 public class PowerUpMeter {
 }

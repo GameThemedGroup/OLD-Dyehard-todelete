@@ -1,17 +1,20 @@
-package Dyehard.Player;
+package dyehard.Player;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import Dyehard.Actor;
-import Dyehard.Enemies.Enemy;
-import Dyehard.Weapons.LimitedAmmoWeapon;
-import Dyehard.Weapons.OverHeatWeapon;
-import Dyehard.Weapons.SpreadFireWeapon;
-import Dyehard.Weapons.Weapon;
-import Dyehard.World.GameWorld;
-import Dyehard.collectibles.DyePack;
-import Dyehard.collectibles.PowerUp;
+import dyehard.Actor;
+import dyehard.Collectibles.DyePack;
+import dyehard.Collectibles.PowerUp;
+import dyehard.Enemies.Enemy;
+import dyehard.Weapons.LimitedAmmoWeapon;
+import dyehard.Weapons.OverHeatWeapon;
+import dyehard.Weapons.SpreadFireWeapon;
+import dyehard.Weapons.Weapon;
+import dyehard.World.GameWorld;
+
+
+
 import Engine.BaseCode;
 import Engine.KeyboardInput;
 import Engine.Vector2;

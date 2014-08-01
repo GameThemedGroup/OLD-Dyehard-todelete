@@ -1,11 +1,13 @@
-package Dyehard.World;
+package dyehard.World;
 
 import java.awt.Color;
 import java.util.ArrayList;
 
-import Dyehard.Enemies.Enemy;
-import Dyehard.Player.Hero;
-import Dyehard.Util.Colors;
+import dyehard.Enemies.Enemy;
+import dyehard.Player.Hero;
+import dyehard.Util.Colors;
+
+
 import Engine.Rectangle;
 import Engine.Vector2;
 

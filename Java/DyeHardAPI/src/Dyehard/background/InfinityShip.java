@@ -1,10 +1,12 @@
-package Dyehard.background;
+package dyehard.Background;
 
 import java.awt.Color;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import Dyehard.World.GameWorld;
+import dyehard.World.GameWorld;
+
+
 import Engine.Rectangle;
 import Engine.Vector2;
 

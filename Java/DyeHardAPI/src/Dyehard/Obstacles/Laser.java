@@ -1,4 +1,4 @@
-package Dyehard.Obstacles;
+package dyehard.Obstacles;
 
 public class Laser {
 }

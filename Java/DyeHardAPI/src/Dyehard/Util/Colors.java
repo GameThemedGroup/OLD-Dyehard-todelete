@@ -1,4 +1,4 @@
-package Dyehard.Util;
+package dyehard.Util;
 
 import java.awt.Color;
 import java.util.ArrayList;

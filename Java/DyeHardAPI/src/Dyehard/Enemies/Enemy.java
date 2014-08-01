@@ -1,14 +1,17 @@
-package Dyehard.Enemies;
+package dyehard.Enemies;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-import Dyehard.Actor;
-import Dyehard.Player.Hero;
-import Dyehard.Util.Colors;
-import Dyehard.Util.ImageTint;
-import Dyehard.Util.Timer;
-import Dyehard.World.GameWorld;
+import dyehard.Actor;
+import dyehard.Player.Hero;
+import dyehard.Util.Colors;
+import dyehard.Util.ImageTint;
+import dyehard.Util.Timer;
+import dyehard.World.GameWorld;
+
+
+
 import Engine.BaseCode;
 import Engine.Vector2;
 

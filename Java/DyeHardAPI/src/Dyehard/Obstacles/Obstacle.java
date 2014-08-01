@@ -1,8 +1,10 @@
-package Dyehard.Obstacles;
+package dyehard.Obstacles;
 
 import java.awt.Color;
 
-import Dyehard.World.GameWorld;
+import dyehard.World.GameWorld;
+
+
 import Engine.Rectangle;
 import Engine.Vector2;
 

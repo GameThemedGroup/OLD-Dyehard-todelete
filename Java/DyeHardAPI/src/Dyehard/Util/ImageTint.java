@@ -1,4 +1,4 @@
-package Dyehard.Util;
+package dyehard.Util;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;

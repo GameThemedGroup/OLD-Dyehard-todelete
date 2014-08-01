@@ -1,4 +1,4 @@
-package Dyehard.World;
+package dyehard.World;
 
 public abstract class GameWorldRegion {
     protected float width;

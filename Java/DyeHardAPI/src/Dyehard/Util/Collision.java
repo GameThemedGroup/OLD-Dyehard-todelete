@@ -1,4 +1,4 @@
-package Dyehard.Util;
+package dyehard.Util;
 
 import Engine.Rectangle;
 import Engine.Vector2;

@@ -1,10 +1,12 @@
-package Dyehard.World;
+package dyehard.World;
 
 import java.awt.Color;
 import java.util.Random;
 
-import Dyehard.Obstacles.Obstacle;
-import Dyehard.Obstacles.ObstacleManager;
+import dyehard.Obstacles.Obstacle;
+import dyehard.Obstacles.ObstacleManager;
+
+
 import Engine.Vector2;
 
 public class Platform {
