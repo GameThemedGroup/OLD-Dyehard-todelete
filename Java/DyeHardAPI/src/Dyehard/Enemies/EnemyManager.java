@@ -6,22 +6,24 @@ import java.util.Random;
 import BaseTypes.Enemy;
 import Dyehard.Obstacles.ObstacleManager;
 import Dyehard.Player.Hero;
+import Dyehard.Util.Timer;
 import Dyehard.World.GameWorld;
 import Engine.Rectangle;
 import Engine.Vector2;
 
 public class EnemyManager extends Rectangle {
-    private final float enemyFrequency = 12f;
+    // This time is in milliseconds
+    private final float enemyFrequency = 12000f;
     private Hero hero;
     private ArrayList<Enemy> enemies;
     private ArrayList<Enemy> enemiesToRemove;
-    private long startTime;
+    private Timer timer;
 
     public EnemyManager(Hero hero) {
         this.hero = hero;
         enemies = new ArrayList<Enemy>();
         enemiesToRemove = new ArrayList<Enemy>();
-        startTime = System.nanoTime();
+        timer = new Timer(enemyFrequency);
     }
 
     @Override
@@ -46,8 +48,7 @@ public class EnemyManager extends Rectangle {
             e.update();
         }
         // generate new enemy
-        if (System.nanoTime() >= startTime + (enemyFrequency * 1000000000)
-                && GameWorld.Speed != 0) {
+        if (timer.isDone()) {
             Random rand = new Random();
             // TODO: Replace magic numbers
             float randomY = (GameWorld.TOP_EDGE - 5f - GameWorld.BOTTOM_EDGE + 5f)
@@ -65,9 +66,7 @@ public class EnemyManager extends Rectangle {
                 break;
             }
             ObstacleManager.registerActor(enemies.get(enemies.size() - 1));
-            startTime = System.nanoTime();
-        } else if (GameWorld.Speed == 0) {
-            startTime = System.nanoTime();
+            timer.reset();
         }
     }
 
