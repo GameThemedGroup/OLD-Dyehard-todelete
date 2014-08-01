@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import Dyehard.Player.Hero;
+import Dyehard.Util.Timer;
 import Dyehard.World.GameWorld;
 import Engine.Rectangle;
 
@@ -16,21 +17,18 @@ public class Weapon extends Rectangle {
     protected Hero hero;
     protected Queue<Rectangle> bullets;
     protected ArrayList<Enemy> enemies;
-    protected int lastTick;
-    protected int currentTick;
-    // Weapon fires 4 bullets/second
-    protected final int fireRate = 10;
+    // Weapon fires 4 bullets/second, time is in milliseconds
+    protected final float fireRate = 250f;
+    protected Timer timer;
 
     public Weapon(Hero hero) {
         this.hero = hero;
         bullets = new LinkedList<Rectangle>();
-        lastTick = 0;
-        currentTick = 0;
+        timer = new Timer(fireRate);
     }
 
     @Override
     public void update() {
-        currentTick++;
         for (Rectangle b : bullets) {
             b.center.setX(b.center.getX() + bulletSpeed);
         }
@@ -50,13 +48,13 @@ public class Weapon extends Rectangle {
 
     // Fire the weapon
     public void fire() {
-        if (currentTick >= lastTick + fireRate) {
+        if (timer.isDone()) {
             Rectangle bullet = new Rectangle();
             bullet.center.set(hero.center);
             bullet.size.set(bulletSize, bulletSize);
             bullet.color = hero.getColor();
             bullets.add(bullet);
-            lastTick = currentTick;
+            timer.reset();
         }
     }
 
