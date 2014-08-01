@@ -1,6 +1,5 @@
-package Dyehard.Powerups;
+package Dyehard.collectibles;
 
-import BaseTypes.PowerUp;
 import Dyehard.Player.Hero;
 import Engine.BaseCode;
 

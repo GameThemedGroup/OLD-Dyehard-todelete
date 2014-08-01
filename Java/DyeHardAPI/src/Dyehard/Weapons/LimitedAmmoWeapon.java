@@ -2,7 +2,6 @@ package Dyehard.Weapons;
 
 import java.awt.Color;
 
-import BaseTypes.Weapon;
 import Dyehard.Player.Hero;
 import Dyehard.World.GameWorld;
 import Engine.Rectangle;

@@ -1,8 +1,9 @@
-package BaseTypes;
+package Dyehard.Enemies;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import Dyehard.Actor;
 import Dyehard.Player.Hero;
 import Dyehard.Util.Colors;
 import Dyehard.Util.ImageTint;

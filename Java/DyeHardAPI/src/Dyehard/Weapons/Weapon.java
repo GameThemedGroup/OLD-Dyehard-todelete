@@ -1,9 +1,10 @@
-package BaseTypes;
+package Dyehard.Weapons;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import Dyehard.Enemies.Enemy;
 import Dyehard.Player.Hero;
 import Dyehard.Util.Timer;
 import Dyehard.World.GameWorld;

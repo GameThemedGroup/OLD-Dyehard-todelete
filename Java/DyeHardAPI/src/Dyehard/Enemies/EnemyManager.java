@@ -3,7 +3,6 @@ package Dyehard.Enemies;
 import java.util.ArrayList;
 import java.util.Random;
 
-import BaseTypes.Enemy;
 import Dyehard.Obstacles.ObstacleManager;
 import Dyehard.Player.Hero;
 import Dyehard.Util.Timer;

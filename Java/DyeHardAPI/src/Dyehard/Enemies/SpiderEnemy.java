@@ -1,6 +1,5 @@
 package Dyehard.Enemies;
 
-import BaseTypes.Enemy;
 import Dyehard.Player.Hero;
 import Engine.Vector2;
 

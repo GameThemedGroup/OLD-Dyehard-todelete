@@ -3,8 +3,7 @@ package Dyehard.Weapons;
 import java.awt.Color;
 import java.util.LinkedList;
 
-import BaseTypes.Enemy;
-import BaseTypes.Weapon;
+import Dyehard.Enemies.Enemy;
 import Dyehard.Player.Hero;
 import Dyehard.World.GameWorld;
 import Engine.Rectangle;

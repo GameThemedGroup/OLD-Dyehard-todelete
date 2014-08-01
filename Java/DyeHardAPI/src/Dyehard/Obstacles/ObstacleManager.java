@@ -3,7 +3,7 @@ package Dyehard.Obstacles;
 import java.util.HashSet;
 import java.util.Set;
 
-import BaseTypes.Actor;
+import Dyehard.Actor;
 import Dyehard.Util.Collision;
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;

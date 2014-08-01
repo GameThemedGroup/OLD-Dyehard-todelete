@@ -3,10 +3,8 @@ package Dyehard.World;
 import java.util.LinkedList;
 
 import Dyehard.DeveloperControls;
-import Dyehard.Space;
 import Dyehard.Enemies.EnemyManager;
 import Dyehard.Obstacles.ObstacleManager;
-import Dyehard.Obstacles.Stargate;
 import Dyehard.Player.Hero;
 import Engine.BaseCode;
 import Engine.KeyboardInput;

@@ -2,8 +2,8 @@ package Dyehard;
 
 import java.awt.event.KeyEvent;
 
-import Dyehard.World.Background;
 import Dyehard.World.GameWorld;
+import Dyehard.background.Background;
 import Engine.LibraryCode;
 
 //This is "Game.cs"

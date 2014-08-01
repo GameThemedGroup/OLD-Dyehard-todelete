@@ -1,4 +1,4 @@
-package BaseTypes;
+package Dyehard;
 
 import java.awt.Color;
 

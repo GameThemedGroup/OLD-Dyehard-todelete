@@ -4,20 +4,21 @@ import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.Random;
 
-import BaseTypes.DyePack;
-import BaseTypes.PowerUp;
 import Dyehard.Enemies.BrainEnemy;
 import Dyehard.Enemies.EnemyManager;
 import Dyehard.Enemies.RedBeamEnemy;
 import Dyehard.Enemies.SpiderEnemy;
 import Dyehard.Player.Hero;
-import Dyehard.Powerups.Ghost;
-import Dyehard.Powerups.Invincibility;
-import Dyehard.Powerups.Overload;
-import Dyehard.Powerups.SpeedUp;
 import Dyehard.Util.Colors;
 import Dyehard.World.GameWorld;
 import Dyehard.World.GameWorldRegion;
+import Dyehard.World.Space;
+import Dyehard.collectibles.DyePack;
+import Dyehard.collectibles.Ghost;
+import Dyehard.collectibles.Invincibility;
+import Dyehard.collectibles.Overload;
+import Dyehard.collectibles.PowerUp;
+import Dyehard.collectibles.SpeedUp;
 import Engine.KeyboardInput;
 import Engine.Vector2;
 

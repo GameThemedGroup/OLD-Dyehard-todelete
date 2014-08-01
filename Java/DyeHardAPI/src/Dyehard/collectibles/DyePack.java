@@ -1,4 +1,4 @@
-package BaseTypes;
+package Dyehard.collectibles;
 
 import java.awt.Color;
 import java.util.Random;

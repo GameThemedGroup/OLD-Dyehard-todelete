@@ -1,7 +1,8 @@
-package Dyehard.World;
+package Dyehard.background;
 
 import java.awt.Color;
 
+import Dyehard.World.GameWorld;
 import Engine.Rectangle;
 import Engine.Vector2;
 

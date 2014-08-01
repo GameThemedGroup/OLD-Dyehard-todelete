@@ -1,12 +1,10 @@
-package Dyehard.Obstacles;
+package Dyehard.World;
 
 import java.awt.Color;
 import java.util.ArrayList;
 
-import BaseTypes.Enemy;
-import Dyehard.Space;
+import Dyehard.Enemies.Enemy;
 import Dyehard.Player.Hero;
-import Dyehard.World.GameWorld;
 import Engine.Rectangle;
 import Engine.Vector2;
 
