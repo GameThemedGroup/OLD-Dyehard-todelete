@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import Dyehard.DyeHard;
 import Dyehard.Player.Hero;
 import Dyehard.Util.ImageTint;
+import Dyehard.Util.Timer;
 import Dyehard.World.GameWorld;
 import Engine.BaseCode;
 import Engine.Vector2;
@@ -18,15 +19,16 @@ public class Enemy extends Actor {
     protected Hero hero;
     protected EnemyState enemyState;
     protected BufferedImage baseTexture;
-    private float behaviorChangeTime = 5f;
-    private long startTime;
+    // This time is in milliseconds
+    private float behaviorChangeTime = 5000f;
+    private Timer timer;
 
     public Enemy(Vector2 center, float width, float height, Hero hero) {
         super(center, width, height);
         this.hero = hero;
         setColor(DyeHard.randomColor());
         enemyState = EnemyState.BEGIN;
-        startTime = System.nanoTime();
+        timer = new Timer(behaviorChangeTime);
     }
 
     protected Enemy(Vector2 center, float width, float height,
@@ -36,13 +38,14 @@ public class Enemy extends Actor {
         baseTexture = BaseCode.resources.loadImage(texturePath);
         texture = baseTexture;
         enemyState = EnemyState.BEGIN;
-        startTime = System.nanoTime();
+        timer = new Timer(behaviorChangeTime);
     }
 
     @Override
     public void update() {
-        if (System.nanoTime() >= startTime + (behaviorChangeTime * 1000000000)) {
+        if (timer.isDone()) {
             enemyState = EnemyState.CHASEHERO;
+            timer.reset();
         }
         switch (enemyState) {
         case BEGIN:
