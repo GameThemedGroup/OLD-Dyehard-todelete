@@ -65,7 +65,7 @@ public class SpreadFireWeapon extends Weapon {
 
     @Override
     public void fire() {
-        if (currentTick >= lastTick + fireRate) {
+        if (timer.isDone()) {
             Rectangle bullet = new Rectangle();
             bullet.center = new Vector2(hero.center);
             bullet.size.set(bulletSize, bulletSize);
