@@ -57,7 +57,6 @@ public class Gate extends Rectangle {
         super.update();
         path.update();
         deathGate.update();
-
         // Was path.LowerLeft.X and preview.LowerLeft.X
         preview.visible = (path.center.getX() - (path.size.getX() / 2)) > ((preview.center
                 .getX() - (preview.size.getX() / 2)) + preview.size.getX())
@@ -89,7 +88,8 @@ public class Gate extends Rectangle {
         // dye any enemies
         for (Enemy e : enemies) {
             if (contains(e)) {
-                e.setColor(color);
+                // Changes enemy color when it moves to a different gate
+                e.gotShot(color);
             }
         }
     }
