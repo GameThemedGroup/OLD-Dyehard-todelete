@@ -38,7 +38,7 @@ public class LimitedAmmoWeapon extends Weapon {
 
     @Override
     public void fire() {
-        if (currentTick >= lastTick + fireRate && ammo > 0) {
+        if (timer.isDone() && ammo > 0) {
             super.fire();
             ammo--;
         }
