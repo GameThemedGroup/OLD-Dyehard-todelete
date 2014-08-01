@@ -7,7 +7,7 @@ import Dyehard.World.GameWorld;
 import Engine.LibraryCode;
 
 //This is "Game.cs"
-public class DyeHard extends LibraryCode {
+public abstract class DyeHard extends LibraryCode {
     private enum State {
         BEGIN, PAUSED, PLAYING, GAMEOVER
     }
@@ -58,6 +58,8 @@ public class DyeHard extends LibraryCode {
         }
     }
 
+    protected abstract void initialize();
+
     @Override
     public void initializeWorld() {
         super.initializeWorld();
@@ -67,7 +69,11 @@ public class DyeHard extends LibraryCode {
         background = new Background();
         // I pass keyboard into GameWorld when creating it because
         // I need access to BaseCode for keyboard inputs.
-        world = new GameWorld(keyboard);
+
+        if (world == null) {
+            world = new GameWorld(keyboard);
+        }
+
         System.out.println("Width = " + getInitWidth() + " Height = "
                 + getInitHeight());
     }
