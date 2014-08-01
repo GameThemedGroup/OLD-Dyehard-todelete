@@ -3,8 +3,8 @@ package BaseTypes;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-import Dyehard.DyeHard;
 import Dyehard.Player.Hero;
+import Dyehard.Util.Colors;
 import Dyehard.Util.ImageTint;
 import Dyehard.Util.Timer;
 import Dyehard.World.GameWorld;
@@ -26,7 +26,7 @@ public class Enemy extends Actor {
     public Enemy(Vector2 center, float width, float height, Hero hero) {
         super(center, width, height);
         this.hero = hero;
-        setColor(DyeHard.randomColor());
+        setColor(Colors.randomColor());
         enemyState = EnemyState.BEGIN;
         timer = new Timer(behaviorChangeTime);
     }

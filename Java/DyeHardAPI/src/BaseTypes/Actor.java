@@ -2,7 +2,7 @@ package BaseTypes;
 
 import java.awt.Color;
 
-import Dyehard.DyeHard;
+import Dyehard.Util.Colors;
 import Engine.Rectangle;
 import Engine.Vector2;
 
@@ -12,7 +12,7 @@ public class Actor extends Rectangle {
     public Actor(Vector2 position, float width, float height) {
         center = position;
         size.set(width, height);
-        color = DyeHard.randomColor();
+        color = Colors.randomColor();
         // set object into motion;
         velocity = new Vector2(0, 0);
         shouldTravel = true;

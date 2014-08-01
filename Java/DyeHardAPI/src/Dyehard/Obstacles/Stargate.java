@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import BaseTypes.Enemy;
-import Dyehard.DyeHard;
 import Dyehard.Player.Hero;
+import Dyehard.Util.Colors;
 import Dyehard.World.GameWorld;
 import Dyehard.World.GameWorldRegion;
 import Engine.Rectangle;
@@ -23,7 +23,7 @@ public class Stargate extends GameWorldRegion {
         position = leftEdge + width / 2f;
         speed = -GameWorld.Speed;
 
-        ArrayList<Color> colors = DyeHard.randomColorSet(GATE_COUNT);
+        ArrayList<Color> colors = Colors.randomColorSet(GATE_COUNT);
 
         gates = new Gate[GATE_COUNT];
         for (int i = 0; i < gates.length; i++) {

@@ -11,6 +11,7 @@ import BaseTypes.PowerUp;
 import Dyehard.Obstacles.Debris;
 import Dyehard.Obstacles.ObstacleManager;
 import Dyehard.Player.Hero;
+import Dyehard.Util.Colors;
 import Dyehard.World.GameWorld;
 import Dyehard.World.GameWorldRegion;
 import Engine.Primitive;
@@ -42,7 +43,7 @@ public class Space extends GameWorldRegion {
         float rightEdge = position + width / 2;
         float region = (rightEdge - leftEdge) / dyepackCount;
 
-        List<Color> colorSet = DyeHard.randomColorSet(DyeHard.colorCount);
+        List<Color> colorSet = Colors.randomColorSet(Colors.colorCount);
         for (int i = 0; i < dyepackCount; i++) {
             float regionLeft = leftEdge + (i * region);
             float regionRight = regionLeft + region;

@@ -15,6 +15,7 @@ import Dyehard.Powerups.Ghost;
 import Dyehard.Powerups.Invincibility;
 import Dyehard.Powerups.Overload;
 import Dyehard.Powerups.SpeedUp;
+import Dyehard.Util.Colors;
 import Dyehard.World.GameWorld;
 import Dyehard.World.GameWorldRegion;
 import Engine.KeyboardInput;
@@ -71,7 +72,7 @@ public class DeveloperControls {
         }
         if (keyboard.isButtonDown(KeyEvent.VK_0)) {
             ((Space) onscreen.getFirst()).AddDyepack(new DyePack(hero, 0f,
-                    100f, DyeHard.randomColor()));
+                    100f, Colors.randomColor()));
         }
         if (keyboard.isButtonDown(KeyEvent.VK_9)) {
             ((Space) onscreen.getFirst()).AddPowerup(new Ghost(hero, 0f, 100f));

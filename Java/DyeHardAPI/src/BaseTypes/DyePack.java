@@ -3,8 +3,8 @@ package BaseTypes;
 import java.awt.Color;
 import java.util.Random;
 
-import Dyehard.DyeHard;
 import Dyehard.Player.Hero;
+import Dyehard.Util.Colors;
 import Dyehard.World.GameWorld;
 import Engine.BaseCode;
 import Engine.Rectangle;
@@ -47,22 +47,22 @@ public class DyePack extends Rectangle {
     }
 
     private static String getTexture(Color color) {
-        if (color == DyeHard.Green) {
-            return "Dye_Green.png";
+        if (color == Colors.Green) {
+            return "Colors.png";
         }
-        if (color == DyeHard.Blue) {
+        if (color == Colors.Blue) {
             return "Dye_Blue.png";
         }
-        if (color == DyeHard.Yellow) {
+        if (color == Colors.Yellow) {
             return "Dye_Yellow.png";
         }
-        if (color == DyeHard.Teal) {
+        if (color == Colors.Teal) {
             return "Dye_Teal.png";
         }
-        if (color == DyeHard.Pink) {
+        if (color == Colors.Pink) {
             return "Dye_Pink.png";
         }
-        if (color == DyeHard.Red) {
+        if (color == Colors.Red) {
             return "Dye_Red.png";
         }
         return "";
