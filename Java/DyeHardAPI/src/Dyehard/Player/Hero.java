@@ -13,9 +13,6 @@ import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.PowerUp;
 import dyehard.Enemies.Enemy;
-import dyehard.Weapons.LimitedAmmoWeapon;
-import dyehard.Weapons.OverHeatWeapon;
-import dyehard.Weapons.SpreadFireWeapon;
 import dyehard.Weapons.Weapon;
 
 public class Hero extends Actor {
@@ -39,8 +36,8 @@ public class Hero extends Actor {
         collectedPowerups = 0;
         this.keyboard = keyboard;
         weaponRack = new ArrayList<Weapon>();
-        createWeapons();
-        weapon = weaponRack.get(0); // set initial weapon to first
+        weaponRack.add(new Weapon(this)); // add default weapon
+        weapon = weaponRack.get(0); // set default weapon
 
         // Maps number keys to weaponRack index
         weaponHotkeys = new HashMap<Integer, Integer>();
@@ -166,11 +163,8 @@ public class Hero extends Actor {
         collectedPowerups += 1;
     }
 
-    private void createWeapons() {
-        weaponRack.add(new Weapon(this));
-        weaponRack.add(new OverHeatWeapon(this));
-        weaponRack.add(new LimitedAmmoWeapon(this));
-        weaponRack.add(new SpreadFireWeapon(this));
+    public void registerWeapon(Weapon weapon) {
+        weaponRack.add(weapon);
     }
 
     public int dyepacksCollected() {
