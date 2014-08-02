@@ -16,11 +16,19 @@ public class Stargate extends GameWorldRegion {
     private Platform[] platforms;
     private Rectangle backdrop;
 
-    public Stargate(Hero hero, ArrayList<Enemy> enemies, float leftEdge) {
-        width = Stargate.WIDTH;
-        position = leftEdge + width / 2f;
-        speed = -GameWorld.Speed;
+    public Hero hero;
+    public ArrayList<Enemy> enemies;
 
+    public Stargate(Hero hero, ArrayList<Enemy> enemies) {
+        this.hero = hero;
+        this.enemies = enemies;
+        width = Stargate.WIDTH;
+        speed = -GameWorld.Speed;
+    }
+
+    @Override
+    public void initialize(float leftEdge) {
+        position = leftEdge + width / 2f;
         ArrayList<Color> colors = Colors.randomColorSet(GATE_COUNT);
 
         gates = new Gate[GATE_COUNT];

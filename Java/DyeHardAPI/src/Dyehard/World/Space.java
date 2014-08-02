@@ -25,13 +25,16 @@ public class Space extends GameWorldRegion {
     Hero hero;
     List<Primitive> primitives;
 
-    public Space(Hero hero, ArrayList<Enemy> enemies, float leftEdge) {
+    public Space(Hero hero) {
         this.hero = hero;
 
         width = WIDTH;
-        position = leftEdge + width * 0.5f;
         speed = -GameWorld.Speed;
+    }
 
+    @Override
+    public void initialize(float leftEdge) {
+        position = leftEdge + width * 0.5f;
         generateCollectibles(leftEdge);
     }
 

@@ -30,9 +30,9 @@ public class GameWorld {
         hero.setEnemies(eManager.getEnemies());
 
         // first element on screen
-        gameRegions.add(new Space(hero, eManager.getEnemies(),
-                GameWorld.LEFT_EDGE));
-        gameRegions.add(new Stargate(hero, eManager.getEnemies(), 300f));
+        GameWorldRegion startingSpace = new Space(hero);
+        startingSpace.initialize(0f);
+        gameRegions.add(startingSpace);
 
         // fill the rest of the existing screen
         while (gameRegions.getLast().rightEdge() <= GameWorld.RIGHT_EDGE) {
@@ -41,6 +41,18 @@ public class GameWorld {
 
         dev = new DeveloperControls(this, space, hero, keyboard, eManager,
                 gameRegions);
+    }
+
+    // Adds a region to the queue of upcoming regions
+    // The region is initalized with the position of the last region currently
+    // in the queue.
+    public void addRegion(GameWorldRegion region) {
+        float startLocation = 0f;
+        if (!gameRegions.isEmpty()) {
+            startLocation = gameRegions.getLast().rightEdge();
+        }
+        region.initialize(startLocation);
+        gameRegions.add(region);
     }
 
     public boolean gameOver() {
@@ -61,28 +73,30 @@ public class GameWorld {
     }
 
     private void updateSequence() {
+        // generate new game regions if the current one is about to end
+        if (gameRegions.getLast().rightEdge() <= GameWorld.RIGHT_EDGE + 100f) {
+            generateNewRegion();
+        }
+
         // remove game regions that have moved off screen
         if (gameRegions.peek().rightEdge() <= GameWorld.LEFT_EDGE) {
             GameWorldRegion offscreen = gameRegions.pop();
             offscreen.destroy();
         }
-
-        // generate new game regions if the current one is about to end
-        if (gameRegions.getLast().rightEdge() <= GameWorld.RIGHT_EDGE + 100f) {
-            generateNewRegion();
-        }
     }
 
-    private void generateNewRegion() {
-        // the new region will start where the last region ends
-        float startLocation = gameRegions.getLast().rightEdge();
+    // Generates regions that alternate between Stargate and Space
+    protected void generateNewRegion() {
         GameWorldRegion newRegion;
-        if (gameRegions.getLast() instanceof Stargate) {
-            newRegion = new Space(hero, eManager.getEnemies(), startLocation);
+        if (gameRegions.getLast() instanceof Space) {
+            newRegion = new Stargate(hero, eManager.getEnemies());
         } else {
-            newRegion = new Stargate(hero, eManager.getEnemies(), startLocation);
+            newRegion = new Space(hero);
         }
 
+        // the new region will start where the last region ends
+        float startLocation = gameRegions.getLast().rightEdge();
+        newRegion.initialize(startLocation);
         gameRegions.add(newRegion);
     }
 }
