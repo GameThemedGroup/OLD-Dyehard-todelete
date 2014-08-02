@@ -2,6 +2,7 @@ package dyehard.Player;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import Engine.BaseCode;
 import Engine.KeyboardInput;
@@ -29,6 +30,7 @@ public class Hero extends Actor {
     private KeyboardInput keyboard;
     private Weapon weapon;
     private ArrayList<Weapon> weaponRack;
+    private HashMap<Integer, Integer> weaponHotkeys;
 
     public Hero(KeyboardInput keyboard) {
         // TODO: The position 20f, 20f is a temporary value.
@@ -39,6 +41,19 @@ public class Hero extends Actor {
         weaponRack = new ArrayList<Weapon>();
         createWeapons();
         weapon = weaponRack.get(0); // set initial weapon to first
+
+        // Maps number keys to weaponRack index
+        weaponHotkeys = new HashMap<Integer, Integer>();
+        weaponHotkeys.put(KeyEvent.VK_1, 0);
+        weaponHotkeys.put(KeyEvent.VK_2, 1);
+        weaponHotkeys.put(KeyEvent.VK_3, 2);
+        weaponHotkeys.put(KeyEvent.VK_4, 3);
+        weaponHotkeys.put(KeyEvent.VK_5, 4);
+        weaponHotkeys.put(KeyEvent.VK_6, 5);
+        weaponHotkeys.put(KeyEvent.VK_7, 6);
+        weaponHotkeys.put(KeyEvent.VK_8, 7);
+        weaponHotkeys.put(KeyEvent.VK_9, 8);
+        weaponHotkeys.put(KeyEvent.VK_0, 9);
     }
 
     @Override
@@ -123,15 +138,15 @@ public class Hero extends Actor {
         }
     }
 
+    // Select a weapon in the weapon rack based on the input
     private void selectWeapon() {
-        if (keyboard.isButtonDown(KeyEvent.VK_1)) {
-            weapon = weaponRack.get(0);
-        } else if (keyboard.isButtonDown(KeyEvent.VK_2)) {
-            weapon = weaponRack.get(1);
-        } else if (keyboard.isButtonDown(KeyEvent.VK_3)) {
-            weapon = weaponRack.get(2);
-        } else if (keyboard.isButtonDown(KeyEvent.VK_4)) {
-            weapon = weaponRack.get(3);
+        for (int hotkey : weaponHotkeys.keySet()) {
+            if (keyboard.isButtonDown(hotkey)) {
+                int weaponIndex = weaponHotkeys.get(hotkey);
+                if (weaponIndex < weaponRack.size() && weaponIndex >= 0) {
+                    weapon = weaponRack.get(weaponIndex);
+                }
+            }
         }
     }
 
