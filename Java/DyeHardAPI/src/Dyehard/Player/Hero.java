@@ -8,6 +8,7 @@ import Engine.KeyboardInput;
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
 import dyehard.Actor;
+import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.PowerUp;
 import dyehard.Enemies.Enemy;
@@ -15,12 +16,13 @@ import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.Weapons.OverHeatWeapon;
 import dyehard.Weapons.SpreadFireWeapon;
 import dyehard.Weapons.Weapon;
-import dyehard.World.GameWorld;
 
 public class Hero extends Actor {
-    private float speedLimit = 0.8f;
-    private static float thrustMagnitude = 0.04f;
-    private static float drag = 0.99f; // smaller number means more reduction
+    private float speedLimitX = 50f;
+    private static float jetSpeed = 2.5f;
+    private static Vector2 fakeGravity = new Vector2(0f, -1.5f);
+
+    private static float drag = 0.97f; // smaller number means more reduction
     // private final float rightBoundaryLimit = 0.85f; // percentage of screen
     private int collectedDyepacks;
     private int collectedPowerups;
@@ -46,13 +48,19 @@ public class Hero extends Actor {
     }
 
     public void updateMovement() {
-        acceleration.add(GameWorld.Gravity);
-        velocity.add(acceleration);
-        if (velocity.lengthSQRD() > speedLimit * speedLimit) {
-            velocity = velocity.normalized().mult(speedLimit);
-        }
+        // Clamp the horizontal speed to speedLimit
+        float velX = velocity.getX();
+        velX = Math.min(speedLimitX, velX);
+        velX = Math.max(-speedLimitX, velX);
+        velocity.setX(velX);
+
+        velocity.add(fakeGravity);
         velocity.mult(drag);
-        center.add(velocity);
+
+        // Scale the velocity to the frame rate
+        Vector2 frameVelocity = velocity.clone();
+        frameVelocity.mult(DyeHard.DELTA_TIME);
+        center.add(frameVelocity);
     }
 
     @Override
@@ -81,35 +89,38 @@ public class Hero extends Actor {
             if (collisionStatus == BoundCollidedStatus.LEFT
                     || collisionStatus == BoundCollidedStatus.RIGHT) {
                 velocity.setX(0);
+                acceleration.setX(0);
             } else if (collisionStatus == BoundCollidedStatus.TOP
                     || collisionStatus == BoundCollidedStatus.BOTTOM) {
                 velocity.setY(0);
+                acceleration.setY(0);
             }
         }
+
         BaseCode.world.clampAtWorldBound(this);
     }
 
     private void handleInput() {
-        // The C# version uses joystick input to control the hero
-        // I found 0.75 by printing out the value of the vector
-        // being returned by the joy stick control
         Vector2 totalThrust = new Vector2();
         if (keyboard.isButtonDown(KeyEvent.VK_UP)) {
-            totalThrust.add(new Vector2(0f, thrustMagnitude));
+            // Upward speed needs to counter the effects of gravity
+            totalThrust.add(new Vector2(0f, jetSpeed - fakeGravity.getY()));
         }
         if (keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
-            totalThrust.add(new Vector2(-thrustMagnitude, 0f));
+            totalThrust.add(new Vector2(-jetSpeed, 0f));
         }
         if (keyboard.isButtonDown(KeyEvent.VK_DOWN)) {
-            totalThrust.add(new Vector2(0f, -thrustMagnitude));
+            totalThrust.add(new Vector2(0f, -jetSpeed));
         }
         if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
-            totalThrust.add(new Vector2(thrustMagnitude, 0));
+            totalThrust.add(new Vector2(jetSpeed, 0));
         }
+
+        velocity.add(totalThrust);
+
         if (keyboard.isButtonDown(KeyEvent.VK_F)) {
             weapon.fire();
         }
-        acceleration = totalThrust;
     }
 
     private void selectWeapon() {

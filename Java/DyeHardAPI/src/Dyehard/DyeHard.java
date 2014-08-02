@@ -6,8 +6,11 @@ import Engine.LibraryCode;
 import dyehard.Background.Background;
 import dyehard.World.GameWorld;
 
-//This is "Game.cs"
 public abstract class DyeHard extends LibraryCode {
+    // TODO replace this with method that returns time passed since last frame
+    // The amount of time that has elapsed since the last frame
+    public static float DELTA_TIME = 1f / 40f;
+
     private enum State {
         BEGIN, PAUSED, PLAYING, GAMEOVER
     }

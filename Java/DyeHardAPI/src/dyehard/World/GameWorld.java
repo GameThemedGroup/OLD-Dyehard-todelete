@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 import Engine.BaseCode;
 import Engine.KeyboardInput;
-import Engine.Vector2;
 import dyehard.DeveloperControls;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Obstacles.ObstacleManager;
@@ -17,7 +16,6 @@ public class GameWorld {
     public static final float TOP_EDGE = BaseCode.world.getHeight();
     public static final float BOTTOM_EDGE = BaseCode.world.getWorldPositionY();
     public static float Speed = 0.5f;
-    public static Vector2 Gravity = new Vector2(0, -0.01f);
     private Hero hero;
     private DeveloperControls dev;
     private Space space;
