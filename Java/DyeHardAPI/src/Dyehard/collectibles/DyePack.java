@@ -48,7 +48,7 @@ public class DyePack extends Rectangle {
 
     private static String getTexture(Color color) {
         if (color == Colors.Green) {
-            return "Colors.png";
+            return "Dye_Green.png";
         }
         if (color == Colors.Blue) {
             return "Dye_Blue.png";
