@@ -11,15 +11,15 @@ public abstract class DyeHard extends LibraryCode {
     // The amount of time that has elapsed since the last frame
     public static float DELTA_TIME = 1f / 40f;
 
-    private enum State {
+    protected enum State {
         BEGIN, PAUSED, PLAYING, GAMEOVER
     }
 
-    // game objects
-    private Background background;
-    private GameWorld world;
     // Game state
-    private State state;
+    protected State state;
+
+    protected Background background;
+    protected GameWorld world;
 
     private void checkControl() {
         keyboard.update();
@@ -66,6 +66,7 @@ public abstract class DyeHard extends LibraryCode {
     @Override
     public void initializeWorld() {
         super.initializeWorld();
+
         // Starting state should be begin
         // Using playing to test controls
         state = State.PLAYING;
@@ -77,8 +78,7 @@ public abstract class DyeHard extends LibraryCode {
             world = new GameWorld(keyboard);
         }
 
-        System.out.println("Width = " + getInitWidth() + " Height = "
-                + getInitHeight());
+        initialize(); // call user code Initialize()
     }
 
     @Override

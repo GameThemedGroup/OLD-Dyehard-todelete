@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 import Engine.BaseCode;
 import Engine.KeyboardInput;
-import dyehard.DeveloperControls;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Obstacles.ObstacleManager;
 import dyehard.Player.Hero;
@@ -17,30 +16,18 @@ public class GameWorld {
     public static final float BOTTOM_EDGE = BaseCode.world.getWorldPositionY();
     public static float Speed = 0.5f;
     private Hero hero;
-    private DeveloperControls dev;
-    private Space space;
     private EnemyManager eManager;
     private LinkedList<GameWorldRegion> gameRegions;
 
     public GameWorld(KeyboardInput keyboard) {
-        hero = new Hero(keyboard);
+        gameRegions = new LinkedList<GameWorldRegion>();
+    }
+
+    public void initialize(Hero hero) {
         ObstacleManager.registerActor(hero);
         eManager = new EnemyManager(hero);
-        gameRegions = new LinkedList<GameWorldRegion>();
         hero.setEnemies(eManager.getEnemies());
-
-        // first element on screen
-        GameWorldRegion startingSpace = new Space(hero);
-        startingSpace.initialize(0f);
-        gameRegions.add(startingSpace);
-
-        // fill the rest of the existing screen
-        while (gameRegions.getLast().rightEdge() <= GameWorld.RIGHT_EDGE) {
-            generateNewRegion();
-        }
-
-        dev = new DeveloperControls(this, space, hero, keyboard, eManager,
-                gameRegions);
+        this.hero = hero;
     }
 
     // Adds a region to the queue of upcoming regions
@@ -56,14 +43,21 @@ public class GameWorld {
     }
 
     public boolean gameOver() {
+        if (hero == null) {
+            return false;
+        }
+
         return !hero.isAlive();
     }
 
     public void update() {
+        if (hero == null) {
+            System.err.println("The GameWorld was not initialized!");
+        }
+
         updateSequence();
 
         hero.update();
-        dev.update();
         eManager.update();
         ObstacleManager.update();
 
@@ -74,7 +68,7 @@ public class GameWorld {
 
     private void updateSequence() {
         // generate new game regions if the current one is about to end
-        if (gameRegions.getLast().rightEdge() <= GameWorld.RIGHT_EDGE + 100f) {
+        while (gameRegions.getLast().rightEdge() <= GameWorld.RIGHT_EDGE + 100f) {
             generateNewRegion();
         }
 
