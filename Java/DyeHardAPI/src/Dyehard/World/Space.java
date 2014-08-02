@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import Engine.Primitive;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.PowerUp;
 import dyehard.Enemies.Enemy;
@@ -12,9 +13,6 @@ import dyehard.Obstacles.Debris;
 import dyehard.Obstacles.ObstacleManager;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
-
-
-import Engine.Primitive;
 
 public class Space extends GameWorldRegion {
     public static float WIDTH = GameWorld.RIGHT_EDGE * 3f;

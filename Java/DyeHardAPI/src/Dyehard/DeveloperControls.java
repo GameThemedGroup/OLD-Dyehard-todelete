@@ -4,6 +4,8 @@ import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.Random;
 
+import Engine.KeyboardInput;
+import Engine.Vector2;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.Ghost;
 import dyehard.Collectibles.Invincibility;
@@ -19,10 +21,6 @@ import dyehard.Util.Colors;
 import dyehard.World.GameWorld;
 import dyehard.World.GameWorldRegion;
 import dyehard.World.Space;
-
-
-import Engine.KeyboardInput;
-import Engine.Vector2;
 
 public class DeveloperControls {
     private KeyboardInput keyboard;

@@ -3,6 +3,10 @@ package dyehard.Player;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import Engine.BaseCode;
+import Engine.KeyboardInput;
+import Engine.Vector2;
+import Engine.World.BoundCollidedStatus;
 import dyehard.Actor;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.PowerUp;
@@ -12,13 +16,6 @@ import dyehard.Weapons.OverHeatWeapon;
 import dyehard.Weapons.SpreadFireWeapon;
 import dyehard.Weapons.Weapon;
 import dyehard.World.GameWorld;
-
-
-
-import Engine.BaseCode;
-import Engine.KeyboardInput;
-import Engine.Vector2;
-import Engine.World.BoundCollidedStatus;
 
 public class Hero extends Actor {
     private float speedLimit = 0.8f;

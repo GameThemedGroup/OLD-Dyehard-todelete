@@ -3,11 +3,9 @@ package dyehard.World;
 import java.awt.Color;
 import java.util.Random;
 
+import Engine.Vector2;
 import dyehard.Obstacles.Obstacle;
 import dyehard.Obstacles.ObstacleManager;
-
-
-import Engine.Vector2;
 
 public class Platform {
     private static int SEGMENT_COUNT = 30;

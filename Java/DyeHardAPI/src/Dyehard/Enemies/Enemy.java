@@ -3,17 +3,14 @@ package dyehard.Enemies;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import Engine.BaseCode;
+import Engine.Vector2;
 import dyehard.Actor;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.Util.ImageTint;
 import dyehard.Util.Timer;
 import dyehard.World.GameWorld;
-
-
-
-import Engine.BaseCode;
-import Engine.Vector2;
 
 public class Enemy extends Actor {
     protected enum EnemyState {

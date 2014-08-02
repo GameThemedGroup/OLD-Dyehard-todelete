@@ -2,12 +2,10 @@ package dyehard.Weapons;
 
 import java.awt.Color;
 
-import dyehard.Player.Hero;
-import dyehard.World.GameWorld;
-
-
 import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.Player.Hero;
+import dyehard.World.GameWorld;
 
 public class OverHeatWeapon extends Weapon {
     private final float heatLimit = 10.0f;

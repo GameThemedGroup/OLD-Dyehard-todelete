@@ -3,14 +3,12 @@ package dyehard.Enemies;
 import java.util.ArrayList;
 import java.util.Random;
 
+import Engine.Rectangle;
+import Engine.Vector2;
 import dyehard.Obstacles.ObstacleManager;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
 import dyehard.World.GameWorld;
-
-
-import Engine.Rectangle;
-import Engine.Vector2;
 
 public class EnemyManager extends Rectangle {
     // This time is in milliseconds

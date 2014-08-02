@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import Engine.Rectangle;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
 import dyehard.World.GameWorld;
-
-
-import Engine.Rectangle;
 
 public class Weapon extends Rectangle {
     protected static float bulletSpeed = 1f;

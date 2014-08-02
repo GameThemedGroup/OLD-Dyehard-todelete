@@ -1,7 +1,7 @@
 package dyehard.Collectibles;
 
-import dyehard.Player.Hero;
 import Engine.BaseCode;
+import dyehard.Player.Hero;
 
 public class Ghost extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(1, Game.Blue);

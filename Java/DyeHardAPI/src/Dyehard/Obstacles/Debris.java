@@ -2,11 +2,9 @@ package dyehard.Obstacles;
 
 import java.util.Random;
 
-import dyehard.World.GameWorld;
-
-
 import Engine.BaseCode;
 import Engine.Vector2;
+import dyehard.World.GameWorld;
 
 public class Debris extends Obstacle {
     private static Random RANDOM = new Random();

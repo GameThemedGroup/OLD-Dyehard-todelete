@@ -2,12 +2,10 @@ package dyehard.Collectibles;
 
 import java.util.Random;
 
-import dyehard.Player.Hero;
-import dyehard.World.GameWorld;
-
-
 import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.Player.Hero;
+import dyehard.World.GameWorld;
 
 public class PowerUp extends Rectangle {
     private static Random RANDOM = new Random();

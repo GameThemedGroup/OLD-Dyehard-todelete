@@ -1,7 +1,7 @@
 package dyehard.Collectibles;
 
-import dyehard.Player.Hero;
 import Engine.BaseCode;
+import dyehard.Player.Hero;
 
 public class SpeedUp extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(0, DyeHard.Green);

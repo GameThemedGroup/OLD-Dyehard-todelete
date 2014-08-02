@@ -2,11 +2,9 @@ package dyehard;
 
 import java.awt.event.KeyEvent;
 
+import Engine.LibraryCode;
 import dyehard.Background.Background;
 import dyehard.World.GameWorld;
-
-
-import Engine.LibraryCode;
 
 //This is "Game.cs"
 public abstract class DyeHard extends LibraryCode {

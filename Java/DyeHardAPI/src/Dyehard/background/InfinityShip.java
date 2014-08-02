@@ -4,11 +4,9 @@ import java.awt.Color;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import dyehard.World.GameWorld;
-
-
 import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.World.GameWorld;
 
 //TODO replace magic numbers
 //TODO add comments

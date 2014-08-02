@@ -3,12 +3,10 @@ package dyehard.World;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import dyehard.Enemies.Enemy;
-import dyehard.Player.Hero;
-
-
 import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.Enemies.Enemy;
+import dyehard.Player.Hero;
 
 public class Gate extends Rectangle {
     private Color color;

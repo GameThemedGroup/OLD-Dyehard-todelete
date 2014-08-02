@@ -2,11 +2,9 @@ package dyehard.Background;
 
 import java.awt.Color;
 
-import dyehard.World.GameWorld;
-
-
 import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.World.GameWorld;
 
 public class Background {
 

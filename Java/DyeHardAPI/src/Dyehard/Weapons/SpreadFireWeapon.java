@@ -3,13 +3,11 @@ package dyehard.Weapons;
 import java.awt.Color;
 import java.util.LinkedList;
 
+import Engine.Rectangle;
+import Engine.Vector2;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 import dyehard.World.GameWorld;
-
-
-import Engine.Rectangle;
-import Engine.Vector2;
 
 public class SpreadFireWeapon extends Weapon {
     private Rectangle info;

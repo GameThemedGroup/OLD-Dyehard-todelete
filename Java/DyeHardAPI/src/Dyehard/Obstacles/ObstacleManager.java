@@ -3,13 +3,10 @@ package dyehard.Obstacles;
 import java.util.HashSet;
 import java.util.Set;
 
-import dyehard.Actor;
-import dyehard.Util.Collision;
-
-
-
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
+import dyehard.Actor;
+import dyehard.Util.Collision;
 
 /**
  * ObstacleManager provides a single class to handle collisions between actors

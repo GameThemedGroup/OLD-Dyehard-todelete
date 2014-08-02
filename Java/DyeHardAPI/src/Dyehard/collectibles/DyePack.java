@@ -3,14 +3,12 @@ package dyehard.Collectibles;
 import java.awt.Color;
 import java.util.Random;
 
-import dyehard.Player.Hero;
-import dyehard.Util.Colors;
-import dyehard.World.GameWorld;
-
-
 import Engine.BaseCode;
 import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.Player.Hero;
+import dyehard.Util.Colors;
+import dyehard.World.GameWorld;
 
 public class DyePack extends Rectangle {
     private static Random RANDOM = new Random();

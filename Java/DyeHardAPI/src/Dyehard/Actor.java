@@ -2,11 +2,9 @@ package dyehard;
 
 import java.awt.Color;
 
-import dyehard.Util.Colors;
-
-
 import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.Util.Colors;
 
 public class Actor extends Rectangle {
     private boolean alive;

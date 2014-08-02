@@ -1,7 +1,7 @@
 package dyehard.Enemies;
 
-import dyehard.Player.Hero;
 import Engine.Vector2;
+import dyehard.Player.Hero;
 
 public class SpiderEnemy extends Enemy {
     private static float widthToHeightRatio = 0.985f;

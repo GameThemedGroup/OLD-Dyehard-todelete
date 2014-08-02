@@ -5,11 +5,9 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Random;
 
-import dyehard.World.GameWorld;
-
-
 import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.World.GameWorld;
 
 public class Starfield {
     private Queue<Rectangle> stars;

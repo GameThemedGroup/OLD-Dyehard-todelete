@@ -3,13 +3,11 @@ package dyehard.World;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import Engine.Rectangle;
+import Engine.Vector2;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
-
-
-import Engine.Rectangle;
-import Engine.Vector2;
 
 public class Stargate extends GameWorldRegion {
     public static final int GATE_COUNT = 4;

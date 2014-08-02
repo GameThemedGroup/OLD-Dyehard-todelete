@@ -2,16 +2,13 @@ package dyehard.World;
 
 import java.util.LinkedList;
 
+import Engine.BaseCode;
+import Engine.KeyboardInput;
+import Engine.Vector2;
 import dyehard.DeveloperControls;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Obstacles.ObstacleManager;
 import dyehard.Player.Hero;
-
-
-
-import Engine.BaseCode;
-import Engine.KeyboardInput;
-import Engine.Vector2;
 
 public class GameWorld {
     // private final float StartSpeed = 0.2f;

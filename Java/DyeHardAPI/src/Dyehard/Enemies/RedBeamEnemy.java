@@ -1,7 +1,7 @@
 package dyehard.Enemies;
 
-import dyehard.Player.Hero;
 import Engine.Vector2;
+import dyehard.Player.Hero;
 
 public class RedBeamEnemy extends Enemy {
     private static float widthToHeightRatio = 0.7f;

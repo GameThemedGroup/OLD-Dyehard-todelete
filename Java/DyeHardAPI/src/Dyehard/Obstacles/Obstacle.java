@@ -2,11 +2,9 @@ package dyehard.Obstacles;
 
 import java.awt.Color;
 
-import dyehard.World.GameWorld;
-
-
 import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.World.GameWorld;
 
 /**
  * Obstacles represent objects that friendly and enemy units are unable to pass.
