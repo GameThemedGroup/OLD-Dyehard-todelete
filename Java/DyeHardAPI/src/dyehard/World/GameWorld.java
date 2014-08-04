@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import Engine.BaseCode;
 import Engine.KeyboardInput;
 import dyehard.DeveloperControls;
+import dyehard.Collectibles.PowerUpManager;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Obstacles.ObstacleManager;
 import dyehard.Player.Hero;
@@ -21,12 +22,14 @@ public class GameWorld {
     private Space space;
     private EnemyManager eManager;
     private LinkedList<GameWorldRegion> gameRegions;
+    private PowerUpManager pManager;
 
     public GameWorld(KeyboardInput keyboard) {
         hero = new Hero(keyboard);
         ObstacleManager.registerActor(hero);
         eManager = new EnemyManager(hero);
         gameRegions = new LinkedList<GameWorldRegion>();
+        pManager = new PowerUpManager(hero);
         hero.setEnemies(eManager.getEnemies());
 
         // first element on screen
@@ -54,6 +57,7 @@ public class GameWorld {
         dev.update();
         eManager.update();
         ObstacleManager.update();
+        pManager.update();
 
         for (GameWorldRegion e : gameRegions) {
             e.update();
