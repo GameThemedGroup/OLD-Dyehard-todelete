@@ -9,19 +9,17 @@ import dyehard.World.GameWorld;
 
 public class PowerUp extends Rectangle {
     private static Random RANDOM = new Random();
-    public final float Duration = 5f;
+    public static final float DURATION = 5000f;
     private final float height = 2f;
     private final float width = 5f;
     protected Hero hero;
 
     public PowerUp(Hero hero, float minX, float maxX) {
         this.hero = hero;
-
         float randomX = (maxX - minX - width) * RANDOM.nextFloat() + minX
                 + width / 2f;
         float randomY = (GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE - height)
                 * RANDOM.nextFloat() + height / 2f;
-
         center.set(new Vector2(randomX, randomY));
         size.set(width, height);
         velocity = new Vector2(-GameWorld.Speed, 0f);
