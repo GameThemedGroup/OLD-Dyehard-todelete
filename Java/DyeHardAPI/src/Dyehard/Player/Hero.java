@@ -29,6 +29,8 @@ public class Hero extends Actor {
     private Weapon weapon;
     private ArrayList<Weapon> weaponRack;
     public boolean isGhost;
+    public boolean isInvincible;
+    public boolean isOverloaded;
 
     public Hero(KeyboardInput keyboard) {
         // TODO: The position 20f, 20f is a temporary value.
@@ -40,6 +42,8 @@ public class Hero extends Actor {
         createWeapons();
         weapon = weaponRack.get(0); // set initial weapon to first
         isGhost = false;
+        isInvincible = false;
+        isOverloaded = false;
     }
 
     @Override
@@ -177,5 +181,29 @@ public class Hero extends Actor {
 
     public void ghostOff() {
         isGhost = false;
+    }
+
+    public void invincibilityOn() {
+        isInvincible = true;
+    }
+
+    public void invincibilityOff() {
+        isInvincible = false;
+    }
+
+    public void overloadOn() {
+        isOverloaded = true;
+    }
+
+    public void overloadOff() {
+        isOverloaded = false;
+    }
+
+    @Override
+    public void kill() {
+        if (isInvincible) {
+            return;
+        }
+        super.kill();
     }
 }
