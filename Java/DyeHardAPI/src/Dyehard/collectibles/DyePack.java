@@ -1,36 +1,31 @@
 package dyehard.Collectibles;
 
 import java.awt.Color;
-import java.util.Random;
 
 import Engine.BaseCode;
 import Engine.Rectangle;
 import Engine.Vector2;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
-import dyehard.World.GameWorld;
 
 public class DyePack extends Rectangle {
-    private static Random RANDOM = new Random();
-    private final float height = 3.5f;
-    private final float width = 3f;
+    public static final float height = 3.5f;
+    public static final float width = 3f;
     protected Hero hero;
 
-    public DyePack(Hero hero, float minX, float maxX, Color color) {
+    public DyePack(Hero hero, Color color) {
         this.hero = hero;
-
-        float randomX = (maxX - minX - width) * RANDOM.nextFloat() + minX
-                + width / 2f;
-        float randomY = (GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE - height)
-                * RANDOM.nextFloat() + height / 2f;
-
-        center.set(new Vector2(randomX, randomY));
-        size.set(width, height);
-        velocity = new Vector2(-GameWorld.Speed, 0f);
-        shouldTravel = true;
         this.color = color;
-
         texture = BaseCode.resources.loadImage("Textures/" + getTexture(color));
+        shouldTravel = false;
+    }
+
+    public void initialize(Vector2 center, Vector2 velocity) {
+        this.center = center;
+        this.velocity = velocity;
+
+        size.set(width, height);
+        shouldTravel = true;
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import Engine.Primitive;
+import Engine.Vector2;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.PowerUp;
 import dyehard.Enemies.Enemy;
@@ -25,11 +26,18 @@ public class Space extends GameWorldRegion {
     Hero hero;
     List<Primitive> primitives;
 
+    // The list of powerups that can be randomly generated
+    List<PowerUp> powerUpPool;
+
+    // The list of dyes that can be randomly generated
+    List<DyePack> dyeList;
+
     public Space(Hero hero) {
         this.hero = hero;
 
         width = WIDTH;
         speed = -GameWorld.Speed;
+        primitives = new ArrayList<Primitive>();
     }
 
     @Override
@@ -38,21 +46,25 @@ public class Space extends GameWorldRegion {
         generateCollectibles(leftEdge);
     }
 
+    public void registerPowerUps(List<PowerUp> powerups) {
+        powerUpPool = powerups;
+        primitives.addAll(powerups);
+    }
+
+    public void registerDyes(List<DyePack> dyes) {
+        dyeList = dyes;
+        primitives.addAll(dyeList);
+    }
+
     private void generateCollectibles(float leftEdge) {
-        primitives = new ArrayList<Primitive>();
+        if (dyeList == null) {
+            generateDefaultDyePacks(dyepackCount);
+        }
+
+        initializeDyePacks(dyeList);
 
         float rightEdge = position + width / 2;
         float region = (rightEdge - leftEdge) / dyepackCount;
-
-        List<Color> colorSet = Colors.randomColorSet(Colors.colorCount);
-        for (int i = 0; i < dyepackCount; i++) {
-            float regionLeft = leftEdge + (i * region);
-            float regionRight = regionLeft + region;
-            Color randomColor = colorSet.get(RANDOM.nextInt(colorSet.size()));
-            DyePack dye = new DyePack(hero, regionLeft, regionRight,
-                    randomColor);
-            primitives.add(dye);
-        }
 
         for (int i = 0; i < powerupCount; i++) {
             float regionLeft = leftEdge + (i * region);
@@ -73,6 +85,43 @@ public class Space extends GameWorldRegion {
             ObstacleManager.registerObstacle(debris);
             // primitives.add(debris);
         }
+    }
+
+    private void initializeDyePacks(List<DyePack> dyes) {
+        assert dyes != null;
+
+        // Dyepacks are distributed within uniformly distributed regions
+        float regionWidth = width / dyeList.size();
+        float regionStart = leftEdge();
+        float regionHeight = GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE;
+
+        Vector2 velocity = new Vector2(-GameWorld.Speed, 0f);
+
+        float posX, posY;
+
+        for (int i = 0; i < dyes.size(); i++) {
+
+            posX = regionStart + (i * regionWidth);
+            posX += RANDOM.nextFloat() * regionWidth;
+
+            posY = (regionHeight - DyePack.height) * RANDOM.nextFloat()
+                    + DyePack.height / 2f;
+
+            Vector2 position = new Vector2(posX, posY);
+
+            dyes.get(i).initialize(position, velocity);
+        }
+    }
+
+    private void generateDefaultDyePacks(int count) {
+        dyeList = new ArrayList<DyePack>();
+        for (int i = 0; i < count; ++i) {
+            Color randomColor = Colors.randomColor();
+            DyePack dye = new DyePack(hero, randomColor);
+            dyeList.add(dye);
+        }
+
+        primitives.addAll(dyeList);
     }
 
     public void AddPrimitive(Primitive primitive) {
