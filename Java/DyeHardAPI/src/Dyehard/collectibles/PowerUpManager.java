@@ -8,6 +8,7 @@ public class PowerUpManager {
     public static Timer GhostTimer;
     public static Timer OverloadTimer;
     public static Timer InvincibilityTimer;
+    public static Timer UnarmedTimer;
     private Hero hero;
 
     public PowerUpManager(Hero hero) {
@@ -15,6 +16,7 @@ public class PowerUpManager {
         GhostTimer = new Timer(PowerUp.DURATION);
         OverloadTimer = new Timer(PowerUp.DURATION);
         InvincibilityTimer = new Timer(PowerUp.DURATION);
+        UnarmedTimer = new Timer(PowerUp.DURATION);
         this.hero = hero;
     }
 
@@ -30,6 +32,9 @@ public class PowerUpManager {
         }
         if (OverloadTimer.isDone()) {
             hero.overloadOff();
+        }
+        if (UnarmedTimer.isDone()) {
+            hero.unarmedOff();
         }
     }
 }
