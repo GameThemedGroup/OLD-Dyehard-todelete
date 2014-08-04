@@ -39,7 +39,9 @@ public class LimitedAmmoWeapon extends Weapon {
     public void fire() {
         if (timer.isDone() && ammo > 0) {
             super.fire();
-            ammo--;
+            if (!hero.isOverloaded) {
+                ammo--;
+            }
         }
     }
 

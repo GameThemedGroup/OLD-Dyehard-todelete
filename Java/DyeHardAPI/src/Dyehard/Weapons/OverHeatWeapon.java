@@ -50,7 +50,9 @@ public class OverHeatWeapon extends Weapon {
     public void fire() {
         if (timer.isDone() && !overheated) {
             super.fire();
-            currentHeatLevel += 1;
+            if (!hero.isOverloaded) {
+                currentHeatLevel += 1;
+            }
         }
     }
 }
