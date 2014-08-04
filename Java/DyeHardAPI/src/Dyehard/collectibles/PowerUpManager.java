@@ -22,5 +22,8 @@ public class PowerUpManager {
         if (SpeedUpTimer.isDone()) {
             hero.normalizeSpeed();
         }
+        if (GhostTimer.isDone()) {
+            hero.ghostOff();
+        }
     }
 }
