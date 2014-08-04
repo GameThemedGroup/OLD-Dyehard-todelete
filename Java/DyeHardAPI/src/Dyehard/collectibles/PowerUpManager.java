@@ -25,5 +25,11 @@ public class PowerUpManager {
         if (GhostTimer.isDone()) {
             hero.ghostOff();
         }
+        if (InvincibilityTimer.isDone()) {
+            hero.invincibilityOff();
+        }
+        if (OverloadTimer.isDone()) {
+            hero.overloadOff();
+        }
     }
 }
