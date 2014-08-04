@@ -47,6 +47,8 @@ public class PowerUp extends Rectangle {
             return new Ghost(hero, minX, maxX);
         case 2:
             return new Invincibility(hero, minX, maxX);
+        case 3:
+            return new Unarmed(hero, minX, maxX);
         default:
             return new Overload(hero, minX, maxX);
         }
