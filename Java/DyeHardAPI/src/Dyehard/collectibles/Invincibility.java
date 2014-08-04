@@ -4,7 +4,6 @@ import Engine.BaseCode;
 import dyehard.Player.Hero;
 
 public class Invincibility extends PowerUp {
-    // public static PowerUpMeter meter = new PowerUpMeter(2, Game.Pink);
     public Invincibility(Hero hero, float minX, float maxX) {
         super(hero, minX, maxX);
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Pink.png");
@@ -12,7 +11,8 @@ public class Invincibility extends PowerUp {
 
     @Override
     public void activate() {
-        // meter.reset(Duration, null);
+        hero.invincibilityOn();
+        PowerUpManager.InvincibilityTimer.reset();
         super.activate();
     }
 }
