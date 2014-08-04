@@ -31,6 +31,7 @@ public class Hero extends Actor {
     public boolean isGhost;
     public boolean isInvincible;
     public boolean isOverloaded;
+    public boolean isUnarmed;
 
     public Hero(KeyboardInput keyboard) {
         // TODO: The position 20f, 20f is a temporary value.
@@ -44,6 +45,7 @@ public class Hero extends Actor {
         isGhost = false;
         isInvincible = false;
         isOverloaded = false;
+        isUnarmed = false;
     }
 
     @Override
@@ -197,6 +199,14 @@ public class Hero extends Actor {
 
     public void overloadOff() {
         isOverloaded = false;
+    }
+
+    public void unarmedOn() {
+        isUnarmed = true;
+    }
+
+    public void unarmedOff() {
+        isUnarmed = false;
     }
 
     @Override
