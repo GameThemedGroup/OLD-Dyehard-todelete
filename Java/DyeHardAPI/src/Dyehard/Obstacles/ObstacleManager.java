@@ -6,6 +6,7 @@ import java.util.Set;
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
 import dyehard.Actor;
+import dyehard.Player.Hero;
 import dyehard.Util.Collision;
 
 /**
@@ -97,6 +98,13 @@ public class ObstacleManager {
         // obstacle. This causes the player and enemy units to glide along the
         // edges of the obstacle
         Vector2 out = new Vector2(0, 0);
+
+        if (actor instanceof Hero && ((Hero) actor).isGhost == true) {
+            actor.removeFromAutoDrawSet();
+            actor.addToAutoDrawSet();
+            return;
+        }
+
         if (Collision.isOverlap(actor, obstacle, out)) {
             // Move the character so that it's no longer overlapping the
             // debris
@@ -119,5 +127,4 @@ public class ObstacleManager {
             }
         }
     }
-
 }
