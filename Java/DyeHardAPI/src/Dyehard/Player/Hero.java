@@ -21,7 +21,6 @@ public class Hero extends Actor {
     private float speedLimitX = 50f;
     private static float jetSpeed = 2.5f;
     private static Vector2 fakeGravity = new Vector2(0f, -1.5f);
-
     private static float drag = 0.97f; // smaller number means more reduction
     // private final float rightBoundaryLimit = 0.85f; // percentage of screen
     private int collectedDyepacks;
@@ -53,10 +52,8 @@ public class Hero extends Actor {
         velX = Math.min(speedLimitX, velX);
         velX = Math.max(-speedLimitX, velX);
         velocity.setX(velX);
-
         velocity.add(fakeGravity);
         velocity.mult(drag);
-
         // Scale the velocity to the frame rate
         Vector2 frameVelocity = velocity.clone();
         frameVelocity.mult(DyeHard.DELTA_TIME);
@@ -96,7 +93,6 @@ public class Hero extends Actor {
                 acceleration.setY(0);
             }
         }
-
         BaseCode.world.clampAtWorldBound(this);
     }
 
@@ -115,9 +111,7 @@ public class Hero extends Actor {
         if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
             totalThrust.add(new Vector2(jetSpeed, 0));
         }
-
         velocity.add(totalThrust);
-
         if (keyboard.isButtonDown(KeyEvent.VK_F)) {
             weapon.fire();
         }
@@ -168,9 +162,11 @@ public class Hero extends Actor {
     }
 
     public void increaseSpeed() {
+        jetSpeed = 5f;
     }
 
     public void normalizeSpeed() {
+        jetSpeed = 2.5f;
     }
 
     public void setInvisible() {
