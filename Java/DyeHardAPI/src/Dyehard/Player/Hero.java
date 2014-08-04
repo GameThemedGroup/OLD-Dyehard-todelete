@@ -28,6 +28,7 @@ public class Hero extends Actor {
     private KeyboardInput keyboard;
     private Weapon weapon;
     private ArrayList<Weapon> weaponRack;
+    public boolean isGhost;
 
     public Hero(KeyboardInput keyboard) {
         // TODO: The position 20f, 20f is a temporary value.
@@ -38,6 +39,7 @@ public class Hero extends Actor {
         weaponRack = new ArrayList<Weapon>();
         createWeapons();
         weapon = weaponRack.get(0); // set initial weapon to first
+        isGhost = false;
     }
 
     @Override
@@ -169,9 +171,11 @@ public class Hero extends Actor {
         jetSpeed = 2.5f;
     }
 
-    public void setInvisible() {
+    public void ghostOn() {
+        isGhost = true;
     }
 
-    public void setVisible() {
+    public void ghostOff() {
+        isGhost = false;
     }
 }
