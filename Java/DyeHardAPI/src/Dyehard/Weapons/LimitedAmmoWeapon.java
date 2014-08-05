@@ -37,7 +37,7 @@ public class LimitedAmmoWeapon extends Weapon {
 
     @Override
     public void fire() {
-        if (timer.isDone() && ammo > 0) {
+        if (timer.isDone() && ammo > 0 && !hero.isUnarmed) {
             super.fire();
             if (!hero.isOverloaded) {
                 ammo--;

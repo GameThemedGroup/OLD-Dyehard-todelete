@@ -49,7 +49,7 @@ public class Weapon extends Rectangle {
 
     // Fire the weapon
     public void fire() {
-        if (timer.isDone()) {
+        if (timer.isDone() && !hero.isUnarmed) {
             Rectangle bullet = new Rectangle();
             bullet.center.set(hero.center);
             bullet.size.set(bulletSize, bulletSize);
