@@ -4,6 +4,11 @@ import java.util.List;
 
 import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
+import dyehard.Collectibles.Ghost;
+import dyehard.Collectibles.Invincibility;
+import dyehard.Collectibles.Overload;
+import dyehard.Collectibles.PowerUp;
+import dyehard.Collectibles.SpeedUp;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.Weapons.LimitedAmmoWeapon;
@@ -27,11 +32,23 @@ public class UserCode extends DyeHard {
 
         GameWorldRegion startingSpace = new Space(hero);
         ((Space) startingSpace).registerDyes(randomDyePacks(11));
+        ((Space) startingSpace).registerPowerUpTypes(allPowerUps(), 5);
         world.addRegion(startingSpace);
     }
 
     protected void update() {
 
+    }
+
+    private List<PowerUp> allPowerUps() {
+        List<PowerUp> powerUps = new ArrayList<PowerUp>();
+
+        powerUps.add(new Ghost(hero));
+        powerUps.add(new Overload(hero));
+        powerUps.add(new Invincibility(hero));
+        powerUps.add(new SpeedUp(hero));
+
+        return powerUps;
     }
 
     private List<DyePack> randomDyePacks(int count) {

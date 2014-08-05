@@ -27,7 +27,9 @@ public class Space extends GameWorldRegion {
     List<Primitive> primitives;
 
     // The list of powerups that can be randomly generated
-    List<PowerUp> powerUpPool;
+    List<PowerUp> powerUpTypes;
+    List<PowerUp> powerUpList;
+    private int numPowerUps;
 
     // The list of dyes that can be randomly generated
     List<DyePack> dyeList;
@@ -46,14 +48,13 @@ public class Space extends GameWorldRegion {
         generateCollectibles(leftEdge);
     }
 
-    public void registerPowerUps(List<PowerUp> powerups) {
-        powerUpPool = powerups;
-        primitives.addAll(powerups);
+    public void registerPowerUpTypes(List<PowerUp> powerups, int numPowerUps) {
+        this.numPowerUps = numPowerUps;
+        powerUpTypes = powerups;
     }
 
     public void registerDyes(List<DyePack> dyes) {
         dyeList = dyes;
-        primitives.addAll(dyeList);
     }
 
     private void generateCollectibles(float leftEdge) {
@@ -63,28 +64,61 @@ public class Space extends GameWorldRegion {
 
         initializeDyePacks(dyeList);
 
-        float rightEdge = position + width / 2;
-        float region = (rightEdge - leftEdge) / dyepackCount;
+        generatePowerUps(powerUpTypes, numPowerUps);
+        initializePowerUps(powerUpList);
 
-        for (int i = 0; i < powerupCount; i++) {
-            float regionLeft = leftEdge + (i * region);
-            float regionRight = regionLeft + region;
-            PowerUp powerup = PowerUp.randomPowerUp(hero, regionLeft,
-                    regionRight);
-            primitives.add(powerup);
-        }
         // offset the region to pad the space before the next element
         // this makes the region slightly smaller than it actually should be
         // otherwise
         int offset = 1;
-        region = (rightEdge - leftEdge) / (debrisCount + offset);
+        float region = (rightEdge() - leftEdge()) / (debrisCount + offset);
         for (int i = 0; i < debrisCount; i++) {
             float regionLeft = leftEdge + (i * region);
             float regionRight = regionLeft + region;
             Debris debris = new Debris(regionLeft, regionRight);
             ObstacleManager.registerObstacle(debris);
-            // primitives.add(debris);
         }
+    }
+
+    private void generatePowerUps(List<PowerUp> powerupTypes, int count) {
+        powerUpList = new ArrayList<PowerUp>();
+        if (powerupTypes == null || powerupTypes.size() == 0) {
+            return;
+        }
+
+        for (int i = 0; i < count; i++) {
+            PowerUp randomPowerUp = powerupTypes.get(RANDOM
+                    .nextInt(powerupTypes.size()));
+
+            PowerUp generatedPowerUp = new PowerUp(randomPowerUp);
+            powerUpList.add(generatedPowerUp);
+        }
+    }
+
+    private void initializePowerUps(List<PowerUp> powerups) {
+        assert powerups != null;
+
+        // Powerups are distributed within uniformly distributed regions
+        float regionWidth = width / powerups.size();
+        float regionStart = leftEdge();
+        float regionHeight = GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE;
+
+        Vector2 velocity = new Vector2(-GameWorld.Speed, 0f);
+        float posX, posY;
+
+        for (int i = 0; i < powerups.size(); i++) {
+            posX = regionStart + (i * regionWidth);
+            posX += RANDOM.nextFloat() * regionWidth;
+
+            posY = (regionHeight - PowerUp.height) * RANDOM.nextFloat()
+                    + PowerUp.height / 2f;
+
+            Vector2 position = new Vector2(posX, posY);
+
+            powerups.get(i).initialize(position, velocity);
+        }
+
+        primitives.addAll(powerUpList);
     }
 
     private void initializeDyePacks(List<DyePack> dyes) {
@@ -111,6 +145,8 @@ public class Space extends GameWorldRegion {
 
             dyes.get(i).initialize(position, velocity);
         }
+
+        primitives.addAll(dyeList);
     }
 
     private void generateDefaultDyePacks(int count) {
@@ -120,8 +156,6 @@ public class Space extends GameWorldRegion {
             DyePack dye = new DyePack(hero, randomColor);
             dyeList.add(dye);
         }
-
-        primitives.addAll(dyeList);
     }
 
     public void AddPrimitive(Primitive primitive) {
