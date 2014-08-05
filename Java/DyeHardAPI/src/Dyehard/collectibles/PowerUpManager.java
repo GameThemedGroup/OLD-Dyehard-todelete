@@ -45,5 +45,8 @@ public class PowerUpManager {
         if (UnarmedTimer.isDone()) {
             hero.unarmedOff();
         }
+        if (MagnetismTimer.isDone()) {
+            hero.magnetismOff();
+        }
     }
 }

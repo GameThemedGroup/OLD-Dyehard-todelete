@@ -2,9 +2,11 @@ package dyehard.Player;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 import Engine.BaseCode;
 import Engine.KeyboardInput;
+import Engine.Primitive;
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
 import dyehard.Actor;
@@ -16,6 +18,8 @@ import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.Weapons.OverHeatWeapon;
 import dyehard.Weapons.SpreadFireWeapon;
 import dyehard.Weapons.Weapon;
+import dyehard.World.GameWorld;
+import dyehard.World.Space;
 
 public class Hero extends Actor {
     private float speedLimitX = 50f;
@@ -32,6 +36,8 @@ public class Hero extends Actor {
     public boolean isInvincible;
     public boolean isOverloaded;
     public boolean isUnarmed;
+    public boolean isMagnetic;
+    public final float attractionDistance = 25f;
 
     public Hero(KeyboardInput keyboard) {
         // TODO: The position 20f, 20f is a temporary value.
@@ -46,6 +52,7 @@ public class Hero extends Actor {
         isInvincible = false;
         isOverloaded = false;
         isUnarmed = false;
+        isMagnetic = false;
     }
 
     @Override
@@ -81,10 +88,16 @@ public class Hero extends Actor {
         handleInput();
         updateMovement();
         selectWeapon();
+
         for (Weapon w : weaponRack) {
             w.update();
         }
+
         clampToWorldBounds();
+
+        if (isMagnetic) {
+            attract();
+        }
     }
 
     private void clampToWorldBounds() {
@@ -207,6 +220,43 @@ public class Hero extends Actor {
 
     public void unarmedOff() {
         isUnarmed = false;
+    }
+
+    public void magnetismOn() {
+        isMagnetic = true;
+    }
+
+    public void magnetismOff() {
+        isMagnetic = false;
+    }
+
+    private void attract() {
+        if (GameWorld.gameRegions.peek() instanceof Space) {
+            // Gets the list of primitives from the current Space tile.
+            List<Primitive> primitives = ((Space) GameWorld.gameRegions.peek())
+                    .getPrimitives();
+
+            for (Primitive p : primitives) {
+                if (p instanceof DyePack || p instanceof PowerUp) {
+                    // Finds the distance between the Hero and a
+                    // DyePack/PowerUp. The distance is the
+                    // hypotenuse of a 30, 60, 90 triangle.
+                    float A = Math.abs(center.getX() - p.center.getX());
+                    A = A * A;
+                    float B = Math.abs(center.getY() - p.center.getY());
+                    B = B * B;
+                    float C = (float) Math.sqrt(A + B);
+
+                    if (C <= attractionDistance) {
+                        Vector2 direction = new Vector2(center.getX()
+                                - p.center.getX(), center.getY()
+                                - p.center.getY());
+                        direction.normalize();
+                        p.velocity = direction.mult(0.85f);
+                    }
+                }
+            }
+        }
     }
 
     @Override

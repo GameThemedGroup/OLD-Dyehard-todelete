@@ -43,7 +43,7 @@ public class PowerUp extends Rectangle {
     public static PowerUp randomPowerUp(Hero hero, List<Enemy> enemies,
             float minX, float maxX) {
         Random rand = new Random();
-        switch (rand.nextInt(6)) {
+        switch (rand.nextInt(7)) {
         case 0:
             return new SpeedUp(hero, enemies, minX, maxX);
         case 1:
@@ -54,6 +54,8 @@ public class PowerUp extends Rectangle {
             return new Invincibility(hero, minX, maxX);
         case 4:
             return new Unarmed(hero, minX, maxX);
+        case 5:
+            return new Magnetism(hero, minX, maxX);
         default:
             return new Overload(hero, minX, maxX);
         }
