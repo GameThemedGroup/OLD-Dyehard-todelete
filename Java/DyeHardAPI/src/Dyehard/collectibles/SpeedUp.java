@@ -5,8 +5,8 @@ import dyehard.Player.Hero;
 
 public class SpeedUp extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(0, DyeHard.Green);
-    public SpeedUp(Hero hero, float minX, float maxX) {
-        super(hero, minX, maxX);
+    public SpeedUp(Hero hero) {
+        super(hero);
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Green.png");
     }
 

@@ -5,8 +5,8 @@ import dyehard.Player.Hero;
 
 public class Overload extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(2, Game.Pink);
-    public Overload(Hero hero, float minX, float maxX) {
-        super(hero, minX, maxX);
+    public Overload(Hero hero) {
+        super(hero);
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Red.png");
     }
 

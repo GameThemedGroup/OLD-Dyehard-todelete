@@ -5,8 +5,8 @@ import dyehard.Player.Hero;
 
 public class Ghost extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(1, Game.Blue);
-    public Ghost(Hero hero, float minX, float maxX) {
-        super(hero, minX, maxX);
+    public Ghost(Hero hero) {
+        super(hero);
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Blue.png");
     }
 

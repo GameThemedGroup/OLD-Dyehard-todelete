@@ -1,31 +1,34 @@
 package dyehard.Collectibles;
 
-import java.util.Random;
-
 import Engine.Rectangle;
 import Engine.Vector2;
 import dyehard.Player.Hero;
-import dyehard.World.GameWorld;
 
 public class PowerUp extends Rectangle {
-    private static Random RANDOM = new Random();
     public final float Duration = 5f;
-    private final float height = 2f;
-    private final float width = 5f;
+    public static final float height = 2f;
+    public static float width = 5f;
+
     protected Hero hero;
 
-    public PowerUp(Hero hero, float minX, float maxX) {
+    public PowerUp(Hero hero) {
         this.hero = hero;
+        shouldTravel = false;
+        visible = false;
+    }
 
-        float randomX = (maxX - minX - width) * RANDOM.nextFloat() + minX
-                + width / 2f;
-        float randomY = (GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE - height)
-                * RANDOM.nextFloat() + height / 2f;
+    public PowerUp(PowerUp other) {
+        super(other);
+        hero = other.hero;
+    }
 
-        center.set(new Vector2(randomX, randomY));
+    public void initialize(Vector2 center, Vector2 velocity) {
+        this.center = center;
+        this.velocity = velocity;
+
         size.set(width, height);
-        velocity = new Vector2(-GameWorld.Speed, 0f);
         shouldTravel = true;
+        visible = true;
     }
 
     @Override
@@ -38,19 +41,5 @@ public class PowerUp extends Rectangle {
 
     public void activate() {
         destroy();
-    }
-
-    public static PowerUp randomPowerUp(Hero hero, float minX, float maxX) {
-        Random rand = new Random();
-        switch (rand.nextInt(4)) {
-        case 0:
-            return new SpeedUp(hero, minX, maxX);
-        case 1:
-            return new Ghost(hero, minX, maxX);
-        case 2:
-            return new Invincibility(hero, minX, maxX);
-        default:
-            return new Overload(hero, minX, maxX);
-        }
     }
 }

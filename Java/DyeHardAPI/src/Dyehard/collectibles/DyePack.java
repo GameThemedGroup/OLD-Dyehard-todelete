@@ -18,6 +18,7 @@ public class DyePack extends Rectangle {
         this.color = color;
         texture = BaseCode.resources.loadImage("Textures/" + getTexture(color));
         shouldTravel = false;
+        visible = false;
     }
 
     public void initialize(Vector2 center, Vector2 velocity) {
@@ -26,6 +27,7 @@ public class DyePack extends Rectangle {
 
         size.set(width, height);
         shouldTravel = true;
+        visible = true;
     }
 
     @Override
