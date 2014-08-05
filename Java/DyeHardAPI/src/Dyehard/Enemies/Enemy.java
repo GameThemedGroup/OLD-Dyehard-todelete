@@ -23,6 +23,7 @@ public class Enemy extends Actor {
     // This time is in milliseconds
     private float behaviorChangeTime = 5000f;
     private Timer timer;
+    private float speedFactor;
 
     public Enemy(Vector2 center, float width, float height, Hero hero) {
         super(center, width, height);
@@ -30,6 +31,7 @@ public class Enemy extends Actor {
         setColor(Colors.randomColor());
         enemyState = EnemyState.BEGIN;
         timer = new Timer(behaviorChangeTime);
+        speedFactor = 1f;
     }
 
     protected Enemy(Vector2 center, float width, float height,
@@ -70,6 +72,7 @@ public class Enemy extends Actor {
                     hero.center.getY() - center.getY());
             direction.normalize();
             velocity = direction.mult(0.15f);
+            velocity.mult(speedFactor);
         } else {
             velocity = new Vector2(0, 0);
         }
@@ -78,5 +81,18 @@ public class Enemy extends Actor {
     public void gotShot(Color color) {
         setColor(color);
         texture = ImageTint.tintedImage(baseTexture, color, 0.25f);
+    }
+
+    public void normalizeSpeed() {
+        velocity = new Vector2(0, 0);
+        speedFactor = 1f;
+    }
+
+    public void increaseSpeed() {
+        speedFactor = 1.75f;
+    }
+
+    public void decreaseSpeed() {
+        speedFactor = 0.5f;
     }
 }
