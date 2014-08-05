@@ -97,6 +97,10 @@ public class Space extends GameWorldRegion {
         }
     }
 
+    public List<Primitive> getPrimitives() {
+        return primitives;
+    }
+
     @Override
     public void update() {
         position += speed;
