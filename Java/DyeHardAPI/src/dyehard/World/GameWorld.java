@@ -21,7 +21,7 @@ public class GameWorld {
     private DeveloperControls dev;
     private Space space;
     private EnemyManager eManager;
-    private LinkedList<GameWorldRegion> gameRegions;
+    public static LinkedList<GameWorldRegion> gameRegions;
     private PowerUpManager pManager;
 
     public GameWorld(KeyboardInput keyboard) {
