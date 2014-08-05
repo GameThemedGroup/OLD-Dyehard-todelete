@@ -50,7 +50,7 @@ public class Enemy extends Actor {
         }
         switch (enemyState) {
         case BEGIN:
-            moveLeft();
+            velocity = new Vector2(-GameWorld.Speed, 0f);
             break;
         case CHASEHERO:
             chaseHero();
@@ -73,10 +73,6 @@ public class Enemy extends Actor {
         } else {
             velocity = new Vector2(0, 0);
         }
-    }
-
-    public void moveLeft() {
-        center.sub(new Vector2(GameWorld.Speed, 0));
     }
 
     public void gotShot(Color color) {
