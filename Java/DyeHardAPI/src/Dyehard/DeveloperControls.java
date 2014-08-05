@@ -65,7 +65,7 @@ public class DeveloperControls {
         // 'P' to add random powerups
         if (keyboard.isButtonDown(KeyEvent.VK_P)) {
             ((Space) onscreen.getFirst()).AddPowerup(PowerUp.randomPowerUp(
-                    hero, 0, 100));
+                    hero, eManager.getEnemies(), 0, 100));
         }
         // 'K' to kill all the enemies on screen
         if (keyboard.isButtonDown(KeyEvent.VK_K)) {
@@ -87,8 +87,8 @@ public class DeveloperControls {
                     100f));
         }
         if (keyboard.isButtonDown(KeyEvent.VK_6)) {
-            ((Space) onscreen.getFirst())
-                    .AddPowerup(new SpeedUp(hero, 0f, 100f));
+            ((Space) onscreen.getFirst()).AddPowerup(new SpeedUp(hero, eManager
+                    .getEnemies(), 0f, 100f));
         }
     }
 }
