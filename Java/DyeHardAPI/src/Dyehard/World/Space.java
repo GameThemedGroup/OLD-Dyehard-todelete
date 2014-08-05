@@ -24,9 +24,11 @@ public class Space extends GameWorldRegion {
     private static Random RANDOM = new Random();
     Hero hero;
     List<Primitive> primitives;
+    List<Enemy> enemies;
 
     public Space(Hero hero, ArrayList<Enemy> enemies, float leftEdge) {
         this.hero = hero;
+        this.enemies = enemies;
 
         width = WIDTH;
         position = leftEdge + width * 0.5f;
@@ -54,7 +56,7 @@ public class Space extends GameWorldRegion {
         for (int i = 0; i < powerupCount; i++) {
             float regionLeft = leftEdge + (i * region);
             float regionRight = regionLeft + region;
-            PowerUp powerup = PowerUp.randomPowerUp(hero, regionLeft,
+            PowerUp powerup = PowerUp.randomPowerUp(hero, enemies, regionLeft,
                     regionRight);
             primitives.add(powerup);
         }

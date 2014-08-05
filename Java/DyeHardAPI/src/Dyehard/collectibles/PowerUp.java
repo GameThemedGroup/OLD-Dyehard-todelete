@@ -1,9 +1,11 @@
 package dyehard.Collectibles;
 
+import java.util.List;
 import java.util.Random;
 
 import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 import dyehard.World.GameWorld;
 
@@ -38,16 +40,19 @@ public class PowerUp extends Rectangle {
         destroy();
     }
 
-    public static PowerUp randomPowerUp(Hero hero, float minX, float maxX) {
+    public static PowerUp randomPowerUp(Hero hero, List<Enemy> enemies,
+            float minX, float maxX) {
         Random rand = new Random();
-        switch (rand.nextInt(4)) {
+        switch (rand.nextInt(6)) {
         case 0:
-            return new SpeedUp(hero, minX, maxX);
+            return new SpeedUp(hero, enemies, minX, maxX);
         case 1:
-            return new Ghost(hero, minX, maxX);
+            return new SlowDown(hero, enemies, minX, maxX);
         case 2:
-            return new Invincibility(hero, minX, maxX);
+            return new Ghost(hero, minX, maxX);
         case 3:
+            return new Invincibility(hero, minX, maxX);
+        case 4:
             return new Unarmed(hero, minX, maxX);
         default:
             return new Overload(hero, minX, maxX);

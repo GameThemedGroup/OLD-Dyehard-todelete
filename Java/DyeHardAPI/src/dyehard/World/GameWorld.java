@@ -29,7 +29,7 @@ public class GameWorld {
         ObstacleManager.registerActor(hero);
         eManager = new EnemyManager(hero);
         gameRegions = new LinkedList<GameWorldRegion>();
-        pManager = new PowerUpManager(hero);
+        pManager = new PowerUpManager(hero, eManager.getEnemies());
         hero.setEnemies(eManager.getEnemies());
 
         // first element on screen
