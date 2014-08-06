@@ -66,6 +66,7 @@ public abstract class DyeHard extends LibraryCode {
     @Override
     public void initializeWorld() {
         super.initializeWorld();
+        resources.setClassInJar(this);
         // Starting state should be begin
         // Using playing to test controls
         state = State.PLAYING;
