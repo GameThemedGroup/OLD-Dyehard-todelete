@@ -53,6 +53,7 @@ public class Space extends GameWorldRegion {
             primitives.add(dye);
         }
 
+        region = (rightEdge - leftEdge) / powerupCount;
         for (int i = 0; i < powerupCount; i++) {
             float regionLeft = leftEdge + (i * region);
             float regionRight = regionLeft + region;
