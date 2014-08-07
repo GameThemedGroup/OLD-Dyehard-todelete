@@ -14,5 +14,6 @@ public class Invincibility extends PowerUp {
         hero.invincibilityOn();
         PowerUpManager.InvincibilityTimer.reset();
         super.activate();
+        System.out.println("Picked up Invincibility");
     }
 }

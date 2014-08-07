@@ -16,5 +16,6 @@ public class Unarmed extends PowerUp {
         hero.unarmedOn();
         PowerUpManager.UnarmedTimer.reset();
         super.activate();
+        System.out.println("Picked up Unarmed");
     }
 }

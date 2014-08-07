@@ -24,5 +24,6 @@ public class SpeedUp extends PowerUp {
         }
         PowerUpManager.EnemySpeedTimer.reset();
         super.activate();
+        System.out.println("Picked up Speed Up");
     }
 }

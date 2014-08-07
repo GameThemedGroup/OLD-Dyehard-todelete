@@ -14,5 +14,6 @@ public class Ghost extends PowerUp {
         hero.ghostOn();
         PowerUpManager.GhostTimer.reset();
         super.activate();
+        System.out.println("Picked up Ghost");
     }
 }
