@@ -11,7 +11,6 @@ import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.PowerUp;
 import dyehard.Enemies.Enemy;
 import dyehard.Obstacles.Debris;
-import dyehard.Obstacles.ObstacleManager;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 
@@ -75,8 +74,7 @@ public class Space extends GameWorldRegion {
         for (int i = 0; i < debrisCount; i++) {
             float regionLeft = leftEdge + (i * region);
             float regionRight = regionLeft + region;
-            Debris debris = new Debris(regionLeft, regionRight);
-            ObstacleManager.registerObstacle(debris);
+            new Debris(regionLeft, regionRight);
         }
     }
 
@@ -154,6 +152,7 @@ public class Space extends GameWorldRegion {
         for (int i = 0; i < count; ++i) {
             Color randomColor = Colors.randomColor();
             DyePack dye = new DyePack(hero, randomColor);
+            dye.visible = true;
             dyeList.add(dye);
         }
     }
@@ -186,6 +185,8 @@ public class Space extends GameWorldRegion {
         position += speed;
         for (Primitive p : primitives) {
             p.update();
+            p.removeFromAutoDrawSet();
+            p.addToAutoDrawSet();
         }
         for (int i = primitives.size() - 1; i >= 0; --i) {
             if (primitives.get(i).visible == false) {

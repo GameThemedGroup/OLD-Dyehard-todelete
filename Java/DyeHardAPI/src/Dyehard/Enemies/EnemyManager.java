@@ -5,7 +5,6 @@ import java.util.Random;
 
 import Engine.Rectangle;
 import Engine.Vector2;
-import dyehard.Obstacles.ObstacleManager;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
 import dyehard.World.GameWorld;
@@ -64,7 +63,6 @@ public class EnemyManager extends Rectangle {
                 enemies.add(new SpiderEnemy(position, 7.5f, hero));
                 break;
             }
-            ObstacleManager.registerActor(enemies.get(enemies.size() - 1));
             timer.reset();
         }
     }

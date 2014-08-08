@@ -4,8 +4,8 @@ import java.util.LinkedList;
 
 import Engine.BaseCode;
 import Engine.KeyboardInput;
+import dyehard.CollisionManager;
 import dyehard.Enemies.EnemyManager;
-import dyehard.Obstacles.ObstacleManager;
 import dyehard.Player.Hero;
 
 public class GameWorld {
@@ -24,7 +24,6 @@ public class GameWorld {
     }
 
     public void initialize(Hero hero) {
-        ObstacleManager.registerActor(hero);
         eManager = new EnemyManager(hero);
         hero.setEnemies(eManager.getEnemies());
         this.hero = hero;
@@ -59,7 +58,7 @@ public class GameWorld {
 
         hero.update();
         eManager.update();
-        ObstacleManager.update();
+        CollisionManager.update();
 
         for (GameWorldRegion e : gameRegions) {
             e.update();

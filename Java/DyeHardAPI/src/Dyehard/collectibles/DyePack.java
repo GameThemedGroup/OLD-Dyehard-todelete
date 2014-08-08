@@ -3,12 +3,12 @@ package dyehard.Collectibles;
 import java.awt.Color;
 
 import Engine.BaseCode;
-import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.Collidable;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 
-public class DyePack extends Rectangle {
+public class DyePack extends Collidable {
     public static final float height = 3.5f;
     public static final float width = 3f;
     protected Hero hero;
@@ -63,5 +63,14 @@ public class DyePack extends Rectangle {
             return "Dye_Red.png";
         }
         return "";
+    }
+
+    @Override
+    public void handleCollision(Collidable other) {
+        if (other instanceof Hero) {
+            System.out.println("Collected dye pack");
+            Hero hero = (Hero) other;
+            hero.collect(this);
+        }
     }
 }
