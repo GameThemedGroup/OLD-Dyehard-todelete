@@ -24,4 +24,8 @@ public class LimitedAmmoWeapon extends Weapon {
             }
         }
     }
+
+    public int getAmmo() {
+        return ammo;
+    }
 }

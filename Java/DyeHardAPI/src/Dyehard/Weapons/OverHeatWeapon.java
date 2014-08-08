@@ -37,4 +37,8 @@ public class OverHeatWeapon extends Weapon {
             }
         }
     }
+
+    public float getHeatLevel() {
+        return currentHeatLevel;
+    }
 }
