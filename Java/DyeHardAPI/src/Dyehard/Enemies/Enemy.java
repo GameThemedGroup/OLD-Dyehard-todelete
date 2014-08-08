@@ -21,7 +21,7 @@ public class Enemy extends Actor {
     protected EnemyState enemyState;
     protected BufferedImage baseTexture;
     // This time is in milliseconds
-    private float behaviorChangeTime = 5000f;
+    private float behaviorChangeTime = 1000f;
     private Timer timer;
     private float speedFactor;
 
