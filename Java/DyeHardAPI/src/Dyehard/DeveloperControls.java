@@ -44,72 +44,74 @@ public class DeveloperControls {
 
     public void update() {
         if (timer.isDone()) {
-            // 'E' to add random enemies
-            if (keyboard.isButtonDown(KeyEvent.VK_E)) {
-                Random rand = new Random();
-                float randomY = (50f - 5f - 0f + 5f) * rand.nextFloat() + 0f
-                        + 5f;
-                Vector2 position = new Vector2(83.3f + 5, randomY);
-                switch (rand.nextInt(3)) {
-                case 1:
-                    ((Space) onscreen.getFirst()).AddEnemy(new BrainEnemy(
-                            position, 7.5f, hero));
-                    break;
-                case 2:
-                    ((Space) onscreen.getFirst()).AddEnemy(new RedBeamEnemy(
-                            position, 7.5f, hero));
-                    break;
-                default:
-                    ((Space) onscreen.getFirst()).AddEnemy(new SpiderEnemy(
-                            position, 7.5f, hero));
-                    break;
+            if (onscreen.getFirst() instanceof Space) {
+                // 'E' to add random enemies
+                if (keyboard.isButtonDown(KeyEvent.VK_E)) {
+                    Random rand = new Random();
+                    float randomY = (50f - 5f - 0f + 5f) * rand.nextFloat()
+                            + 0f + 5f;
+                    Vector2 position = new Vector2(83.3f + 5, randomY);
+                    switch (rand.nextInt(3)) {
+                    case 1:
+                        ((Space) onscreen.getFirst()).AddEnemy(new BrainEnemy(
+                                position, 7.5f, hero));
+                        break;
+                    case 2:
+                        ((Space) onscreen.getFirst())
+                                .AddEnemy(new RedBeamEnemy(position, 7.5f, hero));
+                        break;
+                    default:
+                        ((Space) onscreen.getFirst()).AddEnemy(new SpiderEnemy(
+                                position, 7.5f, hero));
+                        break;
+                    }
+                    timer.reset();
                 }
-                timer.reset();
+                // '0' to add random dye pack
+                if (keyboard.isButtonDown(KeyEvent.VK_0)) {
+                    ((Space) onscreen.getFirst()).AddDyepack(new DyePack(hero,
+                            70f, 70f, Colors.randomColor()));
+                    timer.reset();
+                }
+                if (keyboard.isButtonDown(KeyEvent.VK_Z)) {
+                    ((Space) onscreen.getFirst()).AddPowerup(new Ghost(hero,
+                            70f, 70f));
+                    timer.reset();
+                }
+                if (keyboard.isButtonDown(KeyEvent.VK_X)) {
+                    ((Space) onscreen.getFirst()).AddPowerup(new Invincibility(
+                            hero, 70f, 70f));
+                    timer.reset();
+                }
+                if (keyboard.isButtonDown(KeyEvent.VK_C)) {
+                    ((Space) onscreen.getFirst()).AddPowerup(new Overload(hero,
+                            70f, 70f));
+                    timer.reset();
+                }
+                if (keyboard.isButtonDown(KeyEvent.VK_V)) {
+                    ((Space) onscreen.getFirst()).AddPowerup(new SpeedUp(hero,
+                            eManager.getEnemies(), 70f, 70f));
+                    timer.reset();
+                }
+                if (keyboard.isButtonDown(KeyEvent.VK_B)) {
+                    ((Space) onscreen.getFirst()).AddPowerup(new SlowDown(hero,
+                            eManager.getEnemies(), 70f, 70f));
+                    timer.reset();
+                }
+                if (keyboard.isButtonDown(KeyEvent.VK_N)) {
+                    ((Space) onscreen.getFirst()).AddPowerup(new Unarmed(hero,
+                            70f, 70f));
+                    timer.reset();
+                }
+                if (keyboard.isButtonDown(KeyEvent.VK_M)) {
+                    ((Space) onscreen.getFirst()).AddPowerup(new Magnetism(
+                            hero, 70f, 70f));
+                    timer.reset();
+                }
             }
             // 'K' to kill all the enemies on screen
             if (keyboard.isButtonDown(KeyEvent.VK_K)) {
                 eManager.killAll();
-                timer.reset();
-            }
-            // '0' to add random dye pack
-            if (keyboard.isButtonDown(KeyEvent.VK_0)) {
-                ((Space) onscreen.getFirst()).AddDyepack(new DyePack(hero, 70f,
-                        70f, Colors.randomColor()));
-                timer.reset();
-            }
-            if (keyboard.isButtonDown(KeyEvent.VK_Z)) {
-                ((Space) onscreen.getFirst()).AddPowerup(new Ghost(hero, 70f,
-                        70f));
-                timer.reset();
-            }
-            if (keyboard.isButtonDown(KeyEvent.VK_X)) {
-                ((Space) onscreen.getFirst()).AddPowerup(new Invincibility(
-                        hero, 70f, 70f));
-                timer.reset();
-            }
-            if (keyboard.isButtonDown(KeyEvent.VK_C)) {
-                ((Space) onscreen.getFirst()).AddPowerup(new Overload(hero,
-                        70f, 70f));
-                timer.reset();
-            }
-            if (keyboard.isButtonDown(KeyEvent.VK_V)) {
-                ((Space) onscreen.getFirst()).AddPowerup(new SpeedUp(hero,
-                        eManager.getEnemies(), 70f, 70f));
-                timer.reset();
-            }
-            if (keyboard.isButtonDown(KeyEvent.VK_B)) {
-                ((Space) onscreen.getFirst()).AddPowerup(new SlowDown(hero,
-                        eManager.getEnemies(), 70f, 70f));
-                timer.reset();
-            }
-            if (keyboard.isButtonDown(KeyEvent.VK_N)) {
-                ((Space) onscreen.getFirst()).AddPowerup(new Unarmed(hero, 70f,
-                        70f));
-                timer.reset();
-            }
-            if (keyboard.isButtonDown(KeyEvent.VK_M)) {
-                ((Space) onscreen.getFirst()).AddPowerup(new Magnetism(hero,
-                        70f, 70f));
                 timer.reset();
             }
         }
