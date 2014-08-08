@@ -38,6 +38,7 @@ public class Hero extends Actor {
     public boolean isUnarmed;
     public boolean isMagnetic;
     public final float attractionDistance = 25f;
+    public String currentWeapon;
 
     public Hero(KeyboardInput keyboard) {
         // TODO: The position 20f, 20f is a temporary value.
@@ -53,6 +54,7 @@ public class Hero extends Actor {
         isOverloaded = false;
         isUnarmed = false;
         isMagnetic = false;
+        currentWeapon = "Default";
     }
 
     @Override
@@ -141,12 +143,16 @@ public class Hero extends Actor {
     private void selectWeapon() {
         if (keyboard.isButtonDown(KeyEvent.VK_1)) {
             weapon = weaponRack.get(0);
+            currentWeapon = "Default";
         } else if (keyboard.isButtonDown(KeyEvent.VK_2)) {
             weapon = weaponRack.get(1);
+            currentWeapon = "Overheat";
         } else if (keyboard.isButtonDown(KeyEvent.VK_3)) {
             weapon = weaponRack.get(2);
+            currentWeapon = "Limited Ammo";
         } else if (keyboard.isButtonDown(KeyEvent.VK_4)) {
             weapon = weaponRack.get(3);
+            currentWeapon = "Spread";
         }
     }
 
