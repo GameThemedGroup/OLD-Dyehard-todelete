@@ -1,16 +1,19 @@
 package dyehard;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.Random;
 
 import Engine.KeyboardInput;
+import Engine.Text;
 import Engine.Vector2;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.Ghost;
 import dyehard.Collectibles.Invincibility;
 import dyehard.Collectibles.Magnetism;
 import dyehard.Collectibles.Overload;
+import dyehard.Collectibles.PowerUpManager;
 import dyehard.Collectibles.SlowDown;
 import dyehard.Collectibles.SpeedUp;
 import dyehard.Collectibles.Unarmed;
@@ -31,6 +34,13 @@ public class DeveloperControls {
     private EnemyManager eManager;
     private LinkedList<GameWorldRegion> onscreen;
     private Timer timer;
+    private Text powerUpText1;
+    private Text powerUpText2;
+    private Text powerUpText3;
+    private Text enemySpeedText;
+    private Text heroWeaponText;
+    private Text overheatText;
+    private Text limitedText;
 
     public DeveloperControls(GameWorld world, Space space, Hero hero,
             KeyboardInput keyboard, EnemyManager eManager,
@@ -40,6 +50,42 @@ public class DeveloperControls {
         this.eManager = eManager;
         this.onscreen = onscreen;
         timer = new Timer(500f);
+
+        powerUpText1 = new Text("", 1f, 57f);
+        powerUpText1.setFrontColor(Color.white);
+        powerUpText1.setBackColor(Color.black);
+        powerUpText1.setFontSize(16);
+        powerUpText1.setFontName("Arial");
+        powerUpText2 = new Text("", 1f, 55f);
+        powerUpText2.setFrontColor(Color.white);
+        powerUpText2.setBackColor(Color.black);
+        powerUpText2.setFontSize(16);
+        powerUpText2.setFontName("Arial");
+        powerUpText3 = new Text("", 1f, 53f);
+        powerUpText3.setFrontColor(Color.white);
+        powerUpText3.setBackColor(Color.black);
+        powerUpText3.setFontSize(16);
+        powerUpText3.setFontName("Arial");
+        enemySpeedText = new Text("", 1f, 51f);
+        enemySpeedText.setFrontColor(Color.white);
+        enemySpeedText.setBackColor(Color.black);
+        enemySpeedText.setFontSize(16);
+        enemySpeedText.setFontName("Arial");
+        heroWeaponText = new Text("", 30f, 57f);
+        heroWeaponText.setFrontColor(Color.white);
+        heroWeaponText.setBackColor(Color.black);
+        heroWeaponText.setFontSize(16);
+        heroWeaponText.setFontName("Arial");
+        overheatText = new Text("", 30f, 55f);
+        overheatText.setFrontColor(Color.white);
+        overheatText.setBackColor(Color.black);
+        overheatText.setFontSize(16);
+        overheatText.setFontName("Arial");
+        limitedText = new Text("", 30f, 53f);
+        limitedText.setFrontColor(Color.white);
+        limitedText.setBackColor(Color.black);
+        limitedText.setFontSize(16);
+        limitedText.setFontName("Arial");
     }
 
     public void update() {
@@ -115,5 +161,35 @@ public class DeveloperControls {
                 timer.reset();
             }
         }
+        statusText();
+    }
+
+    private void statusText() {
+        powerUpText1
+                .setText("Ghost: "
+                        + (int) Math.ceil(PowerUpManager.GhostTimer
+                                .timeRemaining() / 1000)
+                        + "     Invincibility: "
+                        + (int) Math.ceil(PowerUpManager.InvincibilityTimer
+                                .timeRemaining() / 1000));
+        powerUpText2
+                .setText("Overload: "
+                        + (int) Math.ceil(PowerUpManager.OverloadTimer
+                                .timeRemaining() / 1000)
+                        + "    Unarmed: "
+                        + (int) Math.ceil(PowerUpManager.UnarmedTimer
+                                .timeRemaining() / 1000));
+        powerUpText3
+                .setText("Magnetism: "
+                        + (int) Math.ceil(PowerUpManager.MagnetismTimer
+                                .timeRemaining() / 1000));
+        enemySpeedText.setText("Enemy Speed is "
+                + EnemyManager.enemySpeed
+                + ": "
+                + (int) Math.ceil(PowerUpManager.EnemySpeedTimer
+                        .timeRemaining() / 1000));
+        heroWeaponText.setText("Current Weapon: " + hero.currentWeapon);
+        overheatText.setText("Overheat Weapon: ");
+        limitedText.setText("Limited Ammo Weapon: ");
     }
 }
