@@ -3,6 +3,7 @@ package dyehard.Collectibles;
 import java.util.List;
 
 import dyehard.Enemies.Enemy;
+import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
 
@@ -25,6 +26,13 @@ public class PowerUpManager {
         MagnetismTimer = new Timer(PowerUp.DURATION);
         this.hero = hero;
         this.enemies = enemies;
+
+        EnemySpeedTimer.stop();
+        GhostTimer.stop();
+        OverloadTimer.stop();
+        InvincibilityTimer.stop();
+        UnarmedTimer.stop();
+        MagnetismTimer.stop();
     }
 
     public void update() {
@@ -32,6 +40,7 @@ public class PowerUpManager {
             for (Enemy e : enemies) {
                 e.normalizeSpeed();
             }
+            EnemyManager.enemySpeed = "100%";
         }
         if (GhostTimer.isDone()) {
             hero.ghostOff();
