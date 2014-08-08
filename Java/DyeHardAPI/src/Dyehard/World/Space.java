@@ -80,7 +80,7 @@ public class Space extends GameWorldRegion {
     }
 
     public void AddEnemy(Enemy enemy) {
-        primitives.add(enemy);
+        enemies.add(enemy);
     }
 
     public void AddDyepack(DyePack dyepack) {
