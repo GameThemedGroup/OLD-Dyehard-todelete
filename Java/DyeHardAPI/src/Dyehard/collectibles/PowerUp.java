@@ -1,10 +1,10 @@
 package dyehard.Collectibles;
 
-import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.GameObject;
 import dyehard.Player.Hero;
 
-public class PowerUp extends Rectangle {
+public class PowerUp extends GameObject {
     public final float Duration = 5f;
     public static final float height = 2f;
     public static float width = 5f;
@@ -18,7 +18,7 @@ public class PowerUp extends Rectangle {
     }
 
     public PowerUp(PowerUp other) {
-        super(other);
+        texture = other.texture;
         hero = other.hero;
     }
 

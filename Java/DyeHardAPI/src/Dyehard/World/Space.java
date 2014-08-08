@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import Engine.Primitive;
 import Engine.Vector2;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.PowerUp;
-import dyehard.Enemies.Enemy;
 import dyehard.Obstacles.Debris;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
@@ -23,7 +21,6 @@ public class Space extends GameWorldRegion {
 
     private static Random RANDOM = new Random();
     Hero hero;
-    List<Primitive> primitives;
 
     // The list of powerups that can be randomly generated
     List<PowerUp> powerUpTypes;
@@ -38,7 +35,6 @@ public class Space extends GameWorldRegion {
 
         width = WIDTH;
         speed = -GameWorld.Speed;
-        primitives = new ArrayList<Primitive>();
     }
 
     @Override
@@ -116,7 +112,7 @@ public class Space extends GameWorldRegion {
             powerups.get(i).initialize(position, velocity);
         }
 
-        primitives.addAll(powerUpList);
+        // primitives.addAll(powerUpList);
     }
 
     private void initializeDyePacks(List<DyePack> dyes) {
@@ -144,7 +140,7 @@ public class Space extends GameWorldRegion {
             dyes.get(i).initialize(position, velocity);
         }
 
-        primitives.addAll(dyeList);
+        // primitives.addAll(dyeList);
     }
 
     private void generateDefaultDyePacks(int count) {
@@ -152,46 +148,7 @@ public class Space extends GameWorldRegion {
         for (int i = 0; i < count; ++i) {
             Color randomColor = Colors.randomColor();
             DyePack dye = new DyePack(hero, randomColor);
-            dye.visible = true;
             dyeList.add(dye);
-        }
-    }
-
-    public void AddPrimitive(Primitive primitive) {
-        primitives.add(primitive);
-    }
-
-    public void AddEnemy(Enemy enemy) {
-        primitives.add(enemy);
-    }
-
-    public void AddDyepack(DyePack dyepack) {
-        primitives.add(dyepack);
-    }
-
-    public void AddPowerup(PowerUp powerup) {
-        primitives.add(powerup);
-    }
-
-    @Override
-    public void destroy() {
-        for (Primitive p : primitives) {
-            p.destroy();
-        }
-    }
-
-    @Override
-    public void update() {
-        position += speed;
-        for (Primitive p : primitives) {
-            p.update();
-            p.removeFromAutoDrawSet();
-            p.addToAutoDrawSet();
-        }
-        for (int i = primitives.size() - 1; i >= 0; --i) {
-            if (primitives.get(i).visible == false) {
-                primitives.remove(i);
-            }
         }
     }
 }

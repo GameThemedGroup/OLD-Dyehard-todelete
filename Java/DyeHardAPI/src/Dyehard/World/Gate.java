@@ -5,14 +5,15 @@ import java.util.ArrayList;
 
 import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.GameObject;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 
-public class Gate extends Rectangle {
+public class Gate extends GameObject {
     private Color color;
-    private Rectangle path;
-    private Rectangle deathGate;
-    private Rectangle preview;
+    private GameObject path;
+    private GameObject deathGate;
+    private GameObject preview;
     private Hero hero;
     private ArrayList<Enemy> enemies;
 
@@ -25,7 +26,7 @@ public class Gate extends Rectangle {
         float position = (width * 0.5f) + leftEdge;
         float drawHeight = GameWorld.TOP_EDGE / Stargate.GATE_COUNT;
         float drawOffset = drawHeight * (offset + 0.5f);
-        path = new Rectangle();
+        path = new GameObject();
         path.center = new Vector2(position, drawOffset);
         path.size.set(width, drawHeight - (Platform.height * 2));
         path.color = new Color(color.getRed(), color.getGreen(),
@@ -34,7 +35,7 @@ public class Gate extends Rectangle {
         path.shouldTravel = true;
         // gate is slightly set back from left edge to avoid killing when
         // adjacent but not overlapping
-        deathGate = new Rectangle();
+        deathGate = new GameObject();
         deathGate.center = new Vector2(leftEdge + 0.3f, path.center.getY());
         deathGate.size.set(0.5f, path.size.getY());
         // This color is transparent
@@ -42,7 +43,7 @@ public class Gate extends Rectangle {
         deathGate.visible = true;
         deathGate.velocity = new Vector2(-GameWorld.Speed, 0f);
         deathGate.shouldTravel = true;
-        preview = new Rectangle();
+        preview = new GameObject();
         preview.center = new Vector2(GameWorld.RIGHT_EDGE, drawOffset);
         preview.size.set(4f, 0f);
         preview.color = path.color;
@@ -73,16 +74,19 @@ public class Gate extends Rectangle {
         if (hero.getColor() != color && deathGate.collided(hero)) {
             hero.kill();
         }
+
         // kill any enemies at the death wall
         for (Enemy e : enemies) {
             if (e.getColor() != color && deathGate.collided(e)) {
                 e.kill();
             }
         }
+
         // dye the hero
         if (contains(hero)) {
             hero.setColor(color);
         }
+
         // dye any enemies
         for (Enemy e : enemies) {
             if (contains(e)) {
@@ -90,22 +94,6 @@ public class Gate extends Rectangle {
                 e.gotShot(color);
             }
         }
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
-        path.removeFromAutoDrawSet();
-        deathGate.removeFromAutoDrawSet();
-        preview.removeFromAutoDrawSet();
-    }
-
-    @Override
-    public void draw() {
-        super.draw();
-        preview.draw();
-        path.draw();
-        deathGate.draw();
     }
 
     private boolean contains(Rectangle other) {

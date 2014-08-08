@@ -53,7 +53,8 @@ public class CollisionManager {
 
         Set<Collidable> destroyed = new HashSet<Collidable>();
         for (Collidable o : collidables) {
-            if (o.visible == false) {
+            if (o.isAlive == false) {
+                o.destroy();
                 destroyed.add(o);
             }
         }

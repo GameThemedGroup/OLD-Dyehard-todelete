@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import Engine.BaseCode;
 import Engine.KeyboardInput;
 import dyehard.CollisionManager;
+import dyehard.GameObjectManager;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
 
@@ -54,15 +55,13 @@ public class GameWorld {
             System.err.println("The GameWorld was not initialized!");
         }
 
+        for (GameWorldRegion e : gameRegions) {
+            e.moveLeft();
+        }
         updateSequence();
 
-        hero.update();
-        eManager.update();
+        GameObjectManager.update();
         CollisionManager.update();
-
-        for (GameWorldRegion e : gameRegions) {
-            e.update();
-        }
     }
 
     private void updateSequence() {
@@ -74,7 +73,7 @@ public class GameWorld {
         // remove game regions that have moved off screen
         if (gameRegions.peek().rightEdge() <= GameWorld.LEFT_EDGE) {
             GameWorldRegion offscreen = gameRegions.pop();
-            offscreen.destroy();
+            // offscreen.destroyAll();
         }
     }
 
@@ -83,6 +82,7 @@ public class GameWorld {
         GameWorldRegion newRegion;
         if (gameRegions.getLast() instanceof Space) {
             newRegion = new Stargate(hero, eManager.getEnemies());
+            System.out.println("Stargate create");
         } else {
             newRegion = new Space(hero);
         }

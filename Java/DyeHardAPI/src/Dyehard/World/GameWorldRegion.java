@@ -1,5 +1,6 @@
 package dyehard.World;
 
+
 public abstract class GameWorldRegion {
     protected float width;
     protected float position;
@@ -17,13 +18,11 @@ public abstract class GameWorldRegion {
         return width;
     }
 
+    public void moveLeft() {
+        position += speed;
+    }
+
     // Instructs the region to construct its components using the leftEdge as
     // its starting location
     public abstract void initialize(float leftEdge);
-
-    // Update all of the primitives in the set
-    public abstract void update();
-
-    // Destroy all of the primitives in the set
-    public abstract void destroy();
 }
