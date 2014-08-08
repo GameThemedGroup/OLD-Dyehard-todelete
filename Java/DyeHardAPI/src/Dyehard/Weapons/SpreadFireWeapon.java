@@ -1,6 +1,5 @@
 package dyehard.Weapons;
 
-import java.awt.Color;
 import java.util.LinkedList;
 
 import Engine.Rectangle;
@@ -10,22 +9,15 @@ import dyehard.Player.Hero;
 import dyehard.World.GameWorld;
 
 public class SpreadFireWeapon extends Weapon {
-    private Rectangle info;
     private LinkedList<Rectangle> angledBullets;
 
     public SpreadFireWeapon(Hero hero) {
         super(hero);
         angledBullets = new LinkedList<Rectangle>();
-        info = new Rectangle();
-        info.center = new Vector2(GameWorld.LEFT_EDGE + 12,
-                GameWorld.TOP_EDGE - 4);
-        info.size.set(4, 4);
-        info.color = Color.BLUE;
     }
 
     @Override
     public void destroy() {
-        info.removeFromAutoDrawSet();
         for (Rectangle b : angledBullets) {
             b.removeFromAutoDrawSet();
         }
@@ -81,7 +73,6 @@ public class SpreadFireWeapon extends Weapon {
 
     @Override
     public void draw() {
-        info.draw();
         for (Rectangle b : angledBullets) {
             b.draw();
         }
