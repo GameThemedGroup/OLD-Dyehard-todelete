@@ -17,12 +17,14 @@ public class EnemyManager extends Rectangle {
     private ArrayList<Enemy> enemies;
     private ArrayList<Enemy> enemiesToRemove;
     private Timer timer;
+    public static String enemySpeed;
 
     public EnemyManager(Hero hero) {
         this.hero = hero;
         enemies = new ArrayList<Enemy>();
         enemiesToRemove = new ArrayList<Enemy>();
         timer = new Timer(enemyFrequency);
+        enemySpeed = "100%";
     }
 
     @Override
