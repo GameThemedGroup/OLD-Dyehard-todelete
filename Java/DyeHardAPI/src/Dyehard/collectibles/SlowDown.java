@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.List;
 
 import dyehard.Enemies.Enemy;
+import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
 
 public class SlowDown extends PowerUp {
@@ -22,6 +23,7 @@ public class SlowDown extends PowerUp {
             e.normalizeSpeed();
             e.decreaseSpeed();
         }
+        EnemyManager.enemySpeed = "50%";
         PowerUpManager.EnemySpeedTimer.reset();
         super.activate();
         System.out.println("Picked up Slow Down");

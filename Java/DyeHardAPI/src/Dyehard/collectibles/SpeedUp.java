@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.List;
 
 import dyehard.Enemies.Enemy;
+import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
 
 public class SpeedUp extends PowerUp {
@@ -22,6 +23,7 @@ public class SpeedUp extends PowerUp {
             e.normalizeSpeed();
             e.increaseSpeed();
         }
+        EnemyManager.enemySpeed = "175%";
         PowerUpManager.EnemySpeedTimer.reset();
         super.activate();
         System.out.println("Picked up Speed Up");
