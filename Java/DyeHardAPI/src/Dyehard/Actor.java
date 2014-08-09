@@ -11,6 +11,7 @@ public class Actor extends Collidable {
     protected boolean alive;
 
     public Actor(Vector2 position, float width, float height) {
+        CollisionManager.registerActor(this);
         center = position;
         size.set(width, height);
         color = Colors.randomColor();

@@ -19,31 +19,43 @@ import java.util.Set;
  */
 public class CollisionManager {
     static Set<Collidable> collidables = new HashSet<Collidable>();
+    static Set<Collidable> newCollidables = new HashSet<Collidable>();
+
+    static Set<Collidable> actors = new HashSet<Collidable>();
+    static Set<Collidable> newActors = new HashSet<Collidable>();
 
     /**
-     * Indicates that Actors are ready to start colliding with registered
-     * Collidables. By default, collisions between Actors and Collidables are
-     * perfectly inelastic and frictionless.
+     * Indicates that Actors are ready to start colliding with other registered
+     * actors and collidables.
      */
-    public static void registerCollidable(Collidable c) {
+    public static void registerActor(Collidable c) {
         if (c != null) {
-            collidables.add(c);
+            newActors.add(c);
         }
     }
 
     /**
-     * Calls the update function for registered Collidables then handles
-     * collisions between Collidables and actors.
-     * 
-     * Collidables that move off the game world are destroyed.
-     * 
-     * By default, Collidables act as immovable objects. Actors colliding with
-     * an Collidable are moved to prevent overlap and have their velocity
-     * reduced to 0 to prevent further movement into the Collidable.
+     * Registers an object that can collide with registered actors. Registered
+     * collidables do not collide with other registered collidables.
      */
+    public static void registerCollidable(Collidable c) {
+        if (c != null) {
+            newCollidables.add(c);
+        }
+    }
+
     public static void update() {
-        for (Collidable a : collidables) {
-            for (Collidable b : collidables) {
+        for (Collidable actor : actors) {
+            for (Collidable obj : collidables) {
+                if (actor != obj && actor.collided(obj)) {
+                    actor.handleCollision(obj);
+                    obj.handleCollision(actor);
+                }
+            }
+        }
+
+        for (Collidable a : actors) {
+            for (Collidable b : actors) {
                 if (a != b && a.collided(b)) {
                     a.handleCollision(b);
                     b.handleCollision(a);
@@ -51,14 +63,25 @@ public class CollisionManager {
             }
         }
 
+        collidables.addAll(newCollidables);
+        collidables.addAll(newActors);
+        newCollidables.clear();
+        removeInactiveObjects(collidables);
+
+        actors.addAll(newActors);
+        newActors.clear();
+        removeInactiveObjects(actors);
+    }
+
+    private static void removeInactiveObjects(Set<Collidable> set) {
         Set<Collidable> destroyed = new HashSet<Collidable>();
-        for (Collidable o : collidables) {
-            if (o.isAlive == false) {
+        for (Collidable o : set) {
+            if (o.isActive() == false) {
                 o.destroy();
                 destroyed.add(o);
             }
         }
 
-        collidables.removeAll(destroyed);
+        set.removeAll(destroyed);
     }
 }
