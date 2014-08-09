@@ -1,22 +1,26 @@
 package dyehard.Weapons;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import Engine.Rectangle;
+import Engine.Vector2;
+import dyehard.Collidable;
+import dyehard.GameObject;
+import dyehard.Updateable;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
 import dyehard.World.GameWorld;
 
-public class Weapon extends Rectangle {
+public class Weapon implements Updateable {
     protected static float bulletSpeed = 1f;
     // Was 0.75f, but it was a radius and we are not
     // working with circles
     protected static float bulletSize = 1.5f;
     protected Hero hero;
-    protected Queue<Rectangle> bullets;
+    protected Queue<GameObject> bullets;
     protected ArrayList<Enemy> enemies;
     // Weapon fires 4 bullets/second, time is in milliseconds
     protected final float fireRate = 250f;
@@ -24,59 +28,55 @@ public class Weapon extends Rectangle {
 
     public Weapon(Hero hero) {
         this.hero = hero;
-        bullets = new LinkedList<Rectangle>();
+        bullets = new LinkedList<GameObject>();
         timer = new Timer(fireRate);
-    }
-
-    @Override
-    public void update() {
-        for (Rectangle b : bullets) {
-            b.center.setX(b.center.getX() + bulletSpeed);
-        }
-        while (bullets.size() > 0
-                && (bullets.peek().center.getX() - bullets.peek().size.getX()) > GameWorld.RIGHT_EDGE) {
-            bullets.remove().removeFromAutoDrawSet();
-        }
-        for (Rectangle b : bullets) {
-            for (Enemy e : enemies) {
-                if (e.collided(b) && b.visible) {
-                    e.setColor(color);
-                    b.visible = false;
-                }
-            }
-        }
     }
 
     // Fire the weapon
     public void fire() {
         if (timer.isDone()) {
-            Rectangle bullet = new Rectangle();
+            Bullet bullet = new Bullet();
             bullet.center.set(hero.center);
             bullet.size.set(bulletSize, bulletSize);
+            bullet.velocity = new Vector2(bulletSpeed, 0f);
             bullet.color = hero.getColor();
-            bullets.add(bullet);
+            bullet.dyeColor = hero.getColor();
             timer.reset();
         }
     }
 
-    // Draw the bullets
-    @Override
-    public void draw() {
-        for (Rectangle b : bullets) {
-            b.removeFromAutoDrawSet();
-            b.addToAutoDrawSet();
-        }
-    }
-
-    @Override
-    public void destroy() {
-        for (Rectangle b : bullets) {
-            b.removeFromAutoDrawSet();
-        }
-        super.destroy();
-    }
-
     public void setEnemies(ArrayList<Enemy> enemies) {
         this.enemies = enemies;
+    }
+
+    @Override
+    public void update() {
+        return;
+    }
+
+    @Override
+    public boolean isActive() {
+        return hero.isActive();
+    }
+
+    public class Bullet extends Collidable {
+        public Color dyeColor;
+
+        @Override
+        public void update() {
+            super.update();
+            if (center.getX() - size.getX() > GameWorld.RIGHT_EDGE) {
+                destroy();
+            }
+        }
+
+        @Override
+        public void handleCollision(Collidable other) {
+            if (other instanceof Enemy) {
+                Enemy enemy = (Enemy) other;
+                enemy.setColor(dyeColor);
+                destroy();
+            }
+        }
     }
 }

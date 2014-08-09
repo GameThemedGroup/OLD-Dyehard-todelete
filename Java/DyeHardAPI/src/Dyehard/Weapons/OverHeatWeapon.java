@@ -41,12 +41,6 @@ public class OverHeatWeapon extends Weapon {
     }
 
     @Override
-    public void draw() {
-        tempTracker.draw();
-        super.draw();
-    }
-
-    @Override
     public void fire() {
         if (timer.isDone() && !overheated) {
             super.fire();

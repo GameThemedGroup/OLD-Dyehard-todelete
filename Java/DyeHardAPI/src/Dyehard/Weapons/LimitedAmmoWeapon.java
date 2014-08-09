@@ -42,10 +42,4 @@ public class LimitedAmmoWeapon extends Weapon {
             ammo--;
         }
     }
-
-    @Override
-    public void draw() {
-        ammoTracker.draw();
-        super.draw();
-    }
 }

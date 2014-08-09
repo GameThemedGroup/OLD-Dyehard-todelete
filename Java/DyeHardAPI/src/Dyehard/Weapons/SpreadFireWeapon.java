@@ -1,21 +1,18 @@
 package dyehard.Weapons;
 
 import java.awt.Color;
-import java.util.LinkedList;
 
 import Engine.Rectangle;
 import Engine.Vector2;
-import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 import dyehard.World.GameWorld;
 
 public class SpreadFireWeapon extends Weapon {
     private Rectangle info;
-    private LinkedList<Rectangle> angledBullets;
 
     public SpreadFireWeapon(Hero hero) {
         super(hero);
-        angledBullets = new LinkedList<Rectangle>();
+
         info = new Rectangle();
         info.center = new Vector2(GameWorld.LEFT_EDGE + 12,
                 GameWorld.TOP_EDGE - 4);
@@ -24,67 +21,26 @@ public class SpreadFireWeapon extends Weapon {
     }
 
     @Override
-    public void destroy() {
-        info.removeFromAutoDrawSet();
-        for (Rectangle b : angledBullets) {
-            b.removeFromAutoDrawSet();
-        }
-        super.destroy();
-    }
-
-    @Override
-    public void update() {
-        // we have to maintain our own bullet queue because Weapon class will
-        // otherwise
-        // just move bullet horizontally
-        for (int i = 0; i < angledBullets.size(); i++) {
-            Rectangle b = angledBullets.get(i);
-            b.center.offset(bulletSpeed, 0f);
-            if (i % 2 == 0) {
-                b.center.offset(0f, -(bulletSpeed / 2));
-            } else {
-                b.center.offset(0f, bulletSpeed / 2);
-            }
-        }
-        while (angledBullets.size() > 0
-                && (angledBullets.getFirst().center.getX() - (angledBullets
-                        .getFirst().size.getX() / 2)) > GameWorld.RIGHT_EDGE) {
-            angledBullets.removeFirst().removeFromAutoDrawSet();
-        }
-        for (Rectangle b : angledBullets) {
-            for (Enemy e : enemies) {
-                if (e.collided(b) && b.visible) {
-                    e.setColor(b.color);
-                    b.visible = false;
-                }
-            }
-        }
-        super.update();
-    }
-
-    @Override
     public void fire() {
         if (timer.isDone()) {
-            Rectangle bullet = new Rectangle();
+            Bullet bullet = new Bullet();
             bullet.center = new Vector2(hero.center);
             bullet.size.set(bulletSize, bulletSize);
+            bullet.velocity = new Vector2(bulletSpeed, bulletSpeed / 2);
             bullet.color = hero.getColor();
-            angledBullets.add(bullet);
-            bullet = new Rectangle();
+
+            bullet = new Bullet();
             bullet.center = new Vector2(hero.center);
             bullet.size.set(bulletSize, bulletSize);
+            bullet.velocity = new Vector2(bulletSpeed, -bulletSpeed / 2);
             bullet.color = hero.getColor();
-            angledBullets.add(bullet);
+
+            bullet = new Bullet();
+            bullet.center = new Vector2(hero.center);
+            bullet.size.set(bulletSize, bulletSize);
+            bullet.velocity = new Vector2(bulletSpeed, 0f);
+            bullet.color = hero.getColor();
         }
         super.fire();
-    }
-
-    @Override
-    public void draw() {
-        info.draw();
-        for (Rectangle b : angledBullets) {
-            b.draw();
-        }
-        super.draw();
     }
 }
