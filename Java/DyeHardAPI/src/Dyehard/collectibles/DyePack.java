@@ -58,7 +58,6 @@ public class DyePack extends Collidable {
     @Override
     public void handleCollision(Collidable other) {
         if (other instanceof Hero) {
-            System.out.println("Collected dye pack");
             Hero hero = (Hero) other;
             hero.collect(this);
         }

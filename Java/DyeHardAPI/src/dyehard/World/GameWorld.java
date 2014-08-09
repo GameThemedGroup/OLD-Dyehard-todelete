@@ -80,7 +80,6 @@ public class GameWorld {
         GameWorldRegion newRegion;
         if (gameRegions.getLast() instanceof Space) {
             newRegion = new Stargate(hero, eManager.getEnemies());
-            System.out.println("Stargate create");
         } else {
             newRegion = new Space(hero);
         }
