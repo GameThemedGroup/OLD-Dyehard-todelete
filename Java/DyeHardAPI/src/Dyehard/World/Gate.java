@@ -9,11 +9,11 @@ import dyehard.GameObject;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 
-public class Gate extends GameObject {
+public class Gate {
     private Color color;
     private GameObject path;
     private GameObject deathGate;
-    private GameObject preview;
+    private GatePreview preview;
     private Hero hero;
     private ArrayList<Enemy> enemies;
 
@@ -26,6 +26,7 @@ public class Gate extends GameObject {
         float position = (width * 0.5f) + leftEdge;
         float drawHeight = GameWorld.TOP_EDGE / Stargate.GATE_COUNT;
         float drawOffset = drawHeight * (offset + 0.5f);
+
         path = new GameObject();
         path.center = new Vector2(position, drawOffset);
         path.size.set(width, drawHeight - (Platform.height * 2));
@@ -33,6 +34,7 @@ public class Gate extends GameObject {
                 color.getBlue(), 100);
         path.velocity = new Vector2(-GameWorld.Speed, 0f);
         path.shouldTravel = true;
+
         // gate is slightly set back from left edge to avoid killing when
         // adjacent but not overlapping
         deathGate = new GameObject();
@@ -43,58 +45,65 @@ public class Gate extends GameObject {
         deathGate.visible = true;
         deathGate.velocity = new Vector2(-GameWorld.Speed, 0f);
         deathGate.shouldTravel = true;
-        preview = new GameObject();
+
+        preview = new GatePreview();
         preview.center = new Vector2(GameWorld.RIGHT_EDGE, drawOffset);
         preview.size.set(4f, 0f);
         preview.color = path.color;
-        preview.visible = false;
-        visible = false;
+        preview.visible = true;
     }
 
-    @Override
-    public void update() {
-        super.update();
-        path.update();
-        deathGate.update();
-        // Was path.LowerLeft.X and preview.LowerLeft.X
-        preview.visible = (path.center.getX() - (path.size.getX() / 2)) > ((preview.center
-                .getX() - (preview.size.getX() / 2)) + preview.size.getX())
-        // Was path.LowerLeft.X
-                && (GameWorld.RIGHT_EDGE + (Space.WIDTH * 0.7f)) > (path.center
-                        .getX() - (path.size.getX() / 2));
-        if (preview.visible) {
-            preview.size
-                    // Was path.LowerLeft.X and preview.LowerLeft.X
-                    .setY(((path.size.getY() + (Platform.height * 2)) * (1 - (((path.center
-                            .getX() - (path.size.getX() / 2)) - ((preview.center
-                            .getX() - (preview.size.getX() / 2)) + preview.size
-                            .getX())) / (Space.WIDTH)))));
-        }
-        // kill the hero at the death wall
-        if (hero.getColor() != color && deathGate.collided(hero)) {
-            hero.kill();
-        }
+    public class GatePreview extends GameObject {
+        @Override
+        public void update() {
+            super.update();
 
-        // kill any enemies at the death wall
-        for (Enemy e : enemies) {
-            if (e.getColor() != color && deathGate.collided(e)) {
-                e.kill();
-            }
-        }
-
-        // dye the hero
-        if (contains(hero)) {
-            hero.setColor(color);
-        }
-
-        // dye any enemies
-        for (Enemy e : enemies) {
-            if (contains(e)) {
-                // Changes enemy color when it moves to a different gate
-                e.gotShot(color);
+            visible = (path.center.getX() - (path.size.getX() / 2)) > ((preview.center
+                    .getX() - (preview.size.getX() / 2)) + preview.size.getX())
+            // Was path.LowerLeft.X
+                    && (GameWorld.RIGHT_EDGE + (Space.WIDTH * 0.7f)) > (path.center
+                            .getX() - (path.size.getX() / 2));
+            if (preview.visible) {
+                preview.size
+                        // Was path.LowerLeft.X and preview.LowerLeft.X
+                        .setY(((path.size.getY() + (Platform.height * 2)) * (1 - (((path.center
+                                .getX() - (path.size.getX() / 2)) - ((preview.center
+                                .getX() - (preview.size.getX() / 2)) + preview.size
+                                .getX())) / (Space.WIDTH)))));
             }
         }
     }
+
+    // public void update() {
+    // path.update();
+    // deathGate.update();
+    // // Was path.LowerLeft.X and preview.LowerLeft.X
+    //
+    // // kill the hero at the death wall
+    // if (hero.getColor() != color && deathGate.collided(hero)) {
+    // hero.kill();
+    // }
+    //
+    // // kill any enemies at the death wall
+    // for (Enemy e : enemies) {
+    // if (e.getColor() != color && deathGate.collided(e)) {
+    // e.kill();
+    // }
+    // }
+    //
+    // // dye the hero
+    // if (contains(hero)) {
+    // hero.setColor(color);
+    // }
+    //
+    // // dye any enemies
+    // for (Enemy e : enemies) {
+    // if (contains(e)) {
+    // // Changes enemy color when it moves to a different gate
+    // e.gotShot(color);
+    // }
+    // }
+    // }
 
     private boolean contains(Rectangle other) {
         // Was path.MaxBound.Y
