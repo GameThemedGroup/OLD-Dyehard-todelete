@@ -7,6 +7,7 @@ public class Overload extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(2, Game.Pink);
     public Overload() {
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Red.png");
+        applicationOrder = 100;
     }
 
     @Override

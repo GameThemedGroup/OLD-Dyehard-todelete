@@ -4,14 +4,17 @@ import Engine.Vector2;
 import dyehard.Collidable;
 import dyehard.Player.Hero;
 
-public abstract class PowerUp extends Collidable implements Cloneable {
+public abstract class PowerUp extends Collidable implements Cloneable,
+        Comparable<PowerUp> {
     public final float Duration = 5f;
     public static final float height = 2f;
     public static float width = 5f;
+    protected int applicationOrder;
 
     public PowerUp() {
         shouldTravel = false;
         visible = false;
+        applicationOrder = 0;
     }
 
     public PowerUp(PowerUp other) {
@@ -45,4 +48,9 @@ public abstract class PowerUp extends Collidable implements Cloneable {
 
     @Override
     public abstract PowerUp clone();
+
+    @Override
+    public int compareTo(PowerUp other) {
+        return applicationOrder - other.applicationOrder;
+    }
 }

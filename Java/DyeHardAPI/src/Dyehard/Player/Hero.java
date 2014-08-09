@@ -3,6 +3,7 @@ package dyehard.Player;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeSet;
 
 import Engine.BaseCode;
 import Engine.KeyboardInput;
@@ -35,7 +36,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     private Weapon weapon;
     private ArrayList<Weapon> weaponRack;
     private HashMap<Integer, Integer> weaponHotkeys;
-    private ArrayList<PowerUp> powerups;
+    private TreeSet<PowerUp> powerups;
 
     public Hero(KeyboardInput keyboard) {
         // TODO: The position 20f, 20f is a temporary value.
@@ -60,7 +61,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         weaponHotkeys.put(KeyEvent.VK_9, 8);
         weaponHotkeys.put(KeyEvent.VK_0, 9);
 
-        powerups = new ArrayList<PowerUp>();
+        powerups = new TreeSet<PowerUp>();
     }
 
     @Override
@@ -186,6 +187,8 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public void kill(Primitive who) {
         if (damageHandler != null) {
             damageHandler.damageHero(this, who);
+        } else {
+            damageHero(this, who);
         }
     }
 
@@ -198,6 +201,8 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public void handleCollision(Collidable other) {
         if (collisionHandler != null) {
             collisionHandler.collideWithHero(this, other);
+        } else {
+            collideWithHero(this, other);
         }
     }
 
