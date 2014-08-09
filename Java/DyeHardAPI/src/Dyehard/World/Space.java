@@ -81,7 +81,7 @@ public class Space extends GameWorldRegion {
             PowerUp randomPowerUp = powerupTypes.get(RANDOM
                     .nextInt(powerupTypes.size()));
 
-            PowerUp generatedPowerUp = new PowerUp(randomPowerUp);
+            PowerUp generatedPowerUp = randomPowerUp.clone();
             powerUpList.add(generatedPowerUp);
         }
     }

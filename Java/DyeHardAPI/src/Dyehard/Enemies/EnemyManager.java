@@ -12,7 +12,7 @@ import dyehard.World.GameWorld;
 
 public class EnemyManager implements Updateable {
     // This time is in milliseconds
-    private final float enemyFrequency = 10000f;
+    private final float enemyFrequency = 3000f;
     private Hero hero;
     private ArrayList<Enemy> enemies;
     private Timer timer;

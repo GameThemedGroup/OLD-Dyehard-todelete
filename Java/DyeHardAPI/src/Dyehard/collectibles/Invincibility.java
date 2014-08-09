@@ -14,4 +14,21 @@ public class Invincibility extends PowerUp {
         // meter.reset(Duration, null);
         super.activate(hero);
     }
+
+    @Override
+    public void apply(Hero hero) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void unapply(Hero hero) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public PowerUp clone() {
+        return new Invincibility();
+    }
 }
