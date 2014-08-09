@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.Actor;
+import dyehard.Collidable;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.Util.ImageTint;
@@ -58,9 +59,6 @@ public class Enemy extends Actor {
         default:
             break;
         }
-        if (collided(hero)) {
-            hero.kill();
-        }
         super.update();
     }
 
@@ -77,6 +75,13 @@ public class Enemy extends Actor {
 
     public void moveLeft() {
         center.sub(new Vector2(GameWorld.Speed, 0));
+    }
+
+    @Override
+    public void handleCollision(Collidable other) {
+        if (other instanceof Hero) {
+            ((Hero) other).kill();
+        }
     }
 
     @Override
