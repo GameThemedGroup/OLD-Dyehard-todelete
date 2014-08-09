@@ -3,50 +3,32 @@ package dyehard.Enemies;
 import java.util.ArrayList;
 import java.util.Random;
 
-import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.UpdateManager;
+import dyehard.Updateable;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
 import dyehard.World.GameWorld;
 
-public class EnemyManager extends Rectangle {
+public class EnemyManager implements Updateable {
     // This time is in milliseconds
     private final float enemyFrequency = 12000f;
     private Hero hero;
     private ArrayList<Enemy> enemies;
-    private ArrayList<Enemy> enemiesToRemove;
     private Timer timer;
 
     public EnemyManager(Hero hero) {
         this.hero = hero;
+        UpdateManager.register(this);
         enemies = new ArrayList<Enemy>();
-        enemiesToRemove = new ArrayList<Enemy>();
         timer = new Timer(enemyFrequency);
     }
 
     @Override
-    public void destroy() {
-        for (Enemy e : enemies) {
-            e.destroy();
-        }
-    }
-
-    @Override
     public void update() {
-        // remove any dead enemies
-        for (Enemy e : enemies) {
-            if (!e.isAlive()) {
-                e.destroy();
-                enemiesToRemove.add(e);
-            }
-        }
-        enemies.removeAll(enemiesToRemove);
-        enemiesToRemove.clear();
-        for (Enemy e : enemies) {
-            e.update();
-        }
         // generate new enemy
         if (timer.isDone()) {
+            System.out.println("Spawning enemy");
             Random rand = new Random();
             // TODO: Replace magic numbers
             float randomY = (GameWorld.TOP_EDGE - 5f - GameWorld.BOTTOM_EDGE + 5f)
@@ -67,21 +49,13 @@ public class EnemyManager extends Rectangle {
         }
     }
 
-    @Override
-    public void draw() {
-        for (Enemy e : enemies) {
-            e.draw();
-        }
-    }
-
-    public void killAll() {
-        for (Enemy e : enemies) {
-            e.destroy();
-        }
-        enemies.clear();
-    }
-
     public ArrayList<Enemy> getEnemies() {
         return enemies;
+    }
+
+    @Override
+    public boolean isActive() {
+        // The enemy manager is always active
+        return true;
     }
 }
