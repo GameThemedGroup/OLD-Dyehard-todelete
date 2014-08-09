@@ -6,7 +6,6 @@ import Engine.Primitive;
 import Engine.Vector2;
 import dyehard.Obstacles.Obstacle;
 import dyehard.Util.Collision;
-import dyehard.Util.Colors;
 
 public class Actor extends Collidable {
     protected boolean alive;
@@ -15,7 +14,7 @@ public class Actor extends Collidable {
         CollisionManager.registerActor(this);
         center = position;
         size.set(width, height);
-        color = Colors.randomColor();
+        color = null;
         // set object into motion;
         velocity = new Vector2(0, 0);
         shouldTravel = true;

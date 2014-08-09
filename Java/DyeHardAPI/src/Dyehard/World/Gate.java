@@ -34,7 +34,7 @@ public class Gate {
         // gate is slightly set back from left edge to avoid killing when
         // adjacent but not overlapping
         deathGate = new DeathGate();
-        deathGate.center = new Vector2(leftEdge + 0.3f, path.center.getY());
+        deathGate.center = new Vector2(leftEdge, path.center.getY());
         deathGate.size.set(0.5f, path.size.getY());
         // This color is transparent
         deathGate.color = new Color(128, 0, 0, 0);
