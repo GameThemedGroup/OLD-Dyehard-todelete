@@ -10,4 +10,9 @@ public class SpiderEnemy extends Enemy {
         super(center, height * widthToHeightRatio, height, currentHero,
                 "Textures/Spider Enemy.png");
     }
+
+    @Override
+    public String toString() {
+        return "Spider";
+    }
 }

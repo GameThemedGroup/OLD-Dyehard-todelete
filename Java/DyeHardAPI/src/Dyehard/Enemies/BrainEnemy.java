@@ -10,4 +10,9 @@ public class BrainEnemy extends Enemy {
         super(center, height * widthToHeightRatio, height, currentHero,
                 "Textures/Brain Enemy.png");
     }
+
+    @Override
+    public String toString() {
+        return "Brain";
+    }
 }

@@ -10,4 +10,9 @@ public class RedBeamEnemy extends Enemy {
         super(center, height * widthToHeightRatio, height, currentHero,
                 "Textures/Red Beam Enemy.png");
     }
+
+    @Override
+    public String toString() {
+        return "Red Beam";
+    }
 }
