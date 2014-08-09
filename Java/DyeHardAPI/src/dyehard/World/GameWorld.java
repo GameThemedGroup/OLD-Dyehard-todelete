@@ -46,7 +46,7 @@ public class GameWorld {
             return false;
         }
 
-        return !hero.isActive();
+        return !hero.isAlive;
     }
 
     public void update() {

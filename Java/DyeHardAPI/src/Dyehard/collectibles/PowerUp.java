@@ -4,7 +4,7 @@ import Engine.Vector2;
 import dyehard.Collidable;
 import dyehard.Player.Hero;
 
-public class PowerUp extends Collidable {
+public class PowerUp extends Collidable implements Cloneable {
     public final float Duration = 5f;
     public static final float height = 2f;
     public static float width = 5f;
@@ -27,6 +27,10 @@ public class PowerUp extends Collidable {
         visible = true;
     }
 
+    public void apply(Hero hero) {
+
+    }
+
     public void activate(Hero hero) {
         destroy();
     }
@@ -37,5 +41,10 @@ public class PowerUp extends Collidable {
             Hero hero = (Hero) other;
             hero.collect(this);
         }
+    }
+
+    @Override
+    public PowerUp clone() {
+        return new PowerUp(this);
     }
 }

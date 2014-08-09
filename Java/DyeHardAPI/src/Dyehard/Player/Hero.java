@@ -14,11 +14,15 @@ import dyehard.Collidable;
 import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.PowerUp;
-import dyehard.Player.HeroState.HeroCollision;
-import dyehard.Player.HeroState.HeroDamage;
+import dyehard.Player.HeroInterfaces.HeroCollision;
+import dyehard.Player.HeroInterfaces.HeroDamage;
 import dyehard.Weapons.Weapon;
 
 public class Hero extends Actor implements HeroCollision, HeroDamage {
+    public HeroCollision collisionHandler;
+    public HeroDamage damageHandler;
+    public boolean isAlive = true;
+
     private float speedLimitX = 50f;
     private static float jetSpeed = 2.5f;
     private static Vector2 fakeGravity = new Vector2(0f, -1.5f);
@@ -31,9 +35,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     private Weapon weapon;
     private ArrayList<Weapon> weaponRack;
     private HashMap<Integer, Integer> weaponHotkeys;
-
-    protected HeroState defaultState;
-    protected HeroState currentState;
+    private ArrayList<PowerUp> powerups;
 
     public Hero(KeyboardInput keyboard) {
         // TODO: The position 20f, 20f is a temporary value.
@@ -58,9 +60,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         weaponHotkeys.put(KeyEvent.VK_9, 8);
         weaponHotkeys.put(KeyEvent.VK_0, 9);
 
-        defaultState = new HeroState();
-        defaultState.collisionHandler = this;
-        defaultState.damageHandler = this;
+        powerups = new ArrayList<PowerUp>();
     }
 
     @Override
@@ -86,7 +86,10 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     @Override
     public void update() {
-        currentState = new HeroState(defaultState);
+        for (PowerUp p : powerups) {
+            p.apply(this);
+        }
+
         handleInput();
         updateMovement();
         selectWeapon();
@@ -155,6 +158,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     }
 
     public void collect(PowerUp powerup) {
+        powerups.add(powerup);
         powerup.activate(this);
         collectedPowerups += 1;
     }
@@ -178,33 +182,27 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public void normalizeSpeed() {
     }
 
-    public void setInvisible() {
-    }
-
-    public void setVisible() {
-    }
-
     @Override
     public void kill(Primitive who) {
-        if (currentState.damageHandler != null) {
-            currentState.damageHandler.damageHero(who);
+        if (damageHandler != null) {
+            damageHandler.damageHero(this, who);
         }
     }
 
     @Override
-    public void damageHero(Primitive who) {
-        alive = false;
+    public void damageHero(Hero hero, Primitive who) {
+        hero.isAlive = false;
     }
 
     @Override
     public void handleCollision(Collidable other) {
-        if (currentState.collisionHandler != null) {
-            currentState.collisionHandler.collideWithHero(other);
+        if (collisionHandler != null) {
+            collisionHandler.collideWithHero(this, other);
         }
     }
 
     @Override
-    public void collideWithHero(Collidable other) {
+    public void collideWithHero(Hero hero, Collidable other) {
         super.handleCollision(other);
     }
 }
