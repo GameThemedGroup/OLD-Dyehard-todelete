@@ -40,7 +40,7 @@ public class Weapon extends Rectangle {
         for (Rectangle b : bullets) {
             for (Enemy e : enemies) {
                 if (e.collided(b) && b.visible) {
-                    e.gotShot(b.color);
+                    e.setColor(color);
                     b.visible = false;
                 }
             }

@@ -8,7 +8,7 @@ import dyehard.Util.Collision;
 import dyehard.Util.Colors;
 
 public class Actor extends Collidable {
-    private boolean alive;
+    protected boolean alive;
 
     public Actor(Vector2 position, float width, float height) {
         center = position;

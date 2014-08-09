@@ -54,7 +54,7 @@ public class SpreadFireWeapon extends Weapon {
         for (Rectangle b : angledBullets) {
             for (Enemy e : enemies) {
                 if (e.collided(b) && b.visible) {
-                    e.gotShot(b.color);
+                    e.setColor(b.color);
                     b.visible = false;
                 }
             }

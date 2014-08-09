@@ -79,8 +79,9 @@ public class Enemy extends Actor {
         center.sub(new Vector2(GameWorld.Speed, 0));
     }
 
-    public void gotShot(Color color) {
-        setColor(color);
+    @Override
+    public void setColor(Color color) {
+        super.setColor(color);
         texture = ImageTint.tintedImage(baseTexture, color, 0.25f);
     }
 }
