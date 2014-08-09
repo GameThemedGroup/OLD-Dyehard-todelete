@@ -9,12 +9,15 @@ import Engine.KeyboardInput;
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
 import dyehard.Actor;
+import dyehard.Collidable;
 import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.PowerUp;
+import dyehard.Player.HeroState.HeroCollision;
+import dyehard.Player.HeroState.HeroDamage;
 import dyehard.Weapons.Weapon;
 
-public class Hero extends Actor {
+public class Hero extends Actor implements HeroCollision, HeroDamage {
     private float speedLimitX = 50f;
     private static float jetSpeed = 2.5f;
     private static Vector2 fakeGravity = new Vector2(0f, -1.5f);
@@ -27,6 +30,9 @@ public class Hero extends Actor {
     private Weapon weapon;
     private ArrayList<Weapon> weaponRack;
     private HashMap<Integer, Integer> weaponHotkeys;
+
+    protected HeroState defaultState;
+    protected HeroState currentState;
 
     public Hero(KeyboardInput keyboard) {
         // TODO: The position 20f, 20f is a temporary value.
@@ -50,6 +56,10 @@ public class Hero extends Actor {
         weaponHotkeys.put(KeyEvent.VK_8, 7);
         weaponHotkeys.put(KeyEvent.VK_9, 8);
         weaponHotkeys.put(KeyEvent.VK_0, 9);
+
+        defaultState = new HeroState();
+        defaultState.collisionHandler = this;
+        defaultState.damageHandler = this;
     }
 
     @Override
@@ -75,6 +85,7 @@ public class Hero extends Actor {
 
     @Override
     public void update() {
+        currentState = new HeroState(defaultState);
         handleInput();
         updateMovement();
         selectWeapon();
@@ -82,11 +93,6 @@ public class Hero extends Actor {
             w.update();
         }
         clampToWorldBounds();
-    }
-
-    @Override
-    public void kill() {
-        alive = false;
     }
 
     private void clampToWorldBounds() {
@@ -175,5 +181,29 @@ public class Hero extends Actor {
     }
 
     public void setVisible() {
+    }
+
+    @Override
+    public void kill() {
+        if (currentState.damageHandler != null) {
+            currentState.damageHandler.damageHero();
+        }
+    }
+
+    @Override
+    public void damageHero() {
+        alive = false;
+    }
+
+    @Override
+    public void handleCollision(Collidable other) {
+        if (currentState.collisionHandler != null) {
+            currentState.collisionHandler.collideWithHero(other);
+        }
+    }
+
+    @Override
+    public void collideWithHero(Collidable other) {
+        super.handleCollision(other);
     }
 }
