@@ -25,4 +25,10 @@ public class Obstacle extends Collidable {
         shouldTravel = true;
         this.color = color;
     }
+
+    @Override
+    public void handleCollision(Collidable other) {
+        // Obstacles by default do not handle collisions
+        return;
+    }
 }
