@@ -20,7 +20,6 @@ public class Space extends GameWorldRegion {
     public static int debrisCount = 10;
 
     private static Random RANDOM = new Random();
-    Hero hero;
 
     // The list of powerups that can be randomly generated
     List<PowerUp> powerUpTypes;
@@ -31,8 +30,6 @@ public class Space extends GameWorldRegion {
     List<DyePack> dyeList;
 
     public Space(Hero hero) {
-        this.hero = hero;
-
         width = WIDTH;
         speed = -GameWorld.Speed;
     }
@@ -147,7 +144,7 @@ public class Space extends GameWorldRegion {
         dyeList = new ArrayList<DyePack>();
         for (int i = 0; i < count; ++i) {
             Color randomColor = Colors.randomColor();
-            DyePack dye = new DyePack(hero, randomColor);
+            DyePack dye = new DyePack(randomColor);
             dyeList.add(dye);
         }
     }

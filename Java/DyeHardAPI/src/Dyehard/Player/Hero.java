@@ -12,7 +12,6 @@ import dyehard.Actor;
 import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.PowerUp;
-import dyehard.Enemies.Enemy;
 import dyehard.Weapons.Weapon;
 
 public class Hero extends Actor {
@@ -55,7 +54,6 @@ public class Hero extends Actor {
 
     @Override
     public void draw() {
-        weapon.draw();
         super.draw();
     }
 
@@ -76,14 +74,6 @@ public class Hero extends Actor {
     }
 
     @Override
-    public void destroy() {
-        for (Weapon w : weaponRack) {
-            w.destroy();
-        }
-        super.destroy();
-    }
-
-    @Override
     public void update() {
         handleInput();
         updateMovement();
@@ -92,6 +82,11 @@ public class Hero extends Actor {
             w.update();
         }
         clampToWorldBounds();
+    }
+
+    @Override
+    public void kill() {
+        alive = false;
     }
 
     private void clampToWorldBounds() {
@@ -147,19 +142,13 @@ public class Hero extends Actor {
         }
     }
 
-    public void setEnemies(ArrayList<Enemy> enemies) {
-        for (Weapon w : weaponRack) {
-            w.setEnemies(enemies);
-        }
-    }
-
     public void collect(DyePack dye) {
-        dye.activate();
+        dye.activate(this);
         collectedDyepacks += 1;
     }
 
     public void collect(PowerUp powerup) {
-        powerup.activate();
+        powerup.activate(this);
         collectedPowerups += 1;
     }
 

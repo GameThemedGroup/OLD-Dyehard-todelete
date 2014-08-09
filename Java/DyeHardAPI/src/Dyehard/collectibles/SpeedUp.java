@@ -5,15 +5,14 @@ import dyehard.Player.Hero;
 
 public class SpeedUp extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(0, DyeHard.Green);
-    public SpeedUp(Hero hero) {
-        super(hero);
+    public SpeedUp() {
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Green.png");
     }
 
     @Override
-    public void activate() {
+    public void activate(Hero hero) {
         hero.increaseSpeed();
         // meter.reset(Duration, hero.normalizeSpeed);
-        super.activate();
+        super.activate(hero);
     }
 }

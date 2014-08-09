@@ -11,10 +11,8 @@ import dyehard.Util.Colors;
 public class DyePack extends Collidable {
     public static final float height = 3.5f;
     public static final float width = 3f;
-    protected Hero hero;
 
-    public DyePack(Hero hero, Color color) {
-        this.hero = hero;
+    public DyePack(Color color) {
         this.color = color;
         texture = BaseCode.resources.loadImage("Textures/" + getTexture(color));
         shouldTravel = false;
@@ -30,15 +28,7 @@ public class DyePack extends Collidable {
         visible = true;
     }
 
-    @Override
-    public void update() {
-        super.update();
-        if (collided(hero) && visible) {
-            hero.collect(this);
-        }
-    }
-
-    public void activate() {
+    public void activate(Hero hero) {
         hero.setColor(color);
         visible = false;
     }

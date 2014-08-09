@@ -5,15 +5,14 @@ import dyehard.Player.Hero;
 
 public class Ghost extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(1, Game.Blue);
-    public Ghost(Hero hero) {
-        super(hero);
+    public Ghost() {
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Blue.png");
     }
 
     @Override
-    public void activate() {
+    public void activate(Hero hero) {
         hero.setInvisible();
         // meter.reset(Duration, hero.setVisible);
-        super.activate();
+        super.activate(hero);
     }
 }

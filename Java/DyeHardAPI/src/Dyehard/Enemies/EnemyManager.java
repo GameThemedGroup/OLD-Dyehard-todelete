@@ -12,7 +12,7 @@ import dyehard.World.GameWorld;
 
 public class EnemyManager implements Updateable {
     // This time is in milliseconds
-    private final float enemyFrequency = 12000f;
+    private final float enemyFrequency = 10000f;
     private Hero hero;
     private ArrayList<Enemy> enemies;
     private Timer timer;
@@ -28,7 +28,6 @@ public class EnemyManager implements Updateable {
     public void update() {
         // generate new enemy
         if (timer.isDone()) {
-            System.out.println("Spawning enemy");
             Random rand = new Random();
             // TODO: Replace magic numbers
             float randomY = (GameWorld.TOP_EDGE - 5f - GameWorld.BOTTOM_EDGE + 5f)

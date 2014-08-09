@@ -26,7 +26,6 @@ public class GameWorld {
 
     public void initialize(Hero hero) {
         eManager = new EnemyManager(hero);
-        hero.setEnemies(eManager.getEnemies());
         this.hero = hero;
     }
 

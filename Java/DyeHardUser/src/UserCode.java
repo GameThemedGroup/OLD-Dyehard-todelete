@@ -43,10 +43,10 @@ public class UserCode extends DyeHard {
     private List<PowerUp> allPowerUps() {
         List<PowerUp> powerUps = new ArrayList<PowerUp>();
 
-        powerUps.add(new Ghost(hero));
-        powerUps.add(new Overload(hero));
-        powerUps.add(new Invincibility(hero));
-        powerUps.add(new SpeedUp(hero));
+        powerUps.add(new Ghost());
+        powerUps.add(new Overload());
+        powerUps.add(new Invincibility());
+        powerUps.add(new SpeedUp());
 
         return powerUps;
     }
@@ -56,7 +56,7 @@ public class UserCode extends DyeHard {
 
         for (int i = 0; i < count; ++i) {
             Color randomColor = Colors.randomColor();
-            DyePack dye = new DyePack(hero, randomColor);
+            DyePack dye = new DyePack(randomColor);
             randomDyes.add(dye);
         }
 
