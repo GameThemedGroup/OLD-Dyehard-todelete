@@ -80,7 +80,7 @@ public class Enemy extends Actor {
     @Override
     public void handleCollision(Collidable other) {
         if (other instanceof Hero) {
-            ((Hero) other).kill();
+            ((Hero) other).kill(this);
         }
     }
 

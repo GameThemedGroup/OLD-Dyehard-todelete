@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import Engine.BaseCode;
 import Engine.KeyboardInput;
+import Engine.Primitive;
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
 import dyehard.Actor;
@@ -184,14 +185,14 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     }
 
     @Override
-    public void kill() {
+    public void kill(Primitive who) {
         if (currentState.damageHandler != null) {
-            currentState.damageHandler.damageHero();
+            currentState.damageHandler.damageHero(who);
         }
     }
 
     @Override
-    public void damageHero() {
+    public void damageHero(Primitive who) {
         alive = false;
     }
 

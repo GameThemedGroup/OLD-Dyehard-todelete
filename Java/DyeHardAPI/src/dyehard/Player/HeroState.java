@@ -1,5 +1,6 @@
 package dyehard.Player;
 
+import Engine.Primitive;
 import dyehard.Collidable;
 
 public class HeroState {
@@ -8,7 +9,7 @@ public class HeroState {
     }
 
     public interface HeroDamage {
-        public void damageHero();
+        public void damageHero(Primitive who);
     }
 
     public HeroCollision collisionHandler;

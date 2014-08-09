@@ -2,6 +2,7 @@ package dyehard;
 
 import java.awt.Color;
 
+import Engine.Primitive;
 import Engine.Vector2;
 import dyehard.Obstacles.Obstacle;
 import dyehard.Util.Collision;
@@ -45,7 +46,7 @@ public class Actor extends Collidable {
         return alive;
     }
 
-    public void kill() {
+    public void kill(Primitive who) {
         alive = false;
     }
 

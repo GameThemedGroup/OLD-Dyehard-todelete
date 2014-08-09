@@ -79,7 +79,7 @@ public class Gate {
             if (other instanceof Actor) {
                 Actor target = (Actor) other;
                 if (target.getColor() != dyeColor) {
-                    target.kill();
+                    target.kill(this);
                 }
             }
         }
