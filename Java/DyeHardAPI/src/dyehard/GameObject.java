@@ -2,14 +2,15 @@ package dyehard;
 
 import Engine.Rectangle;
 
-public class GameObject extends Rectangle {
+public class GameObject extends Rectangle implements Updateable {
     protected boolean isAlive = true;
 
     public GameObject() {
-        GameObjectManager.registerGameObject(this);
+        UpdateManager.register(this);
     }
 
-    public boolean isAlive() {
+    @Override
+    public boolean isActive() {
         return isAlive;
     }
 

@@ -39,7 +39,8 @@ public class Actor extends Collidable {
         // position.Label = label;
     }
 
-    public boolean isAlive() {
+    @Override
+    public boolean isActive() {
         return alive;
     }
 
@@ -81,16 +82,4 @@ public class Actor extends Collidable {
             }
         }
     }
-
-    // private static boolean isInsideWorld(Collidable o) {
-    // // The Collidable is destroyed once it leaves the map through the left,
-    // // top, or bottom portion of the map.
-    // BoundCollidedStatus collisionStatus = o.collideWorldBound();
-    // if (!o.isInsideWorldBound()
-    // && collisionStatus != BoundCollidedStatus.RIGHT) {
-    // return false;
-    // }
-    //
-    // return true;
-    // }
 }

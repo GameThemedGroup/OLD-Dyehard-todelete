@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import Engine.BaseCode;
 import Engine.KeyboardInput;
 import dyehard.CollisionManager;
-import dyehard.GameObjectManager;
+import dyehard.UpdateManager;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
 
@@ -47,7 +47,7 @@ public class GameWorld {
             return false;
         }
 
-        return !hero.isAlive();
+        return !hero.isActive();
     }
 
     public void update() {
@@ -60,7 +60,7 @@ public class GameWorld {
         }
         updateSequence();
 
-        GameObjectManager.update();
+        UpdateManager.update();
         CollisionManager.update();
     }
 
@@ -72,8 +72,7 @@ public class GameWorld {
 
         // remove game regions that have moved off screen
         if (gameRegions.peek().rightEdge() <= GameWorld.LEFT_EDGE) {
-            GameWorldRegion offscreen = gameRegions.pop();
-            // offscreen.destroyAll();
+            gameRegions.pop();
         }
     }
 
