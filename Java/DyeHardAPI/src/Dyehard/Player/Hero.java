@@ -24,30 +24,42 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public HeroCollision collisionHandler;
     public HeroDamage damageHandler;
     public boolean isAlive = true;
+    public Weapon currentWeapon;
+    public float currentJetSpeed;
+    public Vector2 currentGravity;
+
+    public final HeroCollision defaultCollisionHandler = this;
+    public final HeroDamage defaultDamageHandler = this;
+    public final Weapon defaultWeapon = new Weapon(this);
+    public final float defaultJetSpeed = 2.5f;
+    public final Vector2 defaultGravity = new Vector2(0f, -1.5f);
 
     private float speedLimitX = 50f;
-    private static float jetSpeed = 2.5f;
-    private static Vector2 fakeGravity = new Vector2(0f, -1.5f);
-
     private static float drag = 0.97f; // smaller number means more reduction
-    // private final float rightBoundaryLimit = 0.85f; // percentage of screen
+
     private int collectedDyepacks;
     private int collectedPowerups;
+
     private KeyboardInput keyboard;
-    private Weapon weapon;
     private ArrayList<Weapon> weaponRack;
     private HashMap<Integer, Integer> weaponHotkeys;
     private Set<PowerUp> powerups;
 
     public Hero(KeyboardInput keyboard) {
-        // TODO: The position 20f, 20f is a temporary value.
-        super(new Vector2(20f, 20f), 5f, 5f);
+        super(new Vector2(20f, 20f), 5f, 5f); // TODO remove magic numbers
+        this.keyboard = keyboard;
+
         collectedDyepacks = 0;
         collectedPowerups = 0;
-        this.keyboard = keyboard;
+
+        powerups = new TreeSet<PowerUp>();
+
+        currentJetSpeed = defaultJetSpeed;
+        currentGravity = defaultGravity;
+
         weaponRack = new ArrayList<Weapon>();
-        weaponRack.add(new Weapon(this)); // add default weapon
-        weapon = weaponRack.get(0); // set default weapon
+        weaponRack.add(defaultWeapon); // add default weapon
+        currentWeapon = defaultWeapon;
 
         // Maps number keys to weaponRack index
         weaponHotkeys = new HashMap<Integer, Integer>();
@@ -55,14 +67,6 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         weaponHotkeys.put(KeyEvent.VK_2, 1);
         weaponHotkeys.put(KeyEvent.VK_3, 2);
         weaponHotkeys.put(KeyEvent.VK_4, 3);
-        weaponHotkeys.put(KeyEvent.VK_5, 4);
-        weaponHotkeys.put(KeyEvent.VK_6, 5);
-        weaponHotkeys.put(KeyEvent.VK_7, 6);
-        weaponHotkeys.put(KeyEvent.VK_8, 7);
-        weaponHotkeys.put(KeyEvent.VK_9, 8);
-        weaponHotkeys.put(KeyEvent.VK_0, 9);
-
-        powerups = new TreeSet<PowerUp>();
     }
 
     @Override
@@ -77,7 +81,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         velX = Math.max(-speedLimitX, velX);
         velocity.setX(velX);
 
-        velocity.add(fakeGravity);
+        velocity.add(currentGravity);
         velocity.mult(drag);
 
         // Scale the velocity to the frame rate
@@ -92,9 +96,6 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         handleInput();
         updateMovement();
         selectWeapon();
-        for (Weapon w : weaponRack) {
-            w.update();
-        }
         clampToWorldBounds();
     }
 
@@ -136,22 +137,23 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         Vector2 totalThrust = new Vector2();
         if (keyboard.isButtonDown(KeyEvent.VK_UP)) {
             // Upward speed needs to counter the effects of gravity
-            totalThrust.add(new Vector2(0f, jetSpeed - fakeGravity.getY()));
+            totalThrust.add(new Vector2(0f, defaultJetSpeed
+                    - currentGravity.getY()));
         }
         if (keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
-            totalThrust.add(new Vector2(-jetSpeed, 0f));
+            totalThrust.add(new Vector2(-defaultJetSpeed, 0f));
         }
         if (keyboard.isButtonDown(KeyEvent.VK_DOWN)) {
-            totalThrust.add(new Vector2(0f, -jetSpeed));
+            totalThrust.add(new Vector2(0f, -defaultJetSpeed));
         }
         if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
-            totalThrust.add(new Vector2(jetSpeed, 0));
+            totalThrust.add(new Vector2(defaultJetSpeed, 0));
         }
 
         velocity.add(totalThrust);
 
         if (keyboard.isButtonDown(KeyEvent.VK_F)) {
-            weapon.fire();
+            currentWeapon.fire();
         }
     }
 
@@ -161,7 +163,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
             if (keyboard.isButtonDown(hotkey)) {
                 int weaponIndex = weaponHotkeys.get(hotkey);
                 if (weaponIndex < weaponRack.size() && weaponIndex >= 0) {
-                    weapon = weaponRack.get(weaponIndex);
+                    currentWeapon = weaponRack.get(weaponIndex);
                 }
             }
         }
@@ -189,12 +191,6 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     // Powerups Functions
     public int powerupsCollected() {
         return collectedPowerups;
-    }
-
-    public void increaseSpeed() {
-    }
-
-    public void normalizeSpeed() {
     }
 
     @Override

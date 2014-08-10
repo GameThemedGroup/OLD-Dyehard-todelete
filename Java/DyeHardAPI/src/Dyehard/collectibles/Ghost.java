@@ -31,8 +31,8 @@ public class Ghost extends PowerUp implements HeroCollision, HeroDamage {
 
     @Override
     public void unapply(Hero hero) {
-        hero.collisionHandler = null;
-        hero.damageHandler = null;
+        hero.collisionHandler = hero.defaultCollisionHandler;
+        hero.damageHandler = hero.defaultDamageHandler;
     }
 
     @Override
