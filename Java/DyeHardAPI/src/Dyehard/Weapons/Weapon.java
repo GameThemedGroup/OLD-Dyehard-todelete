@@ -79,4 +79,9 @@ public class Weapon extends Rectangle {
     public void setEnemies(ArrayList<Enemy> enemies) {
         this.enemies = enemies;
     }
+
+    @Override
+    public String toString() {
+        return "Default";
+    }
 }

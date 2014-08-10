@@ -154,6 +154,8 @@ public class Hero extends Actor {
             weapon = weaponRack.get(3);
             currentWeapon = "Spread";
         }
+
+        currentWeapon = weapon.toString();
     }
 
     public void setEnemies(ArrayList<Enemy> enemies) {

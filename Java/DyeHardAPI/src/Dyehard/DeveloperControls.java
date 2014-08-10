@@ -105,7 +105,7 @@ public class DeveloperControls {
                         break;
                     case 2:
                         ((Space) onscreen.getFirst())
-                                .AddEnemy(new RedBeamEnemy(position, 7.5f, hero));
+                        .AddEnemy(new RedBeamEnemy(position, 7.5f, hero));
                         break;
                     default:
                         ((Space) onscreen.getFirst()).AddEnemy(new SpiderEnemy(
@@ -172,23 +172,23 @@ public class DeveloperControls {
 
     private void statusText() {
         powerUpText1
-                .setText("Ghost: "
-                        + (int) Math.ceil(PowerUpManager.GhostTimer
-                                .timeRemaining() / 1000)
+        .setText("Ghost: "
+                + (int) Math.ceil(PowerUpManager.GhostTimer
+                        .timeRemaining() / 1000)
                         + "     Invincibility: "
                         + (int) Math.ceil(PowerUpManager.InvincibilityTimer
                                 .timeRemaining() / 1000));
         powerUpText2
-                .setText("Overload: "
-                        + (int) Math.ceil(PowerUpManager.OverloadTimer
-                                .timeRemaining() / 1000)
+        .setText("Overload: "
+                + (int) Math.ceil(PowerUpManager.OverloadTimer
+                        .timeRemaining() / 1000)
                         + "     Unarmed: "
                         + (int) Math.ceil(PowerUpManager.UnarmedTimer
                                 .timeRemaining() / 1000));
         powerUpText3
-                .setText("Magnetism: "
-                        + (int) Math.ceil(PowerUpManager.MagnetismTimer
-                                .timeRemaining() / 1000)
+        .setText("Magnetism: "
+                + (int) Math.ceil(PowerUpManager.MagnetismTimer
+                        .timeRemaining() / 1000)
                         + "     Gravity: "
                         + (int) Math.ceil(PowerUpManager.GravityTimer
                                 .timeRemaining() / 1000));
@@ -198,7 +198,5 @@ public class DeveloperControls {
                 + (int) Math.ceil(PowerUpManager.EnemySpeedTimer
                         .timeRemaining() / 1000));
         heroWeaponText.setText("Current Weapon: " + hero.currentWeapon);
-        overheatText.setText("Overheat Weapon: ");
-        limitedText.setText("Limited Ammo Weapon: ");
     }
 }

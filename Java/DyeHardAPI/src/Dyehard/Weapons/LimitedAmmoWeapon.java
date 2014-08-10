@@ -28,4 +28,9 @@ public class LimitedAmmoWeapon extends Weapon {
     public int getAmmo() {
         return ammo;
     }
+
+    @Override
+    public String toString() {
+        return "Limited Ammo " + ammo + "/10";
+    }
 }

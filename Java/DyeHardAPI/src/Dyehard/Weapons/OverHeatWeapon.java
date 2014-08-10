@@ -23,6 +23,7 @@ public class OverHeatWeapon extends Weapon {
             currentHeatLevel = currentHeatLevel - cooldownRate;
         }
         if (currentHeatLevel <= 0) {
+            currentHeatLevel = 0;
             overheated = false;
         }
         super.update();
@@ -40,5 +41,11 @@ public class OverHeatWeapon extends Weapon {
 
     public float getHeatLevel() {
         return currentHeatLevel;
+    }
+
+    @Override
+    public String toString() {
+        return "Overheat " + String.format("%.0f", currentHeatLevel) + " / "
+                + String.format("%.0f", heatLimit);
     }
 }
