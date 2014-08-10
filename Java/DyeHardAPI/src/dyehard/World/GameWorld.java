@@ -17,7 +17,7 @@ public class GameWorld {
     public static final float RIGHT_EDGE = BaseCode.world.getWidth();
     public static final float TOP_EDGE = BaseCode.world.getHeight();
     public static final float BOTTOM_EDGE = BaseCode.world.getWorldPositionY();
-    public static float Speed = 0.5f;
+    public static float Speed = 0.3f;
     private Hero hero;
     private DeveloperControls dev;
     private Space space;
