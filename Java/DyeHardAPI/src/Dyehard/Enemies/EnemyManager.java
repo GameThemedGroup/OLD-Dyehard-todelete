@@ -13,11 +13,12 @@ import dyehard.World.GameWorld;
 
 public class EnemyManager implements Updateable {
     // This time is in milliseconds
-    private static final float enemyFrequency = 3000f;
+    private static final float enemyFrequency = 5000f;
     private static Hero hero;
     private static List<Enemy> enemies;
     private static Timer timer;
     private static boolean isInstantiated = false;
+    private static Random RANDOM = new Random();
 
     static {
         enemies = new ArrayList<Enemy>();
@@ -32,30 +33,35 @@ public class EnemyManager implements Updateable {
 
         UpdateManager.register(this);
         EnemyManager.hero = hero;
+        generateEnemy();
     }
 
     @Override
     public void update() {
         // generate new enemy
         if (timer.isDone()) {
-            Random rand = new Random();
-            // TODO: Replace magic numbers
-            float randomY = (GameWorld.TOP_EDGE - 5f - GameWorld.BOTTOM_EDGE + 5f)
-                    * rand.nextFloat() + 0f + 5f;
-            Vector2 position = new Vector2(GameWorld.RIGHT_EDGE + 5, randomY);
-            switch (rand.nextInt(3)) {
-            case 1:
-                enemies.add(new BrainEnemy(position, 7.5f, hero));
-                break;
-            case 2:
-                enemies.add(new RedBeamEnemy(position, 7.5f, hero));
-                break;
-            default:
-                enemies.add(new SpiderEnemy(position, 7.5f, hero));
-                break;
-            }
-            timer.reset();
+            generateEnemy();
         }
+    }
+
+    public static void generateEnemy() {
+
+        // TODO: Replace magic numbers
+        float randomY = (GameWorld.TOP_EDGE - 5f - GameWorld.BOTTOM_EDGE + 5f)
+                * RANDOM.nextFloat() + 0f + 5f;
+        Vector2 position = new Vector2(GameWorld.RIGHT_EDGE + 5, randomY);
+        switch (RANDOM.nextInt(3)) {
+        case 1:
+            enemies.add(new BrainEnemy(position, 7.5f, hero));
+            break;
+        case 2:
+            enemies.add(new RedBeamEnemy(position, 7.5f, hero));
+            break;
+        default:
+            enemies.add(new SpiderEnemy(position, 7.5f, hero));
+            break;
+        }
+        timer.reset();
     }
 
     public static List<Enemy> getEnemies() {
