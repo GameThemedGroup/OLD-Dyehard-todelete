@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 
 import Engine.LibraryCode;
 import dyehard.Background.Background;
+import dyehard.Util.Timer;
 import dyehard.World.GameWorld;
 
 public abstract class DyeHard extends LibraryCode {
@@ -21,11 +22,26 @@ public abstract class DyeHard extends LibraryCode {
     // Game state
     private State state;
 
+    Timer fullscreenToggleTimer = new Timer(500f);
+
     private void checkControl() {
         keyboard.update();
         if (keyboard.isButtonDown(KeyEvent.VK_ESCAPE)) {
             window.close();
         }
+
+        if (fullscreenToggleTimer.isDone()) {
+            // System.out.println("Timer Done");
+            if (keyboard.isButtonDown(KeyEvent.VK_ALT)
+                    && keyboard.isButtonDown(KeyEvent.VK_ENTER)) {
+
+                keyboard.releaseButton(KeyEvent.VK_ENTER);
+                keyboard.releaseButton(KeyEvent.VK_ALT);
+                window.toggleFullscreen();
+                fullscreenToggleTimer.reset();
+            }
+        }
+
         switch (state) {
         case BEGIN:
             if (keyboard.isButtonDown(KeyEvent.VK_A)) {
