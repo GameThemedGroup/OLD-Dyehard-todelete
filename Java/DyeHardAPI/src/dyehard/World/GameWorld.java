@@ -7,6 +7,7 @@ import Engine.KeyboardInput;
 import dyehard.DeveloperControls;
 import dyehard.Collectibles.PowerUpManager;
 import dyehard.Enemies.EnemyManager;
+import dyehard.Obstacles.Laser;
 import dyehard.Obstacles.ObstacleManager;
 import dyehard.Player.Hero;
 
@@ -23,6 +24,7 @@ public class GameWorld {
     private EnemyManager eManager;
     public static LinkedList<GameWorldRegion> gameRegions;
     private PowerUpManager pManager;
+    private Laser laser;
 
     public GameWorld(KeyboardInput keyboard) {
         hero = new Hero(keyboard);
@@ -31,6 +33,7 @@ public class GameWorld {
         gameRegions = new LinkedList<GameWorldRegion>();
         pManager = new PowerUpManager(hero, eManager.getEnemies());
         hero.setEnemies(eManager.getEnemies());
+        laser = new Laser(hero);
 
         // first element on screen
         gameRegions.add(new Space(hero, eManager.getEnemies(),
@@ -56,6 +59,7 @@ public class GameWorld {
         hero.update();
         dev.update();
         eManager.update();
+        laser.update();
         ObstacleManager.update();
         pManager.update();
 
