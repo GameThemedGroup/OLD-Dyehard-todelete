@@ -84,4 +84,12 @@ public class CollisionManager {
 
         set.removeAll(destroyed);
     }
+
+    public static final Set<Collidable> getCollidables() {
+        return collidables;
+    }
+
+    public static final Set<Collidable> getActors() {
+        return actors;
+    }
 }
