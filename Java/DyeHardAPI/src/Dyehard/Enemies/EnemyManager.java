@@ -5,7 +5,7 @@ import java.util.Random;
 
 import Engine.Vector2;
 import dyehard.UpdateManager;
-import dyehard.Updateable;
+import dyehard.UpdateManager.Updateable;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
 import dyehard.World.GameWorld;

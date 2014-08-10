@@ -1,6 +1,7 @@
 package dyehard;
 
 import Engine.Rectangle;
+import dyehard.UpdateManager.Updateable;
 
 public class GameObject extends Rectangle implements Updateable {
     protected boolean isAlive = true;

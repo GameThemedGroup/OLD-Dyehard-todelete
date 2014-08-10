@@ -4,6 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class UpdateManager {
+    public interface Updateable {
+        public void update();
+
+        public boolean isActive();
+    }
+
     static Set<Updateable> gameObjects = new HashSet<Updateable>();
     static Set<Updateable> newlyRegisteredObjects = new HashSet<Updateable>();
 
