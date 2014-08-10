@@ -19,6 +19,10 @@ public class Timer {
         endTime = System.nanoTime() + interval;
     }
 
+    public void setInterval(float milliSeconds) {
+        interval = milliSeconds * 1000000;
+    }
+
     public float timeRemaining() {
         // Returns the amount of time left in milliseconds
         return (endTime - System.nanoTime()) / 1000000;

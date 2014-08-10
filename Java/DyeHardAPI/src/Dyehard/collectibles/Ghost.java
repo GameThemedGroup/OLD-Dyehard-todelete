@@ -30,6 +30,12 @@ public class Ghost extends PowerUp implements HeroCollision, HeroDamage {
     }
 
     @Override
+    public void unapply(Hero hero) {
+        hero.collisionHandler = null;
+        hero.damageHandler = null;
+    }
+
+    @Override
     public void collideWithHero(Hero hero, Collidable other) {
         // Hero becomes unable to collide with other objects
         return;
@@ -40,12 +46,6 @@ public class Ghost extends PowerUp implements HeroCollision, HeroDamage {
         if (!(who instanceof DeathGate)) {
             hero.isAlive = false;
         }
-    }
-
-    @Override
-    public void unapply(Hero hero) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override

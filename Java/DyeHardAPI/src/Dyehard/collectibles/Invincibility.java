@@ -25,8 +25,7 @@ public class Invincibility extends PowerUp {
 
     @Override
     public void unapply(Hero hero) {
-        // TODO Auto-generated method stub
-
+        hero.damageHandler = null;
     }
 
     @Override
