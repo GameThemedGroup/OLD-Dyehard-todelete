@@ -14,6 +14,7 @@ public class PowerUpManager {
     public static Timer InvincibilityTimer;
     public static Timer UnarmedTimer;
     public static Timer MagnetismTimer;
+    public static Timer GravityTimer;
     private Hero hero;
     private List<Enemy> enemies;
 
@@ -24,6 +25,7 @@ public class PowerUpManager {
         InvincibilityTimer = new Timer(PowerUp.DURATION);
         UnarmedTimer = new Timer(PowerUp.DURATION);
         MagnetismTimer = new Timer(PowerUp.DURATION);
+        GravityTimer = new Timer(PowerUp.DURATION);
         this.hero = hero;
         this.enemies = enemies;
 
@@ -33,6 +35,7 @@ public class PowerUpManager {
         InvincibilityTimer.stop();
         UnarmedTimer.stop();
         MagnetismTimer.stop();
+        GravityTimer.stop();
     }
 
     public void update() {
@@ -56,6 +59,9 @@ public class PowerUpManager {
         }
         if (MagnetismTimer.isDone()) {
             hero.magnetismOff();
+        }
+        if (GravityTimer.isDone()) {
+            hero.gravityOff();
         }
     }
 }

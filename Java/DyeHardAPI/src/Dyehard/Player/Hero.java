@@ -24,7 +24,7 @@ import dyehard.World.Space;
 public class Hero extends Actor {
     private float speedLimitX = 50f;
     private static float jetSpeed = 2.5f;
-    private static Vector2 fakeGravity = new Vector2(0f, -1.5f);
+    private static Vector2 fakeGravity = new Vector2(0f, 0f);
     private static float drag = 0.97f; // smaller number means more reduction
     // private final float rightBoundaryLimit = 0.85f; // percentage of screen
     private int collectedDyepacks;
@@ -234,6 +234,14 @@ public class Hero extends Actor {
 
     public void magnetismOff() {
         isMagnetic = false;
+    }
+
+    public void gravityOn() {
+        fakeGravity.setY(-1.5f);
+    }
+
+    public void gravityOff() {
+        fakeGravity.setY(0f);
     }
 
     private void attract() {

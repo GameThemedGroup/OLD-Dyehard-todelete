@@ -10,6 +10,7 @@ import Engine.Text;
 import Engine.Vector2;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.Ghost;
+import dyehard.Collectibles.Gravity;
 import dyehard.Collectibles.Invincibility;
 import dyehard.Collectibles.Magnetism;
 import dyehard.Collectibles.Overload;
@@ -154,6 +155,11 @@ public class DeveloperControls {
                             hero, 70f, 70f));
                     timer.reset();
                 }
+                if (keyboard.isButtonDown(KeyEvent.VK_COMMA)) {
+                    ((Space) onscreen.getFirst()).AddPowerup(new Gravity(hero,
+                            70f, 70f));
+                    timer.reset();
+                }
             }
             // 'K' to kill all the enemies on screen
             if (keyboard.isButtonDown(KeyEvent.VK_K)) {
@@ -176,12 +182,15 @@ public class DeveloperControls {
                 .setText("Overload: "
                         + (int) Math.ceil(PowerUpManager.OverloadTimer
                                 .timeRemaining() / 1000)
-                        + "    Unarmed: "
+                        + "     Unarmed: "
                         + (int) Math.ceil(PowerUpManager.UnarmedTimer
                                 .timeRemaining() / 1000));
         powerUpText3
                 .setText("Magnetism: "
                         + (int) Math.ceil(PowerUpManager.MagnetismTimer
+                                .timeRemaining() / 1000)
+                        + "     Gravity: "
+                        + (int) Math.ceil(PowerUpManager.GravityTimer
                                 .timeRemaining() / 1000));
         enemySpeedText.setText("Enemy Speed is "
                 + EnemyManager.enemySpeed
