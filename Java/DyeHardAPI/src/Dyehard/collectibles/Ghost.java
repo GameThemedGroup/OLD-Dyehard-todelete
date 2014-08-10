@@ -10,20 +10,17 @@ import dyehard.World.Gate.DeathGate;
 
 public class Ghost extends PowerUp implements HeroCollision, HeroDamage {
     // public static PowerUpMeter meter = new PowerUpMeter(1, Game.Blue);
+    protected float duration = 3000f;
+
     public Ghost() {
+        super();
+        timer.setInterval(duration);
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Blue.png");
     }
 
     @Override
     public PowerUp clone() {
         return new Ghost();
-    }
-
-    @Override
-    public void activate(Hero hero) {
-        // meter.reset(Duration, hero.setVisible);
-        destroy();
-        System.out.println("Activated ghost");
     }
 
     @Override

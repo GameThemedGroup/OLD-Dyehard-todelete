@@ -11,13 +11,6 @@ public class Overload extends PowerUp {
     }
 
     @Override
-    public void activate(Hero hero) {
-        // meter.reset(Duration, null);
-        System.out.println("Activated overload");
-        super.activate(hero);
-    }
-
-    @Override
     public void apply(Hero hero) {
         // TODO Auto-generated method stub
 

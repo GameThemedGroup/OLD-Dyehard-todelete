@@ -10,13 +10,6 @@ public class SpeedUp extends PowerUp {
     }
 
     @Override
-    public void activate(Hero hero) {
-        hero.increaseSpeed();
-        // meter.reset(Duration, hero.normalizeSpeed);
-        super.activate(hero);
-    }
-
-    @Override
     public void apply(Hero hero) {
         // TODO Auto-generated method stub
 

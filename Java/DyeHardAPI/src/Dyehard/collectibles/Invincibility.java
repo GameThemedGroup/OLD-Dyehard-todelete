@@ -13,13 +13,6 @@ public class Invincibility extends PowerUp {
     }
 
     @Override
-    public void activate(Hero hero) {
-        // meter.reset(Duration, null);
-        System.out.println("Activated invincibility");
-        super.activate(hero);
-    }
-
-    @Override
     public void apply(Hero hero) {
         hero.damageHandler = new HeroDamage() {
             @Override
