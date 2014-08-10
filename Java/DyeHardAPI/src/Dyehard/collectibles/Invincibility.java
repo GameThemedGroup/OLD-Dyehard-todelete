@@ -40,4 +40,9 @@ public class Invincibility extends PowerUp {
     public PowerUp clone() {
         return new Invincibility();
     }
+
+    @Override
+    public String toString() {
+        return "Invincibility";
+    }
 }

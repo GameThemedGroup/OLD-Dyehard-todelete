@@ -35,6 +35,7 @@ public abstract class PowerUp extends Collidable implements Cloneable,
     public abstract void unapply(Hero hero);
 
     public void activate(Hero hero) {
+        System.out.println("Activating " + toString());
         destroy();
     }
 

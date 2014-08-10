@@ -33,4 +33,9 @@ public class Overload extends PowerUp {
     public PowerUp clone() {
         return new Overload();
     }
+
+    @Override
+    public String toString() {
+        return "Overload";
+    }
 }

@@ -50,4 +50,9 @@ public class Ghost extends PowerUp implements HeroCollision, HeroDamage {
         // TODO Auto-generated method stub
 
     }
+
+    @Override
+    public String toString() {
+        return "Ghost";
+    }
 }

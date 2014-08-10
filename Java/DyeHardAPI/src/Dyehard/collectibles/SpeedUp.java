@@ -32,4 +32,9 @@ public class SpeedUp extends PowerUp {
     public PowerUp clone() {
         return new SpeedUp();
     }
+
+    @Override
+    public String toString() {
+        return "Speedup";
+    }
 }
