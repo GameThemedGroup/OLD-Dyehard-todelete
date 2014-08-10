@@ -8,11 +8,11 @@ import dyehard.Enemies.Enemy;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
 
-public class SpeedUp extends PowerUp {
-    // public static PowerUpMeter meter = new PowerUpMeter(0, DyeHard.Green);
-    public SpeedUp() {
+public class SlowDown extends PowerUp {
+
+    public SlowDown() {
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Green.png");
-        enemySpeedModifier = 1.75f;
+        enemySpeedModifier = 0.5f;
         isApplied = false;
     }
 
@@ -44,11 +44,12 @@ public class SpeedUp extends PowerUp {
 
     @Override
     public PowerUp clone() {
-        return new SpeedUp();
+        return new SlowDown();
     }
 
     @Override
     public String toString() {
-        return "Speedup";
+        return "Slowdown";
     }
+
 }
