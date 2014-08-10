@@ -5,8 +5,10 @@ import java.util.List;
 import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.Ghost;
+import dyehard.Collectibles.Invincibility;
 import dyehard.Collectibles.Overload;
 import dyehard.Collectibles.PowerUp;
+import dyehard.Collectibles.SpeedUp;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.Weapons.LimitedAmmoWeapon;
@@ -43,8 +45,8 @@ public class UserCode extends DyeHard {
 
         powerUps.add(new Ghost());
         powerUps.add(new Overload());
-        // powerUps.add(new Invincibility());
-        // powerUps.add(new SpeedUp());
+        powerUps.add(new Invincibility());
+        powerUps.add(new SpeedUp());
 
         return powerUps;
     }

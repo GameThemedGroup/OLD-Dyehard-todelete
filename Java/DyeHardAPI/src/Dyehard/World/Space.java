@@ -17,7 +17,7 @@ public class Space extends GameWorldRegion {
 
     public static int powerupCount = 5;
     public static int dyepackCount = 11;
-    public static int debrisCount = 0; // 10; TODO
+    public static int debrisCount = 10;
 
     private static Random RANDOM = new Random();
 
