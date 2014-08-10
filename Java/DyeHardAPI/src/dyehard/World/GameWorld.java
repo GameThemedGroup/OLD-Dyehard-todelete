@@ -17,7 +17,6 @@ public class GameWorld {
     public static final float BOTTOM_EDGE = BaseCode.world.getWorldPositionY();
     public static float Speed = 0.5f;
     private Hero hero;
-    private EnemyManager eManager;
     private LinkedList<GameWorldRegion> gameRegions;
 
     public GameWorld(KeyboardInput keyboard) {
@@ -25,7 +24,7 @@ public class GameWorld {
     }
 
     public void initialize(Hero hero) {
-        eManager = new EnemyManager(hero);
+        new EnemyManager(hero);
         this.hero = hero;
     }
 
@@ -79,7 +78,7 @@ public class GameWorld {
     protected void generateNewRegion() {
         GameWorldRegion newRegion;
         if (gameRegions.getLast() instanceof Space) {
-            newRegion = new Stargate(hero, eManager.getEnemies());
+            newRegion = new Stargate(hero);
         } else {
             newRegion = new Space(hero);
         }

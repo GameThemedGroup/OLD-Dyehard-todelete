@@ -1,13 +1,11 @@
 package dyehard.World;
 
 import java.awt.Color;
-import java.util.ArrayList;
 
 import Engine.Vector2;
 import dyehard.Actor;
 import dyehard.Collidable;
 import dyehard.GameObject;
-import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 
 public class Gate {
@@ -15,8 +13,7 @@ public class Gate {
     private DeathGate deathGate;
     private GatePreview preview;
 
-    public Gate(int offset, Hero hero, ArrayList<Enemy> enemies,
-            float leftEdge, Color color, float width) {
+    public Gate(int offset, Hero hero, float leftEdge, Color color, float width) {
         // set up pipe
         float position = (width * 0.5f) + leftEdge;
         float drawHeight = GameWorld.TOP_EDGE / Stargate.GATE_COUNT;

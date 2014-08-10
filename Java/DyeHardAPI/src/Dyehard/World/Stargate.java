@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import Engine.Vector2;
 import dyehard.GameObject;
-import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 
@@ -17,11 +16,9 @@ public class Stargate extends GameWorldRegion {
     private GameObject backdrop;
 
     public Hero hero;
-    public ArrayList<Enemy> enemies;
 
-    public Stargate(Hero hero, ArrayList<Enemy> enemies) {
+    public Stargate(Hero hero) {
         this.hero = hero;
-        this.enemies = enemies;
         width = Stargate.WIDTH;
         speed = -GameWorld.Speed;
     }
@@ -33,8 +30,7 @@ public class Stargate extends GameWorldRegion {
 
         gates = new Gate[GATE_COUNT];
         for (int i = 0; i < gates.length; i++) {
-            gates[i] = new Gate(i, hero, enemies, leftEdge, colors.get(i),
-                    width);
+            gates[i] = new Gate(i, hero, leftEdge, colors.get(i), width);
         }
 
         platforms = new Platform[GATE_COUNT + 1];
