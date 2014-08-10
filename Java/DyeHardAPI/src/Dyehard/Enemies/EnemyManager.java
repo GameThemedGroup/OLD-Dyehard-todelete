@@ -1,6 +1,7 @@
 package dyehard.Enemies;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import Engine.Vector2;
@@ -12,16 +13,25 @@ import dyehard.World.GameWorld;
 
 public class EnemyManager implements Updateable {
     // This time is in milliseconds
-    private final float enemyFrequency = 3000f;
-    private Hero hero;
-    private ArrayList<Enemy> enemies;
-    private Timer timer;
+    private static final float enemyFrequency = 3000f;
+    private static Hero hero;
+    private static List<Enemy> enemies;
+    private static Timer timer;
+    private static boolean isInstantiated = false;
 
-    public EnemyManager(Hero hero) {
-        this.hero = hero;
-        UpdateManager.register(this);
+    static {
         enemies = new ArrayList<Enemy>();
         timer = new Timer(enemyFrequency);
+    }
+
+    public EnemyManager(Hero hero) {
+        if (isInstantiated) {
+            throw new IllegalStateException(
+                    "Only one Enemy Manager can instantiated.");
+        }
+
+        UpdateManager.register(this);
+        EnemyManager.hero = hero;
     }
 
     @Override
@@ -48,7 +58,7 @@ public class EnemyManager implements Updateable {
         }
     }
 
-    public ArrayList<Enemy> getEnemies() {
+    public static List<Enemy> getEnemies() {
         return enemies;
     }
 
