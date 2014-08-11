@@ -26,6 +26,5 @@ public class SlowDown extends PowerUp {
         EnemyManager.enemySpeed = "50%";
         PowerUpManager.EnemySpeedTimer.reset();
         super.activate();
-        System.out.println("Picked up Slow Down");
     }
 }

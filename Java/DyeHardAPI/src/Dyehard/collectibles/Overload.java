@@ -14,6 +14,5 @@ public class Overload extends PowerUp {
         hero.overloadOn();
         PowerUpManager.OverloadTimer.reset();
         super.activate();
-        System.out.println("Picked up Overload");
     }
 }

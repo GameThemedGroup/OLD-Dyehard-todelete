@@ -16,6 +16,5 @@ public class Magnetism extends PowerUp {
         hero.magnetismOn();
         PowerUpManager.MagnetismTimer.reset();
         super.activate();
-        System.out.println("Picked up Magnetism");
     }
 }

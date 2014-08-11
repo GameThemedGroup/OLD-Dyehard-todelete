@@ -16,6 +16,5 @@ public class Gravity extends PowerUp {
         hero.gravityOn();
         PowerUpManager.GravityTimer.reset();
         super.activate();
-        System.out.println("Picked up Gravity");
     }
 }

@@ -26,6 +26,5 @@ public class SpeedUp extends PowerUp {
         EnemyManager.enemySpeed = "175%";
         PowerUpManager.EnemySpeedTimer.reset();
         super.activate();
-        System.out.println("Picked up Speed Up");
     }
 }
