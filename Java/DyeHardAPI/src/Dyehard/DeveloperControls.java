@@ -40,8 +40,6 @@ public class DeveloperControls {
     private Text powerUpText3;
     private Text enemySpeedText;
     private Text heroWeaponText;
-    private Text overheatText;
-    private Text limitedText;
 
     public DeveloperControls(GameWorld world, Space space, Hero hero,
             KeyboardInput keyboard, EnemyManager eManager,
@@ -55,38 +53,28 @@ public class DeveloperControls {
         powerUpText1 = new Text("", 1f, 57f);
         powerUpText1.setFrontColor(Color.white);
         powerUpText1.setBackColor(Color.black);
-        powerUpText1.setFontSize(16);
+        powerUpText1.setFontSize(18);
         powerUpText1.setFontName("Arial");
         powerUpText2 = new Text("", 1f, 55f);
         powerUpText2.setFrontColor(Color.white);
         powerUpText2.setBackColor(Color.black);
-        powerUpText2.setFontSize(16);
+        powerUpText2.setFontSize(18);
         powerUpText2.setFontName("Arial");
         powerUpText3 = new Text("", 1f, 53f);
         powerUpText3.setFrontColor(Color.white);
         powerUpText3.setBackColor(Color.black);
-        powerUpText3.setFontSize(16);
+        powerUpText3.setFontSize(18);
         powerUpText3.setFontName("Arial");
-        enemySpeedText = new Text("", 1f, 51f);
-        enemySpeedText.setFrontColor(Color.white);
-        enemySpeedText.setBackColor(Color.black);
-        enemySpeedText.setFontSize(16);
-        enemySpeedText.setFontName("Arial");
         heroWeaponText = new Text("", 30f, 57f);
         heroWeaponText.setFrontColor(Color.white);
         heroWeaponText.setBackColor(Color.black);
-        heroWeaponText.setFontSize(16);
+        heroWeaponText.setFontSize(18);
         heroWeaponText.setFontName("Arial");
-        overheatText = new Text("", 30f, 55f);
-        overheatText.setFrontColor(Color.white);
-        overheatText.setBackColor(Color.black);
-        overheatText.setFontSize(16);
-        overheatText.setFontName("Arial");
-        limitedText = new Text("", 30f, 53f);
-        limitedText.setFrontColor(Color.white);
-        limitedText.setBackColor(Color.black);
-        limitedText.setFontSize(16);
-        limitedText.setFontName("Arial");
+        enemySpeedText = new Text("", 30f, 55f);
+        enemySpeedText.setFrontColor(Color.white);
+        enemySpeedText.setBackColor(Color.black);
+        enemySpeedText.setFontSize(18);
+        enemySpeedText.setFontName("Arial");
     }
 
     public void update() {
@@ -105,7 +93,7 @@ public class DeveloperControls {
                         break;
                     case 2:
                         ((Space) onscreen.getFirst())
-                        .AddEnemy(new RedBeamEnemy(position, 7.5f, hero));
+                                .AddEnemy(new RedBeamEnemy(position, 7.5f, hero));
                         break;
                     default:
                         ((Space) onscreen.getFirst()).AddEnemy(new SpiderEnemy(
@@ -172,23 +160,23 @@ public class DeveloperControls {
 
     private void statusText() {
         powerUpText1
-        .setText("Ghost: "
-                + (int) Math.ceil(PowerUpManager.GhostTimer
-                        .timeRemaining() / 1000)
+                .setText("Ghost: "
+                        + (int) Math.ceil(PowerUpManager.GhostTimer
+                                .timeRemaining() / 1000)
                         + "     Invincibility: "
                         + (int) Math.ceil(PowerUpManager.InvincibilityTimer
                                 .timeRemaining() / 1000));
         powerUpText2
-        .setText("Overload: "
-                + (int) Math.ceil(PowerUpManager.OverloadTimer
-                        .timeRemaining() / 1000)
+                .setText("Overload: "
+                        + (int) Math.ceil(PowerUpManager.OverloadTimer
+                                .timeRemaining() / 1000)
                         + "     Unarmed: "
                         + (int) Math.ceil(PowerUpManager.UnarmedTimer
                                 .timeRemaining() / 1000));
         powerUpText3
-        .setText("Magnetism: "
-                + (int) Math.ceil(PowerUpManager.MagnetismTimer
-                        .timeRemaining() / 1000)
+                .setText("Magnetism: "
+                        + (int) Math.ceil(PowerUpManager.MagnetismTimer
+                                .timeRemaining() / 1000)
                         + "     Gravity: "
                         + (int) Math.ceil(PowerUpManager.GravityTimer
                                 .timeRemaining() / 1000));
