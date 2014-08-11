@@ -39,10 +39,6 @@ public class OverHeatWeapon extends Weapon {
         }
     }
 
-    public float getHeatLevel() {
-        return currentHeatLevel;
-    }
-
     @Override
     public String toString() {
         return "Overheat " + String.format("%.0f", currentHeatLevel) + " / "
