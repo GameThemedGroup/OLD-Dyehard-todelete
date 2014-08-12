@@ -39,6 +39,7 @@ public class Hero extends Actor {
     public boolean isMagnetic;
     public final float attractionDistance = 25f;
     public String currentWeapon;
+    public String newestPowerUp;
 
     public Hero(KeyboardInput keyboard) {
         // TODO: The position 20f, 20f is a temporary value.
@@ -166,6 +167,7 @@ public class Hero extends Actor {
     }
 
     public void collect(PowerUp powerup) {
+        newestPowerUp = powerup.toString();
         powerup.activate();
         collectedPowerups += 1;
     }
