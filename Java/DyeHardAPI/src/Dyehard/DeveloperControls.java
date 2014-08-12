@@ -154,6 +154,9 @@ public class DeveloperControls {
                 eManager.killAll();
                 timer.reset();
             }
+            if (keyboard.isButtonDown(KeyEvent.VK_R)) {
+                hero.reloadLimitedAmmoWeapon();
+            }
         }
         statusText();
     }

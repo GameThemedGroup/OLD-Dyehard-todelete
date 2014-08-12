@@ -143,16 +143,12 @@ public class Hero extends Actor {
     private void selectWeapon() {
         if (keyboard.isButtonDown(KeyEvent.VK_1)) {
             weapon = weaponRack.get(0);
-            currentWeapon = "Default";
         } else if (keyboard.isButtonDown(KeyEvent.VK_2)) {
             weapon = weaponRack.get(1);
-            currentWeapon = "Overheat";
         } else if (keyboard.isButtonDown(KeyEvent.VK_3)) {
             weapon = weaponRack.get(2);
-            currentWeapon = "Limited Ammo";
         } else if (keyboard.isButtonDown(KeyEvent.VK_4)) {
             weapon = weaponRack.get(3);
-            currentWeapon = "Spread";
         }
 
         currentWeapon = weapon.toString();
@@ -244,6 +240,14 @@ public class Hero extends Actor {
 
     public void gravityOff() {
         fakeGravity.setY(0f);
+    }
+
+    public void reloadLimitedAmmoWeapon() {
+        for (int i = 0; i < weaponRack.size(); i++) {
+            if (weaponRack.get(i) instanceof LimitedAmmoWeapon) {
+                ((LimitedAmmoWeapon) weaponRack.get(i)).recharge();
+            }
+        }
     }
 
     private void attract() {
