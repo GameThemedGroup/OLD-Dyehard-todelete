@@ -17,4 +17,9 @@ public class Magnetism extends PowerUp {
         PowerUpManager.MagnetismTimer.reset();
         super.activate();
     }
+
+    @Override
+    public String toString() {
+        return "Magnetism";
+    }
 }

@@ -15,4 +15,9 @@ public class Ghost extends PowerUp {
         PowerUpManager.GhostTimer.reset();
         super.activate();
     }
+
+    @Override
+    public String toString() {
+        return "Ghost";
+    }
 }

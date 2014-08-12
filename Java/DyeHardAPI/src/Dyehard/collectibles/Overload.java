@@ -15,4 +15,9 @@ public class Overload extends PowerUp {
         PowerUpManager.OverloadTimer.reset();
         super.activate();
     }
+
+    @Override
+    public String toString() {
+        return "Overload";
+    }
 }

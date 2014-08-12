@@ -15,4 +15,9 @@ public class Invincibility extends PowerUp {
         PowerUpManager.InvincibilityTimer.reset();
         super.activate();
     }
+
+    @Override
+    public String toString() {
+        return "Invincibility";
+    }
 }

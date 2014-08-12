@@ -27,4 +27,9 @@ public class SpeedUp extends PowerUp {
         PowerUpManager.EnemySpeedTimer.reset();
         super.activate();
     }
+
+    @Override
+    public String toString() {
+        return "Speed Up";
+    }
 }

@@ -17,4 +17,9 @@ public class Unarmed extends PowerUp {
         PowerUpManager.UnarmedTimer.reset();
         super.activate();
     }
+
+    @Override
+    public String toString() {
+        return "Unarmed";
+    }
 }

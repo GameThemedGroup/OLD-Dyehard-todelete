@@ -17,4 +17,9 @@ public class Gravity extends PowerUp {
         PowerUpManager.GravityTimer.reset();
         super.activate();
     }
+
+    @Override
+    public String toString() {
+        return "Gravity";
+    }
 }
