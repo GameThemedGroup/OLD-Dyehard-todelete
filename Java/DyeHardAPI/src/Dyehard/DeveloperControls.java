@@ -35,11 +35,15 @@ public class DeveloperControls {
     private EnemyManager eManager;
     private LinkedList<GameWorldRegion> onscreen;
     private Timer timer;
-    private Text powerUpText1;
-    private Text powerUpText2;
-    private Text powerUpText3;
+    private Text ghostText;
+    private Text invincibilityText;
+    private Text overloadText;
+    private Text unarmedText;
+    private Text magnetismText;
+    private Text gravityText;
     private Text enemySpeedText;
     private Text heroWeaponText;
+    private Text recentPowerUpText;
 
     public DeveloperControls(GameWorld world, Space space, Hero hero,
             KeyboardInput keyboard, EnemyManager eManager,
@@ -50,31 +54,51 @@ public class DeveloperControls {
         this.onscreen = onscreen;
         timer = new Timer(500f);
 
-        powerUpText1 = new Text("", 1f, 57f);
-        powerUpText1.setFrontColor(Color.white);
-        powerUpText1.setBackColor(Color.black);
-        powerUpText1.setFontSize(18);
-        powerUpText1.setFontName("Arial");
-        powerUpText2 = new Text("", 1f, 55f);
-        powerUpText2.setFrontColor(Color.white);
-        powerUpText2.setBackColor(Color.black);
-        powerUpText2.setFontSize(18);
-        powerUpText2.setFontName("Arial");
-        powerUpText3 = new Text("", 1f, 53f);
-        powerUpText3.setFrontColor(Color.white);
-        powerUpText3.setBackColor(Color.black);
-        powerUpText3.setFontSize(18);
-        powerUpText3.setFontName("Arial");
-        heroWeaponText = new Text("", 30f, 57f);
+        ghostText = new Text("", 3f, 57f);
+        ghostText.setFrontColor(Color.white);
+        ghostText.setBackColor(Color.black);
+        ghostText.setFontSize(18);
+        ghostText.setFontName("Arial");
+        invincibilityText = new Text("", 3f, 55f);
+        invincibilityText.setFrontColor(Color.white);
+        invincibilityText.setBackColor(Color.black);
+        invincibilityText.setFontSize(18);
+        invincibilityText.setFontName("Arial");
+        overloadText = new Text("", 3f, 53f);
+        overloadText.setFrontColor(Color.white);
+        overloadText.setBackColor(Color.black);
+        overloadText.setFontSize(18);
+        overloadText.setFontName("Arial");
+        unarmedText = new Text("", 3f, 51f);
+        unarmedText.setFrontColor(Color.white);
+        unarmedText.setBackColor(Color.black);
+        unarmedText.setFontSize(18);
+        unarmedText.setFontName("Arial");
+        magnetismText = new Text("", 3f, 49f);
+        magnetismText.setFrontColor(Color.white);
+        magnetismText.setBackColor(Color.black);
+        magnetismText.setFontSize(18);
+        magnetismText.setFontName("Arial");
+        gravityText = new Text("", 3f, 47f);
+        gravityText.setFrontColor(Color.white);
+        gravityText.setBackColor(Color.black);
+        gravityText.setFontSize(18);
+        gravityText.setFontName("Arial");
+        heroWeaponText = new Text("", 20f, 57f);
         heroWeaponText.setFrontColor(Color.white);
         heroWeaponText.setBackColor(Color.black);
         heroWeaponText.setFontSize(18);
         heroWeaponText.setFontName("Arial");
-        enemySpeedText = new Text("", 30f, 55f);
+        enemySpeedText = new Text("", 3f, 45f);
         enemySpeedText.setFrontColor(Color.white);
         enemySpeedText.setBackColor(Color.black);
         enemySpeedText.setFontSize(18);
         enemySpeedText.setFontName("Arial");
+        recentPowerUpText = new Text("", 20f, 55f);
+        recentPowerUpText.setFrontColor(Color.white);
+        recentPowerUpText.setBackColor(Color.black);
+        recentPowerUpText.setFontSize(18);
+        recentPowerUpText.setFontName("Arial");
     }
 
     public void update() {
@@ -162,25 +186,27 @@ public class DeveloperControls {
     }
 
     private void statusText() {
-        powerUpText1
+        ghostText
                 .setText("Ghost: "
                         + (int) Math.ceil(PowerUpManager.GhostTimer
-                                .timeRemaining() / 1000)
-                        + "     Invincibility: "
-                        + (int) Math.ceil(PowerUpManager.InvincibilityTimer
                                 .timeRemaining() / 1000));
-        powerUpText2
+        invincibilityText.setText("Invincibility: "
+                + (int) Math.ceil(PowerUpManager.InvincibilityTimer
+                        .timeRemaining() / 1000));
+        overloadText
                 .setText("Overload: "
                         + (int) Math.ceil(PowerUpManager.OverloadTimer
-                                .timeRemaining() / 1000)
-                        + "     Unarmed: "
+                                .timeRemaining() / 1000));
+        unarmedText
+                .setText("Unarmed: "
                         + (int) Math.ceil(PowerUpManager.UnarmedTimer
                                 .timeRemaining() / 1000));
-        powerUpText3
+        magnetismText
                 .setText("Magnetism: "
                         + (int) Math.ceil(PowerUpManager.MagnetismTimer
-                                .timeRemaining() / 1000)
-                        + "     Gravity: "
+                                .timeRemaining() / 1000));
+        gravityText
+                .setText("Gravity: "
                         + (int) Math.ceil(PowerUpManager.GravityTimer
                                 .timeRemaining() / 1000));
         enemySpeedText.setText("Enemy Speed is "
@@ -189,5 +215,7 @@ public class DeveloperControls {
                 + (int) Math.ceil(PowerUpManager.EnemySpeedTimer
                         .timeRemaining() / 1000));
         heroWeaponText.setText("Current Weapon: " + hero.currentWeapon);
+        recentPowerUpText
+                .setText("Most Recent Power Up: " + hero.newestPowerUp);
     }
 }
