@@ -40,6 +40,12 @@ public class Hero extends Actor {
     public final float attractionDistance = 25f;
     public String currentWeapon;
     public String newestPowerUp;
+    private State directionState;
+    private DynamicDyePack dd;
+
+    public enum State {
+        UP, DOWN, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, NEUTRAL
+    }
 
     public Hero(KeyboardInput keyboard) {
         // TODO: The position 20f, 20f is a temporary value.
@@ -56,12 +62,15 @@ public class Hero extends Actor {
         isUnarmed = false;
         isMagnetic = false;
         currentWeapon = "Default";
+        directionState = State.NEUTRAL;
+        dd = new DynamicDyePack(this);
     }
 
     @Override
     public void draw() {
         weapon.draw();
         super.draw();
+        dd.draw();
     }
 
     public void updateMovement() {
@@ -90,7 +99,9 @@ public class Hero extends Actor {
     public void update() {
         handleInput();
         updateMovement();
+        updateState();
         selectWeapon();
+        dd.update();
 
         for (Weapon w : weaponRack) {
             w.update();
@@ -155,6 +166,51 @@ public class Hero extends Actor {
         currentWeapon = weapon.toString();
     }
 
+    public void updateState() {
+        if (keyboard.isButtonDown(KeyEvent.VK_UP)
+                && keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
+            directionState = State.TOPLEFT;
+            return;
+        }
+        if (keyboard.isButtonDown(KeyEvent.VK_UP)
+                && keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
+            directionState = State.TOPRIGHT;
+            return;
+        }
+        if (keyboard.isButtonDown(KeyEvent.VK_DOWN)
+                && keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
+            directionState = State.BOTTOMLEFT;
+            return;
+        }
+        if (keyboard.isButtonDown(KeyEvent.VK_DOWN)
+                && keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
+            directionState = State.BOTTOMRIGHT;
+            return;
+        }
+        if (keyboard.isButtonDown(KeyEvent.VK_UP)) {
+            directionState = State.UP;
+            return;
+        }
+        if (keyboard.isButtonDown(KeyEvent.VK_DOWN)) {
+            directionState = State.DOWN;
+            return;
+        }
+        if (keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
+            directionState = State.LEFT;
+            return;
+        }
+        if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
+            directionState = State.RIGHT;
+            return;
+        }
+        directionState = State.NEUTRAL;
+        return;
+    }
+
+    public State getState() {
+        return directionState;
+    }
+
     public void setEnemies(ArrayList<Enemy> enemies) {
         for (Weapon w : weaponRack) {
             w.setEnemies(enemies);
@@ -164,6 +220,7 @@ public class Hero extends Actor {
     public void collect(DyePack dye) {
         dye.activate();
         collectedDyepacks += 1;
+        dd.updateColor(color);
     }
 
     public void collect(PowerUp powerup) {
