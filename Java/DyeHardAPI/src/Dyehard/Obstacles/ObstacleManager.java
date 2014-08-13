@@ -102,6 +102,7 @@ public class ObstacleManager {
         if (actor instanceof Hero && ((Hero) actor).isGhost == true) {
             actor.removeFromAutoDrawSet();
             actor.addToAutoDrawSet();
+            actor.draw();
             return;
         }
 
