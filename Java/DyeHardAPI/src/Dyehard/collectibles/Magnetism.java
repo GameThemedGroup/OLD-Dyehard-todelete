@@ -8,7 +8,7 @@ public class Magnetism extends PowerUp {
     public Magnetism(Hero hero, float minX, float maxX) {
         super(hero, minX, maxX);
         color = Color.white;
-        // texture = BaseCode.resources.loadImage("Textures/PowerUp_Pink.png");
+        label.setText("Magnet");
     }
 
     @Override

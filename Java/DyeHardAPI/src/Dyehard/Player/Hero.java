@@ -41,6 +41,7 @@ public class Hero extends Actor {
     public String currentWeapon;
     public String newestPowerUp;
     private State directionState;
+
     private DynamicDyePack dd;
 
     public enum State {

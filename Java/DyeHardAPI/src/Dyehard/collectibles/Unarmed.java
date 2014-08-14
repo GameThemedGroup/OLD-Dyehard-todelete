@@ -8,7 +8,7 @@ public class Unarmed extends PowerUp {
     public Unarmed(Hero hero, float minX, float maxX) {
         super(hero, minX, maxX);
         color = Color.cyan;
-        // texture = BaseCode.resources.loadImage("Textures/PowerUp_Blue.png");
+        label.setText("Unarmed");
     }
 
     @Override

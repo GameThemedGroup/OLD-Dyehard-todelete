@@ -14,7 +14,7 @@ public class SlowDown extends PowerUp {
         super(hero, minX, maxX);
         this.enemies = enemies;
         color = Color.gray;
-        // texture = BaseCode.resources.loadImage("Textures/PowerUp_Green.png");
+        label.setText("Slow");
     }
 
     @Override

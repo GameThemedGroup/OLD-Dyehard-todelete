@@ -1,5 +1,6 @@
 package dyehard.Collectibles;
 
+import java.awt.Color;
 import java.util.List;
 
 import Engine.BaseCode;
@@ -13,6 +14,8 @@ public class SpeedUp extends PowerUp {
     public SpeedUp(Hero hero, List<Enemy> enemies, float minX, float maxX) {
         super(hero, minX, maxX);
         this.enemies = enemies;
+        label.setText("Speed");
+        label.setFrontColor(Color.white);
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Green.png");
     }
 

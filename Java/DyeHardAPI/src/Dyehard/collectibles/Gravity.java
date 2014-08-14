@@ -8,7 +8,7 @@ public class Gravity extends PowerUp {
     public Gravity(Hero hero, float minX, float maxX) {
         super(hero, minX, maxX);
         color = Color.red;
-        // texture = BaseCode.resources.loadImage("Textures/PowerUp_Blue.png");
+        label.setText("Gravity");
     }
 
     @Override
