@@ -5,6 +5,10 @@ import dyehard.Weapons.BrokenWeapon;
 
 public class Unarmed extends PowerUp {
 
+    public Unarmed() {
+        applicationOrder = 0;
+    }
+
     @Override
     public void apply(Hero hero) {
         hero.currentWeapon = new BrokenWeapon(hero);

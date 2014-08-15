@@ -9,7 +9,7 @@ public class Invincibility extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(2, Game.Pink);
     public Invincibility() {
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Pink.png");
-        applicationOrder = 1000;
+        applicationOrder = 100;
     }
 
     @Override

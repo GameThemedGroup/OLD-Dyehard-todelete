@@ -10,6 +10,10 @@ import dyehard.World.GameWorld;
 
 public class Magnetism extends PowerUp {
 
+    public Magnetism() {
+        applicationOrder = 40;
+    }
+
     protected static final float attractionDistance = GameWorld.RIGHT_EDGE / 4;
 
     @Override

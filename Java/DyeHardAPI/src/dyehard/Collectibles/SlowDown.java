@@ -14,6 +14,7 @@ public class SlowDown extends PowerUp {
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Green.png");
         enemySpeedModifier = 0.5f;
         isApplied = false;
+        applicationOrder = 10;
     }
 
     protected boolean isApplied;

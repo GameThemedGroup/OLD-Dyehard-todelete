@@ -16,6 +16,7 @@ public class Ghost extends PowerUp implements HeroCollision, HeroDamage {
         super();
         timer.setInterval(duration);
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Blue.png");
+        applicationOrder = 90;
     }
 
     @Override

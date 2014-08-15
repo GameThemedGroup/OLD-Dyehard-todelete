@@ -14,6 +14,7 @@ public class SpeedUp extends PowerUp {
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Green.png");
         enemySpeedModifier = 1.75f;
         isApplied = false;
+        applicationOrder = 20;
     }
 
     protected boolean isApplied;
