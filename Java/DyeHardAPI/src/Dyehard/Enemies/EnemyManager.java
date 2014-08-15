@@ -33,7 +33,6 @@ public class EnemyManager implements Updateable {
 
         UpdateManager.register(this);
         EnemyManager.hero = hero;
-        generateEnemy();
     }
 
     @Override

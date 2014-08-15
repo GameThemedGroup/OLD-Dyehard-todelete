@@ -3,7 +3,6 @@ package dyehard;
 import java.awt.event.KeyEvent;
 
 import Engine.LibraryCode;
-import dyehard.Background.Background;
 import dyehard.World.GameWorld;
 
 public abstract class DyeHard extends LibraryCode {
@@ -17,8 +16,6 @@ public abstract class DyeHard extends LibraryCode {
 
     // Game state
     protected State state;
-
-    protected Background background;
     protected GameWorld world;
 
     private void checkControl() {
@@ -40,7 +37,7 @@ public abstract class DyeHard extends LibraryCode {
             }
             if (keyboard.isButtonDown(KeyEvent.VK_Q)) {
                 state = State.BEGIN;
-                world = new GameWorld(keyboard);
+                world = new GameWorld();
                 // pauseScreen.remove();
             }
             break;
@@ -54,7 +51,7 @@ public abstract class DyeHard extends LibraryCode {
         case GAMEOVER:
             if (keyboard.isButtonDown(KeyEvent.VK_A)) {
                 state = State.BEGIN;
-                world = new GameWorld(keyboard);
+                world = new GameWorld();
                 // gameOverScreen.remove();
             }
             break;
@@ -67,16 +64,8 @@ public abstract class DyeHard extends LibraryCode {
     public void initializeWorld() {
         super.initializeWorld();
 
-        // Starting state should be begin
-        // Using playing to test controls
         state = State.PLAYING;
-        background = new Background();
-        // I pass keyboard into GameWorld when creating it because
-        // I need access to BaseCode for keyboard inputs.
-
-        if (world == null) {
-            world = new GameWorld(keyboard);
-        }
+        world = new GameWorld();
 
         initialize(); // call user code Initialize()
     }
@@ -86,8 +75,8 @@ public abstract class DyeHard extends LibraryCode {
         checkControl();
         switch (state) {
         case PLAYING:
-            background.update();
-            world.update();
+            UpdateManager.update();
+            CollisionManager.update();
             break;
         default:
             break;

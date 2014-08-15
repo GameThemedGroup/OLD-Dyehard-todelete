@@ -3,29 +3,36 @@ package dyehard.World;
 import java.util.LinkedList;
 
 import Engine.BaseCode;
-import Engine.KeyboardInput;
-import dyehard.CollisionManager;
 import dyehard.UpdateManager;
+import dyehard.UpdateManager.Updateable;
+import dyehard.Background.Background;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
 
-public class GameWorld {
+public class GameWorld implements Updateable {
     // private final float StartSpeed = 0.2f;
     public static final float LEFT_EDGE = BaseCode.world.getPositionX();
     public static final float RIGHT_EDGE = BaseCode.world.getWidth();
     public static final float TOP_EDGE = BaseCode.world.getHeight();
     public static final float BOTTOM_EDGE = BaseCode.world.getWorldPositionY();
-    public static float Speed = 0.5f;
+    public static float Speed = 0.3f;
     private Hero hero;
     private LinkedList<GameWorldRegion> gameRegions;
 
-    public GameWorld(KeyboardInput keyboard) {
+    public GameWorld() {
         gameRegions = new LinkedList<GameWorldRegion>();
     }
 
     public void initialize(Hero hero) {
         new EnemyManager(hero);
         this.hero = hero;
+        new Background();
+
+        // Draw the hero on top of the background
+        hero.removeFromAutoDrawSet();
+        hero.addToAutoDrawSet();
+
+        UpdateManager.register(this);
     }
 
     // Adds a region to the queue of upcoming regions
@@ -48,6 +55,7 @@ public class GameWorld {
         return !hero.isAlive;
     }
 
+    @Override
     public void update() {
         if (hero == null) {
             System.err.println("The GameWorld was not initialized!");
@@ -57,9 +65,12 @@ public class GameWorld {
             e.moveLeft();
         }
         updateSequence();
+    }
 
-        UpdateManager.update();
-        CollisionManager.update();
+    @Override
+    public boolean isActive() {
+        // GameWorld is always active
+        return true;
     }
 
     private void updateSequence() {

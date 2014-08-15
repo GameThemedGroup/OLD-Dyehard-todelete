@@ -4,9 +4,10 @@ import java.awt.Color;
 
 import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.UpdateManager.Updateable;
 import dyehard.World.GameWorld;
 
-public class Background {
+public class Background implements Updateable {
 
     private Rectangle backdrop;
     private Starfield foreground;
@@ -31,11 +32,17 @@ public class Background {
         ship = new InfinityShip(0.04f);
     }
 
+    @Override
     public void update() {
         backdrop.update();
         background.update();
         foreground.update();
         ship.update();
+    }
+
+    @Override
+    public boolean isActive() {
+        return true;
     }
 
 }
