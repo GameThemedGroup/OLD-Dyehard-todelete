@@ -50,6 +50,6 @@ public class Ghost extends PowerUp implements HeroCollision, HeroDamage {
 
     @Override
     public String toString() {
-        return "Ghost";
+        return super.toString() + " Ghost";
     }
 }

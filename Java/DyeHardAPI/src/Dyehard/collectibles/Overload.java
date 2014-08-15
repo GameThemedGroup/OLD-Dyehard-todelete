@@ -29,6 +29,6 @@ public class Overload extends PowerUp {
 
     @Override
     public String toString() {
-        return "Overload";
+        return super.toString() + " Overload";
     }
 }

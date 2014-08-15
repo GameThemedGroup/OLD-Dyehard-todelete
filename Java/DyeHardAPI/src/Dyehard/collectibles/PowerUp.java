@@ -51,8 +51,8 @@ public abstract class PowerUp extends Collidable implements Cloneable,
     public abstract void unapply(Hero hero);
 
     public void activate(Hero hero) {
-        System.out.println("Activating " + toString());
         timer.reset();
+        System.out.println("Activating " + toString());
         destroy();
     }
 
@@ -70,5 +70,10 @@ public abstract class PowerUp extends Collidable implements Cloneable,
     @Override
     public int compareTo(PowerUp other) {
         return applicationOrder - other.applicationOrder;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%.0f", timer.timeRemaining() / 1000);
     }
 }
