@@ -22,6 +22,7 @@ import dyehard.Collectibles.Unarmed;
 import dyehard.Enemies.Enemy;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
+import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.World.GameWorld;
 
 public class DeveloperControls implements Updateable {
@@ -78,7 +79,9 @@ public class DeveloperControls implements Updateable {
         }
 
         if (keyboard.isButtonDown(KeyEvent.VK_R)) {
-            // hero.currentWeapon.reload()
+            if (hero.currentWeapon instanceof LimitedAmmoWeapon) {
+                ((LimitedAmmoWeapon) hero.currentWeapon).recharge();
+            }
         }
     }
 
