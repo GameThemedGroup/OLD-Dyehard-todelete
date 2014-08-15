@@ -28,6 +28,8 @@ public class UserCode extends DyeHard {
         hero.registerWeapon(new OverHeatWeapon(hero));
         hero.registerWeapon(new LimitedAmmoWeapon(hero));
 
+        new DeveloperControls(hero, keyboard);
+
         world.initialize(hero);
 
         GameWorldRegion startingSpace = new Space(hero);
