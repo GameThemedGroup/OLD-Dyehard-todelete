@@ -16,8 +16,4 @@ public abstract class GameWorldRegion {
     public float getWidth() {
         return width;
     }
-
-    public abstract void update();
-
-    public abstract void destroy();
 }

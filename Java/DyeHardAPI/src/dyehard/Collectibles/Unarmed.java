@@ -9,17 +9,22 @@ public class Unarmed extends PowerUp {
         super(hero, minX, maxX);
         color = Color.cyan;
         label.setText("Unarmed");
+
+        usageOrder = 0;
     }
 
     @Override
-    public void activate() {
+    public void apply() {
         hero.unarmedOn();
-        PowerUpManager.UnarmedTimer.reset();
-        super.activate();
+    }
+
+    @Override
+    public void unapply() {
+        hero.unarmedOff();
     }
 
     @Override
     public String toString() {
-        return "Unarmed";
+        return super.toString() + " Unarmed";
     }
 }

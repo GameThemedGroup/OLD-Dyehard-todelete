@@ -7,9 +7,10 @@ import java.util.Random;
 
 import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.GameObject;
 import dyehard.World.GameWorld;
 
-public class Starfield {
+public class Starfield extends GameObject {
     private Queue<Rectangle> stars;
     private float speed;
     private float size;

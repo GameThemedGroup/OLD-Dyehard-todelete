@@ -11,17 +11,22 @@ public class Ghost extends PowerUp {
         label.setText("Ghost");
         label.setFrontColor(Color.white);
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Blue.png");
+
+        usageOrder = 90;
     }
 
     @Override
-    public void activate() {
+    public void apply() {
         hero.ghostOn();
-        PowerUpManager.GhostTimer.reset();
-        super.activate();
+    }
+
+    @Override
+    public void unapply() {
+        hero.ghostOff();
     }
 
     @Override
     public String toString() {
-        return "Ghost";
+        return super.toString() + " Ghost";
     }
 }

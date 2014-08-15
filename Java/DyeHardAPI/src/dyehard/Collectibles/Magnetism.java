@@ -9,17 +9,22 @@ public class Magnetism extends PowerUp {
         super(hero, minX, maxX);
         color = Color.white;
         label.setText("Magnet");
+
+        usageOrder = 40;
     }
 
     @Override
-    public void activate() {
+    public void apply() {
         hero.magnetismOn();
-        PowerUpManager.MagnetismTimer.reset();
-        super.activate();
+    }
+
+    @Override
+    public void unapply() {
+        hero.magnetismOff();
     }
 
     @Override
     public String toString() {
-        return "Magnetism";
+        return super.toString() + " Magnetism";
     }
 }

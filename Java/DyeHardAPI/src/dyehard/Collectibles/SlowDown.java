@@ -1,35 +1,41 @@
 package dyehard.Collectibles;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 import dyehard.Enemies.Enemy;
-import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
 
-public class SlowDown extends PowerUp {
-    List<Enemy> enemies;
+public class SlowDown extends SingleUsePowerup {
+    List<Enemy> affectedEnemies;
+    protected final float enemySpeedModifier = 0.5f;
 
     public SlowDown(Hero hero, List<Enemy> enemies, float minX, float maxX) {
         super(hero, minX, maxX);
-        this.enemies = enemies;
+        affectedEnemies = new ArrayList<Enemy>(enemies);
         color = Color.gray;
         label.setText("Slow");
+
+        usageOrder = 10;
     }
 
     @Override
-    public void activate() {
-        for (Enemy e : enemies) {
-            e.normalizeSpeed();
-            e.decreaseSpeed();
+    public void unapply() {
+        for (Enemy e : affectedEnemies) {
+            e.chaseSpeed /= enemySpeedModifier;
         }
-        EnemyManager.enemySpeed = "50%";
-        PowerUpManager.EnemySpeedTimer.reset();
-        super.activate();
+    }
+
+    @Override
+    public void applyOnce() {
+        for (Enemy e : affectedEnemies) {
+            e.chaseSpeed *= enemySpeedModifier;
+        }
     }
 
     @Override
     public String toString() {
-        return "Slow Down";
+        return super.toString() + " Slow Down";
     }
 }

@@ -11,17 +11,22 @@ public class Invincibility extends PowerUp {
         label.setText("Invin");
         label.setFrontColor(Color.white);
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Pink.png");
+
+        usageOrder = 100;
     }
 
     @Override
-    public void activate() {
+    public void apply() {
         hero.invincibilityOn();
-        PowerUpManager.InvincibilityTimer.reset();
-        super.activate();
+    }
+
+    @Override
+    public void unapply() {
+        hero.invincibilityOff();
     }
 
     @Override
     public String toString() {
-        return "Invincibility";
+        return super.toString() + " Invincibility";
     }
 }

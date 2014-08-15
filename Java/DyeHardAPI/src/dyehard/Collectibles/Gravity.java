@@ -9,17 +9,27 @@ public class Gravity extends PowerUp {
         super(hero, minX, maxX);
         color = Color.red;
         label.setText("Gravity");
+
+        usageOrder = 50;
     }
 
     @Override
     public void activate() {
-        hero.gravityOn();
-        PowerUpManager.GravityTimer.reset();
         super.activate();
     }
 
     @Override
+    public void apply() {
+        hero.gravityOn();
+    }
+
+    @Override
+    public void unapply() {
+        hero.gravityOff();
+    }
+
+    @Override
     public String toString() {
-        return "Gravity";
+        return super.toString() + " Gravity";
     }
 }

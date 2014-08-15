@@ -26,7 +26,6 @@ public class OverHeatWeapon extends Weapon {
             currentHeatLevel = 0;
             overheated = false;
         }
-        super.update();
     }
 
     @Override

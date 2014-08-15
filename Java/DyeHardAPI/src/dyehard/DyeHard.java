@@ -3,7 +3,6 @@ package dyehard;
 import java.awt.event.KeyEvent;
 
 import Engine.LibraryCode;
-import dyehard.Background.Background;
 import dyehard.Util.Timer;
 import dyehard.World.GameWorld;
 
@@ -16,9 +15,7 @@ public abstract class DyeHard extends LibraryCode {
         BEGIN, PAUSED, PLAYING, GAMEOVER
     }
 
-    // game objects
-    private Background background;
-    private GameWorld world;
+    protected GameWorld world;
     // Game state
     private State state;
 
@@ -86,21 +83,25 @@ public abstract class DyeHard extends LibraryCode {
         // Starting state should be begin
         // Using playing to test controls
         state = State.PLAYING;
-        background = new Background();
         // I pass keyboard into GameWorld when creating it because
         // I need access to BaseCode for keyboard inputs.
         if (world == null) {
             world = new GameWorld(keyboard);
         }
+
+        initialize(); // call UserCode initialize
     }
+
+    protected abstract void update();
 
     @Override
     public void updateWorld() {
         checkControl();
         switch (state) {
         case PLAYING:
-            background.update();
-            world.update();
+            GameWorld.update();
+            update(); // call UserCode update
+            GameWorld.pruneObjects();
             break;
         default:
             break;

@@ -2,12 +2,12 @@ package dyehard.Obstacles;
 
 import java.awt.Color;
 
-import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.GameObject;
 import dyehard.Player.Hero;
 import dyehard.World.GameWorld;
 
-public class Laser extends Rectangle {
+public class Laser extends GameObject {
     private Hero hero;
 
     public Laser(Hero hero) {
@@ -20,11 +20,11 @@ public class Laser extends Rectangle {
         color = Color.lightGray;
     }
 
+    // TODO should we put this collision into the user code?
     @Override
     public void update() {
         if (collided(hero)) {
             hero.kill();
         }
     }
-
 }

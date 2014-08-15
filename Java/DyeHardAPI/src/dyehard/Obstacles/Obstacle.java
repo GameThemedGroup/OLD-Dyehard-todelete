@@ -2,8 +2,8 @@ package dyehard.Obstacles;
 
 import java.awt.Color;
 
-import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.GameObject;
 import dyehard.World.GameWorld;
 
 /**
@@ -14,7 +14,7 @@ import dyehard.World.GameWorld;
  * @author Rodelle Ladia Jr.
  * 
  */
-public class Obstacle extends Rectangle {
+public class Obstacle extends GameObject {
     public Obstacle() {
     }
 
