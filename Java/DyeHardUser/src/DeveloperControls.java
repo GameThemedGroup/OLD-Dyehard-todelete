@@ -1,8 +1,10 @@
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeSet;
 
 import Engine.KeyboardInput;
 import Engine.Text;
@@ -48,9 +50,6 @@ public class DeveloperControls implements Updateable {
 
         weaponText = createTextAt(1f, 1f);
         powerupText = new ArrayList<Text>();
-        for (int i = 0; i < 8; ++i) {
-            powerupText.add(createTextAt(1f, GameWorld.TOP_EDGE - 3 - i * 2));
-        }
 
         UpdateManager.register(this);
     }
@@ -59,15 +58,7 @@ public class DeveloperControls implements Updateable {
     public void update() {
         weaponText.setText("Weapon: " + hero.currentWeapon.toString());
 
-        int i = 0;
-        for (PowerUp p : hero.powerups) {
-            powerupText.get(i).setText(p.toString());
-            i++;
-        }
-
-        for (; i < powerupText.size(); ++i) {
-            powerupText.get(i).setText("");
-        }
+        updatePowerupText();
 
         if (keyboard.isButtonDown(KeyEvent.VK_E)) {
             EnemyManager.generateEnemy();
@@ -88,6 +79,35 @@ public class DeveloperControls implements Updateable {
 
         if (keyboard.isButtonDown(KeyEvent.VK_R)) {
             // hero.currentWeapon.reload()
+        }
+    }
+
+    private void updatePowerupText() {
+        TreeSet<PowerUp> sortedPowerups = new TreeSet<PowerUp>(
+                new Comparator<PowerUp>() {
+                    @Override
+                    public int compare(PowerUp o1, PowerUp o2) {
+                        return (int) (o1.getRemainingTime() - o2
+                                .getRemainingTime());
+                    }
+                });
+        sortedPowerups.addAll(hero.powerups);
+
+        if (sortedPowerups.size() > powerupText.size()) {
+            for (int i = powerupText.size(); i < sortedPowerups.size(); ++i) {
+                powerupText
+                        .add(createTextAt(1f, GameWorld.TOP_EDGE - 3 - i * 2));
+            }
+        }
+
+        int i = 0;
+        for (PowerUp p : sortedPowerups) {
+            powerupText.get(i).setText(p.toString());
+            i++;
+        }
+
+        for (; i < powerupText.size(); ++i) {
+            powerupText.get(i).setText("");
         }
     }
 
