@@ -42,4 +42,9 @@ public class LimitedAmmoWeapon extends Weapon {
             ammo--;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Limited Ammo " + ammo + "/" + reloadAmount;
+    }
 }

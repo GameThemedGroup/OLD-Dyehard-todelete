@@ -43,4 +43,9 @@ public class SpreadFireWeapon extends Weapon {
         }
         super.fire();
     }
+
+    @Override
+    public String toString() {
+        return "Spread fire";
+    }
 }

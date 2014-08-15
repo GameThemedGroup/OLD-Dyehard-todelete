@@ -1,7 +1,9 @@
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
 import Engine.KeyboardInput;
+import Engine.Text;
 import Engine.Vector2;
 import dyehard.UpdateManager;
 import dyehard.UpdateManager.Updateable;
@@ -22,6 +24,8 @@ public class DeveloperControls implements Updateable {
     private KeyboardInput keyboard;
     private Hero hero;
 
+    Text weaponText;
+
     private HashMap<Integer, PowerUp> generationHotkeys;
 
     public DeveloperControls(Hero hero, KeyboardInput keyboard) {
@@ -39,11 +43,15 @@ public class DeveloperControls implements Updateable {
         generationHotkeys.put(KeyEvent.VK_M, new Magnetism());
         // generationHotkeys.put(KeyEvent.VK_COMMA, new Gravity());
 
+        weaponText = createTextAt(20f, 57f);
+
         UpdateManager.register(this);
     }
 
     @Override
     public void update() {
+        weaponText.setText("Weapon: " + hero.currentWeapon.toString());
+
         if (keyboard.isButtonDown(KeyEvent.VK_E)) {
             EnemyManager.generateEnemy();
         }
@@ -64,6 +72,15 @@ public class DeveloperControls implements Updateable {
         if (keyboard.isButtonDown(KeyEvent.VK_R)) {
             // hero.currentWeapon.reload()
         }
+    }
+
+    private Text createTextAt(float x, float y) {
+        Text text = new Text("", x, y);
+        text.setFrontColor(Color.white);
+        text.setBackColor(Color.black);
+        text.setFontSize(18);
+        text.setFontName("Arial");
+        return text;
     }
 
     private void generateCollectible(PowerUp powerUp) {

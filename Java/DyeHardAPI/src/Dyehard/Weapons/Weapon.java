@@ -79,4 +79,9 @@ public class Weapon implements Updateable {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "Default";
+    }
 }
