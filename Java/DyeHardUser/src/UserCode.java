@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import dyehard.CollisionManager;
 import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.Ghost;
@@ -20,6 +21,7 @@ import dyehard.World.Space;
 public class UserCode extends DyeHard {
 
     private Hero hero;
+    private DeveloperControls devControls;
 
     @Override
     protected void initialize() {
@@ -28,18 +30,27 @@ public class UserCode extends DyeHard {
         hero.registerWeapon(new OverHeatWeapon(hero));
         hero.registerWeapon(new LimitedAmmoWeapon(hero));
 
-        new DeveloperControls(hero, keyboard);
-
         world.initialize(hero);
 
         GameWorldRegion startingSpace = new Space(hero);
         ((Space) startingSpace).registerDyes(randomDyePacks(11));
         ((Space) startingSpace).registerPowerUpTypes(allPowerUps(), 10);
         world.addRegion(startingSpace);
+
+        devControls = new DeveloperControls(hero, keyboard);
     }
 
+    @Override
     protected void update() {
-
+        switch (state) {
+        case PAUSED:
+            CollisionManager.update();
+            hero.update();
+            devControls.update();
+            break;
+        default:
+            break;
+        }
     }
 
     private List<PowerUp> allPowerUps() {

@@ -81,5 +81,9 @@ public abstract class DyeHard extends LibraryCode {
         default:
             break;
         }
+
+        update(); // call user code update()
     }
+
+    protected abstract void update();
 }
