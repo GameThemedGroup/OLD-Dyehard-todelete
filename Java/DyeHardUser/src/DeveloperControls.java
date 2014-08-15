@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import Engine.KeyboardInput;
 import Engine.Text;
@@ -25,6 +27,7 @@ public class DeveloperControls implements Updateable {
     private Hero hero;
 
     Text weaponText;
+    List<Text> powerupText;
 
     private HashMap<Integer, PowerUp> generationHotkeys;
 
@@ -43,7 +46,11 @@ public class DeveloperControls implements Updateable {
         generationHotkeys.put(KeyEvent.VK_M, new Magnetism());
         // generationHotkeys.put(KeyEvent.VK_COMMA, new Gravity());
 
-        weaponText = createTextAt(20f, 57f);
+        weaponText = createTextAt(1f, 1f);
+        powerupText = new ArrayList<Text>();
+        for (int i = 0; i < 8; ++i) {
+            powerupText.add(createTextAt(1f, GameWorld.TOP_EDGE - 3 - i * 2));
+        }
 
         UpdateManager.register(this);
     }
@@ -51,6 +58,16 @@ public class DeveloperControls implements Updateable {
     @Override
     public void update() {
         weaponText.setText("Weapon: " + hero.currentWeapon.toString());
+
+        int i = 0;
+        for (PowerUp p : hero.powerups) {
+            powerupText.get(i).setText(p.toString());
+            i++;
+        }
+
+        for (; i < powerupText.size(); ++i) {
+            powerupText.get(i).setText("");
+        }
 
         if (keyboard.isButtonDown(KeyEvent.VK_E)) {
             EnemyManager.generateEnemy();

@@ -27,6 +27,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public Weapon currentWeapon;
     public float currentJetSpeed;
     public Vector2 currentGravity;
+    public Set<PowerUp> powerups;
 
     public final HeroCollision defaultCollisionHandler = this;
     public final HeroDamage defaultDamageHandler = this;
@@ -43,7 +44,6 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     private KeyboardInput keyboard;
     private ArrayList<Weapon> weaponRack;
     private HashMap<Integer, Integer> weaponHotkeys;
-    private Set<PowerUp> powerups;
 
     public Hero(KeyboardInput keyboard) {
         super(new Vector2(20f, 20f), 5f, 5f); // TODO remove magic numbers
