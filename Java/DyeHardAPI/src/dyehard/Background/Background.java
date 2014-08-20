@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
+import java.util.Random;
 
 import Engine.BaseCode;
 import Engine.Vector2;
@@ -29,14 +30,21 @@ public class Background extends UpdateObject {
             "Textures/background/Dyehard_starfield_01.png",
             "Textures/background/Dyehard_starfield_02.png", };
 
+    private Deque<Tile> foreground;
+    private List<BufferedImage> foregroundTextures;
+    private String[] foregroundTexturePaths = {
+            "Textures/background/Dyehard_starfield_stars.png",
+            "Textures/background/Dyehard_starfield_stars.png", };
+
     public Background() {
         backgroundTextures = loadTextures(backgroundTexturePaths);
-        background = createTiles(backgroundTextures, -0.04f);
+        background = createTiles(backgroundTextures, -0.01f);
+
+        foregroundTextures = loadTextures(foregroundTexturePaths);
+        foreground = createTiles(foregroundTextures, -0.04f);
 
         shipTextures = loadTextures(shipTexturePaths);
-        ship = createTiles(shipTextures, -0.06f);
-
-        // foreground = new Starfield(.8f, .2f, 30f);
+        ship = createTiles(shipTextures, -0.08f);
     }
 
     @Override
@@ -48,6 +56,7 @@ public class Background extends UpdateObject {
     public void update() {
         updateTileQueue(ship);
         updateTileQueue(background);
+        updateTileQueue(foreground);
     }
 
     private void updateTileQueue(Deque<Tile> tiles) {
@@ -70,12 +79,15 @@ public class Background extends UpdateObject {
         return textures;
     }
 
+    private static Random RANDOM = new Random();
+
     private Deque<Tile> createTiles(List<BufferedImage> textures, float speed) {
         Collections.shuffle(textures);
 
+        float randomStart = RANDOM.nextFloat() * Tile.width;
         Deque<Tile> tiles = new ArrayDeque<Tile>();
         for (int i = 0; i < textures.size(); ++i) {
-            Tile tile = new Tile(i * Tile.width - 5f, speed);
+            Tile tile = new Tile(i * Tile.width - randomStart, speed);
             tile.texture = textures.get(i);
             tiles.add(tile);
         }
@@ -93,7 +105,10 @@ public class Background extends UpdateObject {
 
             velocity = new Vector2(speed, 0f);
             center = position;
-            size = new Vector2(width, height);
+
+            // slightly stretch the graphic to cover the gap where the tiles
+            // overlap
+            size = new Vector2(width + 1, height);
             color = Color.PINK;
             shouldTravel = true;
         }
