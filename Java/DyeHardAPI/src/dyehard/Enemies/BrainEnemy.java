@@ -1,6 +1,7 @@
 package dyehard.Enemies;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import Engine.Vector2;
 import dyehard.Player.Hero;
@@ -25,12 +26,12 @@ public class BrainEnemy extends Enemy {
             blackHoles.add(new BlackHole(center.clone(), 7.5f, hero));
             timer.reset();
         }
-        for (BlackHole b : blackHoles) {
-            b.update();
-        }
-        for (BlackHole b : blackHoles) {
-            if (b == null) {
-                blackHoles.remove(b);
+        for (Iterator<BlackHole> bhIter = blackHoles.iterator(); bhIter
+                .hasNext();) {
+            BlackHole b = bhIter.next();
+            if (!b.isAlive()) {
+                bhIter.remove();
+                System.out.println("Removed a black hole");
             }
         }
     }
@@ -42,4 +43,5 @@ public class BrainEnemy extends Enemy {
         }
         super.destroy();
     }
+
 }

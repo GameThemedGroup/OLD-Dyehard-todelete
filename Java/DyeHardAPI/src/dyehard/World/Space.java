@@ -10,7 +10,6 @@ import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.PowerUp;
 import dyehard.Enemies.Enemy;
 import dyehard.Obstacles.Debris;
-import dyehard.Obstacles.ObstacleManager;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 
@@ -26,7 +25,7 @@ public class Space extends GameWorldRegion {
     List<Primitive> primitives;
     List<Enemy> enemies;
 
-    public Space(Hero hero, ArrayList<Enemy> enemies, float leftEdge) {
+    public Space(Hero hero, List<Enemy> enemies, float leftEdge) {
         this.hero = hero;
         this.enemies = enemies;
 
@@ -69,9 +68,7 @@ public class Space extends GameWorldRegion {
         for (int i = 0; i < debrisCount; i++) {
             float regionLeft = leftEdge + (i * region);
             float regionRight = regionLeft + region;
-            Debris debris = new Debris(regionLeft, regionRight);
-            ObstacleManager.registerObstacle(debris);
-            // primitives.add(debris);
+            new Debris(regionLeft, regionRight);
         }
     }
 
@@ -89,29 +86,5 @@ public class Space extends GameWorldRegion {
 
     public void AddPowerup(PowerUp powerup) {
         primitives.add(powerup);
-    }
-
-    @Override
-    public void destroy() {
-        for (Primitive p : primitives) {
-            p.destroy();
-        }
-    }
-
-    public List<Primitive> getPrimitives() {
-        return primitives;
-    }
-
-    @Override
-    public void update() {
-        position += speed;
-        for (Primitive p : primitives) {
-            p.update();
-        }
-        for (int i = primitives.size() - 1; i >= 0; --i) {
-            if (primitives.get(i).visible == false) {
-                primitives.remove(i);
-            }
-        }
     }
 }

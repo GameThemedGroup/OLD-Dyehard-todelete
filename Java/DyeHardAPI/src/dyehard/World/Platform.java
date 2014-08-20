@@ -5,7 +5,6 @@ import java.util.Random;
 
 import Engine.Vector2;
 import dyehard.Obstacles.Obstacle;
-import dyehard.Obstacles.ObstacleManager;
 
 public class Platform {
     private static int SEGMENT_COUNT = 30;
@@ -47,7 +46,6 @@ public class Platform {
     private void createPlatform(Vector2 center, float width) {
         Vector2 size = new Vector2(width + mask, height);
         Color color = new Color(112, 138, 144);
-        Obstacle platform = new Obstacle(center, size, color);
-        ObstacleManager.registerObstacle(platform);
+        new Obstacle(center, size, color);
     }
 }

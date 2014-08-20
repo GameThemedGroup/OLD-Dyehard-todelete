@@ -11,17 +11,22 @@ public class Overload extends PowerUp {
         label.setText("Overload");
         label.setFrontColor(Color.white);
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Red.png");
+
+        usageOrder = 30;
     }
 
     @Override
-    public void activate() {
+    public void apply() {
         hero.overloadOn();
-        PowerUpManager.OverloadTimer.reset();
-        super.activate();
+    }
+
+    @Override
+    public void unapply() {
+        hero.overloadOff();
     }
 
     @Override
     public String toString() {
-        return "Overload";
+        return super.toString() + " Overload";
     }
 }

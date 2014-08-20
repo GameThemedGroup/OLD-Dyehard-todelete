@@ -2,220 +2,156 @@ package dyehard;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
+import java.util.TreeSet;
 
 import Engine.KeyboardInput;
 import Engine.Text;
 import Engine.Vector2;
-import dyehard.Collectibles.DyePack;
-import dyehard.Collectibles.Ghost;
-import dyehard.Collectibles.Gravity;
-import dyehard.Collectibles.Invincibility;
-import dyehard.Collectibles.Magnetism;
-import dyehard.Collectibles.Overload;
-import dyehard.Collectibles.PowerUpManager;
-import dyehard.Collectibles.SlowDown;
-import dyehard.Collectibles.SpeedUp;
-import dyehard.Collectibles.Unarmed;
+import dyehard.Collectibles.PowerUp;
 import dyehard.Enemies.BrainEnemy;
-import dyehard.Enemies.EnemyManager;
+import dyehard.Enemies.Enemy;
 import dyehard.Enemies.RedBeamEnemy;
 import dyehard.Enemies.SpiderEnemy;
 import dyehard.Player.Hero;
-import dyehard.Util.Colors;
-import dyehard.Util.Timer;
+import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.World.GameWorld;
-import dyehard.World.GameWorldRegion;
-import dyehard.World.Space;
 
-public class DeveloperControls {
+public class DeveloperControls extends UpdateObject {
     private KeyboardInput keyboard;
     private Hero hero;
-    private EnemyManager eManager;
-    private LinkedList<GameWorldRegion> onscreen;
-    private Timer timer;
-    private Text ghostText;
-    private Text invincibilityText;
-    private Text overloadText;
-    private Text unarmedText;
-    private Text magnetismText;
-    private Text gravityText;
-    private Text enemySpeedText;
-    private Text heroWeaponText;
-    private Text recentPowerUpText;
 
-    public DeveloperControls(GameWorld world, Space space, Hero hero,
-            KeyboardInput keyboard, EnemyManager eManager,
-            LinkedList<GameWorldRegion> onscreen) {
-        this.keyboard = keyboard;
+    private Text weaponText;
+    private List<Text> powerupText;
+
+    private HashMap<Integer, PowerUp> generationHotkeys;
+
+    private static Random RANDOM = new Random();
+
+    public DeveloperControls(GameWorld world, Hero hero, KeyboardInput keyboard) {
         this.hero = hero;
-        this.eManager = eManager;
-        this.onscreen = onscreen;
-        timer = new Timer(500f);
+        this.keyboard = keyboard;
 
-        ghostText = new Text("", 3f, 57f);
-        ghostText.setFrontColor(Color.white);
-        ghostText.setBackColor(Color.black);
-        ghostText.setFontSize(18);
-        ghostText.setFontName("Arial");
-        invincibilityText = new Text("", 3f, 55f);
-        invincibilityText.setFrontColor(Color.white);
-        invincibilityText.setBackColor(Color.black);
-        invincibilityText.setFontSize(18);
-        invincibilityText.setFontName("Arial");
-        overloadText = new Text("", 3f, 53f);
-        overloadText.setFrontColor(Color.white);
-        overloadText.setBackColor(Color.black);
-        overloadText.setFontSize(18);
-        overloadText.setFontName("Arial");
-        unarmedText = new Text("", 3f, 51f);
-        unarmedText.setFrontColor(Color.white);
-        unarmedText.setBackColor(Color.black);
-        unarmedText.setFontSize(18);
-        unarmedText.setFontName("Arial");
-        magnetismText = new Text("", 3f, 49f);
-        magnetismText.setFrontColor(Color.white);
-        magnetismText.setBackColor(Color.black);
-        magnetismText.setFontSize(18);
-        magnetismText.setFontName("Arial");
-        gravityText = new Text("", 3f, 47f);
-        gravityText.setFrontColor(Color.white);
-        gravityText.setBackColor(Color.black);
-        gravityText.setFontSize(18);
-        gravityText.setFontName("Arial");
-        heroWeaponText = new Text("", 20f, 57f);
-        heroWeaponText.setFrontColor(Color.white);
-        heroWeaponText.setBackColor(Color.black);
-        heroWeaponText.setFontSize(18);
-        heroWeaponText.setFontName("Arial");
-        enemySpeedText = new Text("", 3f, 45f);
-        enemySpeedText.setFrontColor(Color.white);
-        enemySpeedText.setBackColor(Color.black);
-        enemySpeedText.setFontSize(18);
-        enemySpeedText.setFontName("Arial");
-        recentPowerUpText = new Text("", 20f, 55f);
-        recentPowerUpText.setFrontColor(Color.white);
-        recentPowerUpText.setBackColor(Color.black);
-        recentPowerUpText.setFontSize(18);
-        recentPowerUpText.setFontName("Arial");
+        generationHotkeys = new HashMap<Integer, PowerUp>();
+        // generationHotkeys.put(KeyEvent.VK_0, new DyePack());
+        // generationHotkeys.put(KeyEvent.VK_Z, new Ghost());
+        // generationHotkeys.put(KeyEvent.VK_X, new Invincibility());
+        // generationHotkeys.put(KeyEvent.VK_C, new Overload());
+        // generationHotkeys.put(KeyEvent.VK_V, new SpeedUp());
+        // generationHotkeys.put(KeyEvent.VK_B, new SlowDown());
+        // generationHotkeys.put(KeyEvent.VK_N, new Unarmed());
+        // generationHotkeys.put(KeyEvent.VK_M, new Magnetism());
+        // generationHotkeys.put(KeyEvent.VK_COMMA, new Gravity());
+
+        weaponText = createTextAt(1f, 1f);
+        powerupText = new ArrayList<Text>();
     }
 
+    @Override
     public void update() {
-        if (timer.isDone()) {
-            if (onscreen.getFirst() instanceof Space) {
-                // 'E' to add random enemies
-                if (keyboard.isButtonDown(KeyEvent.VK_E)) {
-                    Random rand = new Random();
-                    float randomY = (50f - 5f - 0f + 5f) * rand.nextFloat()
-                            + 0f + 5f;
-                    Vector2 position = new Vector2(83.3f + 5, randomY);
-                    switch (rand.nextInt(3)) {
-                    case 1:
-                        ((Space) onscreen.getFirst()).AddEnemy(new BrainEnemy(
-                                position, 7.5f, hero));
-                        break;
-                    case 2:
-                        ((Space) onscreen.getFirst())
-                                .AddEnemy(new RedBeamEnemy(position, 7.5f, hero));
-                        break;
-                    default:
-                        ((Space) onscreen.getFirst()).AddEnemy(new SpiderEnemy(
-                                position, 7.5f, hero));
-                        break;
-                    }
-                    timer.reset();
-                }
-                // '0' to add random dye pack
-                if (keyboard.isButtonDown(KeyEvent.VK_0)) {
-                    ((Space) onscreen.getFirst()).AddDyepack(new DyePack(hero,
-                            70f, 70f, Colors.randomColor()));
-                    timer.reset();
-                }
-                if (keyboard.isButtonDown(KeyEvent.VK_Z)) {
-                    ((Space) onscreen.getFirst()).AddPowerup(new Ghost(hero,
-                            70f, 70f));
-                    timer.reset();
-                }
-                if (keyboard.isButtonDown(KeyEvent.VK_X)) {
-                    ((Space) onscreen.getFirst()).AddPowerup(new Invincibility(
-                            hero, 70f, 70f));
-                    timer.reset();
-                }
-                if (keyboard.isButtonDown(KeyEvent.VK_C)) {
-                    ((Space) onscreen.getFirst()).AddPowerup(new Overload(hero,
-                            70f, 70f));
-                    timer.reset();
-                }
-                if (keyboard.isButtonDown(KeyEvent.VK_V)) {
-                    ((Space) onscreen.getFirst()).AddPowerup(new SpeedUp(hero,
-                            eManager.getEnemies(), 70f, 70f));
-                    timer.reset();
-                }
-                if (keyboard.isButtonDown(KeyEvent.VK_B)) {
-                    ((Space) onscreen.getFirst()).AddPowerup(new SlowDown(hero,
-                            eManager.getEnemies(), 70f, 70f));
-                    timer.reset();
-                }
-                if (keyboard.isButtonDown(KeyEvent.VK_N)) {
-                    ((Space) onscreen.getFirst()).AddPowerup(new Unarmed(hero,
-                            70f, 70f));
-                    timer.reset();
-                }
-                if (keyboard.isButtonDown(KeyEvent.VK_M)) {
-                    ((Space) onscreen.getFirst()).AddPowerup(new Magnetism(
-                            hero, 70f, 70f));
-                    timer.reset();
-                }
-                if (keyboard.isButtonDown(KeyEvent.VK_COMMA)) {
-                    ((Space) onscreen.getFirst()).AddPowerup(new Gravity(hero,
-                            70f, 70f));
-                    timer.reset();
-                }
-            }
-            // 'K' to kill all the enemies on screen
-            if (keyboard.isButtonDown(KeyEvent.VK_K)) {
-                eManager.killAll();
-                timer.reset();
-            }
-            if (keyboard.isButtonDown(KeyEvent.VK_R)) {
-                hero.reloadLimitedAmmoWeapon();
+        weaponText.setText("Weapon: " + hero.currentWeapon.toString());
+
+        updatePowerupText();
+
+        if (keyboard.isButtonDown(KeyEvent.VK_E)) {
+            generateEnemy();
+        }
+
+        // 'K' to kill all the enemies on screen
+        if (keyboard.isButtonDown(KeyEvent.VK_K)) {
+            for (Enemy e : GameWorld.getEnemies()) {
+                e.kill();
             }
         }
-        statusText();
+
+        for (int hotkey : generationHotkeys.keySet()) {
+            if (keyboard.isButtonDown(hotkey)) {
+                generateCollectible(generationHotkeys.get(hotkey));
+            }
+        }
+
+        if (keyboard.isButtonDown(KeyEvent.VK_R)) {
+            if (hero.currentWeapon instanceof LimitedAmmoWeapon) {
+                ((LimitedAmmoWeapon) hero.currentWeapon).recharge();
+            }
+        }
     }
 
-    private void statusText() {
-        ghostText
-                .setText("Ghost: "
-                        + (int) Math.ceil(PowerUpManager.GhostTimer
-                                .timeRemaining() / 1000));
-        invincibilityText.setText("Invincibility: "
-                + (int) Math.ceil(PowerUpManager.InvincibilityTimer
-                        .timeRemaining() / 1000));
-        overloadText
-                .setText("Overload: "
-                        + (int) Math.ceil(PowerUpManager.OverloadTimer
-                                .timeRemaining() / 1000));
-        unarmedText
-                .setText("Unarmed: "
-                        + (int) Math.ceil(PowerUpManager.UnarmedTimer
-                                .timeRemaining() / 1000));
-        magnetismText
-                .setText("Magnetism: "
-                        + (int) Math.ceil(PowerUpManager.MagnetismTimer
-                                .timeRemaining() / 1000));
-        gravityText
-                .setText("Gravity: "
-                        + (int) Math.ceil(PowerUpManager.GravityTimer
-                                .timeRemaining() / 1000));
-        enemySpeedText.setText("Enemy Speed is "
-                + EnemyManager.enemySpeed
-                + ": "
-                + (int) Math.ceil(PowerUpManager.EnemySpeedTimer
-                        .timeRemaining() / 1000));
-        heroWeaponText.setText("Current Weapon: " + hero.currentWeapon);
-        recentPowerUpText
-                .setText("Most Recent Power Up: " + hero.newestPowerUp);
+    public void generateEnemy() {
+        Hero hero = GameWorld.getHero();
+
+        float randomY = (GameWorld.TOP_EDGE - 5f - GameWorld.BOTTOM_EDGE + 5f)
+                * RANDOM.nextFloat() + 0f + 5f;
+        Vector2 position = new Vector2(GameWorld.RIGHT_EDGE + 5, randomY);
+
+        switch (RANDOM.nextInt(3)) {
+        case 1:
+            new BrainEnemy(position, 7.5f, hero);
+            break;
+        case 2:
+            new RedBeamEnemy(position, 7.5f, hero);
+            break;
+        default:
+            new SpiderEnemy(position, 7.5f, hero);
+            break;
+        }
+    }
+
+    private void updatePowerupText() {
+        TreeSet<PowerUp> sortedPowerups = new TreeSet<PowerUp>(
+                new Comparator<PowerUp>() {
+                    @Override
+                    public int compare(PowerUp o1, PowerUp o2) {
+                        return (int) (o1.getRemainingTime() - o2
+                                .getRemainingTime());
+                    }
+                });
+        sortedPowerups.addAll(hero.powerups);
+
+        // create additional text boxes if there are not enough to display all
+        // of the powerups
+        if (sortedPowerups.size() > powerupText.size()) {
+
+            for (int i = powerupText.size(); i < sortedPowerups.size(); ++i) {
+                powerupText
+                        .add(createTextAt(1f, GameWorld.TOP_EDGE - 3 - i * 2));
+            }
+        }
+
+        int i = 0;
+        for (PowerUp p : sortedPowerups) {
+            powerupText.get(i).setText(p.toString());
+            i++;
+        }
+
+        for (; i < powerupText.size(); ++i) {
+            powerupText.get(i).setText("");
+        }
+    }
+
+    private Text createTextAt(float x, float y) {
+        Text text = new Text("", x, y);
+        text.setFrontColor(Color.white);
+        text.setBackColor(Color.black);
+        text.setFontSize(18);
+        text.setFontName("Arial");
+        return text;
+    }
+
+    private void generateCollectible(PowerUp powerUp) {
+        Vector2 position = new Vector2(60f, 35f);
+        Vector2 velocity = new Vector2(-GameWorld.Speed, 0f);
+
+        // PowerUp p = powerUp.clone();
+        // p.initialize(position, velocity);
+    }
+
+    @Override
+    public boolean isActive() {
+        return true;
     }
 }

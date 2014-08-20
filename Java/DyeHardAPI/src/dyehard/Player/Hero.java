@@ -1,44 +1,46 @@
 package dyehard.Player;
 
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import Engine.BaseCode;
-import Engine.KeyboardInput;
-import Engine.Primitive;
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
 import dyehard.Actor;
 import dyehard.DyeHard;
+import dyehard.Collectibles.Collectible;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.PowerUp;
-import dyehard.Enemies.Enemy;
 import dyehard.Weapons.LimitedAmmoWeapon;
-import dyehard.Weapons.OverHeatWeapon;
-import dyehard.Weapons.SpreadFireWeapon;
 import dyehard.Weapons.Weapon;
 import dyehard.World.GameWorld;
-import dyehard.World.Space;
 
 public class Hero extends Actor {
-    private float speedLimitX = 50f;
-    private static float jetSpeed = 2.5f;
-    private static Vector2 fakeGravity = new Vector2(0f, 0f);
-    private static float drag = 0.97f; // smaller number means more reduction
+
     // private final float rightBoundaryLimit = 0.85f; // percentage of screen
-    private int collectedDyepacks;
-    private int collectedPowerups;
-    private KeyboardInput keyboard;
-    private Weapon weapon;
-    private ArrayList<Weapon> weaponRack;
+
+    public boolean isAlive = true;
+    public Weapon currentWeapon;
+    public float currentJetSpeed;
+    public Vector2 currentGravity;
+    public Set<PowerUp> powerups;
+
+    public final Weapon defaultWeapon = new Weapon(this);
+    public final float defaultJetSpeed = 2.5f;
+    public final Vector2 defaultGravity = new Vector2(0f, 0f);
+
+    private float speedLimitX = 50f;
+    private static float drag = 0.97f; // smaller number means more reduction
+
     public boolean isGhost;
     public boolean isInvincible;
     public boolean isOverloaded;
     public boolean isUnarmed;
     public boolean isMagnetic;
+
     public final float attractionDistance = 25f;
-    public String currentWeapon;
+
     public String newestPowerUp;
     private State directionState;
 
@@ -48,30 +50,30 @@ public class Hero extends Actor {
         UP, DOWN, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, NEUTRAL
     }
 
-    public Hero(KeyboardInput keyboard) {
+    public Hero() {
         // TODO: The position 20f, 20f is a temporary value.
         super(new Vector2(20f, 20f), 5f, 5f);
-        collectedDyepacks = 0;
-        collectedPowerups = 0;
-        this.keyboard = keyboard;
-        weaponRack = new ArrayList<Weapon>();
-        createWeapons();
-        weapon = weaponRack.get(0); // set initial weapon to first
+        currentWeapon = defaultWeapon;
+        currentJetSpeed = defaultJetSpeed;
+        currentGravity = defaultGravity;
+        powerups = new TreeSet<PowerUp>();
+
         isGhost = false;
         isInvincible = false;
         isOverloaded = false;
         isUnarmed = false;
         isMagnetic = false;
-        currentWeapon = "Default";
         directionState = State.NEUTRAL;
+
         dd = new DynamicDyePack(this);
     }
 
-    @Override
-    public void draw() {
-        weapon.draw();
-        super.draw();
-        dd.draw();
+    public void setWeapon(Weapon weapon) {
+        currentWeapon = weapon;
+    }
+
+    public void fireWeapon() {
+        currentWeapon.fire();
     }
 
     public void updateMovement() {
@@ -80,7 +82,7 @@ public class Hero extends Actor {
         velX = Math.min(speedLimitX, velX);
         velX = Math.max(-speedLimitX, velX);
         velocity.setX(velX);
-        velocity.add(fakeGravity);
+        velocity.add(currentGravity);
         velocity.mult(drag);
         // Scale the velocity to the frame rate
         Vector2 frameVelocity = velocity.clone();
@@ -89,29 +91,30 @@ public class Hero extends Actor {
     }
 
     @Override
-    public void destroy() {
-        for (Weapon w : weaponRack) {
-            w.destroy();
-        }
-        super.destroy();
-    }
-
-    @Override
     public void update() {
-        handleInput();
+        applyPowerups();
         updateMovement();
-        updateState();
-        selectWeapon();
         dd.update();
-
-        for (Weapon w : weaponRack) {
-            w.update();
-        }
-
         clampToWorldBounds();
 
         if (isMagnetic) {
             attract();
+        }
+    }
+
+    private void applyPowerups() {
+        Set<PowerUp> destroyed = new TreeSet<PowerUp>();
+        for (PowerUp p : powerups) {
+            if (p.isDone()) {
+                p.unapply();
+                destroyed.add(p);
+            }
+        }
+
+        powerups.removeAll(destroyed);
+
+        for (PowerUp p : powerups) {
+            p.apply();
         }
     }
 
@@ -132,126 +135,67 @@ public class Hero extends Actor {
         BaseCode.world.clampAtWorldBound(this);
     }
 
-    private void handleInput() {
-        Vector2 totalThrust = new Vector2();
-        if (keyboard.isButtonDown(KeyEvent.VK_UP)) {
-            // Upward speed needs to counter the effects of gravity
-            totalThrust.add(new Vector2(0f, jetSpeed - fakeGravity.getY()));
-        }
-        if (keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
-            totalThrust.add(new Vector2(-jetSpeed, 0f));
-        }
-        if (keyboard.isButtonDown(KeyEvent.VK_DOWN)) {
-            totalThrust.add(new Vector2(0f, -jetSpeed));
-        }
-        if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
-            totalThrust.add(new Vector2(jetSpeed, 0));
-        }
-        velocity.add(totalThrust);
-        if (keyboard.isButtonDown(KeyEvent.VK_F)) {
-            weapon.fire();
-        }
-    }
-
-    private void selectWeapon() {
-        if (keyboard.isButtonDown(KeyEvent.VK_1)) {
-            weapon = weaponRack.get(0);
-        } else if (keyboard.isButtonDown(KeyEvent.VK_2)) {
-            weapon = weaponRack.get(1);
-        } else if (keyboard.isButtonDown(KeyEvent.VK_3)) {
-            weapon = weaponRack.get(2);
-        } else if (keyboard.isButtonDown(KeyEvent.VK_4)) {
-            weapon = weaponRack.get(3);
-        }
-
-        currentWeapon = weapon.toString();
-    }
-
-    public void updateState() {
-        if (keyboard.isButtonDown(KeyEvent.VK_UP)
-                && keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
-            directionState = State.TOPLEFT;
-            return;
-        }
-        if (keyboard.isButtonDown(KeyEvent.VK_UP)
-                && keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
-            directionState = State.TOPRIGHT;
-            return;
-        }
-        if (keyboard.isButtonDown(KeyEvent.VK_DOWN)
-                && keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
-            directionState = State.BOTTOMLEFT;
-            return;
-        }
-        if (keyboard.isButtonDown(KeyEvent.VK_DOWN)
-                && keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
-            directionState = State.BOTTOMRIGHT;
-            return;
-        }
-        if (keyboard.isButtonDown(KeyEvent.VK_UP)) {
-            directionState = State.UP;
-            return;
-        }
-        if (keyboard.isButtonDown(KeyEvent.VK_DOWN)) {
-            directionState = State.DOWN;
-            return;
-        }
-        if (keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
-            directionState = State.LEFT;
-            return;
-        }
-        if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
-            directionState = State.RIGHT;
-            return;
-        }
-        directionState = State.NEUTRAL;
-        return;
-    }
+    // public void updateState() {
+    // if (keyboard.isButtonDown(KeyEvent.VK_UP)
+    // && keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
+    // directionState = State.TOPLEFT;
+    // return;
+    // }
+    // if (keyboard.isButtonDown(KeyEvent.VK_UP)
+    // && keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
+    // directionState = State.TOPRIGHT;
+    // return;
+    // }
+    // if (keyboard.isButtonDown(KeyEvent.VK_DOWN)
+    // && keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
+    // directionState = State.BOTTOMLEFT;
+    // return;
+    // }
+    // if (keyboard.isButtonDown(KeyEvent.VK_DOWN)
+    // && keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
+    // directionState = State.BOTTOMRIGHT;
+    // return;
+    // }
+    // if (keyboard.isButtonDown(KeyEvent.VK_UP)) {
+    // directionState = State.UP;
+    // return;
+    // }
+    // if (keyboard.isButtonDown(KeyEvent.VK_DOWN)) {
+    // directionState = State.DOWN;
+    // return;
+    // }
+    // if (keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
+    // directionState = State.LEFT;
+    // return;
+    // }
+    // if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
+    // directionState = State.RIGHT;
+    // return;
+    // }
+    // directionState = State.NEUTRAL;
+    // return;
+    // }
 
     public State getState() {
         return directionState;
     }
 
-    public void setEnemies(ArrayList<Enemy> enemies) {
-        for (Weapon w : weaponRack) {
-            w.setEnemies(enemies);
-        }
-    }
-
     public void collect(DyePack dye) {
         dye.activate();
-        collectedDyepacks += 1;
         dd.updateColor(color);
     }
 
     public void collect(PowerUp powerup) {
-        newestPowerUp = powerup.toString();
+        powerups.add(powerup);
         powerup.activate();
-        collectedPowerups += 1;
-    }
-
-    private void createWeapons() {
-        weaponRack.add(new Weapon(this));
-        weaponRack.add(new OverHeatWeapon(this));
-        weaponRack.add(new LimitedAmmoWeapon(this));
-        weaponRack.add(new SpreadFireWeapon(this));
-    }
-
-    public int dyepacksCollected() {
-        return collectedDyepacks;
-    }
-
-    // Powerups Functions
-    public int powerupsCollected() {
-        return collectedPowerups;
     }
 
     public void increaseSpeed() {
-        jetSpeed = 5f;
+        currentJetSpeed = 5f;
     }
 
     public void normalizeSpeed() {
-        jetSpeed = 2.5f;
+        currentJetSpeed = 2.5f;
     }
 
     public void ghostOn() {
@@ -295,47 +239,41 @@ public class Hero extends Actor {
     }
 
     public void gravityOn() {
-        fakeGravity.setY(-1.5f);
+        currentGravity = new Vector2(0f, -1.5f);
     }
 
     public void gravityOff() {
-        fakeGravity.setY(0f);
+        currentGravity = defaultGravity;
     }
 
     public void reloadLimitedAmmoWeapon() {
-        for (int i = 0; i < weaponRack.size(); i++) {
-            if (weaponRack.get(i) instanceof LimitedAmmoWeapon) {
-                ((LimitedAmmoWeapon) weaponRack.get(i)).recharge();
-            }
+        if (currentWeapon instanceof LimitedAmmoWeapon) {
+            ((LimitedAmmoWeapon) currentWeapon).recharge();
         }
     }
 
     private void attract() {
-        if (GameWorld.gameRegions.peek() instanceof Space) {
-            // Gets the list of primitives from the current Space tile.
-            List<Primitive> primitives = ((Space) GameWorld.gameRegions.peek())
-                    .getPrimitives();
+        // Gets the list of primitives from the current Space tile.
+        List<Collectible> collectibles = GameWorld.getCollectible();
 
-            for (Primitive p : primitives) {
-                if (p instanceof DyePack || p instanceof PowerUp) {
-                    // Finds the distance between the Hero and a
-                    // DyePack/PowerUp. The distance is the
-                    // hypotenuse of a 30, 60, 90 triangle.
-                    float A = Math.abs(center.getX() - p.center.getX());
-                    A = A * A;
-                    float B = Math.abs(center.getY() - p.center.getY());
-                    B = B * B;
-                    float C = (float) Math.sqrt(A + B);
+        for (Collectible collectible : collectibles) {
+            // Finds the distance between the Hero and a
+            // DyePack/PowerUp. The distance is the
+            // hypotenuse of a 30, 60, 90 triangle.
+            float A = Math.abs(center.getX() - collectible.center.getX());
+            A = A * A;
+            float B = Math.abs(center.getY() - collectible.center.getY());
+            B = B * B;
+            float C = (float) Math.sqrt(A + B);
 
-                    if (C <= attractionDistance) {
-                        Vector2 direction = new Vector2(center.getX()
-                                - p.center.getX(), center.getY()
-                                - p.center.getY());
-                        direction.normalize();
-                        p.velocity = direction.mult(0.85f);
-                    }
-                }
+            if (C <= attractionDistance) {
+                Vector2 direction = new Vector2(center.getX()
+                        - collectible.center.getX(), center.getY()
+                        - collectible.center.getY());
+                direction.normalize();
+                collectible.velocity = direction.mult(0.85f);
             }
+
         }
     }
 

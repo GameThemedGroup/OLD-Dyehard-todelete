@@ -2,12 +2,11 @@ package dyehard;
 
 import java.awt.Color;
 
-import Engine.Rectangle;
 import Engine.Vector2;
 import dyehard.Util.Colors;
 
-public class Actor extends Rectangle {
-    private boolean alive;
+public class Actor extends GameObject {
+    protected boolean alive;
 
     public Actor(Vector2 position, float width, float height) {
         center = position;
@@ -26,16 +25,6 @@ public class Actor extends Rectangle {
 
     public Color getColor() {
         return color;
-    }
-
-    public void setTexture(String resourceName) {
-        throw new UnsupportedOperationException();
-        // position.texture = resourceName;
-    }
-
-    public void setLabel(String label) {
-        throw new UnsupportedOperationException();
-        // position.Label = label;
     }
 
     public boolean isAlive() {

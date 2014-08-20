@@ -7,7 +7,6 @@ import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.Actor;
 import dyehard.Player.Hero;
-import dyehard.Util.Colors;
 import dyehard.Util.ImageTint;
 import dyehard.Util.Timer;
 import dyehard.World.GameWorld;
@@ -20,19 +19,12 @@ public class Enemy extends Actor {
     protected Hero hero;
     protected EnemyState enemyState;
     protected BufferedImage baseTexture;
-    // This time is in milliseconds
-    private float behaviorChangeTime = 1000f;
-    private Timer timer;
-    private float speedFactor;
 
-    public Enemy(Vector2 center, float width, float height, Hero hero) {
-        super(center, width, height);
-        this.hero = hero;
-        setColor(Colors.randomColor());
-        enemyState = EnemyState.BEGIN;
-        timer = new Timer(behaviorChangeTime);
-        speedFactor = 1f;
-    }
+    private float behaviorChangeTime = 3000f;
+    private Timer timer;
+
+    public float floatSpeed;
+    public float chaseSpeed;
 
     protected Enemy(Vector2 center, float width, float height,
             Hero currentHero, String texturePath) {
@@ -42,57 +34,54 @@ public class Enemy extends Actor {
         texture = baseTexture;
         enemyState = EnemyState.BEGIN;
         timer = new Timer(behaviorChangeTime);
+
+        floatSpeed = Math.abs(GameWorld.Speed);
+        chaseSpeed = floatSpeed * 1.3f;
     }
 
     @Override
     public void update() {
-        if (timer.isDone()) {
-            enemyState = EnemyState.CHASEHERO;
-            timer.reset();
-        }
         switch (enemyState) {
         case BEGIN:
-            velocity = new Vector2(-GameWorld.Speed, 0f);
+            drift();
             break;
         case CHASEHERO:
             chaseHero();
             break;
+        case DEAD:
+            destroy();
+            break;
         default:
             break;
         }
+
+        if (!alive) {
+            enemyState = EnemyState.DEAD;
+        }
+
         if (collided(hero)) {
             hero.kill();
         }
+
         super.update();
     }
 
-    public void chaseHero() {
-        if (GameWorld.Speed != 0) {
-            Vector2 direction = new Vector2(hero.center.getX() - center.getX(),
-                    hero.center.getY() - center.getY());
-            direction.normalize();
-            velocity = direction.mult(0.15f);
-            velocity.mult(speedFactor);
-        } else {
-            velocity = new Vector2(0, 0);
+    private void drift() {
+        velocity = new Vector2(-floatSpeed, 0f);
+        if (timer.isDone()) {
+            enemyState = EnemyState.CHASEHERO;
         }
+    }
+
+    public void chaseHero() {
+        Vector2 direction = new Vector2(hero.center).sub(center);
+        direction.normalize();
+
+        velocity.set(direction.mult(chaseSpeed));
     }
 
     public void gotShot(Color color) {
         setColor(color);
         texture = ImageTint.tintedImage(baseTexture, color, 0.25f);
-    }
-
-    public void normalizeSpeed() {
-        velocity = new Vector2(0, 0);
-        speedFactor = 1f;
-    }
-
-    public void increaseSpeed() {
-        speedFactor = 1.75f;
-    }
-
-    public void decreaseSpeed() {
-        speedFactor = 0.5f;
     }
 }

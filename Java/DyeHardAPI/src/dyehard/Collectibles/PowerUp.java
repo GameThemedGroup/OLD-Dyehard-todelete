@@ -4,20 +4,24 @@ import java.awt.Color;
 import java.util.List;
 import java.util.Random;
 
-import Engine.Rectangle;
 import Engine.Text;
 import Engine.Vector2;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
+import dyehard.Util.Timer;
 import dyehard.World.GameWorld;
 
-public class PowerUp extends Rectangle {
+public abstract class PowerUp extends Collectible implements
+        Comparable<PowerUp> {
     private static Random RANDOM = new Random();
     public static final float DURATION = 5000f;
     private final float height = 2f;
     private final float width = 5f;
     protected Hero hero;
     protected Text label;
+
+    protected Timer timer;
+    protected int usageOrder;
 
     public PowerUp(Hero hero, float minX, float maxX) {
         this.hero = hero;
@@ -46,12 +50,36 @@ public class PowerUp extends Rectangle {
     }
 
     @Override
+    public int compareTo(PowerUp other) {
+        return usageOrder - other.usageOrder;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%.0f", (timer.timeRemaining() + 1) / 1000);
+    }
+
+    public boolean isDone() {
+        return timer.isDone();
+    }
+
+    public float getRemainingTime() {
+        return Math.max(0f, timer.timeRemaining());
+    }
+
+    public abstract void apply();
+
+    public abstract void unapply();
+
+    @Override
     public void destroy() {
         label.destroy();
         super.destroy();
     }
 
+    @Override
     public void activate() {
+        timer = new Timer(DURATION);
         destroy();
     }
 

@@ -4,13 +4,12 @@ import java.awt.Color;
 import java.util.Random;
 
 import Engine.BaseCode;
-import Engine.Rectangle;
 import Engine.Vector2;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.World.GameWorld;
 
-public class DyePack extends Rectangle {
+public class DyePack extends Collectible {
     private static Random RANDOM = new Random();
     private final float height = 3.5f;
     private final float width = 3f;
@@ -41,9 +40,10 @@ public class DyePack extends Rectangle {
         }
     }
 
+    @Override
     public void activate() {
         hero.setColor(color);
-        visible = false;
+        destroy();
     }
 
     private static String getTexture(Color color) {

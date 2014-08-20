@@ -14,7 +14,7 @@ public class BlackHole extends Enemy {
 
     public BlackHole(Vector2 center, float height, Hero hero) {
         super(center, height * widthToHeightRatio, height * widthToHeightRatio,
-                hero);
+                hero, "Textures/StartScreen_Background.png");
         color = Color.black;
         this.hero = hero;
         timer = new Timer(4000f);

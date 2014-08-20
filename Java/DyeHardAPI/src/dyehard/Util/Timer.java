@@ -25,11 +25,6 @@ public class Timer {
 
     public float timeRemaining() {
         // Returns the amount of time left in milliseconds
-        float timeLeft = (endTime - System.nanoTime()) / 1000000;
-        if (timeLeft >= 0f) {
-            return timeLeft;
-        } else {
-            return 0;
-        }
+        return (endTime - System.nanoTime()) / 1000000;
     }
 }

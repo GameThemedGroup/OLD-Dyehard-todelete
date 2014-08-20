@@ -2,9 +2,11 @@ package dyehard.World;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 
 import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.GameObject;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
@@ -16,7 +18,7 @@ public class Stargate extends GameWorldRegion {
     private Platform[] platforms;
     private Rectangle backdrop;
 
-    public Stargate(Hero hero, ArrayList<Enemy> enemies, float leftEdge) {
+    public Stargate(Hero hero, List<Enemy> enemies, float leftEdge) {
         width = Stargate.WIDTH;
         position = leftEdge + width / 2f;
         speed = -GameWorld.Speed;
@@ -36,34 +38,10 @@ public class Stargate extends GameWorldRegion {
         }
 
         float height = GameWorld.TOP_EDGE;
-        backdrop = new Rectangle();
+        backdrop = new GameObject();
         backdrop.center = new Vector2(position, height / 2);
         backdrop.size.set(width, height);
         backdrop.color = new Color(0, 0, 0, 130);
         backdrop.velocity = new Vector2(-speed, 0f);
-    }
-
-    @Override
-    public void destroy() {
-        backdrop.destroy();
-        for (Gate g : gates) {
-            g.destroy();
-        }
-    }
-
-    public void draw() {
-        backdrop.draw();
-        for (Gate g : gates) {
-            g.draw();
-        }
-    }
-
-    @Override
-    public void update() {
-        position += speed;
-        backdrop.update();
-        for (Gate g : gates) {
-            g.update();
-        }
     }
 }
