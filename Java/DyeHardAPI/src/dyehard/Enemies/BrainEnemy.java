@@ -29,9 +29,8 @@ public class BrainEnemy extends Enemy {
         for (Iterator<BlackHole> bhIter = blackHoles.iterator(); bhIter
                 .hasNext();) {
             BlackHole b = bhIter.next();
-            if (!b.isAlive()) {
+            if (!b.isActive()) {
                 bhIter.remove();
-                System.out.println("Removed a black hole");
             }
         }
     }
