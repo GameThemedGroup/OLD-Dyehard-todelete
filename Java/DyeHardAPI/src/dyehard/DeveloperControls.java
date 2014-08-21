@@ -94,8 +94,7 @@ public class DeveloperControls extends UpdateObject {
     public void generateEnemy() {
         Hero hero = GameWorld.getHero();
 
-        float randomY = (GameWorld.TOP_EDGE - 5f - GameWorld.BOTTOM_EDGE + 5f)
-                * RANDOM.nextFloat() + 0f + 5f;
+        float randomY = RANDOM.nextInt((int) GameWorld.TOP_EDGE - 8) + 5;
         Vector2 position = new Vector2(GameWorld.RIGHT_EDGE + 5, randomY);
 
         switch (RANDOM.nextInt(3)) {
