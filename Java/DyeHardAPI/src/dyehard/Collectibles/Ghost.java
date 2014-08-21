@@ -27,6 +27,6 @@ public class Ghost extends PowerUp {
 
     @Override
     public String toString() {
-        return super.toString() + " Ghost";
+        return "Ghost: " + super.toString();
     }
 }
