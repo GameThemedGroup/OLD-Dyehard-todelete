@@ -12,22 +12,12 @@ import java.util.TreeSet;
 import Engine.KeyboardInput;
 import Engine.Text;
 import Engine.Vector2;
-import dyehard.Collectibles.DyePack;
-import dyehard.Collectibles.Ghost;
-import dyehard.Collectibles.Gravity;
-import dyehard.Collectibles.Invincibility;
-import dyehard.Collectibles.Magnetism;
-import dyehard.Collectibles.Overload;
 import dyehard.Collectibles.PowerUp;
-import dyehard.Collectibles.SlowDown;
-import dyehard.Collectibles.SpeedUp;
-import dyehard.Collectibles.Unarmed;
 import dyehard.Enemies.BrainEnemy;
 import dyehard.Enemies.Enemy;
 import dyehard.Enemies.RedBeamEnemy;
 import dyehard.Enemies.SpiderEnemy;
 import dyehard.Player.Hero;
-import dyehard.Util.Colors;
 import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.World.GameWorld;
 
@@ -152,37 +142,37 @@ public class DeveloperControls extends UpdateObject {
     }
 
     private void generateCollectible(int powerUp) {
-        float minX = 70f;
-        float maxX = 70f;
-
-        switch (powerUp) {
-        case 1:
-            new Ghost(hero, minX, maxX);
-            break;
-        case 2:
-            new Invincibility(hero, minX, maxX);
-            break;
-        case 3:
-            new Overload(hero, minX, maxX);
-            break;
-        case 4:
-            new SpeedUp(hero, GameWorld.getEnemies(), minX, maxX);
-            break;
-        case 5:
-            new SlowDown(hero, GameWorld.getEnemies(), minX, maxX);
-            break;
-        case 6:
-            new Unarmed(hero, minX, maxX);
-            break;
-        case 7:
-            new Magnetism(hero, minX, maxX);
-            break;
-        case 8:
-            new Gravity(hero, minX, maxX);
-            break;
-        default:
-            new DyePack(hero, minX, maxX, Colors.randomColor());
-        }
+        // float minX = 70f;
+        // float maxX = 70f;
+        //
+        // switch (powerUp) {
+        // case 1:
+        // new Ghost(hero, minX, maxX);
+        // break;
+        // case 2:
+        // new Invincibility(hero, minX, maxX);
+        // break;
+        // case 3:
+        // new Overload(hero, minX, maxX);
+        // break;
+        // case 4:
+        // new SpeedUp(hero, GameWorld.getEnemies(), minX, maxX);
+        // break;
+        // case 5:
+        // new SlowDown(hero, GameWorld.getEnemies(), minX, maxX);
+        // break;
+        // case 6:
+        // new Unarmed(hero, minX, maxX);
+        // break;
+        // case 7:
+        // new Magnetism(hero, minX, maxX);
+        // break;
+        // case 8:
+        // new Gravity(hero, minX, maxX);
+        // break;
+        // default:
+        // new DyePack(hero, minX, maxX, Colors.randomColor());
+        // }
     }
 
     @Override

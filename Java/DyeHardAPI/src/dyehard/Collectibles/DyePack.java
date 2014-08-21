@@ -1,7 +1,6 @@
 package dyehard.Collectibles;
 
 import java.awt.Color;
-import java.util.Random;
 
 import Engine.BaseCode;
 import Engine.Vector2;
@@ -9,7 +8,6 @@ import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 
 public class DyePack extends Collectible {
-    private static Random RANDOM = new Random();
     public static final float height = 3.5f;
     public static final float width = 3f;
     protected Hero hero;

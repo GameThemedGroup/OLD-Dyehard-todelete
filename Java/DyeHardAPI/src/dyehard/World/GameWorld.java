@@ -23,7 +23,7 @@ public class GameWorld {
     public static final float RIGHT_EDGE = BaseCode.world.getWidth();
     public static final float TOP_EDGE = BaseCode.world.getHeight();
     public static final float BOTTOM_EDGE = BaseCode.world.getWorldPositionY();
-    public static float Speed = .1f; // 0.3f;
+    public static float Speed = 0.3f;
 
     public static LinkedList<GameWorldRegion> gameRegions;
 

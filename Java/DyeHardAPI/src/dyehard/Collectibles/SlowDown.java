@@ -17,6 +17,7 @@ public class SlowDown extends SingleUsePowerup {
         label.setText("Slow");
 
         usageOrder = 10;
+        this.enemies = enemies;
     }
 
     @Override
