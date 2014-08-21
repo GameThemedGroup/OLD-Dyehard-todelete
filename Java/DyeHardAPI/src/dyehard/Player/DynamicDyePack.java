@@ -3,11 +3,11 @@ package dyehard.Player;
 import java.awt.Color;
 
 import Engine.BaseCode;
-import Engine.Rectangle;
+import dyehard.GameObject;
 import dyehard.Player.Hero.State;
 import dyehard.Util.Colors;
 
-public class DynamicDyePack extends Rectangle {
+public class DynamicDyePack extends GameObject {
     Hero hero;
     private final float height = 3.5f;
     private final float width = 3f;

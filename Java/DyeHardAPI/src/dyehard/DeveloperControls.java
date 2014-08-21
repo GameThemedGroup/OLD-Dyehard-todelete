@@ -12,12 +12,22 @@ import java.util.TreeSet;
 import Engine.KeyboardInput;
 import Engine.Text;
 import Engine.Vector2;
+import dyehard.Collectibles.DyePack;
+import dyehard.Collectibles.Ghost;
+import dyehard.Collectibles.Gravity;
+import dyehard.Collectibles.Invincibility;
+import dyehard.Collectibles.Magnetism;
+import dyehard.Collectibles.Overload;
 import dyehard.Collectibles.PowerUp;
+import dyehard.Collectibles.SlowDown;
+import dyehard.Collectibles.SpeedUp;
+import dyehard.Collectibles.Unarmed;
 import dyehard.Enemies.BrainEnemy;
 import dyehard.Enemies.Enemy;
 import dyehard.Enemies.RedBeamEnemy;
 import dyehard.Enemies.SpiderEnemy;
 import dyehard.Player.Hero;
+import dyehard.Util.Colors;
 import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.World.GameWorld;
 
@@ -28,7 +38,7 @@ public class DeveloperControls extends UpdateObject {
     private Text weaponText;
     private List<Text> powerupText;
 
-    private HashMap<Integer, PowerUp> generationHotkeys;
+    private HashMap<Integer, Integer> generationHotkeys;
 
     private static Random RANDOM = new Random();
 
@@ -36,18 +46,18 @@ public class DeveloperControls extends UpdateObject {
         this.hero = hero;
         this.keyboard = keyboard;
 
-        generationHotkeys = new HashMap<Integer, PowerUp>();
-        // generationHotkeys.put(KeyEvent.VK_0, new DyePack());
-        // generationHotkeys.put(KeyEvent.VK_Z, new Ghost());
-        // generationHotkeys.put(KeyEvent.VK_X, new Invincibility());
-        // generationHotkeys.put(KeyEvent.VK_C, new Overload());
-        // generationHotkeys.put(KeyEvent.VK_V, new SpeedUp());
-        // generationHotkeys.put(KeyEvent.VK_B, new SlowDown());
-        // generationHotkeys.put(KeyEvent.VK_N, new Unarmed());
-        // generationHotkeys.put(KeyEvent.VK_M, new Magnetism());
-        // generationHotkeys.put(KeyEvent.VK_COMMA, new Gravity());
+        generationHotkeys = new HashMap<Integer, Integer>();
+        generationHotkeys.put(KeyEvent.VK_0, 0);
+        generationHotkeys.put(KeyEvent.VK_Z, 1);
+        generationHotkeys.put(KeyEvent.VK_X, 2);
+        generationHotkeys.put(KeyEvent.VK_C, 3);
+        generationHotkeys.put(KeyEvent.VK_V, 4);
+        generationHotkeys.put(KeyEvent.VK_B, 5);
+        generationHotkeys.put(KeyEvent.VK_N, 6);
+        generationHotkeys.put(KeyEvent.VK_M, 7);
+        generationHotkeys.put(KeyEvent.VK_COMMA, 8);
 
-        weaponText = createTextAt(1f, 1f);
+        weaponText = createTextAt(3f, 1f);
         powerupText = new ArrayList<Text>();
     }
 
@@ -64,7 +74,7 @@ public class DeveloperControls extends UpdateObject {
         // 'K' to kill all the enemies on screen
         if (keyboard.isButtonDown(KeyEvent.VK_K)) {
             for (Enemy e : GameWorld.getEnemies()) {
-                e.kill();
+                e.destroy();
             }
         }
 
@@ -84,8 +94,7 @@ public class DeveloperControls extends UpdateObject {
     public void generateEnemy() {
         Hero hero = GameWorld.getHero();
 
-        float randomY = (GameWorld.TOP_EDGE - 5f - GameWorld.BOTTOM_EDGE + 5f)
-                * RANDOM.nextFloat() + 0f + 5f;
+        float randomY = RANDOM.nextInt((int) GameWorld.TOP_EDGE - 8) + 5;
         Vector2 position = new Vector2(GameWorld.RIGHT_EDGE + 5, randomY);
 
         switch (RANDOM.nextInt(3)) {
@@ -118,7 +127,7 @@ public class DeveloperControls extends UpdateObject {
 
             for (int i = powerupText.size(); i < sortedPowerups.size(); ++i) {
                 powerupText
-                        .add(createTextAt(1f, GameWorld.TOP_EDGE - 3 - i * 2));
+                        .add(createTextAt(3f, GameWorld.TOP_EDGE - 3 - i * 2));
             }
         }
 
@@ -142,12 +151,38 @@ public class DeveloperControls extends UpdateObject {
         return text;
     }
 
-    private void generateCollectible(PowerUp powerUp) {
-        Vector2 position = new Vector2(60f, 35f);
-        Vector2 velocity = new Vector2(-GameWorld.Speed, 0f);
+    private void generateCollectible(int powerUp) {
+        float minX = 70f;
+        float maxX = 70f;
 
-        // PowerUp p = powerUp.clone();
-        // p.initialize(position, velocity);
+        switch (powerUp) {
+        case 1:
+            new Ghost(hero, minX, maxX);
+            break;
+        case 2:
+            new Invincibility(hero, minX, maxX);
+            break;
+        case 3:
+            new Overload(hero, minX, maxX);
+            break;
+        case 4:
+            new SpeedUp(hero, GameWorld.getEnemies(), minX, maxX);
+            break;
+        case 5:
+            new SlowDown(hero, GameWorld.getEnemies(), minX, maxX);
+            break;
+        case 6:
+            new Unarmed(hero, minX, maxX);
+            break;
+        case 7:
+            new Magnetism(hero, minX, maxX);
+            break;
+        case 8:
+            new Gravity(hero, minX, maxX);
+            break;
+        default:
+            new DyePack(hero, minX, maxX, Colors.randomColor());
+        }
     }
 
     @Override

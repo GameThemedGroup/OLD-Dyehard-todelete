@@ -1,5 +1,6 @@
 package dyehard.Player;
 
+import java.awt.Color;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -45,6 +46,8 @@ public class Hero extends Actor {
     private State directionState;
 
     private DynamicDyePack dd;
+    Vector2 previousVelocity;
+    Vector2 currentVelocity;
 
     public enum State {
         UP, DOWN, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, NEUTRAL
@@ -66,6 +69,8 @@ public class Hero extends Actor {
         directionState = State.NEUTRAL;
 
         dd = new DynamicDyePack(this);
+        previousVelocity = new Vector2(0f, 0f);
+        currentVelocity = new Vector2(0f, 0f);
     }
 
     public void setWeapon(Weapon weapon) {
@@ -94,8 +99,8 @@ public class Hero extends Actor {
     public void update() {
         applyPowerups();
         updateMovement();
-        dd.update();
         clampToWorldBounds();
+        updateState();
 
         if (isMagnetic) {
             attract();
@@ -135,46 +140,32 @@ public class Hero extends Actor {
         BaseCode.world.clampAtWorldBound(this);
     }
 
-    // public void updateState() {
-    // if (keyboard.isButtonDown(KeyEvent.VK_UP)
-    // && keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
-    // directionState = State.TOPLEFT;
-    // return;
-    // }
-    // if (keyboard.isButtonDown(KeyEvent.VK_UP)
-    // && keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
-    // directionState = State.TOPRIGHT;
-    // return;
-    // }
-    // if (keyboard.isButtonDown(KeyEvent.VK_DOWN)
-    // && keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
-    // directionState = State.BOTTOMLEFT;
-    // return;
-    // }
-    // if (keyboard.isButtonDown(KeyEvent.VK_DOWN)
-    // && keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
-    // directionState = State.BOTTOMRIGHT;
-    // return;
-    // }
-    // if (keyboard.isButtonDown(KeyEvent.VK_UP)) {
-    // directionState = State.UP;
-    // return;
-    // }
-    // if (keyboard.isButtonDown(KeyEvent.VK_DOWN)) {
-    // directionState = State.DOWN;
-    // return;
-    // }
-    // if (keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
-    // directionState = State.LEFT;
-    // return;
-    // }
-    // if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
-    // directionState = State.RIGHT;
-    // return;
-    // }
-    // directionState = State.NEUTRAL;
-    // return;
-    // }
+    public void updateState() {
+        previousVelocity = currentVelocity.clone();
+        currentVelocity = velocity.clone();
+        Vector2 tempVelocity = currentVelocity.clone().sub(
+                previousVelocity.clone());
+
+        if (tempVelocity.getY() > 1f && tempVelocity.getX() < -1f) {
+            directionState = State.TOPLEFT;
+        } else if (tempVelocity.getY() > 1f && tempVelocity.getX() > 1f) {
+            directionState = State.TOPRIGHT;
+        } else if (tempVelocity.getY() < -1f && tempVelocity.getX() < -1f) {
+            directionState = State.BOTTOMLEFT;
+        } else if (tempVelocity.getY() < -1f && tempVelocity.getX() > 1f) {
+            directionState = State.BOTTOMRIGHT;
+        } else if (tempVelocity.getY() > 1f) {
+            directionState = State.UP;
+        } else if (tempVelocity.getY() < -1f) {
+            directionState = State.DOWN;
+        } else if (tempVelocity.getX() < -1f) {
+            directionState = State.LEFT;
+        } else if (tempVelocity.getX() > 1f) {
+            directionState = State.RIGHT;
+        } else {
+            directionState = State.NEUTRAL;
+        }
+    }
 
     public State getState() {
         return directionState;
@@ -182,7 +173,6 @@ public class Hero extends Actor {
 
     public void collect(DyePack dye) {
         dye.activate();
-        dd.updateColor(color);
     }
 
     public void collect(PowerUp powerup) {
@@ -283,5 +273,11 @@ public class Hero extends Actor {
             return;
         }
         super.kill();
+    }
+
+    @Override
+    public void setColor(Color color) {
+        dd.updateColor(color);
+        super.setColor(color);
     }
 }

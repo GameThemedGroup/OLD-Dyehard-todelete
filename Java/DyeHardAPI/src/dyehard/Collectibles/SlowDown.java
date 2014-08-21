@@ -36,6 +36,6 @@ public class SlowDown extends SingleUsePowerup {
 
     @Override
     public String toString() {
-        return super.toString() + " Slow Down";
+        return "Slow Down: " + super.toString();
     }
 }
