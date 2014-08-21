@@ -27,6 +27,6 @@ public class Invincibility extends PowerUp {
 
     @Override
     public String toString() {
-        return super.toString() + " Invincibility";
+        return "Invincibility: " + super.toString();
     }
 }
