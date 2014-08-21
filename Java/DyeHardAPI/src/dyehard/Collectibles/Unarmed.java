@@ -25,6 +25,6 @@ public class Unarmed extends PowerUp {
 
     @Override
     public String toString() {
-        return super.toString() + " Unarmed";
+        return "Unarmed: " + super.toString();
     }
 }
