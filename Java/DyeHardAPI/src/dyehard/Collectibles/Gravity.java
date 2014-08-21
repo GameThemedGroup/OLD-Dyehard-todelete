@@ -5,8 +5,8 @@ import java.awt.Color;
 import dyehard.Player.Hero;
 
 public class Gravity extends PowerUp {
-    public Gravity(Hero hero, float minX, float maxX) {
-        super(hero, minX, maxX);
+    public Gravity(Hero hero) {
+        super(hero);
         color = Color.red;
         label.setText("Gravity");
 

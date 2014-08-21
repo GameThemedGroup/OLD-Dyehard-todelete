@@ -5,8 +5,8 @@ import java.awt.Color;
 import dyehard.Player.Hero;
 
 public class Magnetism extends PowerUp {
-    public Magnetism(Hero hero, float minX, float maxX) {
-        super(hero, minX, maxX);
+    public Magnetism(Hero hero) {
+        super(hero);
         color = Color.white;
         label.setText("Magnet");
 

@@ -6,8 +6,8 @@ import Engine.BaseCode;
 import dyehard.Player.Hero;
 
 public class Ghost extends PowerUp {
-    public Ghost(Hero hero, float minX, float maxX) {
-        super(hero, minX, maxX);
+    public Ghost(Hero hero) {
+        super(hero);
         label.setText("Ghost");
         label.setFrontColor(Color.white);
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Blue.png");

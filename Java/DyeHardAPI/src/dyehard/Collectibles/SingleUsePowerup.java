@@ -4,8 +4,8 @@ import dyehard.Player.Hero;
 
 public abstract class SingleUsePowerup extends PowerUp {
 
-    public SingleUsePowerup(Hero hero, float minX, float maxX) {
-        super(hero, minX, maxX);
+    public SingleUsePowerup(Hero hero) {
+        super(hero);
     }
 
     protected boolean isApplied = false;

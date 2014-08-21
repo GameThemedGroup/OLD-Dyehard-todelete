@@ -11,8 +11,8 @@ public class SpeedUp extends SingleUsePowerup {
     List<Enemy> enemies;
     protected final float enemySpeedModifier = 1.5f;
 
-    public SpeedUp(Hero hero, List<Enemy> enemies, float minX, float maxX) {
-        super(hero, minX, maxX);
+    public SpeedUp(Hero hero, List<Enemy> enemies) {
+        super(hero);
         this.enemies = enemies;
         label.setText("Speed");
         label.setFrontColor(Color.white);
@@ -24,14 +24,18 @@ public class SpeedUp extends SingleUsePowerup {
     @Override
     public void unapply() {
         for (Enemy e : enemies) {
-            e.chaseSpeed /= enemySpeedModifier;
+            if (e != null) {
+                e.chaseSpeed *= enemySpeedModifier;
+            }
         }
     }
 
     @Override
     public void applyOnce() {
         for (Enemy e : enemies) {
-            e.chaseSpeed *= enemySpeedModifier;
+            if (e != null) {
+                e.chaseSpeed *= enemySpeedModifier;
+            }
         }
     }
 

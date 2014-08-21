@@ -5,8 +5,8 @@ import java.awt.Color;
 import dyehard.Player.Hero;
 
 public class Unarmed extends PowerUp {
-    public Unarmed(Hero hero, float minX, float maxX) {
-        super(hero, minX, maxX);
+    public Unarmed(Hero hero) {
+        super(hero);
         color = Color.cyan;
         label.setText("Unarmed");
 

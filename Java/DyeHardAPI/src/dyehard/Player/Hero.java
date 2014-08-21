@@ -282,6 +282,6 @@ public class Hero extends Actor {
         if (isInvincible) {
             return;
         }
-        super.kill();
+        // super.kill();
     }
 }

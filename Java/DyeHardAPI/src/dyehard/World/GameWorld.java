@@ -23,9 +23,8 @@ public class GameWorld {
     public static final float RIGHT_EDGE = BaseCode.world.getWidth();
     public static final float TOP_EDGE = BaseCode.world.getHeight();
     public static final float BOTTOM_EDGE = BaseCode.world.getWorldPositionY();
-    public static float Speed = 0.3f;
+    public static float Speed = .1f; // 0.3f;
 
-    private Space space;
     public static LinkedList<GameWorldRegion> gameRegions;
 
     private static Hero hero;
@@ -76,8 +75,8 @@ public class GameWorld {
         new Laser(hero);
 
         // first element on screen
-        gameRegions.add(new Space(hero, enemies, GameWorld.LEFT_EDGE));
-        gameRegions.add(new Stargate(hero, enemies, 300f));
+        gameRegions.add(new Space(GameWorld.LEFT_EDGE));
+        // gameRegions.add(new Stargate(hero, enemies, 300f));
 
         // fill the rest of the existing screen
         while (gameRegions.getLast().rightEdge() <= GameWorld.RIGHT_EDGE) {
@@ -115,16 +114,6 @@ public class GameWorld {
         newlyRegisteredUpdateables.clear();
 
         updateSequence();
-
-        // hero.update();
-        // eManager.update();
-        // laser.update();
-        // ObstacleManager.update();
-        // pManager.update();
-        //
-        // for (GameWorldRegion e : gameRegions) {
-        // e.update();
-        // }
     }
 
     public static void pruneObjects() {
@@ -138,10 +127,14 @@ public class GameWorld {
         updateables.removeAll(destroyed);
     }
 
+    public static GameWorldRegion getLastRegion() {
+        return gameRegions.peekLast();
+    }
+
     private static void updateSequence() {
         // remove game regions that have moved off screen
         if (gameRegions.peek().rightEdge() <= GameWorld.LEFT_EDGE) {
-            GameWorldRegion offscreen = gameRegions.pop();
+            gameRegions.pop();
         }
 
         // generate new game regions if the current one is about to end
@@ -155,7 +148,7 @@ public class GameWorld {
         float startLocation = gameRegions.getLast().rightEdge();
         GameWorldRegion newRegion;
         if (gameRegions.getLast() instanceof Stargate) {
-            newRegion = new Space(hero, enemies, startLocation);
+            newRegion = new Space(startLocation);
         } else {
             newRegion = new Stargate(hero, enemies, startLocation);
         }

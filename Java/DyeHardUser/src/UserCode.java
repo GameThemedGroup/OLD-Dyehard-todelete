@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,13 +8,26 @@ import Engine.Vector2;
 import dyehard.Actor;
 import dyehard.DeveloperControls;
 import dyehard.DyeHard;
+import dyehard.Collectibles.Collectible;
+import dyehard.Collectibles.DyePack;
+import dyehard.Collectibles.Ghost;
+import dyehard.Collectibles.Gravity;
+import dyehard.Collectibles.Invincibility;
+import dyehard.Collectibles.Magnetism;
+import dyehard.Collectibles.Overload;
+import dyehard.Collectibles.PowerUp;
+import dyehard.Collectibles.SlowDown;
+import dyehard.Collectibles.SpeedUp;
+import dyehard.Collectibles.Unarmed;
 import dyehard.Enemies.BrainEnemy;
 import dyehard.Enemies.Enemy;
 import dyehard.Enemies.RedBeamEnemy;
 import dyehard.Enemies.SpiderEnemy;
+import dyehard.Obstacles.Debris;
 import dyehard.Obstacles.Obstacle;
 import dyehard.Player.Hero;
 import dyehard.Util.Collision;
+import dyehard.Util.Colors;
 import dyehard.Util.Timer;
 import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.Weapons.OverHeatWeapon;
@@ -21,11 +35,16 @@ import dyehard.Weapons.Projectile;
 import dyehard.Weapons.SpreadFireWeapon;
 import dyehard.Weapons.Weapon;
 import dyehard.World.GameWorld;
+import dyehard.World.GameWorldRegion;
+import dyehard.World.Space;
 
 public class UserCode extends DyeHard {
-
     private Timer enemySpawnTimer = new Timer(5000f);
     private List<Weapon> weaponRack;
+
+    private static final int DyepackCount = 11;
+    private static final int DebrisCount = 10;
+    private static final int PowerupCount = 5;
 
     private static Random RANDOM = new Random();
 
@@ -43,6 +62,8 @@ public class UserCode extends DyeHard {
 
     @Override
     protected void update() {
+        generateWorld();
+
         moveHero();
         selectWeapon();
         checkActorObstacleCollision();
@@ -71,6 +92,24 @@ public class UserCode extends DyeHard {
         default:
             new SpiderEnemy(position, 7.5f, hero);
             break;
+        }
+    }
+
+    private void generateWorld() {
+        GameWorldRegion lastRegion = GameWorld.getLastRegion();
+        if (lastRegion == null || !(lastRegion instanceof Space)) {
+            return;
+        }
+
+        Space space = (Space) lastRegion;
+        if (!space.isInitialized()) {
+            List<Collectible> collectibles = new ArrayList<Collectible>();
+            collectibles.addAll(randomDyePacks(space, DyepackCount));
+            collectibles.addAll(randomPowerups(space, PowerupCount));
+
+            List<Debris> debris;
+            debris = generateDebris(space, DebrisCount);
+            space.initialize(collectibles, debris);
         }
     }
 
@@ -183,6 +222,108 @@ public class UserCode extends DyeHard {
                     actor.velocity.setY(0f);
                 }
             }
+        }
+    }
+
+    private List<Debris> generateDebris(Space region, int count) {
+        float regionWidth = region.getWidth() / count;
+        float regionStart = region.leftEdge();
+        float regionHeight = GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE;
+
+        List<Debris> debris = new ArrayList<Debris>();
+
+        float posX, posY;
+
+        for (int i = 0; i < count; ++i) {
+            posX = regionStart + (i * regionWidth);
+            posX += RANDOM.nextFloat() * regionWidth;
+
+            posY = RANDOM.nextFloat() * (regionHeight - DyePack.height)
+                    + DyePack.height / 2f;
+
+            Debris d = new Debris();
+            d.center = new Vector2(posX, posY);
+
+            debris.add(d);
+        }
+
+        return debris;
+    }
+
+    private List<Collectible> randomDyePacks(Space region, int count) {
+        float regionWidth = region.getWidth() / count;
+        float regionStart = region.leftEdge();
+        float regionHeight = GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE;
+
+        Hero hero = GameWorld.getHero();
+        List<Collectible> randomDyes = new ArrayList<Collectible>();
+
+        float posX, posY;
+
+        for (int i = 0; i < count; ++i) {
+            posX = regionStart + (i * regionWidth);
+            posX += RANDOM.nextFloat() * regionWidth;
+
+            posY = RANDOM.nextFloat() * (regionHeight - DyePack.height)
+                    + DyePack.height / 2f;
+
+            Color randomColor = Colors.randomColor();
+            DyePack dye = new DyePack(hero, randomColor);
+            dye.center = new Vector2(posX, posY);
+
+            randomDyes.add(dye);
+        }
+
+        return randomDyes;
+    }
+
+    private List<Collectible> randomPowerups(Space region, int count) {
+        float regionWidth = region.getWidth() / count;
+        float regionStart = region.leftEdge();
+        float regionHeight = GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE;
+
+        Hero hero = GameWorld.getHero();
+        List<Collectible> collectibles = new ArrayList<Collectible>();
+
+        float posX, posY;
+
+        for (int i = 0; i < count; ++i) {
+            posX = regionStart + (i * regionWidth);
+            posX += RANDOM.nextFloat() * regionWidth;
+
+            posY = (regionHeight - DyePack.height) * RANDOM.nextFloat()
+                    + DyePack.height / 2f;
+
+            PowerUp powerup = randomPowerup(hero);
+            powerup.center = new Vector2(posX, posY);
+
+            collectibles.add(powerup);
+        }
+
+        return collectibles;
+    }
+
+    private static PowerUp randomPowerup(Hero hero) {
+
+        List<Enemy> enemies = GameWorld.getEnemies();
+
+        switch (RANDOM.nextInt(8)) {
+        case 0:
+            return new SpeedUp(hero, enemies);
+        case 1:
+            return new SlowDown(hero, enemies);
+        case 2:
+            return new Ghost(hero);
+        case 3:
+            return new Invincibility(hero);
+        case 4:
+            return new Unarmed(hero);
+        case 5:
+            return new Magnetism(hero);
+        case 6:
+            return new Gravity(hero);
+        default:
+            return new Overload(hero);
         }
     }
 
