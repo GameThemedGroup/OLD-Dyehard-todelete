@@ -8,13 +8,11 @@ import dyehard.Player.Hero;
 import dyehard.Util.Timer;
 
 public class BrainEnemy extends Enemy {
-    private static float widthToHeightRatio = 0.59f;
     private Timer timer;
     private ArrayList<BlackHole> blackHoles;
 
     public BrainEnemy(Vector2 center, float height, Hero currentHero) {
-        super(center, height * widthToHeightRatio, height, currentHero,
-                "Textures/Brain Enemy.png");
+        super(center, height, height, currentHero, "Textures/minion_Portal.png");
         timer = new Timer(2000f);
         blackHoles = new ArrayList<BlackHole>();
     }
