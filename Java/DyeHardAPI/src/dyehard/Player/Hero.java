@@ -18,6 +18,7 @@ import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.PowerUp;
 import dyehard.Player.HeroInterfaces.HeroCollision;
 import dyehard.Player.HeroInterfaces.HeroDamage;
+import dyehard.Util.Colors;
 import dyehard.Weapons.Weapon;
 
 public class Hero extends Actor implements HeroCollision, HeroDamage {
@@ -41,13 +42,23 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     private int collectedDyepacks;
     private int collectedPowerups;
 
+    protected Direction direction;
+    protected DynamicDyePack dynamicDyepack;
+
     private KeyboardInput keyboard;
     private ArrayList<Weapon> weaponRack;
     private HashMap<Integer, Integer> weaponHotkeys;
 
+    public enum Direction {
+        UP, DOWN, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, NEUTRAL
+    }
+
     public Hero(KeyboardInput keyboard) {
         super(new Vector2(20f, 20f), 6f, 9f); // TODO remove magic numbers
 
+        color = Colors.randomColor();
+        direction = Direction.NEUTRAL;
+        dynamicDyepack = new DynamicDyePack(this);
         texture = BaseCode.resources.loadImage("Textures/Hero/Dye.png");
 
         this.keyboard = keyboard;
@@ -72,11 +83,6 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         weaponHotkeys.put(KeyEvent.VK_4, 3);
     }
 
-    @Override
-    public void draw() {
-        super.draw();
-    }
-
     public void updateMovement() {
         // Clamp the horizontal speed to speedLimit
         float velX = velocity.getX();
@@ -97,9 +103,12 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public void update() {
         applyPowerups();
         handleInput();
+        updateDirection();
         updateMovement();
         selectWeapon();
         clampToWorldBounds();
+
+        dynamicDyepack.update();
     }
 
     private void applyPowerups() {
@@ -157,6 +166,32 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
         if (keyboard.isButtonDown(KeyEvent.VK_F)) {
             currentWeapon.fire();
+        }
+    }
+
+    private void updateDirection() {
+        if (keyboard.isButtonDown(KeyEvent.VK_UP)
+                && keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
+            direction = Direction.TOPLEFT;
+        } else if (keyboard.isButtonDown(KeyEvent.VK_UP)
+                && keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
+            direction = Direction.TOPRIGHT;
+        } else if (keyboard.isButtonDown(KeyEvent.VK_UP)) {
+            direction = Direction.UP;
+        } else if (keyboard.isButtonDown(KeyEvent.VK_DOWN)
+                && keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
+            direction = Direction.BOTTOMLEFT;
+        } else if (keyboard.isButtonDown(KeyEvent.VK_DOWN)
+                && keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
+            direction = Direction.BOTTOMRIGHT;
+        } else if (keyboard.isButtonDown(KeyEvent.VK_DOWN)) {
+            direction = Direction.DOWN;
+        } else if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
+            direction = Direction.RIGHT;
+        } else if (keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
+            direction = Direction.LEFT;
+        } else {
+            direction = Direction.NEUTRAL;
         }
     }
 
