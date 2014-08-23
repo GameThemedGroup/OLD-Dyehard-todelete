@@ -34,7 +34,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public final HeroDamage defaultDamageHandler = this;
     public final Weapon defaultWeapon = new Weapon(this);
     public final float defaultJetSpeed = 2.5f;
-    public final Vector2 defaultGravity = new Vector2(0f, -1.5f);
+    public final Vector2 defaultGravity = new Vector2(0f, 0f);
 
     private float speedLimitX = 50f;
     private static float drag = 0.97f; // smaller number means more reduction
