@@ -8,6 +8,7 @@ import java.util.Random;
 import Engine.Vector2;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.Ghost;
+import dyehard.Collectibles.Gravity;
 import dyehard.Collectibles.Invincibility;
 import dyehard.Collectibles.Magnetism;
 import dyehard.Collectibles.Overload;
@@ -29,8 +30,8 @@ public class Space extends GameWorldRegion {
     private static Random RANDOM = new Random();
 
     // The list of powerups that can be randomly generated
-    private static List<PowerUp> powerUpTypes = new ArrayList<PowerUp>();
-    private static List<PowerUp> userPowerUps = new ArrayList<PowerUp>();
+    private static List<PowerUp> powerUpTypes;
+    private static List<PowerUp> userPowerUps;
     private List<PowerUp> powerUpList;
 
     // The list of dyes that can be randomly generated
@@ -39,6 +40,20 @@ public class Space extends GameWorldRegion {
     public Space(Hero hero) {
         width = WIDTH;
         speed = -GameWorld.Speed;
+    }
+
+    static {
+        powerUpTypes = new ArrayList<PowerUp>();
+        userPowerUps = new ArrayList<PowerUp>();
+
+        powerUpTypes.add(new Ghost());
+        powerUpTypes.add(new Invincibility());
+        powerUpTypes.add(new Magnetism());
+        powerUpTypes.add(new Overload());
+        powerUpTypes.add(new SlowDown());
+        powerUpTypes.add(new SpeedUp());
+        powerUpTypes.add(new Unarmed());
+        powerUpTypes.add(new Gravity());
     }
 
     @Override
@@ -159,14 +174,6 @@ public class Space extends GameWorldRegion {
 
     public static void registerDefaultPowerUps(int count) {
         powerUpCount = count;
-
-        powerUpTypes.add(new Ghost());
-        powerUpTypes.add(new Invincibility());
-        powerUpTypes.add(new Magnetism());
-        powerUpTypes.add(new Overload());
-        powerUpTypes.add(new SlowDown());
-        powerUpTypes.add(new SpeedUp());
-        powerUpTypes.add(new Unarmed());
     }
 
     public static void registerPowerUp(PowerUp p) {
