@@ -14,7 +14,7 @@ public class DyePack extends Collidable {
 
     public DyePack(Color color) {
         this.color = color;
-        texture = BaseCode.resources.loadImage("Textures/" + getTexture(color));
+        texture = BaseCode.resources.loadImage(getTexture(color));
         shouldTravel = false;
         visible = false;
     }
@@ -33,24 +33,24 @@ public class DyePack extends Collidable {
         visible = false;
     }
 
-    private static String getTexture(Color color) {
+    public static String getTexture(Color color) {
         if (color == Colors.Green) {
-            return "Dye_Green.png";
+            return "Textures/Dye_Green.png";
         }
         if (color == Colors.Blue) {
-            return "Dye_Blue.png";
+            return "Textures/Dye_Blue.png";
         }
         if (color == Colors.Yellow) {
-            return "Dye_Yellow.png";
+            return "Textures/Dye_Yellow.png";
         }
         if (color == Colors.Teal) {
-            return "Dye_Teal.png";
+            return "Textures/Dye_Teal.png";
         }
         if (color == Colors.Pink) {
-            return "Dye_Pink.png";
+            return "Textures/Dye_Pink.png";
         }
         if (color == Colors.Red) {
-            return "Dye_Red.png";
+            return "Textures/Dye_Red.png";
         }
         return "";
     }
