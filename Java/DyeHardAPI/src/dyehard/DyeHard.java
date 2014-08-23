@@ -64,6 +64,8 @@ public abstract class DyeHard extends LibraryCode {
     public void initializeWorld() {
         super.initializeWorld();
 
+        resources.setClassInJar(this);
+
         state = State.PLAYING;
         world = new GameWorld();
 
