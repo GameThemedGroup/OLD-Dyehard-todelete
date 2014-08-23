@@ -62,11 +62,6 @@ public class Space extends GameWorldRegion {
         generateCollectibles(leftEdge);
     }
 
-    public void registerPowerUpTypes(List<PowerUp> powerups, int numPowerUps) {
-        // this.numPowerUps = numPowerUps;
-        powerUpTypes = powerups;
-    }
-
     public void registerDyes(List<DyePack> dyes) {
         dyeList = dyes;
     }
