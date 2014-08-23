@@ -3,6 +3,7 @@ package dyehard;
 import java.awt.event.KeyEvent;
 
 import Engine.LibraryCode;
+import dyehard.Util.Timer;
 import dyehard.World.GameWorld;
 
 public abstract class DyeHard extends LibraryCode {
@@ -18,43 +19,58 @@ public abstract class DyeHard extends LibraryCode {
     protected State state;
     protected GameWorld world;
 
+    Timer controlTimer = new Timer(500f);
+
     private void checkControl() {
-        keyboard.update();
-        if (keyboard.isButtonDown(KeyEvent.VK_ESCAPE)) {
-            window.close();
-        }
-        switch (state) {
-        case BEGIN:
-            if (keyboard.isButtonDown(KeyEvent.VK_A)) {
-                state = State.PLAYING;
-                // startScreen.remove();
+        if (controlTimer.isDone()) {
+            keyboard.update();
+            if (keyboard.isButtonDown(KeyEvent.VK_ESCAPE)) {
+                window.close();
             }
-            break;
-        case PAUSED:
-            if (keyboard.isButtonDown(KeyEvent.VK_A)) {
-                state = State.PLAYING;
-                // pauseScreen.remove();
+
+            if (keyboard.isButtonDown(KeyEvent.VK_ALT)
+                    && keyboard.isButtonDown(KeyEvent.VK_ENTER)) {
+
+                keyboard.releaseButton(KeyEvent.VK_ENTER);
+                keyboard.releaseButton(KeyEvent.VK_ALT);
+                window.toggleFullscreen();
+                controlTimer.reset();
             }
-            if (keyboard.isButtonDown(KeyEvent.VK_Q)) {
-                state = State.BEGIN;
-                world = new GameWorld();
-                // pauseScreen.remove();
+
+            switch (state) {
+            case BEGIN:
+                if (keyboard.isButtonDown(KeyEvent.VK_A)) {
+                    state = State.PLAYING;
+                    controlTimer.reset();
+                }
+                break;
+            case PAUSED:
+                if (keyboard.isButtonDown(KeyEvent.VK_A)) {
+                    state = State.PLAYING;
+                    controlTimer.reset();
+                }
+                /*
+                 * if (keyboard.isButtonDown(KeyEvent.VK_Q)) { state =
+                 * State.BEGIN; world = new GameWorld(keyboard); //
+                 * pauseScreen.remove(); }
+                 */
+                break;
+            case PLAYING:
+                if (keyboard.isButtonDown(KeyEvent.VK_A)) {
+                    state = State.PAUSED;
+                    controlTimer.reset();
+                } else if (world.gameOver()) {
+                    state = State.GAMEOVER;
+                    controlTimer.reset();
+                }
+                break;
+            case GAMEOVER:
+                /*
+                 * if (keyboard.isButtonDown(KeyEvent.VK_A)) { state =
+                 * State.BEGIN; world = new GameWorld(keyboard); // } `
+                 */
+                break;
             }
-            break;
-        case PLAYING:
-            if (keyboard.isButtonDown(KeyEvent.VK_A)) {
-                state = State.PAUSED;
-            } else if (world.gameOver()) {
-                state = State.GAMEOVER;
-            }
-            break;
-        case GAMEOVER:
-            if (keyboard.isButtonDown(KeyEvent.VK_A)) {
-                state = State.BEGIN;
-                world = new GameWorld();
-                // gameOverScreen.remove();
-            }
-            break;
         }
     }
 
