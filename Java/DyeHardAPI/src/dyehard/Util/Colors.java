@@ -13,7 +13,7 @@ public class Colors {
     public static Color Yellow = new Color(228, 225, 21);
     public static Color Teal = new Color(90, 184, 186);
     public static Color Pink = new Color(215, 59, 148);
-    public static Color Blue = new Color(50, 75, 150);;
+    public static Color Blue = new Color(50, 75, 150);
 
     private static Color colorPicker(int choice) {
         switch (choice) {
