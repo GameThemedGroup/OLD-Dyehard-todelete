@@ -8,6 +8,7 @@ public class Overload extends PowerUp {
     public Overload() {
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Red.png");
         applicationOrder = 30;
+        label.setText("Overload");
     }
 
     @Override

@@ -12,6 +12,7 @@ public class Magnetism extends PowerUp {
 
     public Magnetism() {
         applicationOrder = 40;
+        label.setText("Magnet");
     }
 
     protected static final float attractionDistance = GameWorld.RIGHT_EDGE / 4;

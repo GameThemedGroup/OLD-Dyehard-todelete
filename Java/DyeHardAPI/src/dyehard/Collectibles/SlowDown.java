@@ -15,6 +15,7 @@ public class SlowDown extends PowerUp {
         enemySpeedModifier = 0.5f;
         isApplied = false;
         applicationOrder = 10;
+        label.setText("Slow");
     }
 
     protected boolean isApplied;

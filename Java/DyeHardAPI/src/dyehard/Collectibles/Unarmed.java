@@ -7,6 +7,7 @@ public class Unarmed extends PowerUp {
 
     public Unarmed() {
         applicationOrder = 0;
+        label.setText("Unarmed");
     }
 
     @Override

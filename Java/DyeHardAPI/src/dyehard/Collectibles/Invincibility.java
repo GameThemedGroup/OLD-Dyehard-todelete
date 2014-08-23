@@ -10,6 +10,7 @@ public class Invincibility extends PowerUp {
     public Invincibility() {
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Pink.png");
         applicationOrder = 100;
+        label.setText("Invin");
     }
 
     @Override

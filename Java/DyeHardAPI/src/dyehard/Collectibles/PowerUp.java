@@ -1,5 +1,8 @@
 package dyehard.Collectibles;
 
+import java.awt.Color;
+
+import Engine.Text;
 import Engine.Vector2;
 import dyehard.Collidable;
 import dyehard.Player.Hero;
@@ -13,12 +16,19 @@ public abstract class PowerUp extends Collidable implements Cloneable,
     protected int applicationOrder;
     protected float duration = 5000f;
     protected Timer timer;
+    protected Text label;
 
     public PowerUp() {
         shouldTravel = false;
         visible = false;
         applicationOrder = 0;
         timer = new Timer(duration);
+
+        label = new Text("", center.getX(), center.getY());
+        label.setFrontColor(Color.WHITE);
+        label.setBackColor(Color.BLACK);
+        label.setFontSize(20);
+        label.setFontName("Arial");
     }
 
     public PowerUp(PowerUp other) {
@@ -32,6 +42,18 @@ public abstract class PowerUp extends Collidable implements Cloneable,
         size.set(width, height);
         shouldTravel = true;
         visible = true;
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        label.center.set(center.getX() - 2.5f, center.getY() - 0.5f);
+    }
+
+    @Override
+    public void destroy() {
+        label.destroy();
+        super.destroy();
     }
 
     public float getDuration() {

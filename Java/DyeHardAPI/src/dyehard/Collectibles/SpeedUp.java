@@ -15,6 +15,7 @@ public class SpeedUp extends PowerUp {
         enemySpeedModifier = 1.75f;
         isApplied = false;
         applicationOrder = 20;
+        label.setText("Speed");
     }
 
     protected boolean isApplied;
