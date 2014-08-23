@@ -33,11 +33,11 @@ public class UserCode extends DyeHard {
         world.initialize(hero);
 
         GameWorldRegion startingSpace = new Space(hero);
-        ((Space) startingSpace).registerDyes(randomDyePacks(11));
-        ((Space) startingSpace).registerPowerUpTypes(allPowerUps(), 10);
         world.addRegion(startingSpace);
 
         devControls = new DeveloperControls(hero, keyboard);
+
+        Space.registerDefaultPowerUps(2);
     }
 
     @Override

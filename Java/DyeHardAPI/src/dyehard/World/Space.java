@@ -7,7 +7,14 @@ import java.util.Random;
 
 import Engine.Vector2;
 import dyehard.Collectibles.DyePack;
+import dyehard.Collectibles.Ghost;
+import dyehard.Collectibles.Invincibility;
+import dyehard.Collectibles.Magnetism;
+import dyehard.Collectibles.Overload;
 import dyehard.Collectibles.PowerUp;
+import dyehard.Collectibles.SlowDown;
+import dyehard.Collectibles.SpeedUp;
+import dyehard.Collectibles.Unarmed;
 import dyehard.Obstacles.Debris;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
@@ -15,16 +22,16 @@ import dyehard.Util.Colors;
 public class Space extends GameWorldRegion {
     public static float WIDTH = GameWorld.RIGHT_EDGE * 3f;
 
-    public static int powerupCount = 5;
-    public static int dyepackCount = 11;
-    public static int debrisCount = 10;
+    private static int powerUpCount = 0;
+    public static int dyepackCount = 0;
+    public static int debrisCount = 0;
 
     private static Random RANDOM = new Random();
 
     // The list of powerups that can be randomly generated
-    List<PowerUp> powerUpTypes;
-    List<PowerUp> powerUpList;
-    private int numPowerUps;
+    private static List<PowerUp> powerUpTypes;
+    private static List<PowerUp> userPowerUps;
+    private List<PowerUp> powerUpList;
 
     // The list of dyes that can be randomly generated
     List<DyePack> dyeList;
@@ -32,6 +39,8 @@ public class Space extends GameWorldRegion {
     public Space(Hero hero) {
         width = WIDTH;
         speed = -GameWorld.Speed;
+        powerUpTypes = new ArrayList<PowerUp>();
+        userPowerUps = new ArrayList<PowerUp>();
     }
 
     @Override
@@ -41,7 +50,7 @@ public class Space extends GameWorldRegion {
     }
 
     public void registerPowerUpTypes(List<PowerUp> powerups, int numPowerUps) {
-        this.numPowerUps = numPowerUps;
+        // this.numPowerUps = numPowerUps;
         powerUpTypes = powerups;
     }
 
@@ -56,7 +65,7 @@ public class Space extends GameWorldRegion {
 
         initializeDyePacks(dyeList);
 
-        generatePowerUps(powerUpTypes, numPowerUps);
+        generatePowerUps(powerUpTypes, powerUpCount);
         initializePowerUps(powerUpList);
 
         // offset the region to pad the space before the next element
@@ -71,15 +80,15 @@ public class Space extends GameWorldRegion {
         }
     }
 
-    private void generatePowerUps(List<PowerUp> powerupTypes, int count) {
+    private void generatePowerUps(List<PowerUp> powerUpTypes, int count) {
         powerUpList = new ArrayList<PowerUp>();
-        if (powerupTypes == null || powerupTypes.size() == 0) {
+        if (powerUpTypes == null || powerUpTypes.size() == 0) {
             return;
         }
 
         for (int i = 0; i < count; i++) {
-            PowerUp randomPowerUp = powerupTypes.get(RANDOM
-                    .nextInt(powerupTypes.size()));
+            PowerUp randomPowerUp = powerUpTypes.get(RANDOM
+                    .nextInt(powerUpTypes.size()));
 
             PowerUp generatedPowerUp = randomPowerUp.clone();
             powerUpList.add(generatedPowerUp);
@@ -109,7 +118,10 @@ public class Space extends GameWorldRegion {
             powerups.get(i).initialize(position, velocity);
         }
 
-        // primitives.addAll(powerUpList);
+        for (int i = 0; i < userPowerUps.size(); i++) {
+            userPowerUps.get(i)
+                    .initialize(userPowerUps.get(i).center, velocity);
+        }
     }
 
     private void initializeDyePacks(List<DyePack> dyes) {
@@ -136,8 +148,6 @@ public class Space extends GameWorldRegion {
 
             dyes.get(i).initialize(position, velocity);
         }
-
-        // primitives.addAll(dyeList);
     }
 
     private void generateDefaultDyePacks(int count) {
@@ -147,5 +157,24 @@ public class Space extends GameWorldRegion {
             DyePack dye = new DyePack(randomColor);
             dyeList.add(dye);
         }
+    }
+
+    public static void registerDefaultPowerUps(int count) {
+        powerUpCount = count;
+
+        powerUpTypes.add(new Ghost());
+        powerUpTypes.add(new Invincibility());
+        powerUpTypes.add(new Magnetism());
+        powerUpTypes.add(new Overload());
+        powerUpTypes.add(new SlowDown());
+        powerUpTypes.add(new SpeedUp());
+        powerUpTypes.add(new Unarmed());
+    }
+
+    public static void registerPowerUp(PowerUp p) {
+        PowerUp userPowerUp = p;
+        userPowerUp.center.set(GameWorld.LEFT_EDGE + p.center.getX(),
+                p.center.getY());
+        userPowerUps.add(p);
     }
 }
