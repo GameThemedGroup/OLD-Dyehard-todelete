@@ -46,7 +46,10 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     private HashMap<Integer, Integer> weaponHotkeys;
 
     public Hero(KeyboardInput keyboard) {
-        super(new Vector2(20f, 20f), 5f, 5f); // TODO remove magic numbers
+        super(new Vector2(20f, 20f), 6f, 9f); // TODO remove magic numbers
+
+        texture = BaseCode.resources.loadImage("Textures/Hero/Dye.png");
+
         this.keyboard = keyboard;
 
         collectedDyepacks = 0;
