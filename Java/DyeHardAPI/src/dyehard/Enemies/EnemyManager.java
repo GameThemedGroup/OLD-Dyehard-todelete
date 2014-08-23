@@ -51,13 +51,13 @@ public class EnemyManager implements Updateable {
         Vector2 position = new Vector2(GameWorld.RIGHT_EDGE + 5, randomY);
         switch (RANDOM.nextInt(3)) {
         case 1:
-            enemies.add(new BrainEnemy(position, 7.5f, hero));
+            enemies.add(new BrainEnemy(position, 10f, hero));
             break;
         case 2:
-            enemies.add(new RedBeamEnemy(position, 7.5f, hero));
+            enemies.add(new RedBeamEnemy(position, 10f, hero));
             break;
         default:
-            enemies.add(new SpiderEnemy(position, 7.5f, hero));
+            enemies.add(new SpiderEnemy(position, 10f, hero));
             break;
         }
         timer.reset();
