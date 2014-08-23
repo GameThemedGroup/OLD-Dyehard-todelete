@@ -29,8 +29,8 @@ public class Space extends GameWorldRegion {
     private static Random RANDOM = new Random();
 
     // The list of powerups that can be randomly generated
-    private static List<PowerUp> powerUpTypes;
-    private static List<PowerUp> userPowerUps;
+    private static List<PowerUp> powerUpTypes = new ArrayList<PowerUp>();
+    private static List<PowerUp> userPowerUps = new ArrayList<PowerUp>();
     private List<PowerUp> powerUpList;
 
     // The list of dyes that can be randomly generated
@@ -39,8 +39,6 @@ public class Space extends GameWorldRegion {
     public Space(Hero hero) {
         width = WIDTH;
         speed = -GameWorld.Speed;
-        powerUpTypes = new ArrayList<PowerUp>();
-        userPowerUps = new ArrayList<PowerUp>();
     }
 
     @Override
