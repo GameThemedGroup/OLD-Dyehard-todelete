@@ -4,11 +4,11 @@ import Engine.Vector2;
 import dyehard.Player.Hero;
 
 public class SpiderEnemy extends Enemy {
-    private static float widthToHeightRatio = 0.985f;
+    private static float widthToHeightRatio = 1f;
 
     public SpiderEnemy(Vector2 center, float height, Hero currentHero) {
         super(center, height * widthToHeightRatio, height, currentHero,
-                "Textures/Spider Enemy.png");
+                "Textures/Enemies/minion_shooter.png");
     }
 
     @Override
