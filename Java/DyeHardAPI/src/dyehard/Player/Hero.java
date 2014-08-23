@@ -204,7 +204,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     @Override
     public void damageHero(Hero hero, Primitive who) {
-        hero.isAlive = false;
+        // hero.isAlive = false;
     }
 
     @Override
