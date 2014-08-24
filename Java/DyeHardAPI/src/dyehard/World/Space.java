@@ -24,7 +24,7 @@ public class Space extends GameWorldRegion {
     public static float WIDTH = GameWorld.RIGHT_EDGE * 3f;
 
     private static int powerUpCount = 0;
-    public static int dyepackCount = 0;
+    public static int dyePackCount = 0;
     public static int debrisCount = 0;
 
     private static Random RANDOM = new Random();
@@ -35,7 +35,8 @@ public class Space extends GameWorldRegion {
     private List<PowerUp> powerUpList;
 
     // The list of dyes that can be randomly generated
-    List<DyePack> dyeList;
+    private List<DyePack> dyeList;
+    private static List<DyePack> userDyePacks;
 
     public Space(Hero hero) {
         width = WIDTH;
@@ -45,6 +46,7 @@ public class Space extends GameWorldRegion {
     static {
         powerUpTypes = new ArrayList<PowerUp>();
         userPowerUps = new ArrayList<PowerUp>();
+        userDyePacks = new ArrayList<DyePack>();
 
         powerUpTypes.add(new Ghost());
         powerUpTypes.add(new Invincibility());
@@ -62,15 +64,8 @@ public class Space extends GameWorldRegion {
         generateCollectibles(leftEdge);
     }
 
-    public void registerDyes(List<DyePack> dyes) {
-        dyeList = dyes;
-    }
-
     private void generateCollectibles(float leftEdge) {
-        if (dyeList == null) {
-            generateDefaultDyePacks(dyepackCount);
-        }
-
+        generateDyePacks();
         initializeDyePacks(dyeList);
 
         generatePowerUps(powerUpTypes, powerUpCount);
@@ -149,7 +144,6 @@ public class Space extends GameWorldRegion {
         float posX, posY;
 
         for (int i = 0; i < dyes.size(); i++) {
-
             posX = regionStart + (i * regionWidth);
             posX += RANDOM.nextFloat() * regionWidth;
 
@@ -160,11 +154,21 @@ public class Space extends GameWorldRegion {
 
             dyes.get(i).initialize(position, velocity);
         }
+
+        for (int i = 0; i < userDyePacks.size(); i++) {
+            Vector2 pos = userDyePacks.get(i).center.clone();
+            pos.offset(leftEdge(), 0f);
+
+            DyePack d = new DyePack(userDyePacks.get(i).color);
+
+            d.initialize(pos, velocity);
+        }
     }
 
-    private void generateDefaultDyePacks(int count) {
+    public void generateDyePacks() {
         dyeList = new ArrayList<DyePack>();
-        for (int i = 0; i < count; ++i) {
+
+        for (int i = 0; i < dyePackCount; ++i) {
             Color randomColor = Colors.randomColor();
             DyePack dye = new DyePack(randomColor);
             dyeList.add(dye);
@@ -184,5 +188,22 @@ public class Space extends GameWorldRegion {
         // Immediately places the user's power up
         userPowerUp.clone().initialize(p.center.clone(),
                 new Vector2(-GameWorld.Speed, 0f));
+    }
+
+    public static void registerDefaultDyePacks(int count) {
+        dyePackCount = count;
+    }
+
+    public static void registerDyePack(DyePack d) {
+        DyePack userDyePack = new DyePack(d.color);
+        userDyePack.center.set(d.center.clone());
+
+        userDyePacks.add(userDyePack);
+
+        DyePack initialPack = new DyePack(d.color);
+
+        // Immediately places the user's dye pack
+        initialPack.initialize(d.center.clone(), new Vector2(-GameWorld.Speed,
+                0f));
     }
 }
