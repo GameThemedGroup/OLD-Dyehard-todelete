@@ -1,7 +1,4 @@
-import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 import dyehard.CollisionManager;
 import dyehard.DyeHard;
@@ -39,6 +36,12 @@ public class UserCode extends DyeHard {
         JohnsBallinAssPowerUp john = new JohnsBallinAssPowerUp();
         john.center.set(50f, 30f);
         Space.registerPowerUp(john);
+
+        Space.registerDefaultDyePacks(10);
+
+        DyePack p = new DyePack(Colors.Yellow);
+        p.center.set(60f, 30f);
+        Space.registerDyePack(p);
     }
 
     @Override
@@ -52,22 +55,17 @@ public class UserCode extends DyeHard {
         default:
             break;
         }
+
         if (keyboard.isButtonDown(KeyEvent.VK_U)) {
             JohnsBallinAssPowerUp john = new JohnsBallinAssPowerUp();
             john.center.set(hero.center.getX() + 10f, hero.center.getY());
             Space.registerPowerUp(john);
         }
-    }
 
-    private List<DyePack> randomDyePacks(int count) {
-        List<DyePack> randomDyes = new ArrayList<DyePack>();
-
-        for (int i = 0; i < count; ++i) {
-            Color randomColor = Colors.randomColor();
-            DyePack dye = new DyePack(randomColor);
-            randomDyes.add(dye);
+        if (keyboard.isButtonDown(KeyEvent.VK_I)) {
+            DyePack p = new DyePack(Colors.Yellow);
+            p.center.set(hero.center.getX() + 10f, hero.center.getY());
+            Space.registerDyePack(p);
         }
-
-        return randomDyes;
     }
 }
