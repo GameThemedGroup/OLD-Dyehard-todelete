@@ -1,15 +1,12 @@
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import dyehard.CollisionManager;
 import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
-import dyehard.Collectibles.Ghost;
-import dyehard.Collectibles.Invincibility;
-import dyehard.Collectibles.Overload;
-import dyehard.Collectibles.PowerUp;
-import dyehard.Collectibles.SpeedUp;
+import dyehard.Collectibles.JohnsBallinAssPowerUp;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.Weapons.LimitedAmmoWeapon;
@@ -37,7 +34,11 @@ public class UserCode extends DyeHard {
 
         devControls = new DeveloperControls(hero, keyboard);
 
-        Space.registerDefaultPowerUps(2);
+        Space.registerDefaultPowerUps(10);
+
+        JohnsBallinAssPowerUp john = new JohnsBallinAssPowerUp();
+        john.center.set(50f, 30f);
+        Space.registerPowerUp(john);
     }
 
     @Override
@@ -51,17 +52,11 @@ public class UserCode extends DyeHard {
         default:
             break;
         }
-    }
-
-    private List<PowerUp> allPowerUps() {
-        List<PowerUp> powerUps = new ArrayList<PowerUp>();
-
-        powerUps.add(new Ghost());
-        powerUps.add(new Overload());
-        powerUps.add(new Invincibility());
-        powerUps.add(new SpeedUp());
-
-        return powerUps;
+        if (keyboard.isButtonDown(KeyEvent.VK_U)) {
+            JohnsBallinAssPowerUp john = new JohnsBallinAssPowerUp();
+            john.center.set(hero.center.getX() + 10f, hero.center.getY());
+            Space.registerPowerUp(john);
+        }
     }
 
     private List<DyePack> randomDyePacks(int count) {
