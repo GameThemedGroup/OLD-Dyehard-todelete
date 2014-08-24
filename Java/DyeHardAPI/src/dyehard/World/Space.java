@@ -127,8 +127,12 @@ public class Space extends GameWorldRegion {
         }
 
         for (int i = 0; i < userPowerUps.size(); i++) {
-            userPowerUps.get(i)
-                    .initialize(userPowerUps.get(i).center, velocity);
+            Vector2 pos = userPowerUps.get(i).center.clone();
+            pos.offset(leftEdge(), 0f);
+
+            PowerUp p = userPowerUps.get(i).clone();
+
+            p.initialize(pos, velocity);
         }
     }
 
@@ -172,9 +176,13 @@ public class Space extends GameWorldRegion {
     }
 
     public static void registerPowerUp(PowerUp p) {
-        PowerUp userPowerUp = p;
-        userPowerUp.center.set(GameWorld.LEFT_EDGE + p.center.getX(),
-                p.center.getY());
-        userPowerUps.add(p);
+        PowerUp userPowerUp = p.clone();
+        userPowerUp.center.set(p.center.clone());
+
+        userPowerUps.add(userPowerUp);
+
+        // Immediately places the user's power up
+        userPowerUp.clone().initialize(p.center.clone(),
+                new Vector2(-GameWorld.Speed, 0f));
     }
 }
