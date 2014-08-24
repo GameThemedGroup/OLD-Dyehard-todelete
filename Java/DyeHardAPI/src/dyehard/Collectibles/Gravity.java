@@ -16,7 +16,7 @@ public class Gravity extends PowerUp {
 
     @Override
     public void unapply(Hero hero) {
-        hero.currentGravity = hero.defaultGravity;
+        hero.currentGravity.set(0f, 0f);
     }
 
     @Override
