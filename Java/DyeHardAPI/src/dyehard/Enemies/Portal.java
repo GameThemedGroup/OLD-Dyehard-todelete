@@ -8,19 +8,16 @@ import Engine.Vector2;
 import dyehard.GameObject;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
-import dyehard.World.GameWorld;
 
 public class Portal extends GameObject {
-    private static float widthToHeightRatio = 1f;
     private Hero hero;
     private Timer timer;
 
     public Portal(Vector2 center, float height, Hero hero) {
         this.center = center.clone();
-        size.set(height * widthToHeightRatio, height);
+        size.set(height, height);
         this.hero = hero;
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Box1.png");
-        velocity = new Vector2(-GameWorld.Speed, 0f);
         color = Color.black;
         this.hero = hero;
         timer = new Timer(3000f);
@@ -30,13 +27,11 @@ public class Portal extends GameObject {
     public void update() {
         if (collided(hero)) {
             Random rand = new Random();
-            hero.center.set(rand.nextInt(90) + 5, rand.nextInt(60));
+            hero.center.set(rand.nextInt(90) + 5, rand.nextInt(50) + 5);
             hero.velocity = new Vector2(0f, 0f);
         }
         if (timer.isDone()) {
             destroy();
         }
-
-        super.update();
     }
 }

@@ -18,7 +18,7 @@ public class PortalEnemy extends Enemy {
     public void update() {
         super.update();
         if (timer.isDone()) {
-            Portal blackHole = new Portal(center.clone(), 4f, hero);
+            new Portal(center.clone(), 4f, hero);
             timer.reset();
         }
     }
