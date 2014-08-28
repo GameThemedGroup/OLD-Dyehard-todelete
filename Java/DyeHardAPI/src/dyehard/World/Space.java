@@ -176,7 +176,11 @@ public class Space extends GameWorldRegion {
     }
 
     public static void addDefaultPowerUps(int count) {
-        powerUpCount = count;
+        if (count >= 0) {
+            powerUpCount = count;
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     public static void registerPowerUp(PowerUp p) {
@@ -191,7 +195,11 @@ public class Space extends GameWorldRegion {
     }
 
     public static void addDefaultDyePacks(int count) {
-        dyePackCount = count;
+        if (count >= 0) {
+            dyePackCount = count;
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     public static void registerDyePack(DyePack d) {
@@ -208,6 +216,10 @@ public class Space extends GameWorldRegion {
     }
 
     public static void addDefaultDebris(int count) {
-        debrisCount = count;
+        if (count >= 0) {
+            debrisCount = count;
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 }
