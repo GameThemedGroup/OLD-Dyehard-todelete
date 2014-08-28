@@ -24,8 +24,8 @@ public class Space extends GameWorldRegion {
     public static float WIDTH = GameWorld.RIGHT_EDGE * 3f;
 
     private static int powerUpCount = 0;
-    public static int dyePackCount = 0;
-    public static int debrisCount = 0;
+    private static int dyePackCount = 0;
+    private static int debrisCount = 0;
 
     private static Random RANDOM = new Random();
 
