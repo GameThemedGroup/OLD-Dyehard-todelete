@@ -8,6 +8,7 @@ import dyehard.UpdateManager.Updateable;
 import dyehard.Background.Background;
 import dyehard.Background.DyehardUI;
 import dyehard.Enemies.EnemyManager;
+import dyehard.Obstacles.Laser;
 import dyehard.Player.Hero;
 
 public class GameWorld implements Updateable {
@@ -31,6 +32,7 @@ public class GameWorld implements Updateable {
 
         new Background();
         new DyehardUI(hero);
+        new Laser(hero);
 
         // Draw the hero on top of the background
         hero.removeFromAutoDrawSet();
