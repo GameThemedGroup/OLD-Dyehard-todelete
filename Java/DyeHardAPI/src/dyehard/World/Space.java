@@ -190,7 +190,7 @@ public class Space extends GameWorldRegion {
                 new Vector2(-GameWorld.Speed, 0f));
     }
 
-    public static void registerDefaultDyePacks(int count) {
+    public static void addDefaultDyePacks(int count) {
         dyePackCount = count;
     }
 

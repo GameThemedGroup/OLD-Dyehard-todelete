@@ -37,7 +37,7 @@ public class UserCode extends DyeHard {
         john.center.set(50f, 30f);
         Space.registerPowerUp(john);
 
-        Space.registerDefaultDyePacks(10);
+        Space.addDefaultDyePacks(10);
 
         DyePack p = new DyePack(Colors.Yellow);
         p.center.set(60f, 30f);
