@@ -83,4 +83,10 @@ public class Actor extends Collidable {
             }
         }
     }
+
+    @Override
+    public void destroy() {
+        alive = false;
+        super.destroy();
+    }
 }
