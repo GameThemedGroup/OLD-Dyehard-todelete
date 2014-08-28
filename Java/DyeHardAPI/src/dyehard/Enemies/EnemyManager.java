@@ -49,7 +49,7 @@ public class EnemyManager implements Updateable {
         Vector2 position = new Vector2(GameWorld.RIGHT_EDGE + 5, randomY);
         switch (RANDOM.nextInt(3)) {
         case 1:
-            enemies.add(new BrainEnemy(position, 10f, hero));
+            enemies.add(new PortalEnemy(position, 10f, hero));
             break;
         case 2:
             enemies.add(new CollectorEnemy(position, 10f, hero));
