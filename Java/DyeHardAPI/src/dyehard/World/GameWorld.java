@@ -60,7 +60,7 @@ public class GameWorld implements Updateable {
             return false;
         }
 
-        return !hero.isAlive;
+        return !hero.isActive();
     }
 
     @Override

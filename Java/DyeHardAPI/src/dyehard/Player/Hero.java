@@ -25,7 +25,6 @@ import dyehard.Weapons.Weapon;
 public class Hero extends Actor implements HeroCollision, HeroDamage {
     public HeroCollision collisionHandler;
     public HeroDamage damageHandler;
-    public boolean isAlive = true;
     public Weapon currentWeapon;
     public float currentJetSpeed;
     public Vector2 currentGravity;
