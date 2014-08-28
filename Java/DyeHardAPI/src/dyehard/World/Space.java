@@ -175,7 +175,7 @@ public class Space extends GameWorldRegion {
         }
     }
 
-    public static void registerDefaultPowerUps(int count) {
+    public static void addDefaultPowerUps(int count) {
         powerUpCount = count;
     }
 

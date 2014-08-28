@@ -31,7 +31,7 @@ public class UserCode extends DyeHard {
 
         devControls = new DeveloperControls(hero);
 
-        Space.registerDefaultPowerUps(10);
+        Space.addDefaultPowerUps(10);
 
         JohnsBallinAssPowerUp john = new JohnsBallinAssPowerUp();
         john.center.set(50f, 30f);
