@@ -52,7 +52,7 @@ public class EnemyManager implements Updateable {
             enemies.add(new BrainEnemy(position, 10f, hero));
             break;
         case 2:
-            enemies.add(new RedBeamEnemy(position, 10f, hero));
+            enemies.add(new CollectorEnemy(position, 10f, hero));
             break;
         default:
             enemies.add(new SpiderEnemy(position, 10f, hero));
