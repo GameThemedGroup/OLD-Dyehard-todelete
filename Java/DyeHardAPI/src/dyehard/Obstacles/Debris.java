@@ -28,13 +28,16 @@ public class Debris extends Obstacle {
     private void initializeRandomTexture() {
         switch (RANDOM.nextInt(3)) {
         case 0:
-            texture = BaseCode.resources.loadImage("Textures/Beak.png");
+            texture = BaseCode.resources
+                    .loadImage("Textures/Debris/debris_01.png");
             break;
         case 1:
-            texture = BaseCode.resources.loadImage("Textures/Window.png");
+            texture = BaseCode.resources
+                    .loadImage("Textures/Debris/debris_02.png");
             break;
         case 2:
-            texture = BaseCode.resources.loadImage("Textures/Wing2.png");
+            texture = BaseCode.resources
+                    .loadImage("Textures/Debris/debris_03.png");
             size.setX(size.getY() * 1.8f);
             break;
         }
