@@ -37,6 +37,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public final float defaultJetSpeed = DHR
             .getHeroData(DHR.HeroID.HERO_JET_SPEED);
     public final Vector2 defaultGravity = new Vector2(0f, 0f);
+    public Vector2 totalThrust = new Vector2();
 
     private float speedLimitX = DHR.getHeroData(DHR.HeroID.HERO_SPEED_LIMIT);
     private static float drag = DHR.getHeroData(DHR.HeroID.HERO_DRAG);
@@ -149,28 +150,27 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         BaseCode.world.clampAtWorldBound(this);
     }
 
+    public void moveUp() {
+        // Upward speed needs to counter the effects of gravity
+        totalThrust
+                .add(new Vector2(0f, defaultJetSpeed - currentGravity.getY()));
+    }
+
+    public void moveDown() {
+        totalThrust.add(new Vector2(0f, -defaultJetSpeed));
+    }
+
+    public void moveLeft() {
+        totalThrust.add(new Vector2(-defaultJetSpeed, 0f));
+    }
+
+    public void moveRight() {
+        totalThrust.add(new Vector2(defaultJetSpeed, 0));
+    }
+
     private void handleInput() {
-        Vector2 totalThrust = new Vector2();
-        if (DyehardKeyboard.isKeyDown(KeyEvent.VK_UP)) {
-            // Upward speed needs to counter the effects of gravity
-            totalThrust.add(new Vector2(0f, defaultJetSpeed
-                    - currentGravity.getY()));
-        }
-        if (DyehardKeyboard.isKeyDown(KeyEvent.VK_LEFT)) {
-            totalThrust.add(new Vector2(-defaultJetSpeed, 0f));
-        }
-        if (DyehardKeyboard.isKeyDown(KeyEvent.VK_DOWN)) {
-            totalThrust.add(new Vector2(0f, -defaultJetSpeed));
-        }
-        if (DyehardKeyboard.isKeyDown(KeyEvent.VK_RIGHT)) {
-            totalThrust.add(new Vector2(defaultJetSpeed, 0));
-        }
-
         velocity.add(totalThrust);
-
-        if (DyehardKeyboard.isKeyDown(KeyEvent.VK_F)) {
-            currentWeapon.fire();
-        }
+        totalThrust.set(0f, 0f);
     }
 
     public void updateDirectionState() {

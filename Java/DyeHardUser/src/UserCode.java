@@ -1,6 +1,5 @@
 import java.awt.event.KeyEvent;
 
-import dyehard.CollisionManager;
 import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.JohnsBallinAssPowerUp;
@@ -44,15 +43,10 @@ public class UserCode extends DyeHard {
 
     @Override
     protected void update() {
-        switch (state) {
-        case PAUSED:
-            CollisionManager.update();
-            hero.update();
-            devControls.update();
-            break;
-        default:
-            break;
-        }
+        /*
+         * switch (state) { case PAUSED: CollisionManager.update();
+         * hero.update(); devControls.update(); break; default: break; }
+         */
 
         if (keyboard.isButtonDown(KeyEvent.VK_U)) {
             JohnsBallinAssPowerUp john = new JohnsBallinAssPowerUp();
@@ -64,6 +58,22 @@ public class UserCode extends DyeHard {
             DyePack p = new DyePack(Colors.Yellow);
             p.center.set(hero.center.getX() + 10f, hero.center.getY());
             Space.registerDyePack(p);
+        }
+
+        if (keyboard.isButtonDown(KeyEvent.VK_UP)) {
+            hero.moveUp();
+        }
+        if (keyboard.isButtonDown(KeyEvent.VK_DOWN)) {
+            hero.moveDown();
+        }
+        if (keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
+            hero.moveLeft();
+        }
+        if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
+            hero.moveRight();
+        }
+        if (keyboard.isButtonDown(KeyEvent.VK_F)) {
+            hero.currentWeapon.fire();
         }
     }
 }
