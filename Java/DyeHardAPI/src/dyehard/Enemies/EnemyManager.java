@@ -55,7 +55,7 @@ public class EnemyManager implements Updateable {
             enemies.add(new CollectorEnemy(position, 10f, hero));
             break;
         default:
-            enemies.add(new SpiderEnemy(position, 10f, hero));
+            enemies.add(new ShootingEnemy(position, 10f, hero));
             break;
         }
         timer.reset();
