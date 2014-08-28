@@ -51,7 +51,7 @@ public class Magnetism extends PowerUp {
 
     @Override
     public String toString() {
-        return super.toString() + " Magnetism";
+        return "Magnetism: " + super.toString();
     }
 
 }

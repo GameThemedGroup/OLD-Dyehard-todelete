@@ -48,7 +48,7 @@ public class DeveloperControls implements Updateable {
         generationHotkeys.put(KeyEvent.VK_M, new Magnetism());
         generationHotkeys.put(KeyEvent.VK_COMMA, new Gravity());
 
-        weaponText = createTextAt(1f, 1f);
+        weaponText = createTextAt(3f, 1f);
         powerupText = new ArrayList<Text>();
 
         UpdateManager.register(this);
@@ -98,7 +98,7 @@ public class DeveloperControls implements Updateable {
         if (sortedPowerups.size() > powerupText.size()) {
             for (int i = powerupText.size(); i < sortedPowerups.size(); ++i) {
                 powerupText
-                        .add(createTextAt(1f, GameWorld.TOP_EDGE - 3 - i * 2));
+                        .add(createTextAt(3f, GameWorld.TOP_EDGE - 3 - i * 2));
             }
         }
 

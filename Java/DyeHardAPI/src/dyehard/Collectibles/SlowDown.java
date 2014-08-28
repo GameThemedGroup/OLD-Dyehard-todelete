@@ -55,7 +55,7 @@ public class SlowDown extends PowerUp {
 
     @Override
     public String toString() {
-        return super.toString() + " Slowdown";
+        return "Slow Down: " + super.toString();
     }
 
 }

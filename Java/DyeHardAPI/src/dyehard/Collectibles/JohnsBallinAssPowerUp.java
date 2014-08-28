@@ -26,6 +26,6 @@ public class JohnsBallinAssPowerUp extends PowerUp {
 
     @Override
     public String toString() {
-        return super.toString() + " BALLINNNNN";
+        return "BALLINNNNN: " + super.toString();
     }
 }

@@ -30,7 +30,7 @@ public class Gravity extends PowerUp {
 
     @Override
     public String toString() {
-        return super.toString() + " Gravity";
+        return "Gravity: " + super.toString();
     }
 
 }

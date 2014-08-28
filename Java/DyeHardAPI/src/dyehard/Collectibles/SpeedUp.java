@@ -55,6 +55,6 @@ public class SpeedUp extends PowerUp {
 
     @Override
     public String toString() {
-        return super.toString() + " Speedup";
+        return "Speed Up: " + super.toString();
     }
 }
