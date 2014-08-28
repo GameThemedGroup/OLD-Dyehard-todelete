@@ -12,6 +12,7 @@ import dyehard.DyehardKeyboard;
 import dyehard.UpdateManager;
 import dyehard.UpdateManager.Updateable;
 import dyehard.Collectibles.Ghost;
+import dyehard.Collectibles.Gravity;
 import dyehard.Collectibles.Invincibility;
 import dyehard.Collectibles.Magnetism;
 import dyehard.Collectibles.Overload;
@@ -45,7 +46,7 @@ public class DeveloperControls implements Updateable {
         generationHotkeys.put(KeyEvent.VK_B, new SlowDown());
         generationHotkeys.put(KeyEvent.VK_N, new Unarmed());
         generationHotkeys.put(KeyEvent.VK_M, new Magnetism());
-        // generationHotkeys.put(KeyEvent.VK_COMMA, new Gravity());
+        generationHotkeys.put(KeyEvent.VK_COMMA, new Gravity());
 
         weaponText = createTextAt(1f, 1f);
         powerupText = new ArrayList<Text>();
