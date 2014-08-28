@@ -13,6 +13,6 @@ public class CollectorEnemy extends Enemy {
 
     @Override
     public String toString() {
-        return "Red Beam";
+        return "Collector";
     }
 }

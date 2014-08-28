@@ -13,6 +13,6 @@ public class PortalEnemy extends Enemy {
 
     @Override
     public String toString() {
-        return "Brain";
+        return "Portal";
     }
 }

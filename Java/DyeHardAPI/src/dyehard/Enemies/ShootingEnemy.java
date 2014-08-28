@@ -13,6 +13,6 @@ public class ShootingEnemy extends Enemy {
 
     @Override
     public String toString() {
-        return "Spider";
+        return "Shooting";
     }
 }
