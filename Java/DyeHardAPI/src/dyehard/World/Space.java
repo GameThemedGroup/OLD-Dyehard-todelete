@@ -206,4 +206,8 @@ public class Space extends GameWorldRegion {
         initialPack.initialize(d.center.clone(), new Vector2(-GameWorld.Speed,
                 0f));
     }
+
+    public static void addDefaultDebris(int count) {
+        debrisCount = count;
+    }
 }

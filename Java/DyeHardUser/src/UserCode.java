@@ -42,6 +42,8 @@ public class UserCode extends DyeHard {
         DyePack p = new DyePack(Colors.Yellow);
         p.center.set(60f, 30f);
         Space.registerDyePack(p);
+
+        Space.addDefaultDebris(15);
     }
 
     @Override
