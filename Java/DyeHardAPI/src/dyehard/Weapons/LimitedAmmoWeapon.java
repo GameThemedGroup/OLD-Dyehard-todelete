@@ -4,7 +4,7 @@ import dyehard.Player.Hero;
 
 public class LimitedAmmoWeapon extends Weapon {
     private int reloadAmount = 10;
-    private int ammo;
+    public int ammo;
 
     public LimitedAmmoWeapon(Hero hero) {
         super(hero);

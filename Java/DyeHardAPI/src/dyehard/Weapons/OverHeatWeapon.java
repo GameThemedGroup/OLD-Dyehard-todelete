@@ -5,8 +5,8 @@ import dyehard.Player.Hero;
 public class OverHeatWeapon extends Weapon {
     private final float heatLimit = 10.0f;
     private final float cooldownRate = 0.05f;
-    private float currentHeatLevel;
-    private boolean overheated;
+    public float currentHeatLevel;
+    public boolean overheated;
 
     public OverHeatWeapon(Hero hero) {
         super(hero);

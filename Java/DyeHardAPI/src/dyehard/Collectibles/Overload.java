@@ -2,6 +2,8 @@ package dyehard.Collectibles;
 
 import Engine.BaseCode;
 import dyehard.Player.Hero;
+import dyehard.Weapons.LimitedAmmoWeapon;
+import dyehard.Weapons.OverHeatWeapon;
 
 public class Overload extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(2, Game.Pink);
@@ -13,8 +15,12 @@ public class Overload extends PowerUp {
 
     @Override
     public void apply(Hero hero) {
-        // TODO Auto-generated method stub
-
+        if (hero.currentWeapon instanceof OverHeatWeapon) {
+            ((OverHeatWeapon) hero.currentWeapon).currentHeatLevel = 0f;
+            ((OverHeatWeapon) hero.currentWeapon).overheated = false;
+        } else if (hero.currentWeapon instanceof LimitedAmmoWeapon) {
+            ((LimitedAmmoWeapon) hero.currentWeapon).ammo = 10;
+        }
     }
 
     @Override
