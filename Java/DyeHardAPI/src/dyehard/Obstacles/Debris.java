@@ -38,7 +38,7 @@ public class Debris extends Obstacle {
         case 2:
             texture = BaseCode.resources
                     .loadImage("Textures/Debris/debris_03.png");
-            size.setX(size.getY() * 1.8f);
+            size.setX(size.getY() * 1.28f);
             break;
         }
     }
