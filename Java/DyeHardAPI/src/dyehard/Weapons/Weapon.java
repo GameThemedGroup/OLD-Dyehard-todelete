@@ -14,7 +14,7 @@ import dyehard.Player.Hero;
 import dyehard.Util.Timer;
 import dyehard.World.GameWorld;
 
-public class Weapon implements Updateable {
+public class Weapon extends GameObject implements Updateable {
     protected static float bulletSpeed = 1f;
     // Was 0.75f, but it was a radius and we are not
     // working with circles
