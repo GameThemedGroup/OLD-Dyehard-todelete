@@ -37,6 +37,8 @@ public class GameWorld implements Updateable {
         hero.addToAutoDrawSet();
 
         UpdateManager.register(this);
+
+        addRegion(new Space(hero));
     }
 
     // Adds a region to the queue of upcoming regions

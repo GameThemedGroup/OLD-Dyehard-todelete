@@ -9,7 +9,6 @@ import dyehard.Util.Colors;
 import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.Weapons.OverHeatWeapon;
 import dyehard.Weapons.SpreadFireWeapon;
-import dyehard.World.GameWorldRegion;
 import dyehard.World.Space;
 
 public class UserCode extends DyeHard {
@@ -24,13 +23,6 @@ public class UserCode extends DyeHard {
         hero.registerWeapon(new OverHeatWeapon(hero));
         hero.registerWeapon(new LimitedAmmoWeapon(hero));
 
-        world.initialize(hero);
-
-        GameWorldRegion startingSpace = new Space(hero);
-        world.addRegion(startingSpace);
-
-        devControls = new DeveloperControls(hero);
-
         Space.addDefaultPowerUps(10);
 
         JohnsBallinAssPowerUp john = new JohnsBallinAssPowerUp();
@@ -44,6 +36,10 @@ public class UserCode extends DyeHard {
         Space.registerDyePack(p);
 
         Space.addDefaultDebris(15);
+
+        world.initialize(hero);
+
+        devControls = new DeveloperControls(hero, keyboard);
     }
 
     @Override
