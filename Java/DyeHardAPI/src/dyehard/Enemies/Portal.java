@@ -23,7 +23,7 @@ public class Portal extends GameObject {
         velocity = new Vector2(-GameWorld.Speed, 0f);
         color = Color.black;
         this.hero = hero;
-        timer = new Timer(5000f);
+        timer = new Timer(3000f);
     }
 
     @Override
