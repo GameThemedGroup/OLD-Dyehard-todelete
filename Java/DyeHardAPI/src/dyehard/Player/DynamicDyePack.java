@@ -109,7 +109,7 @@ public class DynamicDyePack extends Rectangle {
         // center.set(hero.center.getX(), hero.center.getY());
         // }
 
-        Offset offset = offsets.get(hero.direction);
+        Offset offset = offsets.get(hero.directionState);
         rotate = offset.rotation;
         center = hero.center.clone().add(offset.transform);
     }

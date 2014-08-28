@@ -44,8 +44,10 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     private int collectedDyepacks;
     private int collectedPowerups;
 
-    protected Direction direction;
+    protected Direction directionState;
     protected DynamicDyePack dynamicDyepack;
+    protected Vector2 previousVelocity;
+    protected Vector2 currentVelocity;
 
     private ArrayList<Weapon> weaponRack;
     private HashMap<Integer, Integer> weaponHotkeys;
@@ -58,7 +60,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         super(new Vector2(20f, 20f), 6f, 9f); // TODO remove magic numbers
 
         color = Colors.randomColor();
-        direction = Direction.NEUTRAL;
+        directionState = Direction.NEUTRAL;
         dynamicDyepack = new DynamicDyePack(this);
         texture = BaseCode.resources.loadImage("Textures/Hero/Dye.png");
 
@@ -80,6 +82,9 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         weaponHotkeys.put(KeyEvent.VK_2, 1);
         weaponHotkeys.put(KeyEvent.VK_3, 2);
         weaponHotkeys.put(KeyEvent.VK_4, 3);
+
+        previousVelocity = new Vector2(0f, 0f);
+        currentVelocity = new Vector2(0f, 0f);
     }
 
     public void updateMovement() {
@@ -102,7 +107,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public void update() {
         applyPowerups();
         handleInput();
-        updateDirection();
+        updateDirectionState();
         updateMovement();
         selectWeapon();
         clampToWorldBounds();
@@ -168,29 +173,30 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         }
     }
 
-    private void updateDirection() {
-        if (DyehardKeyboard.isKeyDown(KeyEvent.VK_UP)
-                && DyehardKeyboard.isKeyDown(KeyEvent.VK_LEFT)) {
-            direction = Direction.TOPLEFT;
-        } else if (DyehardKeyboard.isKeyDown(KeyEvent.VK_UP)
-                && DyehardKeyboard.isKeyDown(KeyEvent.VK_RIGHT)) {
-            direction = Direction.TOPRIGHT;
-        } else if (DyehardKeyboard.isKeyDown(KeyEvent.VK_UP)) {
-            direction = Direction.UP;
-        } else if (DyehardKeyboard.isKeyDown(KeyEvent.VK_DOWN)
-                && DyehardKeyboard.isKeyDown(KeyEvent.VK_LEFT)) {
-            direction = Direction.BOTTOMLEFT;
-        } else if (DyehardKeyboard.isKeyDown(KeyEvent.VK_DOWN)
-                && DyehardKeyboard.isKeyDown(KeyEvent.VK_RIGHT)) {
-            direction = Direction.BOTTOMRIGHT;
-        } else if (DyehardKeyboard.isKeyDown(KeyEvent.VK_DOWN)) {
-            direction = Direction.DOWN;
-        } else if (DyehardKeyboard.isKeyDown(KeyEvent.VK_RIGHT)) {
-            direction = Direction.RIGHT;
-        } else if (DyehardKeyboard.isKeyDown(KeyEvent.VK_LEFT)) {
-            direction = Direction.LEFT;
+    public void updateDirectionState() {
+        previousVelocity = currentVelocity.clone();
+        currentVelocity = velocity.clone();
+        Vector2 tempVelocity = currentVelocity.clone().sub(
+                previousVelocity.clone());
+
+        if (tempVelocity.getY() > 1f && tempVelocity.getX() < -1f) {
+            directionState = Direction.TOPLEFT;
+        } else if (tempVelocity.getY() > 1f && tempVelocity.getX() > 1f) {
+            directionState = Direction.TOPRIGHT;
+        } else if (tempVelocity.getY() < -1f && tempVelocity.getX() < -1f) {
+            directionState = Direction.BOTTOMLEFT;
+        } else if (tempVelocity.getY() < -1f && tempVelocity.getX() > 1f) {
+            directionState = Direction.BOTTOMRIGHT;
+        } else if (tempVelocity.getY() > 1f) {
+            directionState = Direction.UP;
+        } else if (tempVelocity.getY() < -1f) {
+            directionState = Direction.DOWN;
+        } else if (tempVelocity.getX() < -1f) {
+            directionState = Direction.LEFT;
+        } else if (tempVelocity.getX() > 1f) {
+            directionState = Direction.RIGHT;
         } else {
-            direction = Direction.NEUTRAL;
+            directionState = Direction.NEUTRAL;
         }
     }
 
