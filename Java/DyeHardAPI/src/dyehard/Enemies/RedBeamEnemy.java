@@ -8,7 +8,7 @@ public class RedBeamEnemy extends Enemy {
 
     public RedBeamEnemy(Vector2 center, float height, Hero currentHero) {
         super(center, height * widthToHeightRatio, height, currentHero,
-                "Textures/Enemies/minion_regular.png");
+                "Textures/Enemies/minion_collector.png");
     }
 
     @Override
