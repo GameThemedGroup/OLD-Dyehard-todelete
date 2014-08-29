@@ -3,6 +3,7 @@ package dyehard;
 import java.awt.event.KeyEvent;
 
 import Engine.LibraryCode;
+import dyehard.World.GameState;
 import dyehard.World.GameWorld;
 
 public abstract class DyeHard extends LibraryCode {
@@ -77,6 +78,7 @@ public abstract class DyeHard extends LibraryCode {
         resources.setClassInJar(this);
 
         state = State.PLAYING;
+        GameState.TargetDistance = 3000; // TODO magic number
         world = new GameWorld();
 
         initialize(); // call user code Initialize()

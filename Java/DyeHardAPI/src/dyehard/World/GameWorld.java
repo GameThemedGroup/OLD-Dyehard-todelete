@@ -17,6 +17,7 @@ public class GameWorld implements Updateable {
     public static final float TOP_EDGE = BaseCode.world.getHeight();
     public static final float BOTTOM_EDGE = BaseCode.world.getWorldPositionY();
     public static float Speed = 0.3f;
+    float distance = 0f;
     private Hero hero;
     private LinkedList<GameWorldRegion> gameRegions;
 
@@ -66,6 +67,8 @@ public class GameWorld implements Updateable {
 
         for (GameWorldRegion e : gameRegions) {
             e.moveLeft();
+            distance += Speed;
+            GameState.DistanceTravelled = (int) distance;
         }
         updateSequence();
     }
