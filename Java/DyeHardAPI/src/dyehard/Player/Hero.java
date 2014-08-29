@@ -246,7 +246,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     @Override
     public void damageHero(Hero hero, Primitive who) {
-        // hero.isAlive = false;
+        alive = false;
     }
 
     @Override
@@ -261,5 +261,10 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     @Override
     public void collideWithHero(Hero hero, Collidable other) {
         super.handleCollision(other);
+    }
+
+    @Override
+    public void destroy() {
+        return;
     }
 }

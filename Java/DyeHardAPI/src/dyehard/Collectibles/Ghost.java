@@ -47,6 +47,7 @@ public class Ghost extends PowerUp implements HeroCollision, HeroDamage {
     @Override
     public void damageHero(Hero hero, Primitive who) {
         if (!(who instanceof DeathGate)) {
+            hero.damageHandler = hero.defaultDamageHandler;
             hero.kill(who);
         }
     }
