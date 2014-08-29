@@ -6,6 +6,7 @@ import Engine.BaseCode;
 import dyehard.UpdateManager;
 import dyehard.UpdateManager.Updateable;
 import dyehard.Background.Background;
+import dyehard.Background.DyehardUI;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
 
@@ -26,7 +27,9 @@ public class GameWorld implements Updateable {
     public void initialize(Hero hero) {
         new EnemyManager(hero);
         this.hero = hero;
+
         new Background();
+        new DyehardUI(hero);
 
         // Draw the hero on top of the background
         hero.removeFromAutoDrawSet();
