@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
 
-import Engine.KeyboardInput;
 import Engine.Text;
 import Engine.Vector2;
+import dyehard.DyehardKeyboard;
 import dyehard.UpdateManager;
 import dyehard.UpdateManager.Updateable;
 import dyehard.Collectibles.Ghost;
@@ -26,7 +26,6 @@ import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.World.GameWorld;
 
 public class DeveloperControls implements Updateable {
-    private KeyboardInput keyboard;
     private Hero hero;
 
     Text weaponText;
@@ -34,9 +33,8 @@ public class DeveloperControls implements Updateable {
 
     private HashMap<Integer, PowerUp> generationHotkeys;
 
-    public DeveloperControls(Hero hero, KeyboardInput keyboard) {
+    public DeveloperControls(Hero hero) {
         this.hero = hero;
-        this.keyboard = keyboard;
 
         generationHotkeys = new HashMap<Integer, PowerUp>();
         // generationHotkeys.put(KeyEvent.VK_0, new DyePack());
@@ -61,24 +59,24 @@ public class DeveloperControls implements Updateable {
 
         updatePowerupText();
 
-        if (keyboard.isButtonTapped(KeyEvent.VK_E)) {
+        if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_E)) {
             EnemyManager.generateEnemy();
         }
 
         // 'K' to kill all the enemies on screen
-        if (keyboard.isButtonTapped(KeyEvent.VK_K)) {
+        if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_K)) {
             for (Enemy e : EnemyManager.getEnemies()) {
                 e.kill(null);
             }
         }
 
         for (int hotkey : generationHotkeys.keySet()) {
-            if (keyboard.isButtonTapped(hotkey)) {
+            if (DyehardKeyboard.isKeyTapped(hotkey)) {
                 generateCollectible(generationHotkeys.get(hotkey));
             }
         }
 
-        if (keyboard.isButtonTapped(KeyEvent.VK_R)) {
+        if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_R)) {
             if (hero.currentWeapon instanceof LimitedAmmoWeapon) {
                 ((LimitedAmmoWeapon) hero.currentWeapon).recharge();
             }

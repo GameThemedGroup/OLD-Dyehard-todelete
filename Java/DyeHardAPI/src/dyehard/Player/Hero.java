@@ -7,13 +7,13 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import Engine.BaseCode;
-import Engine.KeyboardInput;
 import Engine.Primitive;
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
 import dyehard.Actor;
 import dyehard.Collidable;
 import dyehard.DyeHard;
+import dyehard.DyehardKeyboard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.PowerUp;
 import dyehard.Player.HeroInterfaces.HeroCollision;
@@ -45,7 +45,6 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     protected Direction direction;
     protected DynamicDyePack dynamicDyepack;
 
-    private KeyboardInput keyboard;
     private ArrayList<Weapon> weaponRack;
     private HashMap<Integer, Integer> weaponHotkeys;
 
@@ -53,15 +52,13 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         UP, DOWN, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, NEUTRAL
     }
 
-    public Hero(KeyboardInput keyboard) {
+    public Hero() {
         super(new Vector2(20f, 20f), 6f, 9f); // TODO remove magic numbers
 
         color = Colors.randomColor();
         direction = Direction.NEUTRAL;
         dynamicDyepack = new DynamicDyePack(this);
         texture = BaseCode.resources.loadImage("Textures/Hero/Dye.png");
-
-        this.keyboard = keyboard;
 
         collectedDyepacks = 0;
         collectedPowerups = 0;
@@ -147,48 +144,48 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     private void handleInput() {
         Vector2 totalThrust = new Vector2();
-        if (keyboard.isButtonDown(KeyEvent.VK_UP)) {
+        if (DyehardKeyboard.isKeyDown(KeyEvent.VK_UP)) {
             // Upward speed needs to counter the effects of gravity
             totalThrust.add(new Vector2(0f, defaultJetSpeed
                     - currentGravity.getY()));
         }
-        if (keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
+        if (DyehardKeyboard.isKeyDown(KeyEvent.VK_LEFT)) {
             totalThrust.add(new Vector2(-defaultJetSpeed, 0f));
         }
-        if (keyboard.isButtonDown(KeyEvent.VK_DOWN)) {
+        if (DyehardKeyboard.isKeyDown(KeyEvent.VK_DOWN)) {
             totalThrust.add(new Vector2(0f, -defaultJetSpeed));
         }
-        if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
+        if (DyehardKeyboard.isKeyDown(KeyEvent.VK_RIGHT)) {
             totalThrust.add(new Vector2(defaultJetSpeed, 0));
         }
 
         velocity.add(totalThrust);
 
-        if (keyboard.isButtonDown(KeyEvent.VK_F)) {
+        if (DyehardKeyboard.isKeyDown(KeyEvent.VK_F)) {
             currentWeapon.fire();
         }
     }
 
     private void updateDirection() {
-        if (keyboard.isButtonDown(KeyEvent.VK_UP)
-                && keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
+        if (DyehardKeyboard.isKeyDown(KeyEvent.VK_UP)
+                && DyehardKeyboard.isKeyDown(KeyEvent.VK_LEFT)) {
             direction = Direction.TOPLEFT;
-        } else if (keyboard.isButtonDown(KeyEvent.VK_UP)
-                && keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
+        } else if (DyehardKeyboard.isKeyDown(KeyEvent.VK_UP)
+                && DyehardKeyboard.isKeyDown(KeyEvent.VK_RIGHT)) {
             direction = Direction.TOPRIGHT;
-        } else if (keyboard.isButtonDown(KeyEvent.VK_UP)) {
+        } else if (DyehardKeyboard.isKeyDown(KeyEvent.VK_UP)) {
             direction = Direction.UP;
-        } else if (keyboard.isButtonDown(KeyEvent.VK_DOWN)
-                && keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
+        } else if (DyehardKeyboard.isKeyDown(KeyEvent.VK_DOWN)
+                && DyehardKeyboard.isKeyDown(KeyEvent.VK_LEFT)) {
             direction = Direction.BOTTOMLEFT;
-        } else if (keyboard.isButtonDown(KeyEvent.VK_DOWN)
-                && keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
+        } else if (DyehardKeyboard.isKeyDown(KeyEvent.VK_DOWN)
+                && DyehardKeyboard.isKeyDown(KeyEvent.VK_RIGHT)) {
             direction = Direction.BOTTOMRIGHT;
-        } else if (keyboard.isButtonDown(KeyEvent.VK_DOWN)) {
+        } else if (DyehardKeyboard.isKeyDown(KeyEvent.VK_DOWN)) {
             direction = Direction.DOWN;
-        } else if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
+        } else if (DyehardKeyboard.isKeyDown(KeyEvent.VK_RIGHT)) {
             direction = Direction.RIGHT;
-        } else if (keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
+        } else if (DyehardKeyboard.isKeyDown(KeyEvent.VK_LEFT)) {
             direction = Direction.LEFT;
         } else {
             direction = Direction.NEUTRAL;
@@ -198,7 +195,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     // Select a weapon in the weapon rack based on the input
     private void selectWeapon() {
         for (int hotkey : weaponHotkeys.keySet()) {
-            if (keyboard.isButtonDown(hotkey)) {
+            if (DyehardKeyboard.isKeyDown(hotkey)) {
                 int weaponIndex = weaponHotkeys.get(hotkey);
                 if (weaponIndex < weaponRack.size() && weaponIndex >= 0) {
                     currentWeapon = weaponRack.get(weaponIndex);

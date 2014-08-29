@@ -19,7 +19,7 @@ public class UserCode extends DyeHard {
 
     @Override
     protected void initialize() {
-        hero = new Hero(keyboard);
+        hero = new Hero();
         hero.registerWeapon(new SpreadFireWeapon(hero));
         hero.registerWeapon(new OverHeatWeapon(hero));
         hero.registerWeapon(new LimitedAmmoWeapon(hero));
@@ -29,7 +29,7 @@ public class UserCode extends DyeHard {
         GameWorldRegion startingSpace = new Space(hero);
         world.addRegion(startingSpace);
 
-        devControls = new DeveloperControls(hero, keyboard);
+        devControls = new DeveloperControls(hero);
 
         Space.registerDefaultPowerUps(10);
 

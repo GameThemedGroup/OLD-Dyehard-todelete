@@ -7,10 +7,26 @@ import java.util.Set;
 import Engine.KeyboardInput;
 
 public class DyehardKeyboard extends KeyboardInput {
+
+    static DyehardKeyboard instance = null;
+
+    public static boolean isKeyTapped(int key) {
+        return instance != null && instance.isButtonTapped(key);
+    }
+
+    public static boolean isKeyDown(int key) {
+        return instance != null && instance.isButtonDown(key);
+    }
+
     Set<KeyEvent> keyPresses = new HashSet<KeyEvent>();
     Set<KeyEvent> keyReleases = new HashSet<KeyEvent>();
-
     protected String lastKeyPress;
+
+    public DyehardKeyboard() {
+        assert (instance == null);
+
+        instance = this;
+    }
 
     @Override
     public String getLastKey() {
