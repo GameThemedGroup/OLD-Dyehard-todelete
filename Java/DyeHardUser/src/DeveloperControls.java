@@ -61,24 +61,24 @@ public class DeveloperControls implements Updateable {
 
         updatePowerupText();
 
-        if (keyboard.isButtonDown(KeyEvent.VK_E)) {
+        if (keyboard.isButtonTapped(KeyEvent.VK_E)) {
             EnemyManager.generateEnemy();
         }
 
         // 'K' to kill all the enemies on screen
-        if (keyboard.isButtonDown(KeyEvent.VK_K)) {
+        if (keyboard.isButtonTapped(KeyEvent.VK_K)) {
             for (Enemy e : EnemyManager.getEnemies()) {
                 e.kill(null);
             }
         }
 
         for (int hotkey : generationHotkeys.keySet()) {
-            if (keyboard.isButtonDown(hotkey)) {
+            if (keyboard.isButtonTapped(hotkey)) {
                 generateCollectible(generationHotkeys.get(hotkey));
             }
         }
 
-        if (keyboard.isButtonDown(KeyEvent.VK_R)) {
+        if (keyboard.isButtonTapped(KeyEvent.VK_R)) {
             if (hero.currentWeapon instanceof LimitedAmmoWeapon) {
                 ((LimitedAmmoWeapon) hero.currentWeapon).recharge();
             }
