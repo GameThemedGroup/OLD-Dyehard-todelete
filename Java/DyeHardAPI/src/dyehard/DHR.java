@@ -15,6 +15,10 @@ import Engine.Vector2;
 import dyehard.World.GameWorld;
 
 public class DHR {
+    public interface CsvParser {
+        public void parseData(String data);
+    }
+
     static class ImageData {
         public String texturePath;
         public Vector2 targetedPixelSize;
@@ -30,10 +34,10 @@ public class DHR {
     static Map<ImageID, ImageData> map = new HashMap<ImageID, ImageData>();
 
     static {
-        loadFromFile("Resources/Textures/ImageData.csv");
+        loadFromFile("Resources/Textures/ImageData.csv", new ImageDataParser());
     }
 
-    static void loadFromFile(String csvPath) {
+    public static void loadFromFile(String csvPath, CsvParser parser) {
         InputStream input = DHR.class.getClassLoader().getResourceAsStream(
                 csvPath);
         BufferedReader br = new BufferedReader(new InputStreamReader(input));
@@ -44,7 +48,7 @@ public class DHR {
             br = new BufferedReader(new InputStreamReader(input));
             line = br.readLine(); // discard table headers
             while ((line = br.readLine()) != null) {
-                parseImageData(line);
+                parser.parseData(line);
             }
 
         } catch (FileNotFoundException e) {
@@ -62,18 +66,21 @@ public class DHR {
         }
     }
 
-    static void parseImageData(String line) {
-        String[] data = line.split(",");
+    public static class ImageDataParser implements CsvParser {
+        @Override
+        public void parseData(String line) {
+            String[] data = line.split(",");
 
-        ImageID image = ImageID.valueOf(data[0]);
-        int screenWidth = Integer.valueOf(data[1]);
-        int screenHeight = Integer.valueOf(data[2]);
-        int actualWidth = Integer.valueOf(data[3]);
-        int actualHeight = Integer.valueOf(data[4]);
-        String path = data[5];
+            ImageID image = ImageID.valueOf(data[0]);
+            int screenWidth = Integer.valueOf(data[1]);
+            int screenHeight = Integer.valueOf(data[2]);
+            int actualWidth = Integer.valueOf(data[3]);
+            int actualHeight = Integer.valueOf(data[4]);
+            String path = data[5];
 
-        addData(image, path, new Vector2(actualWidth, actualHeight),
-                new Vector2(screenWidth, screenHeight));
+            addData(image, path, new Vector2(actualWidth, actualHeight),
+                    new Vector2(screenWidth, screenHeight));
+        }
     }
 
     static void addData(ImageID image, String path, Vector2 actualSize,
