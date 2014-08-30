@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Engine.Rectangle;
-import dyehard.DHR.Image;
+import dyehard.DHR.ImageID;
 import dyehard.World.GameWorld;
 
 public class DyehardDistanceMeter {
@@ -22,12 +22,12 @@ public class DyehardDistanceMeter {
         this.maxValue = maxValue;
         currentValue = 0;
 
-        progress = DHR.getScaledRectangle(Image.UI_PATH);
+        progress = DHR.getScaledRectangle(ImageID.UI_PATH);
 
         progress.center.setX(GameWorld.RIGHT_EDGE / 2);
         progress.center.setY(fromTop(progress, 1.4f));
 
-        Rectangle baseMarker = DHR.getScaledRectangle(Image.UI_PATH_MARKER);
+        Rectangle baseMarker = DHR.getScaledRectangle(ImageID.UI_PATH_MARKER);
         markers = new ArrayList<Rectangle>();
 
         // first gate at 500 and every 900 afterwards
@@ -38,9 +38,9 @@ public class DyehardDistanceMeter {
             markers.add(marker);
         }
 
-        filledMarker = DHR.getTexture(Image.UI_PATH_MARKER_FULL);
+        filledMarker = DHR.getTexture(ImageID.UI_PATH_MARKER_FULL);
 
-        dyeMarker = DHR.getScaledRectangle(Image.UI_DYE_PATH_MARKER);
+        dyeMarker = DHR.getScaledRectangle(ImageID.UI_DYE_PATH_MARKER);
         dyeMarker.center.setY(fromTop(dyeMarker, 0.9f));
 
         setValue(currentValue);

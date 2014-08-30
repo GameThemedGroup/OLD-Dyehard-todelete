@@ -8,7 +8,7 @@ import Engine.Rectangle;
 import Engine.Text;
 import Engine.Vector2;
 import dyehard.DHR;
-import dyehard.DHR.Image;
+import dyehard.DHR.ImageID;
 import dyehard.DyehardDistanceMeter;
 import dyehard.UpdateObject;
 import dyehard.Player.Hero;
@@ -25,11 +25,11 @@ public class DyehardUI extends UpdateObject {
     public DyehardUI(Hero hero) {
         this.hero = hero;
 
-        hud = DHR.getScaledRectangle(Image.UI_HUD);
+        hud = DHR.getScaledRectangle(ImageID.UI_HUD);
         hud.center.setX(GameWorld.RIGHT_EDGE / 2);
         hud.center.setY(fromTop(hud, 0f));
 
-        Rectangle baseHeart = DHR.getScaledRectangle(Image.UI_HEART);
+        Rectangle baseHeart = DHR.getScaledRectangle(ImageID.UI_HEART);
         hearts = new ArrayList<Rectangle>();
         for (int i = 0; i < 4; ++i) {
             Rectangle heart = new Rectangle(baseHeart);

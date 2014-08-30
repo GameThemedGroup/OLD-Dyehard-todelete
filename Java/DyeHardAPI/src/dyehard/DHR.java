@@ -1,6 +1,11 @@
 package dyehard;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,44 +23,60 @@ public class DHR {
         public BufferedImage texture = null;
     }
 
-    public enum Image {
+    public enum ImageID {
         UI_HUD, UI_PATH, UI_PATH_MARKER, UI_DYE_PATH_MARKER, UI_PATH_MARKER_FULL, UI_HEART
     }
 
-    static Map<Image, ImageData> map = new HashMap<Image, ImageData>();
+    static Map<ImageID, ImageData> map = new HashMap<ImageID, ImageData>();
 
     static {
-        // For line in csv file
-        // line.split(",")
-        // Image image = Enum.fromString(line[0])
-        // data.texturePath = line[1] // texturePath
-        // data.actualPixelSize = new Vector2(line[2], line[3])
-        // data.targetedPixelSize = new Vector2(line[4], line[5])
-        // data.texture = BaseCode.resources.loadImage(data.texturePath);
-        // map.put(image, data);
-
-        // TODO Grab these values from a file
-        Vector2 targetSize = new Vector2(1920, 1080);
-
-        addData(Image.UI_HUD, "Textures/UI/Dyehard_UI_HudFrame.png",
-                new Vector2(1920, 134), targetSize);
-        addData(Image.UI_PATH, "Textures/UI/Dyehard_UI_Progress_Path.png",
-                new Vector2(1104, 54), targetSize);
-        addData(Image.UI_PATH_MARKER,
-                "Textures/UI/Dyehard_UI_Progress_marker_empty.png",
-                new Vector2(76, 76), targetSize);
-        addData(Image.UI_PATH_MARKER_FULL,
-                "Textures/UI/Dyehard_UI_Progress_marker_full.png", new Vector2(
-                        76, 76), targetSize);
-        addData(Image.UI_DYE_PATH_MARKER,
-                "Textures/UI/Dyehard_UI_Progress_Dye.png", new Vector2(76, 76),
-                targetSize);
-
-        addData(Image.UI_HEART, "Textures/UI/dyehard_ui_health_full.png",
-                new Vector2(40, 40), targetSize);
+        loadFromFile("Resources/Textures/ImageData.csv");
     }
 
-    static void addData(Image image, String path, Vector2 actualSize,
+    static void loadFromFile(String csvPath) {
+        InputStream input = DHR.class.getClassLoader().getResourceAsStream(
+                csvPath);
+        BufferedReader br = new BufferedReader(new InputStreamReader(input));
+        String line;
+
+        try {
+
+            br = new BufferedReader(new InputStreamReader(input));
+            line = br.readLine(); // discard table headers
+            while ((line = br.readLine()) != null) {
+                parseImageData(line);
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    static void parseImageData(String line) {
+        String[] data = line.split(",");
+
+        ImageID image = ImageID.valueOf(data[0]);
+        int screenWidth = Integer.valueOf(data[1]);
+        int screenHeight = Integer.valueOf(data[2]);
+        int actualWidth = Integer.valueOf(data[3]);
+        int actualHeight = Integer.valueOf(data[4]);
+        String path = data[5];
+
+        addData(image, path, new Vector2(actualWidth, actualHeight),
+                new Vector2(screenWidth, screenHeight));
+    }
+
+    static void addData(ImageID image, String path, Vector2 actualSize,
             Vector2 targetSize) {
         ImageData data = new ImageData();
 
@@ -65,7 +86,7 @@ public class DHR {
         map.put(image, data);
     }
 
-    public static BufferedImage getTexture(Image image) {
+    public static BufferedImage getTexture(ImageID image) {
         ImageData data = map.get(image);
         if (data == null) {
             return null;
@@ -78,7 +99,7 @@ public class DHR {
         return data.texture;
     }
 
-    public static Rectangle getScaledRectangle(Image image) {
+    public static Rectangle getScaledRectangle(ImageID image) {
         ImageData data = map.get(image);
         if (data == null) {
             return null;
