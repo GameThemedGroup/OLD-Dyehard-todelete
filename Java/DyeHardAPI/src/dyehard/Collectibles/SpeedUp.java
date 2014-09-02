@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Engine.BaseCode;
+import dyehard.DHR;
 import dyehard.Enemies.Enemy;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
 
 public class SpeedUp extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(0, DyeHard.Green);
+	protected float duration = DHR.getPowerupData(DHR.PowerupID.PU_SPEEDUP).duration;
+	protected float magnitude = DHR.getPowerupData(DHR.PowerupID.PU_SPEEDUP).magnitude;
+	
     public SpeedUp() {
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Green.png");
-        enemySpeedModifier = 1.75f;
+        enemySpeedModifier = magnitude;
         isApplied = false;
         applicationOrder = 20;
         label.setText("Speed");

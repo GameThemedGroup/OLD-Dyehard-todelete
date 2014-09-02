@@ -27,14 +27,31 @@ public class DHR {
         public BufferedImage texture = null;
     }
 
+    public static class PowerupData {
+        public float magnitude;
+        public float duration;
+    }
+
     public enum ImageID {
         UI_HUD, UI_PATH, UI_PATH_MARKER, UI_DYE_PATH_MARKER, UI_PATH_MARKER_FULL, UI_HEART
     }
 
+    public enum PowerupID {
+        PU_GHOST, PU_GRAVITY, PU_INVINCIBILITY, PU_MAGNETISM, PU_SLOWDOWN, PU_SPEEDUP, PU_UNARMED,
+    }
+
+    public enum HeroID {
+        HERO_JET_SPEED, HERO_SPEED_LIMIT, HERO_DRAG,
+    }
+
     static Map<ImageID, ImageData> map = new HashMap<ImageID, ImageData>();
+    static Map<PowerupID, PowerupData> powerups = new HashMap<PowerupID, PowerupData>();
+    static Map<HeroID, Float> hero = new HashMap<HeroID, Float>();
 
     static {
         loadFromFile("Resources/Textures/ImageData.csv", new ImageDataParser());
+        loadFromFile("Resources/PowerupData.csv", new PowerupParser());
+        loadFromFile("Resources/HeroData.csv", new HeroParser());
     }
 
     public static void loadFromFile(String csvPath, CsvParser parser) {
@@ -83,6 +100,34 @@ public class DHR {
         }
     }
 
+    public static class PowerupParser implements CsvParser {
+        @Override
+        public void parseData(String line) {
+            String[] data = line.split(",");
+
+            PowerupID powerupId = PowerupID.valueOf(data[0]);
+            float magnitude = Float.valueOf(data[1]);
+            float duration = Float.valueOf(data[2]);
+
+            PowerupData value = new PowerupData();
+            value.magnitude = magnitude;
+            value.duration = duration;
+            powerups.put(powerupId, value);
+        }
+    }
+
+    public static class HeroParser implements CsvParser {
+        @Override
+        public void parseData(String line) {
+            String[] data = line.split(",");
+
+            HeroID id = HeroID.valueOf(data[0]);
+            float value = Float.valueOf(data[1]);
+
+            hero.put(id, value);
+        }
+    }
+
     static void addData(ImageID image, String path, Vector2 actualSize,
             Vector2 targetSize) {
         ImageData data = new ImageData();
@@ -91,6 +136,14 @@ public class DHR {
         data.actualPixelSize = actualSize;
         data.targetedPixelSize = targetSize;
         map.put(image, data);
+    }
+
+    public static PowerupData getPowerupData(PowerupID id) {
+        return powerups.get(id);
+    }
+
+    public static float getHeroData(HeroID id) {
+        return hero.get(id);
     }
 
     public static BufferedImage getTexture(ImageID image) {

@@ -3,6 +3,7 @@ package dyehard.Collectibles;
 import Engine.BaseCode;
 import Engine.Primitive;
 import dyehard.Collidable;
+import dyehard.DHR;
 import dyehard.Player.Hero;
 import dyehard.Player.HeroInterfaces.HeroCollision;
 import dyehard.Player.HeroInterfaces.HeroDamage;
@@ -10,7 +11,7 @@ import dyehard.World.Gate.DeathGate;
 
 public class Ghost extends PowerUp implements HeroCollision, HeroDamage {
     // public static PowerUpMeter meter = new PowerUpMeter(1, Game.Blue);
-    protected float duration = 3000f;
+    protected float duration = DHR.getPowerupData(DHR.PowerupID.PU_GHOST).duration;
 
     public Ghost() {
         super();

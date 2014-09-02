@@ -1,9 +1,13 @@
 package dyehard.Collectibles;
 
+import dyehard.DHR;
 import dyehard.Player.Hero;
 
 public class Gravity extends PowerUp {
 
+	protected float duration = DHR.getPowerupData(DHR.PowerupID.PU_GRAVITY).duration;
+	protected float magnitude = DHR.getPowerupData(DHR.PowerupID.PU_GRAVITY).magnitude;
+	
     public Gravity() {
         applicationOrder = 2;
         label.setText("Gravity");
@@ -11,7 +15,7 @@ public class Gravity extends PowerUp {
 
     @Override
     public void apply(Hero hero) {
-        hero.currentGravity.set(0f, -1.5f);
+        hero.currentGravity.set(0f, -magnitude);
     }
 
     @Override

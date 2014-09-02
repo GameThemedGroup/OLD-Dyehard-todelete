@@ -2,11 +2,14 @@ package dyehard.Collectibles;
 
 import Engine.BaseCode;
 import Engine.Primitive;
+import dyehard.DHR;
 import dyehard.Player.Hero;
 import dyehard.Player.HeroInterfaces.HeroDamage;
 
 public class Invincibility extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(2, Game.Pink);
+	protected float duration = DHR.getPowerupData(DHR.PowerupID.PU_INVINCIBILITY).duration;
+	
     public Invincibility() {
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Pink.png");
         applicationOrder = 100;

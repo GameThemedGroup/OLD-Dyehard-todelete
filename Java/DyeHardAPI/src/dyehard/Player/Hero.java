@@ -12,6 +12,7 @@ import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
 import dyehard.Actor;
 import dyehard.Collidable;
+import dyehard.DHR;
 import dyehard.DyeHard;
 import dyehard.DyehardKeyboard;
 import dyehard.Collectibles.DyePack;
@@ -33,11 +34,12 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public final HeroCollision defaultCollisionHandler = this;
     public final HeroDamage defaultDamageHandler = this;
     public final Weapon defaultWeapon = new Weapon(this);
-    public final float defaultJetSpeed = 2.5f;
+    public final float defaultJetSpeed = DHR
+            .getHeroData(DHR.HeroID.HERO_JET_SPEED);
     public final Vector2 defaultGravity = new Vector2(0f, 0f);
 
-    private float speedLimitX = 50f;
-    private static float drag = 0.97f; // smaller number means more reduction
+    private float speedLimitX = DHR.getHeroData(DHR.HeroID.HERO_SPEED_LIMIT);
+    private static float drag = DHR.getHeroData(DHR.HeroID.HERO_DRAG);
 
     private int collectedDyepacks;
     private int collectedPowerups;
