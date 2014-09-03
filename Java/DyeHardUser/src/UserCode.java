@@ -8,6 +8,7 @@ import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.Weapons.OverHeatWeapon;
 import dyehard.Weapons.SpreadFireWeapon;
 import dyehard.World.Space;
+import dyehard.World.Stargate;
 
 public class UserCode extends DyeHard {
 
@@ -39,6 +40,11 @@ public class UserCode extends DyeHard {
         world.initialize(hero);
 
         devControls = new DeveloperControls(hero, keyboard);
+
+        Stargate.addColor(Colors.Yellow);
+        Stargate.addColor(Colors.Teal);
+        Stargate.addColor(Colors.Green);
+        Stargate.addColor(Colors.Red);
     }
 
     @Override
@@ -71,7 +77,7 @@ public class UserCode extends DyeHard {
         }
 
         if (world.nextRegionIsStargate()) {
-            System.out.println("STARGATE COMING UP");
+            // System.out.println("STARGATE COMING UP");
         }
     }
 }
