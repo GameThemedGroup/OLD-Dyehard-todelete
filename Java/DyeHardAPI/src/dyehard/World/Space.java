@@ -175,7 +175,7 @@ public class Space extends GameWorldRegion {
         }
     }
 
-    public static void addDefaultPowerUps(int count) {
+    public static void numberOfDefaultPowerUps(int count) {
         if (count >= 0) {
             powerUpCount = count;
         } else {
@@ -194,7 +194,7 @@ public class Space extends GameWorldRegion {
                 new Vector2(-GameWorld.Speed, 0f));
     }
 
-    public static void addDefaultDyePacks(int count) {
+    public static void numberOfDefaultDyePacks(int count) {
         if (count >= 0) {
             dyePackCount = count;
         } else {
@@ -215,7 +215,7 @@ public class Space extends GameWorldRegion {
                 0f));
     }
 
-    public static void addDefaultDebris(int count) {
+    public static void numberOfDefaultDebris(int count) {
         if (count >= 0) {
             debrisCount = count;
         } else {
