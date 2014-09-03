@@ -69,5 +69,9 @@ public class UserCode extends DyeHard {
         if (keyboard.isButtonDown(KeyEvent.VK_F)) {
             hero.currentWeapon.fire();
         }
+
+        if (world.nextRegionIsStargate()) {
+            System.out.println("STARGATE COMING UP");
+        }
     }
 }
