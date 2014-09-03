@@ -2,6 +2,7 @@ package dyehard.World;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import Engine.Vector2;
 import dyehard.GameObject;
@@ -14,6 +15,7 @@ public class Stargate extends GameWorldRegion {
     private Gate[] gates;
     private Platform[] platforms;
     private GameObject backdrop;
+    private static ArrayList<Color> userColors;
 
     public Hero hero;
 
@@ -23,10 +25,18 @@ public class Stargate extends GameWorldRegion {
         speed = -GameWorld.Speed;
     }
 
+    static {
+        userColors = new ArrayList<Color>();
+    }
+
     @Override
     public void initialize(float leftEdge) {
         position = leftEdge + width / 2f;
-        ArrayList<Color> colors = Colors.randomColorSet(GATE_COUNT);
+
+        ArrayList<Color> colors = new ArrayList<Color>();
+        colors.addAll(userColors);
+        colors.addAll(Colors.randomColorSet(GATE_COUNT - userColors.size()));
+        Collections.shuffle(colors);
 
         gates = new Gate[GATE_COUNT];
         for (int i = 0; i < gates.length; i++) {
@@ -46,5 +56,14 @@ public class Stargate extends GameWorldRegion {
         backdrop.color = new Color(0, 0, 0, 130);
         backdrop.velocity = new Vector2(-speed, 0f);
         backdrop.visible = true;
+    }
+
+    public static void addColor(Color c) {
+        if (userColors.size() < GATE_COUNT) {
+            userColors.add(c);
+        } else {
+            System.err.println("Cannot have more than " + GATE_COUNT
+                    + " colors in a Stargate!");
+        }
     }
 }
