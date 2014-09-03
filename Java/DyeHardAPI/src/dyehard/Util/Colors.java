@@ -47,8 +47,8 @@ public class Colors {
         Collections.shuffle(range);
         // get the colors from the indexes in the sample list
         ArrayList<Color> colors = new ArrayList<Color>();
-        for (int i : range) {
-            colors.add(colorPicker(i));
+        for (int i = 0; i < count; i++) {
+            colors.add(colorPicker(range.get(i)));
         }
         return colors;
     }
