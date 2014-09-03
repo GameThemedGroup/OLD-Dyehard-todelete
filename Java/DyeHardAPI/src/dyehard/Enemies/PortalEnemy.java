@@ -10,7 +10,7 @@ public class PortalEnemy extends Enemy {
 
     public PortalEnemy(Vector2 center, float height, Hero currentHero) {
         super(center, height * widthToHeightRatio, height, currentHero,
-                "Textures/Enemies/minion_Portal.png");
+                "Textures/Enemies/minion_portal.png");
         timer = new Timer(2000f);
     }
 
