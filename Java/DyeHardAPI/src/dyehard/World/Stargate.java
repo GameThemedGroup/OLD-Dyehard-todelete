@@ -66,4 +66,8 @@ public class Stargate extends GameWorldRegion {
                     + " colors in a Stargate!");
         }
     }
+
+    public static void clearColors() {
+        userColors.clear();
+    }
 }
