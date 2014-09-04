@@ -36,6 +36,8 @@ public abstract class PowerUp extends Collidable implements Cloneable,
     }
 
     public void initialize(Vector2 center, Vector2 velocity) {
+        timer.setInterval(duration);
+
         this.center = center;
         this.velocity = velocity;
 

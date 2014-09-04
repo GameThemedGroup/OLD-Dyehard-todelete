@@ -9,11 +9,13 @@ import dyehard.DHR;
 import dyehard.Player.Hero;
 
 public class Magnetism extends PowerUp {
-	
-	protected float duration = DHR.getPowerupData(DHR.PowerupID.PU_MAGNETISM).duration;
-	protected float magnitude = DHR.getPowerupData(DHR.PowerupID.PU_MAGNETISM).magnitude;
+
+    protected float magnitude = DHR.getPowerupData(DHR.PowerupID.PU_MAGNETISM).magnitude;
 
     public Magnetism() {
+        super();
+        duration = DHR.getPowerupData(DHR.PowerupID.PU_MAGNETISM).duration * 1000;
+
         applicationOrder = 40;
         label.setText("Magnet");
     }

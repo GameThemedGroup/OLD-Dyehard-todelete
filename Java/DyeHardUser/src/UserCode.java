@@ -2,6 +2,7 @@ import java.awt.event.KeyEvent;
 
 import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
+import dyehard.Collectibles.Ghost;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.Weapons.LimitedAmmoWeapon;
@@ -13,7 +14,6 @@ import dyehard.World.Stargate;
 public class UserCode extends DyeHard {
 
     private Hero hero;
-    private DeveloperControls devControls;
 
     @Override
     protected void initialize() {
@@ -23,6 +23,10 @@ public class UserCode extends DyeHard {
         hero.registerWeapon(new LimitedAmmoWeapon(hero));
 
         Space.numberOfDefaultPowerUps(5);
+
+        Ghost g = new Ghost();
+        g.center.set(30f, 20f);
+        Space.registerPowerUp(g);
 
         /*
          * JohnsBallinAssPowerUp john = new JohnsBallinAssPowerUp();
@@ -39,7 +43,7 @@ public class UserCode extends DyeHard {
 
         world.initialize(hero);
 
-        devControls = new DeveloperControls(hero, keyboard);
+        new DeveloperControls(hero);
 
         Stargate.addColor(Colors.Yellow);
         Stargate.addColor(Colors.Teal);

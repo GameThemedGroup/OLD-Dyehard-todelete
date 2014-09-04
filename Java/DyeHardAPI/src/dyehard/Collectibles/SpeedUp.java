@@ -11,10 +11,12 @@ import dyehard.Player.Hero;
 
 public class SpeedUp extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(0, DyeHard.Green);
-	protected float duration = DHR.getPowerupData(DHR.PowerupID.PU_SPEEDUP).duration;
-	protected float magnitude = DHR.getPowerupData(DHR.PowerupID.PU_SPEEDUP).magnitude;
-	
+
+    protected float magnitude = DHR.getPowerupData(DHR.PowerupID.PU_SPEEDUP).magnitude;
+
     public SpeedUp() {
+        super();
+        duration = DHR.getPowerupData(DHR.PowerupID.PU_SPEEDUP).duration * 1000;
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Green.png");
         enemySpeedModifier = magnitude;
         isApplied = false;

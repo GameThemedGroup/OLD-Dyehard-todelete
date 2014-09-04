@@ -8,6 +8,8 @@ import dyehard.Weapons.OverHeatWeapon;
 public class Overload extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(2, Game.Pink);
     public Overload() {
+        super();
+        timer.setInterval(duration);
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Red.png");
         applicationOrder = 30;
         label.setText("Overload");

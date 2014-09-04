@@ -8,9 +8,11 @@ import dyehard.Player.HeroInterfaces.HeroDamage;
 
 public class Invincibility extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(2, Game.Pink);
-	protected float duration = DHR.getPowerupData(DHR.PowerupID.PU_INVINCIBILITY).duration;
-	
+
     public Invincibility() {
+        super();
+        duration = DHR.getPowerupData(DHR.PowerupID.PU_INVINCIBILITY).duration * 1000;
+
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Pink.png");
         applicationOrder = 100;
         label.setText("Invin");
