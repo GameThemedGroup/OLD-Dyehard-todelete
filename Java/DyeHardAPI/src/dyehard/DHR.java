@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,9 +57,34 @@ public class DHR {
         loadFromFile("Resources/HeroData.csv", new HeroParser());
     }
 
+    private static InputStream loadExternalFile(String path) {
+        URL url;
+        InputStream input = null;
+        try {
+            url = new URL(path);
+            URLConnection in = url.openConnection();
+            if (in.getContentLengthLong() > 0) {
+                input = url.openStream();
+            }
+        } catch (MalformedURLException e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            input = null;
+        }
+
+        return input;
+    }
+
     public static void loadFromFile(String csvPath, CsvParser parser) {
-        InputStream input = DHR.class.getClassLoader().getResourceAsStream(
-                csvPath);
+        InputStream input = loadExternalFile("resources/" + csvPath);
+
+        if (input == null)
+            loadExternalFile("bin/resources/" + csvPath);
+
+        if (input == null)
+            input = DHR.class.getClassLoader().getResourceAsStream(csvPath);
+
         BufferedReader br = new BufferedReader(new InputStreamReader(input));
         String line;
 
