@@ -59,22 +59,21 @@ public class DHR {
     }
 
     private static InputStream loadExternalFile(String path) {
+        String basePath = BaseCode.resources.basePath;
         URL url;
-        InputStream input = null;
+
         try {
-            url = new URL(path);
+            url = new URL(basePath + path);
             URLConnection in = url.openConnection();
             if (in.getContentLengthLong() > 0) {
-                input = url.openStream();
+                return url.openStream();
             }
         } catch (MalformedURLException e) {
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            input = null;
         }
 
-        return input;
+        return null;
     }
 
     public static void loadFromFile(String csvPath, CsvParser parser) {
@@ -85,7 +84,7 @@ public class DHR {
 
         for (String path : filePaths) {
             if (input == null)
-                loadExternalFile(path);
+                input = loadExternalFile(path);
         }
 
         for (String path : filePaths) {
