@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Engine.BaseCode;
+import Engine.MessageOnce;
 import Engine.Rectangle;
 import Engine.Vector2;
 import dyehard.World.GameWorld;
@@ -52,9 +53,9 @@ public class DHR {
     static Map<HeroID, Float> hero = new HashMap<HeroID, Float>();
 
     static {
-        loadFromFile("Resources/Textures/ImageData.csv", new ImageDataParser());
-        loadFromFile("Resources/PowerupData.csv", new PowerupParser());
-        loadFromFile("Resources/HeroData.csv", new HeroParser());
+        loadFromFile("Textures/ImageData.csv", new ImageDataParser());
+        loadFromFile("PowerupData.csv", new PowerupParser());
+        loadFromFile("HeroData.csv", new HeroParser());
     }
 
     private static InputStream loadExternalFile(String path) {
@@ -77,13 +78,23 @@ public class DHR {
     }
 
     public static void loadFromFile(String csvPath, CsvParser parser) {
-        InputStream input = loadExternalFile("resources/" + csvPath);
+        InputStream input = null;
+
+        String[] filePaths = { "resources/" + csvPath,
+                "bin/resources/" + csvPath, };
+
+        for (String path : filePaths) {
+            if (input == null)
+                loadExternalFile(path);
+        }
+
+        for (String path : filePaths) {
+            if (input == null)
+                input = DHR.class.getClassLoader().getResourceAsStream(path);
+        }
 
         if (input == null)
-            loadExternalFile("bin/resources/" + csvPath);
-
-        if (input == null)
-            input = DHR.class.getClassLoader().getResourceAsStream(csvPath);
+            MessageOnce.showAlert("Error reading configuration files.");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(input));
         String line;
