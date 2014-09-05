@@ -21,6 +21,7 @@ import dyehard.Player.HeroInterfaces.HeroCollision;
 import dyehard.Player.HeroInterfaces.HeroDamage;
 import dyehard.Util.Colors;
 import dyehard.Weapons.Weapon;
+import dyehard.World.GameState;
 
 public class Hero extends Actor implements HeroCollision, HeroDamage {
     public HeroCollision collisionHandler;
@@ -152,7 +153,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public void moveUp() {
         // Upward speed needs to counter the effects of gravity
         totalThrust
-                .add(new Vector2(0f, defaultJetSpeed - currentGravity.getY()));
+        .add(new Vector2(0f, defaultJetSpeed - currentGravity.getY()));
     }
 
     public void moveDown() {
@@ -246,7 +247,11 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     @Override
     public void damageHero(Hero hero, Primitive who) {
-        alive = false;
+        center.set(20f, 20f);
+        GameState.RemainingLives--;
+        if (GameState.RemainingLives <= 0) {
+            alive = false;
+        }
     }
 
     @Override

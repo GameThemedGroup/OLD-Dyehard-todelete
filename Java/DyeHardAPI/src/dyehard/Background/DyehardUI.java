@@ -62,7 +62,14 @@ public class DyehardUI extends UpdateObject {
 
     @Override
     public void update() {
-        // TODO calculate number of hearts remaining
+        for (Rectangle r : hearts) {
+            r.visible = false;
+        }
+
+        int numHearts = hearts.size() - 1;
+        for (int i = 0; i < GameState.RemainingLives; ++i) {
+            hearts.get(numHearts - i).visible = true;
+        }
         scoreText.setText(Integer.toString(GameState.Score));
         distanceMeter.setValue(GameState.DistanceTravelled);
     }
