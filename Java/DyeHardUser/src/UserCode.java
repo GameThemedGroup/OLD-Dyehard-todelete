@@ -29,7 +29,7 @@ public class UserCode extends DyeHard {
         Space.registerPowerUp(g);
 
         /*
-         * JohnsBallinAssPowerUp john = new JohnsBallinAssPowerUp();
+         * JohnsPowerUp john = new JohnsPowerUp();
          * john.center.set(50f, 30f); Space.registerPowerUp(john);
          */
 
@@ -54,8 +54,8 @@ public class UserCode extends DyeHard {
     @Override
     protected void update() {
         /*
-         * if (keyboard.isButtonDown(KeyEvent.VK_U)) { JohnsBallinAssPowerUp
-         * john = new JohnsBallinAssPowerUp();
+         * if (keyboard.isButtonDown(KeyEvent.VK_U)) { JohnsPowerUp
+         * john = new JohnsPowerUp();
          * john.center.set(hero.center.getX() + 10f, hero.center.getY());
          * Space.registerPowerUp(john); }
          * 
