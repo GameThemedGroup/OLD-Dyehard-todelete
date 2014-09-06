@@ -4,6 +4,7 @@ import Engine.Vector2;
 import dyehard.DHR;
 import dyehard.DyehardRectangle;
 import dyehard.UpdateObject;
+import dyehard.Weapons.OverHeatWeapon;
 import dyehard.Weapons.Weapon;
 
 public class DyeMeter extends UpdateObject {
@@ -42,6 +43,14 @@ public class DyeMeter extends UpdateObject {
                     / (float) weapon.totalValue();
             meterPercent = Math.min(meterPercent, 1.0f);
             meterPercent = Math.max(meterPercent, 0f);
+        }
+
+        if (weapon instanceof OverHeatWeapon && weapon.currentValue() == 0) {
+            frame.visible = false;
+            meter.visible = false;
+        } else {
+            frame.visible = true;
+            meter.visible = true;
         }
 
         frame.center = hero.center.clone();
