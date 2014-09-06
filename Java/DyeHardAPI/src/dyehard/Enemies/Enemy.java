@@ -10,7 +10,6 @@ import dyehard.Collidable;
 import dyehard.Player.Hero;
 import dyehard.Util.ImageTint;
 import dyehard.Util.Timer;
-import dyehard.World.GameWorld;
 
 public class Enemy extends Actor {
     public float speed;
@@ -23,22 +22,18 @@ public class Enemy extends Actor {
     protected EnemyState enemyState;
     protected BufferedImage baseTexture;
     // This time is in milliseconds
-    protected float behaviorChangeTime = 3000f;
     private Timer timer;
 
-    public Enemy(Vector2 center, float width, float height, Hero hero) {
-        super(center, width, height);
-        this.hero = hero;
-        enemyState = EnemyState.BEGIN;
-        timer = new Timer(behaviorChangeTime);
-        speed = Math.abs(GameWorld.Speed);
-    }
-
-    protected Enemy(Vector2 center, float width, float height, Hero hero,
+    public Enemy(Vector2 center, float width, float height,
+            float behaviorChangeTime, float baseSpeed, Hero hero,
             String texturePath) {
-        this(center, width, height, hero);
+        super(center, width, height);
+        timer = new Timer(behaviorChangeTime);
+        speed = baseSpeed;
+        this.hero = hero;
         baseTexture = BaseCode.resources.loadImage(texturePath);
         texture = baseTexture;
+        enemyState = EnemyState.BEGIN;
     }
 
     @Override

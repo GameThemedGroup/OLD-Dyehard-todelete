@@ -6,10 +6,21 @@ import dyehard.Util.Timer;
 
 public class PortalEnemy extends Enemy {
     private Timer timer;
+    private static float width;
+    private static float height;
+    private static float behaviorChangeTime;
+    private static float baseSpeed;
 
-    public PortalEnemy(Vector2 center, float height, Hero currentHero) {
-        super(center, height, height, currentHero,
+    public PortalEnemy(Vector2 center, float newWidth, float newHeight,
+            float changeTime, float newSpeed, Hero currentHero) {
+        super(center, newWidth, newHeight, changeTime, newSpeed, currentHero,
                 "Textures/Enemies/minion_portal.png");
+        timer = new Timer(2000f);
+    }
+
+    public PortalEnemy(Vector2 center, Hero currentHero) {
+        super(center, width, height, behaviorChangeTime, baseSpeed,
+                currentHero, "Textures/Enemies/minion_portal.png");
         timer = new Timer(2000f);
     }
 
@@ -25,5 +36,12 @@ public class PortalEnemy extends Enemy {
     @Override
     public String toString() {
         return "Portal";
+    }
+
+    public static void setAttributes(float w, float h, float changeTime, float s) {
+        width = w;
+        height = h;
+        behaviorChangeTime = changeTime;
+        baseSpeed = s;
     }
 }
