@@ -1,19 +1,15 @@
 package dyehard.Weapons;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import Engine.Vector2;
-import dyehard.Collidable;
 import dyehard.GameObject;
 import dyehard.ManagerState;
 import dyehard.UpdateManager.Updateable;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
-import dyehard.World.GameWorld;
 
 public class Weapon extends GameObject implements Updateable {
     protected static float bulletSpeed = 1f;
@@ -34,12 +30,7 @@ public class Weapon extends GameObject implements Updateable {
     // Fire the weapon
     public void fire() {
         if (timer.isDone()) {
-            Bullet bullet = new Bullet();
-            bullet.center.set(hero.center);
-            bullet.size.set(bulletSize, bulletSize);
-            bullet.velocity = new Vector2(bulletSpeed, 0f);
-            bullet.color = hero.getColor();
-            bullet.dyeColor = hero.getColor();
+            new Bullet(hero);
             timer.reset();
         }
     }
@@ -56,27 +47,6 @@ public class Weapon extends GameObject implements Updateable {
     @Override
     public ManagerState updateState() {
         return hero.updateState();
-    }
-
-    public class Bullet extends Collidable {
-        public Color dyeColor;
-
-        @Override
-        public void update() {
-            super.update();
-            if (center.getX() - size.getX() > GameWorld.RIGHT_EDGE) {
-                destroy();
-            }
-        }
-
-        @Override
-        public void handleCollision(Collidable other) {
-            if (other instanceof Enemy) {
-                Enemy enemy = (Enemy) other;
-                enemy.setColor(dyeColor);
-                destroy();
-            }
-        }
     }
 
     @Override
