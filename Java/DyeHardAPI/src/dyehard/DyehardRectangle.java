@@ -31,12 +31,13 @@ public class DyehardRectangle extends Primitive {
      * frameCoords[][3] = upper right y
      * 
      */
-    private int[][] frameCoords;
-    private int currentFrame;
-    private int totalFrames;
+    protected int[][] frameCoords;
+    protected int currentFrame;
+    protected int totalFrames;
+    protected int frameWidth, frameHeight;
 
-    private int ticksPerFrame;
-    private int currentTick;
+    protected int ticksPerFrame;
+    protected int currentTick;
 
     public DyehardRectangle() {
         super();
@@ -115,6 +116,8 @@ public class DyehardRectangle extends Primitive {
         }
         this.texture = texture;
 
+        frameWidth = width;
+        frameHeight = height;
         frameCoords = new int[totalFrames][4];
         this.totalFrames = totalFrames;
         currentFrame = 0;
@@ -262,16 +265,24 @@ public class DyehardRectangle extends Primitive {
                 collidePoint = new Vector2();
             }
 
-            int i = 0;
-            while ((!pixelTouch) && (i < texture.getWidth())) {
-                int j = 0;
+            int minX = usingSpriteSheet ? getSpriteLowerX() : 0;
+            int maxX = usingSpriteSheet ? getSpriteUpperX() : texture
+                    .getWidth();
 
-                while ((!pixelTouch) && (j < texture.getHeight())) {
-                    collidePoint
-                            .set(indexToCameraPosition(i, j, myXDir, myYDir));
+            int minY = usingSpriteSheet ? getSpriteLowerY() : 0;
+            int maxY = usingSpriteSheet ? getSpriteUpperY() : texture
+                    .getHeight();
+
+            int i = minX;
+            while ((!pixelTouch) && (i < maxX)) {
+                int j = minY;
+
+                while ((!pixelTouch) && (j < maxY)) {
                     int myColor = ((texture.getRGB(i, j) >> 24) & 0xff);
 
                     if (myColor > 0) {
+                        collidePoint.set(indexToCameraPosition(i - minX, j
+                                - minY, myXDir, myYDir));
                         Vector2 otherIndex = otherPrim.cameraPositionToIndex(
                                 collidePoint, otherXDir, otherYDir);
                         int xMin = (int) otherIndex.getX();
