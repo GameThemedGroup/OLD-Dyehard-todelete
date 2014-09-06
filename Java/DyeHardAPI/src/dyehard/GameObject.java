@@ -1,9 +1,8 @@
 package dyehard;
 
-import Engine.Rectangle;
 import dyehard.UpdateManager.Updateable;
 
-public class GameObject extends Rectangle implements Updateable {
+public class GameObject extends DyehardRectangle implements Updateable {
 
     protected ManagerState updateState;
 
