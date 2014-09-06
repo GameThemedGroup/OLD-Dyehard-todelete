@@ -39,14 +39,14 @@ public class EnemyManager extends UpdateObject {
     public void update() {
         // generate new enemy
         if (timer.isDone()) {
-            // generateEnemy();
+            generateEnemy();
         }
     }
 
     public static void generateEnemy() {
         // TODO: Replace magic numbers
         float randomY = RANDOM.nextInt((int) GameWorld.TOP_EDGE - 8) + 5;
-        Vector2 position = new Vector2(GameWorld.RIGHT_EDGE - 15, randomY);
+        Vector2 position = new Vector2(GameWorld.RIGHT_EDGE + 5, randomY);
         switch (RANDOM.nextInt(3)) {
         case 1:
             enemies.add(new PortalEnemy(position, 10f, hero));
