@@ -23,19 +23,19 @@ public class SpreadFireWeapon extends Weapon {
     @Override
     public void fire() {
         if (timer.isDone()) {
-            Bullet bullet = new Bullet();
+            Bullet bullet = new Bullet(hero);
             bullet.center = new Vector2(hero.center);
             bullet.size.set(bulletSize, bulletSize);
             bullet.velocity = new Vector2(bulletSpeed, bulletSpeed / 2);
             bullet.color = hero.getColor();
 
-            bullet = new Bullet();
+            bullet = new Bullet(hero);
             bullet.center = new Vector2(hero.center);
             bullet.size.set(bulletSize, bulletSize);
             bullet.velocity = new Vector2(bulletSpeed, -bulletSpeed / 2);
             bullet.color = hero.getColor();
 
-            bullet = new Bullet();
+            bullet = new Bullet(hero);
             bullet.center = new Vector2(hero.center);
             bullet.size.set(bulletSize, bulletSize);
             bullet.velocity = new Vector2(bulletSpeed, 0f);

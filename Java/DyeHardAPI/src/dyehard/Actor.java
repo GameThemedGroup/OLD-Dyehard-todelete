@@ -46,7 +46,7 @@ public class Actor extends Collidable {
     }
 
     public void kill(Primitive who) {
-        alive = false;
+        destroy();
     }
 
     @Override

@@ -1,10 +1,9 @@
 package dyehard;
 
-import Engine.Rectangle;
 import dyehard.UpdateManager.Updateable;
 
-public class GameObject extends Rectangle implements Updateable {
-    protected boolean isAlive = true;
+public class GameObject extends DyehardRectangle implements Updateable {
+    protected boolean isUpdating = true;
 
     public GameObject() {
         UpdateManager.register(this);
@@ -12,12 +11,12 @@ public class GameObject extends Rectangle implements Updateable {
 
     @Override
     public boolean isActive() {
-        return isAlive;
+        return isUpdating;
     }
 
     @Override
     public void destroy() {
         super.destroy();
-        isAlive = false;
+        isUpdating = false;
     }
 }

@@ -1,7 +1,7 @@
 package dyehard.Util;
 
-import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.DyehardRectangle;
 
 public class Collision {
 
@@ -20,7 +20,8 @@ public class Collision {
      *            The shortest distance to move A to avoid overlapping with B
      * @return
      */
-    public static boolean isOverlap(Rectangle a, Rectangle b, Vector2 out) {
+    public static boolean isOverlap(DyehardRectangle a, DyehardRectangle b,
+            Vector2 out) {
         // if the overlap test fails, there is no collision
         if (!a.collided(b)) {
             out = new Vector2(0, 0);

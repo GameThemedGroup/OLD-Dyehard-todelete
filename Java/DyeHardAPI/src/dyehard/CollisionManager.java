@@ -76,8 +76,7 @@ public class CollisionManager {
     private static void removeInactiveObjects(Set<Collidable> set) {
         Set<Collidable> destroyed = new HashSet<Collidable>();
         for (Collidable o : set) {
-            if (o.isActive() == false) {
-                o.destroy();
+            if (o.isColliding() == false) {
                 destroyed.add(o);
             }
         }

@@ -17,7 +17,7 @@ public class GameWorld implements Updateable {
     public static final float RIGHT_EDGE = BaseCode.world.getWidth();
     public static final float TOP_EDGE = BaseCode.world.getHeight();
     public static final float BOTTOM_EDGE = BaseCode.world.getWorldPositionY();
-    public static float Speed = 0.3f;
+    public static float Speed = 0f;// 0.3f;
     float distance = 0f;
     private Hero hero;
     private LinkedList<GameWorldRegion> gameRegions;

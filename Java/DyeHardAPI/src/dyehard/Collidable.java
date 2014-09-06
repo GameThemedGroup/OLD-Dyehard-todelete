@@ -3,7 +3,10 @@ package dyehard;
 import Engine.World.BoundCollidedStatus;
 
 public abstract class Collidable extends GameObject {
+    protected boolean isColliding;
+
     public Collidable() {
+        isColliding = true;
         CollisionManager.registerCollidable(this);
     }
 
@@ -15,6 +18,16 @@ public abstract class Collidable extends GameObject {
         if (!isInsideWorld(this)) {
             destroy();
         }
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        isColliding = false;
+    }
+
+    public boolean isColliding() {
+        return isColliding;
     }
 
     private static boolean isInsideWorld(Collidable o) {
