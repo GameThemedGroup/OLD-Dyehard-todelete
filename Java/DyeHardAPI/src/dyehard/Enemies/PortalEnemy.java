@@ -5,11 +5,10 @@ import dyehard.Player.Hero;
 import dyehard.Util.Timer;
 
 public class PortalEnemy extends Enemy {
-    private static float widthToHeightRatio = 1f;
     private Timer timer;
 
     public PortalEnemy(Vector2 center, float height, Hero currentHero) {
-        super(center, height * widthToHeightRatio, height, currentHero,
+        super(center, height, height, currentHero,
                 "Textures/Enemies/minion_portal.png");
         timer = new Timer(2000f);
     }
