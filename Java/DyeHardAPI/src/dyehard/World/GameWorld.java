@@ -21,6 +21,7 @@ public class GameWorld implements Updateable {
     public static final float BOTTOM_EDGE = BaseCode.world.getWorldPositionY();
     public static final float MAP_LENGTH = Configuration.worldMapLength;
     public static float Speed = Configuration.worldGameSpeed;
+    
     float distance = 0f;
     private Hero hero;
     private LinkedList<GameWorldRegion> gameRegions;
