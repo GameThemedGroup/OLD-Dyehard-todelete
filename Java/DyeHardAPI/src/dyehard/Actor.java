@@ -40,13 +40,8 @@ public class Actor extends Collidable {
         // position.Label = label;
     }
 
-    @Override
-    public boolean isActive() {
-        return alive;
-    }
-
     public void kill(Primitive who) {
-        alive = false;
+        destroy();
     }
 
     @Override

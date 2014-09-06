@@ -3,6 +3,7 @@ package dyehard.World;
 import java.util.LinkedList;
 
 import Engine.BaseCode;
+import dyehard.ManagerState;
 import dyehard.UpdateManager;
 import dyehard.UpdateManager.Updateable;
 import dyehard.Background.Background;
@@ -60,7 +61,7 @@ public class GameWorld implements Updateable {
             return false;
         }
 
-        return !hero.isActive();
+        return GameState.RemainingLives <= 0;
     }
 
     @Override
@@ -78,9 +79,8 @@ public class GameWorld implements Updateable {
     }
 
     @Override
-    public boolean isActive() {
-        // GameWorld is always active
-        return true;
+    public ManagerState updateState() {
+        return ManagerState.ACTIVE;
     }
 
     private void updateSequence() {

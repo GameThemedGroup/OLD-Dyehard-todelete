@@ -10,6 +10,7 @@ import Engine.Vector2;
 import dyehard.DHR;
 import dyehard.DHR.ImageID;
 import dyehard.DyehardDistanceMeter;
+import dyehard.ManagerState;
 import dyehard.UpdateObject;
 import dyehard.Player.Hero;
 import dyehard.World.GameState;
@@ -56,8 +57,8 @@ public class DyehardUI extends UpdateObject {
     }
 
     @Override
-    public boolean isActive() {
-        return true;
+    public ManagerState updateState() {
+        return ManagerState.ACTIVE;
     }
 
     @Override

@@ -7,7 +7,7 @@ public class UpdateManager {
     public interface Updateable {
         public void update();
 
-        public boolean isActive();
+        public ManagerState updateState();
     }
 
     static Set<Updateable> gameObjects = new HashSet<Updateable>();
@@ -15,7 +15,7 @@ public class UpdateManager {
 
     public static void update() {
         for (Updateable o : gameObjects) {
-            if (o != null && o.isActive()) {
+            if (o != null && o.updateState() == ManagerState.ACTIVE) {
                 o.update();
             }
         }
@@ -25,7 +25,7 @@ public class UpdateManager {
 
         Set<Updateable> destroyed = new HashSet<Updateable>();
         for (Updateable o : gameObjects) {
-            if (o == null || o.isActive() == false) {
+            if (o == null || o.updateState() == ManagerState.DESTROYED) {
                 destroyed.add(o);
             }
         }
