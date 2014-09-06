@@ -218,6 +218,12 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     }
 
     public void collect(PowerUp powerup) {
+        // Only one powerup can be active at a time
+        for (PowerUp p : powerups) {
+            p.unapply(this);
+        }
+        powerups.clear();
+
         powerups.add(powerup);
         powerup.activate(this);
         collectedPowerups += 1;
