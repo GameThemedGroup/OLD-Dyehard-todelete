@@ -222,6 +222,20 @@ public class DHR {
         return rect;
     }
 
+    // TODO fix this huge function
+    public static DyehardRectangle getScaledAnimation(Vector2 screenSize,
+            Vector2 frameSize, int numFrames, int tpf, String texturePath) {
+        DyehardRectangle rect = new DyehardRectangle();
+        rect.texture = BaseCode.resources.loadImage(texturePath);
+        rect.size = scaleToGameWorld(screenSize, frameSize);
+        rect.setUsingSpriteSheet(true);
+
+        int width = (int) frameSize.getX();
+        int height = (int) frameSize.getY();
+        rect.setSpriteSheet(rect.texture, width, height, numFrames, tpf);
+        return rect;
+    }
+
     /**
      * Converts an images pixel size to game world size Eg. An image with a
      * width of 1920 on a screen size of 1920 will have a width equal to 100% of

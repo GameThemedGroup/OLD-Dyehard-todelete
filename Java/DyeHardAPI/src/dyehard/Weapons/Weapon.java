@@ -8,10 +8,11 @@ import dyehard.GameObject;
 import dyehard.ManagerState;
 import dyehard.UpdateManager.Updateable;
 import dyehard.Enemies.Enemy;
+import dyehard.Player.DyeMeter.Progressable;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
 
-public class Weapon extends GameObject implements Updateable {
+public class Weapon extends GameObject implements Updateable, Progressable {
     protected static float bulletSpeed = 1f;
     // Was 0.75f, but it was a radius and we are not
     // working with circles
@@ -54,5 +55,15 @@ public class Weapon extends GameObject implements Updateable {
     @Override
     public String toString() {
         return "Default";
+    }
+
+    @Override
+    public int currentValue() {
+        return 1;
+    }
+
+    @Override
+    public int totalValue() {
+        return 1;
     }
 }

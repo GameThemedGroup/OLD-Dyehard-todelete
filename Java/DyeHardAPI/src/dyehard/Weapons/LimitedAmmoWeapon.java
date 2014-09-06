@@ -5,10 +5,11 @@ import dyehard.Player.Hero;
 public class LimitedAmmoWeapon extends Weapon {
     private int reloadAmount = 10;
     public int ammo;
+    public int totalAmmo = 10;
 
     public LimitedAmmoWeapon(Hero hero) {
         super(hero);
-        ammo = 10;
+        ammo = totalAmmo;
     }
 
     public void recharge() {
@@ -26,6 +27,16 @@ public class LimitedAmmoWeapon extends Weapon {
             super.fire();
             ammo--;
         }
+    }
+
+    @Override
+    public int currentValue() {
+        return ammo;
+    }
+
+    @Override
+    public int totalValue() {
+        return totalAmmo;
     }
 
     @Override

@@ -164,6 +164,17 @@ public class DyehardRectangle extends Primitive {
 
     }
 
+    public int getNumFrames() {
+        return totalFrames;
+    }
+
+    public void setFrameNumber(int frameNumber) {
+        currentFrame = frameNumber;
+        // currentFrame = Math.clamp(currentFrame, 0, totalFrames - 1)
+        currentFrame = Math.min(currentFrame, totalFrames - 1);
+        currentFrame = Math.max(currentFrame, 0);
+    }
+
     // Helper getters for drawing a portion of an image(the spritesheet)
     private int getSpriteUpperX() {
         return frameCoords[currentFrame][0];
