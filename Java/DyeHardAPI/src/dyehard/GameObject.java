@@ -4,20 +4,22 @@ import Engine.Rectangle;
 import dyehard.UpdateManager.Updateable;
 
 public class GameObject extends Rectangle implements Updateable {
-    protected boolean isAlive = true;
+
+    protected ManagerState updateState;
 
     public GameObject() {
+        updateState = ManagerState.ACTIVE;
         UpdateManager.register(this);
     }
 
     @Override
-    public boolean isActive() {
-        return isAlive;
+    public ManagerState updateState() {
+        return updateState;
     }
 
     @Override
     public void destroy() {
         super.destroy();
-        isAlive = false;
+        updateState = ManagerState.DESTROYED;
     }
 }

@@ -10,7 +10,7 @@ import Engine.Text;
 import Engine.Vector2;
 import dyehard.DyehardKeyboard;
 import dyehard.UpdateManager;
-import dyehard.UpdateManager.Updateable;
+import dyehard.UpdateObject;
 import dyehard.Collectibles.Ghost;
 import dyehard.Collectibles.Gravity;
 import dyehard.Collectibles.Invincibility;
@@ -26,7 +26,7 @@ import dyehard.Player.Hero;
 import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.World.GameWorld;
 
-public class DeveloperControls implements Updateable {
+public class DeveloperControls extends UpdateObject {
     private Hero hero;
 
     Text weaponText;
@@ -35,6 +35,7 @@ public class DeveloperControls implements Updateable {
     private HashMap<Integer, PowerUp> generationHotkeys;
 
     public DeveloperControls(Hero hero) {
+        super();
         this.hero = hero;
 
         generationHotkeys = new HashMap<Integer, PowerUp>();
@@ -127,10 +128,5 @@ public class DeveloperControls implements Updateable {
 
         PowerUp p = powerUp.clone();
         p.initialize(position);
-    }
-
-    @Override
-    public boolean isActive() {
-        return true;
     }
 }

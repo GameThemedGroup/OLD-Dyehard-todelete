@@ -3,8 +3,15 @@ package dyehard;
 import Engine.World.BoundCollidedStatus;
 
 public abstract class Collidable extends GameObject {
+    protected ManagerState collidableState;
+
     public Collidable() {
+        collidableState = ManagerState.ACTIVE;
         CollisionManager.registerCollidable(this);
+    }
+
+    public ManagerState collideState() {
+        return collidableState;
     }
 
     public abstract void handleCollision(Collidable other);
@@ -27,5 +34,11 @@ public abstract class Collidable extends GameObject {
         }
 
         return true;
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        collidableState = ManagerState.DESTROYED;
     }
 }

@@ -47,6 +47,10 @@ public class CollisionManager {
     public static void update() {
         for (Collidable actor : actors) {
             for (Collidable obj : collidables) {
+                if (actor.collideState() != ManagerState.ACTIVE
+                        || obj.collideState() != ManagerState.ACTIVE)
+                    continue;
+
                 if (actor != obj && actor.collided(obj)) {
                     actor.handleCollision(obj);
                     obj.handleCollision(actor);
@@ -76,8 +80,7 @@ public class CollisionManager {
     private static void removeInactiveObjects(Set<Collidable> set) {
         Set<Collidable> destroyed = new HashSet<Collidable>();
         for (Collidable o : set) {
-            if (o.isActive() == false) {
-                o.destroy();
+            if (o == null || o.collideState() == ManagerState.DESTROYED) {
                 destroyed.add(o);
             }
         }

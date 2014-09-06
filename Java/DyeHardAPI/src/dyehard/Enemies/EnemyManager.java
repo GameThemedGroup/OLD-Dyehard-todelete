@@ -7,12 +7,12 @@ import java.util.Random;
 import Engine.Vector2;
 import dyehard.Configuration;
 import dyehard.UpdateManager;
-import dyehard.UpdateManager.Updateable;
+import dyehard.UpdateObject;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
 import dyehard.World.GameWorld;
 
-public class EnemyManager implements Updateable {
+public class EnemyManager extends UpdateObject {
     // This time is in milliseconds
     private static final float enemyFrequency = Configuration.worldEnemyFrequency * 1000f;
     private static Hero hero;
@@ -65,11 +65,5 @@ public class EnemyManager implements Updateable {
 
     public static List<Enemy> getEnemies() {
         return enemies;
-    }
-
-    @Override
-    public boolean isActive() {
-        // The enemy manager is always active
-        return true;
     }
 }

@@ -49,11 +49,6 @@ public class Background extends UpdateObject {
     }
 
     @Override
-    public boolean isActive() {
-        return true;
-    }
-
-    @Override
     public void update() {
         updateTileQueue(ship);
         updateTileQueue(background);

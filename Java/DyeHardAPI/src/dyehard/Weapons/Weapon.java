@@ -8,6 +8,7 @@ import java.util.Queue;
 import Engine.Vector2;
 import dyehard.Collidable;
 import dyehard.GameObject;
+import dyehard.ManagerState;
 import dyehard.UpdateManager.Updateable;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
@@ -53,8 +54,8 @@ public class Weapon extends GameObject implements Updateable {
     }
 
     @Override
-    public boolean isActive() {
-        return hero.isActive();
+    public ManagerState updateState() {
+        return hero.updateState();
     }
 
     public class Bullet extends Collidable {

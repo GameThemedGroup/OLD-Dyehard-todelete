@@ -9,7 +9,9 @@ public abstract class UpdateObject implements Updateable {
     }
 
     @Override
-    public abstract boolean isActive();
+    public ManagerState updateState() {
+        return ManagerState.ACTIVE;
+    }
 
     @Override
     public abstract void update();
