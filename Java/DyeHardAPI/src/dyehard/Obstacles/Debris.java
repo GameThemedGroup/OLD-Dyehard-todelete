@@ -19,7 +19,9 @@ public class Debris extends Obstacle {
 
         center.set(new Vector2(randomX, randomY));
         size.set(width, height);
-        velocity = new Vector2(-GameWorld.Speed, 0f);
+
+        float speed = GameWorld.Speed;
+        velocity = new Vector2(-(RANDOM.nextFloat() * speed + speed / 4f), 0f);
         shouldTravel = true;
 
         initializeRandomTexture();
