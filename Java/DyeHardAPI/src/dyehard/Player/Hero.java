@@ -153,7 +153,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public void moveUp() {
         // Upward speed needs to counter the effects of gravity
         totalThrust
-        .add(new Vector2(0f, defaultJetSpeed - currentGravity.getY()));
+                .add(new Vector2(0f, defaultJetSpeed - currentGravity.getY()));
     }
 
     public void moveDown() {
@@ -218,6 +218,12 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     }
 
     public void collect(PowerUp powerup) {
+        // Only one powerup can be active at a time
+        for (PowerUp p : powerups) {
+            p.unapply(this);
+        }
+        powerups.clear();
+
         powerups.add(powerup);
         powerup.activate(this);
         collectedPowerups += 1;
