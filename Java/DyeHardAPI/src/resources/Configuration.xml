@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<enemies>
+    <enemy type="Portal">
+        <width>10</width>
+        <height>10</height>
+        <sleepTimer>3000</sleepTimer>
+        <speed>0.3</speed>
+    </enemy>
+    <enemy type="Shooting">
+        <width>10</width>
+        <height>10</height>
+        <sleepTimer>3000</sleepTimer>
+        <speed>0.3</speed>
+    </enemy>
+    <enemy type="Collector">
+        <width>10</width>
+        <height>10</height>
+        <sleepTimer>3000</sleepTimer>
+        <speed>0.3</speed>
+    </enemy>
+</enemies>
