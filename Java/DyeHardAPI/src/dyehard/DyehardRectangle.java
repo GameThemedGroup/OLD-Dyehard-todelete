@@ -241,72 +241,59 @@ public class DyehardRectangle extends Primitive {
 
     // From the C# code "TexturedPrimitivePixelCollide.cs"
     public boolean pixelTouches(DyehardRectangle otherPrim, Vector2 collidePoint) {
-        if (texture == null || otherPrim.texture == null) {
+        if (texture == null || otherPrim.texture == null)
             return false;
+
+        if (!primitivesTouches(otherPrim))
+            return false;
+
+        Vector2 myXDir = Vector2.rotateVectorByAngle(Vector2.unitX,
+                (float) Math.toRadians(rotate));
+        Vector2 myYDir = Vector2.rotateVectorByAngle(Vector2.unitY,
+                (float) Math.toRadians(rotate));
+
+        Vector2 otherXDir = Vector2.rotateVectorByAngle(Vector2.unitX,
+                (float) Math.toRadians(otherPrim.rotate));
+        Vector2 otherYDir = Vector2.rotateVectorByAngle(Vector2.unitY,
+                (float) Math.toRadians(otherPrim.rotate));
+
+        if (collidePoint == null) {
+            collidePoint = new Vector2();
         }
 
-        boolean touches = primitivesTouches(otherPrim);
-        // collidePoint.set(center);
+        int minX = usingSpriteSheet ? getSpriteLowerX() : 0;
+        int maxX = usingSpriteSheet ? getSpriteUpperX() : texture.getWidth();
 
-        if (touches) {
-            boolean pixelTouch = false;
+        int minY = usingSpriteSheet ? getSpriteLowerY() : 0;
+        int maxY = usingSpriteSheet ? getSpriteUpperY() : texture.getHeight();
 
-            Vector2 myXDir = Vector2.rotateVectorByAngle(Vector2.unitX,
-                    (float) Math.toRadians(rotate));
-            Vector2 myYDir = Vector2.rotateVectorByAngle(Vector2.unitY,
-                    (float) Math.toRadians(rotate));
+        for (int x = minX; x < maxX; ++x) {
+            for (int y = minY; y < maxY; ++y) {
+                int myColor = ((texture.getRGB(x, y) >> 24) & 0xff);
 
-            Vector2 otherXDir = Vector2.rotateVectorByAngle(Vector2.unitX,
-                    (float) Math.toRadians(otherPrim.rotate));
-            Vector2 otherYDir = Vector2.rotateVectorByAngle(Vector2.unitY,
-                    (float) Math.toRadians(otherPrim.rotate));
+                // Skip transparent pixels
+                if (myColor <= 0)
+                    continue;
 
-            if (collidePoint == null) {
-                collidePoint = new Vector2();
+                collidePoint.set(indexToCameraPosition(x - minX, y - minY,
+                        myXDir, myYDir));
+                Vector2 otherIndex = otherPrim.cameraPositionToIndex(
+                        collidePoint, otherXDir, otherYDir);
+                int xMin = (int) otherIndex.getX();
+                int yMin = (int) otherIndex.getY();
+
+                // TODO add check for otherPrim spriteSheet width/height
+                if (xMin < 0 || xMin >= otherPrim.texture.getWidth()
+                        || yMin < 0 || yMin >= otherPrim.texture.getHeight())
+                    continue;
+
+                // overlap found!
+                if (((otherPrim.texture.getRGB(xMin, yMin) >> 24) & 0xff) > 0)
+                    return true;
             }
-
-            int minX = usingSpriteSheet ? getSpriteLowerX() : 0;
-            int maxX = usingSpriteSheet ? getSpriteUpperX() : texture
-                    .getWidth();
-
-            int minY = usingSpriteSheet ? getSpriteLowerY() : 0;
-            int maxY = usingSpriteSheet ? getSpriteUpperY() : texture
-                    .getHeight();
-
-            int i = minX;
-            while ((!pixelTouch) && (i < maxX)) {
-                int j = minY;
-
-                while ((!pixelTouch) && (j < maxY)) {
-                    int myColor = ((texture.getRGB(i, j) >> 24) & 0xff);
-
-                    if (myColor > 0) {
-                        collidePoint.set(indexToCameraPosition(i - minX, j
-                                - minY, myXDir, myYDir));
-                        Vector2 otherIndex = otherPrim.cameraPositionToIndex(
-                                collidePoint, otherXDir, otherYDir);
-                        int xMin = (int) otherIndex.getX();
-                        int yMin = (int) otherIndex.getY();
-
-                        if ((xMin >= 0)
-                                && (xMin < otherPrim.texture.getWidth())
-                                && (yMin >= 0)
-                                && (yMin < otherPrim.texture.getHeight())) {
-                            pixelTouch = (((otherPrim.texture
-                                    .getRGB(xMin, yMin) >> 24) & 0xff) > 0);
-                        }
-                    }
-
-                    j++;
-                }
-
-                i++;
-            }
-
-            touches = pixelTouch;
         }
 
-        return touches;
+        return false;
     }
 
     private Vector2 indexToCameraPosition(int i, int j, Vector2 xDir,
