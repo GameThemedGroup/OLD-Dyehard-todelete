@@ -31,6 +31,16 @@ public class LimitedAmmoWeapon extends Weapon {
     }
 
     @Override
+    public int currentValue() {
+        return currentAmmo;
+    }
+
+    @Override
+    public int totalValue() {
+        return totalAmmo;
+    }
+
+    @Override
     public String toString() {
         return "Limited Ammo " + currentAmmo + "/" + maxAmmo;
     }

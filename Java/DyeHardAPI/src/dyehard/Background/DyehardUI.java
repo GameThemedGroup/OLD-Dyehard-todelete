@@ -12,6 +12,7 @@ import dyehard.DHR.ImageID;
 import dyehard.DyehardDistanceMeter;
 import dyehard.ManagerState;
 import dyehard.UpdateObject;
+import dyehard.Player.DyeMeter;
 import dyehard.Player.Hero;
 import dyehard.World.GameState;
 import dyehard.World.GameWorld;
@@ -50,6 +51,8 @@ public class DyehardUI extends UpdateObject {
         scoreText.setBackColor(Color.black);
         scoreText.setFontSize(18);
         scoreText.setFontName("Arial");
+
+        new DyeMeter(hero);
     }
 
     protected float fromTop(Rectangle image, float padding) {
