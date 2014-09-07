@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Hero>
+    <Hero id="Dye">
+        <width>6</width>
+        <height>9</height>
+        <jetSpeed>2.5</jetSpeed>
+        <speedLimit>50</speedLimit>
+        <drag>0.97</drag>
+    </Hero>
+</Hero>
