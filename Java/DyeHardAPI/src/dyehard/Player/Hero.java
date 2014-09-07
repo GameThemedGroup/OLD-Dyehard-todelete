@@ -12,7 +12,7 @@ import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
 import dyehard.Actor;
 import dyehard.Collidable;
-import dyehard.DHR;
+import dyehard.Configuration;
 import dyehard.DyeHard;
 import dyehard.DyehardKeyboard;
 import dyehard.Collectibles.DyePack;
@@ -34,13 +34,12 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public final HeroCollision defaultCollisionHandler = this;
     public final HeroDamage defaultDamageHandler = this;
     public final Weapon defaultWeapon = new Weapon(this);
-    public final float defaultJetSpeed = DHR
-            .getHeroData(DHR.HeroID.HERO_JET_SPEED);
+    public final float defaultJetSpeed = Configuration.heroJetSpeed;
     public final Vector2 defaultGravity = new Vector2(0f, 0f);
     public Vector2 totalThrust = new Vector2();
 
-    private float speedLimitX = DHR.getHeroData(DHR.HeroID.HERO_SPEED_LIMIT);
-    private static float drag = DHR.getHeroData(DHR.HeroID.HERO_DRAG);
+    private float speedLimitX = Configuration.heroSpeedLimit;
+    private static float drag = Configuration.heroDrag;
 
     private int collectedDyepacks;
     private int collectedPowerups;
@@ -58,7 +57,8 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     }
 
     public Hero() {
-        super(new Vector2(20f, 20f), 6f, 9f); // TODO remove magic numbers
+        super(new Vector2(20f, 20f), Configuration.heroWidth,
+                Configuration.heroHeight); // TODO remove magic numbers
 
         color = Colors.randomColor();
         directionState = Direction.NEUTRAL;
@@ -153,7 +153,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public void moveUp() {
         // Upward speed needs to counter the effects of gravity
         totalThrust
-        .add(new Vector2(0f, defaultJetSpeed - currentGravity.getY()));
+                .add(new Vector2(0f, defaultJetSpeed - currentGravity.getY()));
     }
 
     public void moveDown() {
