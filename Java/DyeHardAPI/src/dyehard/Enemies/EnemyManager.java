@@ -39,14 +39,15 @@ public class EnemyManager extends UpdateObject {
     public void update() {
         // generate new enemy
         if (timer.isDone()) {
-            generateEnemy();
+            // generateEnemy();
         }
     }
 
     public static void generateEnemy() {
         // TODO: Replace magic numbers
         float randomY = RANDOM.nextInt((int) GameWorld.TOP_EDGE - 8) + 5;
-        Vector2 position = new Vector2(GameWorld.RIGHT_EDGE + 5, randomY);
+        Vector2 position = new Vector2(GameWorld.RIGHT_EDGE - 25, randomY);
+        // enemies.add(new ShootingEnemy(position, 12f, hero));
         switch (RANDOM.nextInt(3)) {
         case 1:
             enemies.add(new PortalEnemy(position, 10f, hero));
@@ -62,6 +63,12 @@ public class EnemyManager extends UpdateObject {
     }
 
     public static List<Enemy> getEnemies() {
+        for (int i = enemies.size() - 1; i >= 0; --i) {
+            if (enemies.get(i).visible == false) {
+                enemies.remove(i);
+            }
+        }
+
         return enemies;
     }
 }

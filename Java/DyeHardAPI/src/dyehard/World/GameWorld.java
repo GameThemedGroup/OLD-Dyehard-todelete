@@ -27,9 +27,12 @@ public class GameWorld implements Updateable {
         gameRegions = new LinkedList<GameWorldRegion>();
     }
 
+    public static Hero sHero = null;
+
     public void initialize(Hero hero) {
         new EnemyManager(hero);
         this.hero = hero;
+        sHero = hero;
 
         new Background();
         new DyehardUI(hero);
@@ -99,7 +102,7 @@ public class GameWorld implements Updateable {
     protected void generateNewRegion() {
         GameWorldRegion newRegion;
         if (gameRegions.getLast() instanceof Space) {
-            newRegion = new Stargate(hero);
+            newRegion = new Space(hero);
         } else {
             newRegion = new Space(hero);
         }

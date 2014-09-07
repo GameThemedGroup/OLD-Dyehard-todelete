@@ -1,12 +1,15 @@
 package dyehard.Enemies;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.Actor;
 import dyehard.Collidable;
+import dyehard.DyehardKeyboard;
+import dyehard.DyehardRectangle;
 import dyehard.Player.Hero;
 import dyehard.Util.ImageTint;
 import dyehard.Util.Timer;
@@ -26,6 +29,8 @@ public class Enemy extends Actor {
     private float behaviorChangeTime = 3000f;
     private Timer timer;
 
+    public DyehardRectangle shadow;
+
     public Enemy(Vector2 center, float width, float height, Hero hero) {
         super(center, width, height);
         this.hero = hero;
@@ -39,6 +44,14 @@ public class Enemy extends Actor {
         this(center, width, height, hero);
         baseTexture = BaseCode.resources.loadImage(texturePath);
         texture = baseTexture;
+
+        shadow = new DyehardRectangle(this);
+        shadow.center.sub(new Vector2(7f, 7f));
+        shadow.texture = ImageTint.tintedImage(texture, Color.BLACK, 0.75f);
+        shadow.visible = false;
+
+        this.removeFromAutoDrawSet();
+        this.addToAutoDrawSet();
     }
 
     @Override
@@ -57,7 +70,31 @@ public class Enemy extends Actor {
         default:
             break;
         }
+        if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_I)) {
+            center.add(new Vector2(0f, 3f));
+        }
+
+        if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_J)) {
+            center.add(new Vector2(-3f, 0f));
+        }
+
+        if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_K)) {
+            center.add(new Vector2(0f, -3f));
+        }
+
+        if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_L)) {
+            center.add(new Vector2(3f, 0f));
+        }
+
         super.update();
+        shadow.center = this.center.clone();
+        shadow.center.sub(new Vector2(7f, 7f));
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        shadow.destroy();
     }
 
     public void chaseHero() {

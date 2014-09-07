@@ -37,6 +37,30 @@ public class ImageTint {
         return tinted;
     }
 
+    public static BufferedImage generatedShadow(BufferedImage src,
+            BufferedImage bg, int x, int y) {
+        BufferedImage mask = generateMask(src, Color.BLACK, 1f);
+        BufferedImage tinted = tint(src, mask);
+
+        int imgWidth = bg.getWidth();
+        int imgHeight = bg.getHeight();
+
+        BufferedImage shadow = createCompatibleImage(imgWidth, imgHeight,
+                Transparency.TRANSLUCENT);
+        Graphics2D g2 = shadow.createGraphics();
+        applyQualityRenderingHints(g2);
+        g2.drawImage(bg, 0, 0, null);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP,
+                0.75f));
+        g2.setColor(Color.BLACK);
+        // g2.fillRect(0, 0, bg.getWidth(), bg.getHeight());
+        // g2.drawImage(tinted, 0, 0, null);
+        g2.drawImage(tinted, x, y, null);
+        g2.dispose();
+
+        return shadow;
+    }
+
     private static BufferedImage generateMask(BufferedImage imgSource,
             Color color, float alpha) {
         int imgWidth = imgSource.getWidth();

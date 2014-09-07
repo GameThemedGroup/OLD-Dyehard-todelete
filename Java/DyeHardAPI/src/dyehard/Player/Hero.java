@@ -17,11 +17,11 @@ import dyehard.DyeHard;
 import dyehard.DyehardKeyboard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.PowerUp;
+import dyehard.Enemies.Enemy;
 import dyehard.Player.HeroInterfaces.HeroCollision;
 import dyehard.Player.HeroInterfaces.HeroDamage;
 import dyehard.Util.Colors;
 import dyehard.Weapons.Weapon;
-import dyehard.World.GameState;
 
 public class Hero extends Actor implements HeroCollision, HeroDamage {
     public HeroCollision collisionHandler;
@@ -253,11 +253,13 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     @Override
     public void damageHero(Hero hero, Primitive who) {
-        center.set(20f, 20f);
-        GameState.RemainingLives--;
-        if (GameState.RemainingLives <= 0) {
-            alive = false;
-        }
+        if (who instanceof Enemy)
+            ((Enemy) who).destroy();
+        // center.set(20f, 20f);
+        // GameState.RemainingLives--;
+        // if (GameState.RemainingLives <= 0) {
+        // alive = false;
+        // }
     }
 
     @Override
