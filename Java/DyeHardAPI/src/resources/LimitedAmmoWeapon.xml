@@ -1,1 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<weapon>
+    <limitedAmmoWeapon id="Limited">
+        <firingRate>250</firingRate>
+        <totalAmmo>10</totalAmmo>
+        <reloadAmount>10</reloadAmount>
+    </limitedAmmoWeapon>
+</weapon>
