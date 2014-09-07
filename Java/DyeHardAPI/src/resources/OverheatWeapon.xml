@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<weapon>
+    <overheatWeapon type="Overheat">
+		<firingRate>250</firingRate>
+	    <cooldownRate>0.05</cooldownRate>
+	    <heatLimit>10</heatLimit>
+	</overheatWeapon>
+</weapon>
