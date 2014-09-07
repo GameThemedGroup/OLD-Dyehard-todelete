@@ -29,8 +29,8 @@ public class UserCode extends DyeHard {
         Space.registerPowerUp(g);
 
         /*
-         * JohnsPowerUp john = new JohnsPowerUp();
-         * john.center.set(50f, 30f); Space.registerPowerUp(john);
+         * JohnsPowerUp john = new JohnsPowerUp(); john.center.set(50f, 30f);
+         * Space.registerPowerUp(john);
          */
 
         Space.numberOfDefaultDyePacks(11);
@@ -54,10 +54,9 @@ public class UserCode extends DyeHard {
     @Override
     protected void update() {
         /*
-         * if (keyboard.isButtonDown(KeyEvent.VK_U)) { JohnsPowerUp
-         * john = new JohnsPowerUp();
-         * john.center.set(hero.center.getX() + 10f, hero.center.getY());
-         * Space.registerPowerUp(john); }
+         * if (keyboard.isButtonDown(KeyEvent.VK_U)) { JohnsPowerUp john = new
+         * JohnsPowerUp(); john.center.set(hero.center.getX() + 10f,
+         * hero.center.getY()); Space.registerPowerUp(john); }
          * 
          * if (keyboard.isButtonDown(KeyEvent.VK_I)) { DyePack p = new
          * DyePack(Colors.Yellow); p.center.set(hero.center.getX() + 10f,
