@@ -23,7 +23,7 @@ public class Weapon extends GameObject implements Updateable {
     protected Queue<GameObject> bullets;
     protected ArrayList<Enemy> enemies;
     // Weapon fires 4 bullets/second, time is in milliseconds
-    protected final float fireRate = 250f;
+    protected float fireRate = 250f;
     protected Timer timer;
 
     public Weapon(Hero hero) {
@@ -83,5 +83,13 @@ public class Weapon extends GameObject implements Updateable {
     @Override
     public String toString() {
         return "Default";
+    }
+
+    public void setFireRate(float rate) {
+        if (rate >= 0) {
+            timer = new Timer(rate);
+        } else {
+            System.err.println("Fire rate cannot be less than 0!");
+        }
     }
 }
