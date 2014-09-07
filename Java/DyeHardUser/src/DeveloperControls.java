@@ -79,7 +79,7 @@ public class DeveloperControls implements Updateable {
 
         if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_R)) {
             if (hero.currentWeapon instanceof LimitedAmmoWeapon) {
-                ((LimitedAmmoWeapon) hero.currentWeapon).recharge();
+                ((LimitedAmmoWeapon) hero.currentWeapon).reload();
             }
         }
     }
