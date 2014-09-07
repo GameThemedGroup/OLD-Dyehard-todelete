@@ -4,10 +4,10 @@ import Engine.Vector2;
 import dyehard.Player.Hero;
 
 public class ShootingEnemy extends Enemy {
-    private static float width;
-    private static float height;
-    private static float behaviorChangeTime;
-    private static float baseSpeed;
+    private static float width = 10f;
+    private static float height = 10f;
+    private static float behaviorChangeTime = 3000f;
+    private static float baseSpeed = 0.3f;
 
     public ShootingEnemy(Vector2 center, float newWidth, float newHeight,
             float changeTime, float newSpeed, Hero currentHero) {

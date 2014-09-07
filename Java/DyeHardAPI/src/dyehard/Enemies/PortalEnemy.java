@@ -6,10 +6,10 @@ import dyehard.Util.Timer;
 
 public class PortalEnemy extends Enemy {
     private Timer timer;
-    private static float width;
-    private static float height;
-    private static float behaviorChangeTime;
-    private static float baseSpeed;
+    private static float width = 10f;
+    private static float height = 10f;
+    private static float behaviorChangeTime = 3000f;
+    private static float baseSpeed = 0.3f;
 
     public PortalEnemy(Vector2 center, float newWidth, float newHeight,
             float changeTime, float newSpeed, Hero currentHero) {
