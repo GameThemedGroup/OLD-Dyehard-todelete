@@ -21,7 +21,7 @@ public class Overload extends PowerUp {
             ((OverHeatWeapon) hero.currentWeapon).currentHeatLevel = 0f;
             ((OverHeatWeapon) hero.currentWeapon).overheated = false;
         } else if (hero.currentWeapon instanceof LimitedAmmoWeapon) {
-            ((LimitedAmmoWeapon) hero.currentWeapon).ammo = 10;
+            ((LimitedAmmoWeapon) hero.currentWeapon).reload();
         }
     }
 
