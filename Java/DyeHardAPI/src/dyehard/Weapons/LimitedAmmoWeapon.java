@@ -3,33 +3,33 @@ package dyehard.Weapons;
 import dyehard.Player.Hero;
 
 public class LimitedAmmoWeapon extends Weapon {
-    private int reloadAmount = 10;
-    public int ammo;
+    private final int reloadAmount = 10;
+    private final int maxAmmo = 10;
+    private int currentAmmo;
 
     public LimitedAmmoWeapon(Hero hero) {
         super(hero);
-        ammo = 10;
+        currentAmmo = maxAmmo;
     }
 
-    public void recharge() {
-        ammo = reloadAmount;
-    }
+    public void reload() {
+        currentAmmo += reloadAmount;
 
-    @Override
-    public void update() {
-        super.update();
+        if (currentAmmo > maxAmmo) {
+            currentAmmo = maxAmmo;
+        }
     }
 
     @Override
     public void fire() {
-        if (timer.isDone() && ammo > 0) {
+        if (timer.isDone() && currentAmmo > 0) {
             super.fire();
-            ammo--;
+            currentAmmo--;
         }
     }
 
     @Override
     public String toString() {
-        return "Limited Ammo " + ammo + "/" + reloadAmount;
+        return "Limited Ammo " + currentAmmo + "/" + maxAmmo;
     }
 }
