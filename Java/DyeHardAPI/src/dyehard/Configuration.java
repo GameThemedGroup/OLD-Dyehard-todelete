@@ -29,12 +29,18 @@ public class Configuration {
     public static float heroSpeedLimit;
     public static float heroDrag;
 
+    // Overheat weapon variables
+    public static float overheatFiringRate;
+    public static float overheatCooldownRate;
+    public static float overheatHeatLimit;
+
     public Configuration() throws Exception {
         factory = DocumentBuilderFactory.newInstance();
         builder = factory.newDocumentBuilder();
 
         parseEnemyData();
         parseHeroData();
+        parseOverheat();
     }
 
     private void parseEnemyData() throws Exception {
@@ -110,6 +116,33 @@ public class Configuration {
 
                 heroDrag = Float.parseFloat(elem.getElementsByTagName("drag")
                         .item(0).getChildNodes().item(0).getNodeValue());
+            }
+        }
+    }
+
+    private void parseOverheat() throws Exception {
+        Document document = builder.parse(ClassLoader
+                .getSystemResourceAsStream("resources/OverheatWeapon.xml"));
+
+        NodeList nodeList = document.getDocumentElement().getChildNodes();
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element elem = (Element) node;
+
+                overheatFiringRate = Float.parseFloat(elem
+                        .getElementsByTagName("firingRate").item(0)
+                        .getChildNodes().item(0).getNodeValue());
+
+                overheatCooldownRate = Float.parseFloat(elem
+                        .getElementsByTagName("cooldownRate").item(0)
+                        .getChildNodes().item(0).getNodeValue());
+
+                overheatHeatLimit = Float.parseFloat(elem
+                        .getElementsByTagName("heatLimit").item(0)
+                        .getChildNodes().item(0).getNodeValue());
             }
         }
     }
