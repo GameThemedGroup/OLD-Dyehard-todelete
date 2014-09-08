@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <world>
     <dyeHard>
-        <enemyFrequency>5000</enemyFrequency>
+        <enemySpawnTimer>5</enemySpawnTimer>
         <powerUpCount>5</powerUpCount>
         <dyePackCount>11</dyePackCount>
         <debrisCount>10</debrisCount>
