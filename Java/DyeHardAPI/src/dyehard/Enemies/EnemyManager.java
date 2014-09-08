@@ -14,7 +14,7 @@ import dyehard.World.GameWorld;
 
 public class EnemyManager implements Updateable {
     // This time is in milliseconds
-    private static final float enemyFrequency = Configuration.worldEnemyFrequency;
+    private static final float enemyFrequency = Configuration.worldEnemyFrequency * 1000f;
     private static Hero hero;
     private static List<Enemy> enemies;
     private static Timer timer;
@@ -59,6 +59,7 @@ public class EnemyManager implements Updateable {
             enemies.add(new ShootingEnemy(position, hero));
             break;
         }
+        enemies.get(enemies.size() - 1).initialize();
         timer.reset();
     }
 

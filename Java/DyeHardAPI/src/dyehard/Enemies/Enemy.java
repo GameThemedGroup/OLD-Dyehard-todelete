@@ -17,6 +17,9 @@ public class Enemy extends Actor {
     protected Hero hero;
     protected EnemyState enemyState;
     protected BufferedImage baseTexture;
+    protected float width;
+    protected float height;
+    protected float sleepTimer;
 
     // This time is in milliseconds
     private Timer timer;
@@ -25,15 +28,17 @@ public class Enemy extends Actor {
         BEGIN, CHASEHERO, PLAYING, DEAD
     };
 
-    public Enemy(Vector2 center, float width, float height,
-            float behaviorChangeTime, float baseSpeed, Hero hero,
+    public Enemy(Vector2 center, float width, float height, Hero hero,
             String texturePath) {
         super(center, width, height);
-        timer = new Timer(behaviorChangeTime);
-        speed = baseSpeed;
         this.hero = hero;
         baseTexture = BaseCode.resources.loadImage(texturePath);
         texture = baseTexture;
+    }
+
+    public void initialize() {
+        timer = new Timer(sleepTimer);
+        size.set(width, height);
         enemyState = EnemyState.BEGIN;
     }
 
