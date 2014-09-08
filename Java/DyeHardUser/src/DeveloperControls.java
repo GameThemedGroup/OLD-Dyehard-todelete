@@ -124,10 +124,9 @@ public class DeveloperControls implements Updateable {
 
     private void generateCollectible(PowerUp powerUp) {
         Vector2 position = new Vector2(60f, 35f);
-        Vector2 velocity = new Vector2(-GameWorld.Speed, 0f);
 
         PowerUp p = powerUp.clone();
-        p.initialize(position, velocity);
+        p.initialize(position);
     }
 
     @Override

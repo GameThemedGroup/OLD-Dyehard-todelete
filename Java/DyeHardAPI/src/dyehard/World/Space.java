@@ -106,8 +106,6 @@ public class Space extends GameWorldRegion {
         float regionWidth = width / powerups.size();
         float regionStart = leftEdge();
         float regionHeight = GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE;
-
-        Vector2 velocity = new Vector2(-GameWorld.Speed, 0f);
         float posX, posY;
 
         for (int i = 0; i < powerups.size(); i++) {
@@ -119,7 +117,7 @@ public class Space extends GameWorldRegion {
 
             Vector2 position = new Vector2(posX, posY);
 
-            powerups.get(i).initialize(position, velocity);
+            powerups.get(i).initialize(position);
         }
 
         for (int i = 0; i < userPowerUps.size(); i++) {
@@ -128,7 +126,7 @@ public class Space extends GameWorldRegion {
 
             PowerUp p = userPowerUps.get(i).clone();
 
-            p.initialize(pos, velocity);
+            p.initialize(pos);
         }
     }
 
@@ -139,8 +137,6 @@ public class Space extends GameWorldRegion {
         float regionWidth = width / dyeList.size();
         float regionStart = leftEdge();
         float regionHeight = GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE;
-
-        Vector2 velocity = new Vector2(-GameWorld.Speed, 0f);
 
         float posX, posY;
 
@@ -153,7 +149,7 @@ public class Space extends GameWorldRegion {
 
             Vector2 position = new Vector2(posX, posY);
 
-            dyes.get(i).initialize(position, velocity);
+            dyes.get(i).initialize(position);
         }
 
         for (int i = 0; i < userDyePacks.size(); i++) {
@@ -162,7 +158,7 @@ public class Space extends GameWorldRegion {
 
             DyePack d = new DyePack(userDyePacks.get(i).color);
 
-            d.initialize(pos, velocity);
+            d.initialize(pos);
         }
     }
 
@@ -191,8 +187,7 @@ public class Space extends GameWorldRegion {
         userPowerUps.add(userPowerUp);
 
         // Immediately places the user's power up
-        userPowerUp.clone().initialize(p.center.clone(),
-                new Vector2(-GameWorld.Speed, 0f));
+        userPowerUp.clone().initialize(p.center.clone());
     }
 
     public static void numberOfDefaultDyePacks(int count) {
@@ -212,8 +207,7 @@ public class Space extends GameWorldRegion {
         DyePack initialPack = new DyePack(d.color);
 
         // Immediately places the user's dye pack
-        initialPack.initialize(d.center.clone(), new Vector2(-GameWorld.Speed,
-                0f));
+        initialPack.initialize(d.center.clone());
     }
 
     public static void numberOfDefaultDebris(int count) {
