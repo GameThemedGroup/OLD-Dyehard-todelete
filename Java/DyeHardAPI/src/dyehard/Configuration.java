@@ -72,10 +72,11 @@ public class Configuration {
         public float height;
         public float sleepTimer;
         public float speed;
+        public NodeList uniqueAttributes;
     }
 
     public enum EnemyType {
-        EN_PORTAL, EN_SHOOTING, EN_COLLECTOR
+        EN_PORTAL, EN_PORTALSPAWN, EN_SHOOTING, EN_COLLECTOR
     }
 
     private static Map<EnemyType, EnemyData> enemies = new HashMap<EnemyType, EnemyData>();
@@ -94,20 +95,32 @@ public class Configuration {
     }
 
     private float parseFloat(Element elem, String tag) {
-        return Float.parseFloat(elem.getElementsByTagName(tag).item(0)
-                .getChildNodes().item(0).getNodeValue());
+        if (elem.getElementsByTagName(tag).item(0) != null) {
+            return Float.parseFloat(elem.getElementsByTagName(tag).item(0)
+                    .getChildNodes().item(0).getNodeValue());
+        }
+
+        return 0;
     }
 
     private int parseInt(Element elem, String tag) {
-        return Integer.parseInt(elem.getElementsByTagName(tag).item(0)
-                .getChildNodes().item(0).getNodeValue());
+        if (elem.getElementsByTagName(tag).item(0) != null) {
+            return Integer.parseInt(elem.getElementsByTagName(tag).item(0)
+                    .getChildNodes().item(0).getNodeValue());
+        }
+
+        return 0;
+    }
+
+    private NodeList createNodeList(String file) throws Exception {
+        Document document = builder.parse(ClassLoader
+                .getSystemResourceAsStream("resources/" + file + ".xml"));
+
+        return document.getDocumentElement().getChildNodes();
     }
 
     private void parseEnemyData() throws Exception {
-        Document document = builder.parse(ClassLoader
-                .getSystemResourceAsStream("resources/Enemies.xml"));
-
-        NodeList nodeList = document.getDocumentElement().getChildNodes();
+        NodeList nodeList = createNodeList("Enemies");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
@@ -123,6 +136,8 @@ public class Configuration {
                 value.height = parseFloat(elem, "height");
                 value.sleepTimer = parseFloat(elem, "sleepTimer");
                 value.speed = parseFloat(elem, "speed");
+                value.uniqueAttributes = elem
+                        .getElementsByTagName("uniqueAttributes");
 
                 enemies.put(type, value);
             }
@@ -134,10 +149,7 @@ public class Configuration {
     }
 
     private void parseHeroData() throws Exception {
-        Document document = builder.parse(ClassLoader
-                .getSystemResourceAsStream("resources/Hero.xml"));
-
-        NodeList nodeList = document.getDocumentElement().getChildNodes();
+        NodeList nodeList = createNodeList("Hero");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
@@ -155,10 +167,7 @@ public class Configuration {
     }
 
     private void parseOverheatData() throws Exception {
-        Document document = builder.parse(ClassLoader
-                .getSystemResourceAsStream("resources/OverheatWeapon.xml"));
-
-        NodeList nodeList = document.getDocumentElement().getChildNodes();
+        NodeList nodeList = createNodeList("OverheatWeapon");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
@@ -174,10 +183,7 @@ public class Configuration {
     }
 
     private void parseLimitedAmmoData() throws Exception {
-        Document document = builder.parse(ClassLoader
-                .getSystemResourceAsStream("resources/LimitedAmmoWeapon.xml"));
-
-        NodeList nodeList = document.getDocumentElement().getChildNodes();
+        NodeList nodeList = createNodeList("LimitedAmmoWeapon");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
@@ -193,10 +199,7 @@ public class Configuration {
     }
 
     private void parseWorldData() throws Exception {
-        Document document = builder.parse(ClassLoader
-                .getSystemResourceAsStream("resources/World.xml"));
-
-        NodeList nodeList = document.getDocumentElement().getChildNodes();
+        NodeList nodeList = createNodeList("World");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
@@ -215,10 +218,7 @@ public class Configuration {
     }
 
     private void parseDyePackData() throws Exception {
-        Document document = builder.parse(ClassLoader
-                .getSystemResourceAsStream("resources/DyePacks.xml"));
-
-        NodeList nodeList = document.getDocumentElement().getChildNodes();
+        NodeList nodeList = createNodeList("DyePacks");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
@@ -234,10 +234,7 @@ public class Configuration {
     }
 
     private void parsePowerUpData() throws Exception {
-        Document document = builder.parse(ClassLoader
-                .getSystemResourceAsStream("resources/PowerUps.xml"));
-
-        NodeList nodeList = document.getDocumentElement().getChildNodes();
+        NodeList nodeList = createNodeList("PowerUps");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
