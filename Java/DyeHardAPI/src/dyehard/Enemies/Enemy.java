@@ -14,15 +14,16 @@ import dyehard.Util.Timer;
 public class Enemy extends Actor {
     public float speed;
 
-    protected enum EnemyState {
-        BEGIN, CHASEHERO, PLAYING, DEAD
-    };
-
     protected Hero hero;
     protected EnemyState enemyState;
     protected BufferedImage baseTexture;
+
     // This time is in milliseconds
     private Timer timer;
+
+    protected enum EnemyState {
+        BEGIN, CHASEHERO, PLAYING, DEAD
+    };
 
     public Enemy(Vector2 center, float width, float height,
             float behaviorChangeTime, float baseSpeed, Hero hero,
