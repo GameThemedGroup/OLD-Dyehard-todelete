@@ -39,14 +39,33 @@ public class Configuration {
     public static int limitedReloadAmount;
     public static int limitedMaxAmmo;
 
+    // World variables
+    public static float worldEnemyFrequency;
+    public static int worldPowerUpCount;
+    public static int worldDyePackCount;
+    public static int worldDebrisCount;
+    public static float worldMapLength;
+    public static float worldGameSpeed;
+
     public Configuration() throws Exception {
         factory = DocumentBuilderFactory.newInstance();
         builder = factory.newDocumentBuilder();
 
         parseEnemyData();
         parseHeroData();
-        parseOverheat();
-        parseLimitedAmmo();
+        parseOverheatData();
+        parseLimitedAmmoData();
+        parseWorldData();
+    }
+
+    private float parseFloat(Element elem, String tag) {
+        return Float.parseFloat(elem.getElementsByTagName(tag).item(0)
+                .getChildNodes().item(0).getNodeValue());
+    }
+
+    private int parseInt(Element elem, String tag) {
+        return Integer.parseInt(elem.getElementsByTagName(tag).item(0)
+                .getChildNodes().item(0).getNodeValue());
     }
 
     private void parseEnemyData() throws Exception {
@@ -103,7 +122,7 @@ public class Configuration {
         }
     }
 
-    private void parseOverheat() throws Exception {
+    private void parseOverheatData() throws Exception {
         Document document = builder.parse(ClassLoader
                 .getSystemResourceAsStream("resources/OverheatWeapon.xml"));
 
@@ -122,7 +141,7 @@ public class Configuration {
         }
     }
 
-    private void parseLimitedAmmo() throws Exception {
+    private void parseLimitedAmmoData() throws Exception {
         Document document = builder.parse(ClassLoader
                 .getSystemResourceAsStream("resources/LimitedAmmoWeapon.xml"));
 
@@ -141,13 +160,25 @@ public class Configuration {
         }
     }
 
-    private float parseFloat(Element elem, String tag) {
-        return Float.parseFloat(elem.getElementsByTagName(tag).item(0)
-                .getChildNodes().item(0).getNodeValue());
-    }
+    private void parseWorldData() throws Exception {
+        Document document = builder.parse(ClassLoader
+                .getSystemResourceAsStream("resources/World.xml"));
 
-    private int parseInt(Element elem, String tag) {
-        return Integer.parseInt(elem.getElementsByTagName(tag).item(0)
-                .getChildNodes().item(0).getNodeValue());
+        NodeList nodeList = document.getDocumentElement().getChildNodes();
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element elem = (Element) node;
+
+                worldEnemyFrequency = parseFloat(elem, "enemyFrequency");
+                worldPowerUpCount = parseInt(elem, "powerUpCount");
+                worldDyePackCount = parseInt(elem, "dyePackCount");
+                worldDebrisCount = parseInt(elem, "debrisCount");
+                worldMapLength = parseFloat(elem, "mapLength");
+                worldGameSpeed = parseFloat(elem, "gameSpeed");
+            }
+        }
     }
 }
