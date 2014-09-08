@@ -16,8 +16,6 @@ import dyehard.World.GameWorld;
 
 public class Weapon extends GameObject implements Updateable {
     protected static float bulletSpeed = 1f;
-    // Was 0.75f, but it was a radius and we are not
-    // working with circles
     protected static float bulletSize = 1.5f;
     protected Hero hero;
     protected Queue<GameObject> bullets;
