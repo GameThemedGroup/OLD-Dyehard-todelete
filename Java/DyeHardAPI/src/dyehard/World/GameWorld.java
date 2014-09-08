@@ -113,14 +113,16 @@ public class GameWorld implements Updateable {
     }
 
     public boolean nextRegionIsSpace() {
-        if (gameRegions.size() > 1 && gameRegions.get(1) instanceof Space) {
+        if (gameRegions.getLast().rightEdge() <= GameWorld.RIGHT_EDGE + 101f
+                && gameRegions.getLast() instanceof Stargate) {
             return true;
         }
         return false;
     }
 
     public boolean nextRegionIsStargate() {
-        if (gameRegions.size() > 1 && gameRegions.get(1) instanceof Stargate) {
+        if (gameRegions.getLast().rightEdge() <= GameWorld.RIGHT_EDGE + 101f
+                && gameRegions.getLast() instanceof Space) {
             return true;
         }
         return false;
