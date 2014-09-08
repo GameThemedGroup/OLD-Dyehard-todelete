@@ -5,6 +5,16 @@
         <height>10</height>
         <sleepTimer>3</sleepTimer>
         <speed>0.3</speed>
+        <uniqueAttributes>
+            <portalSpawnInterval>2</portalSpawnInterval>
+        </uniqueAttributes>
+    </enemy>
+    <enemy type="EN_PORTALSPAWN">
+        <width>4</width>
+        <height>4</height>
+        <uniqueAttributes>
+            <duration>3</duration>
+        </uniqueAttributes>
     </enemy>
     <enemy type="EN_SHOOTING">
         <width>10</width>
