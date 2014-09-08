@@ -3,10 +3,16 @@ package dyehard.Enemies;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.Actor;
 import dyehard.Collidable;
+import dyehard.Configuration;
+import dyehard.Configuration.EnemyType;
 import dyehard.Player.Hero;
 import dyehard.Util.ImageTint;
 import dyehard.Util.Timer;
@@ -90,5 +96,25 @@ public class Enemy extends Actor {
     public void setColor(Color color) {
         super.setColor(color);
         texture = ImageTint.tintedImage(baseTexture, color, 0.25f);
+    }
+
+    public String parseNodeList(EnemyType type, String tag) {
+        NodeList nodeList = Configuration.getEnemyData(type).uniqueAttributes;
+        String retVal = "";
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element elem = (Element) node;
+
+                retVal = elem.getElementsByTagName(tag).item(0).getChildNodes()
+                        .item(0).getNodeValue();
+
+                return retVal;
+            }
+        }
+
+        return retVal;
     }
 }
