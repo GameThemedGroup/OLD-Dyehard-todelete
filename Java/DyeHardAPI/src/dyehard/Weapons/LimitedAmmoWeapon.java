@@ -4,9 +4,9 @@ import dyehard.Configuration;
 import dyehard.Player.Hero;
 
 public class LimitedAmmoWeapon extends Weapon {
-    private final int reloadAmount = Configuration.limitedReloadAmount;
-    private final int maxAmmo = Configuration.limitedMaxAmmo;
-    private int currentAmmo;
+    protected final int reloadAmount = Configuration.limitedReloadAmount;
+    protected final int maxAmmo = Configuration.limitedMaxAmmo;
+    protected int currentAmmo;
 
     public LimitedAmmoWeapon(Hero hero) {
         super(hero);
