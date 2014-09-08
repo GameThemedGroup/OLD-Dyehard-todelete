@@ -2,7 +2,7 @@
 <weapon>
     <limitedAmmoWeapon id="Limited">
         <firingRate>250</firingRate>
-        <totalAmmo>10</totalAmmo>
+        <maxAmmo>10</maxAmmo>
         <reloadAmount>10</reloadAmount>
     </limitedAmmoWeapon>
 </weapon>
