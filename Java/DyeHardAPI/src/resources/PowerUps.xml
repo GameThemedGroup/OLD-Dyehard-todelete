@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<powerUps>
+    <sharedAttributes type="Shared">
+        <width>5</width>
+		<height>2</height>
+		<speed>0.3</speed>
+    </sharedAttributes>
+	
+    <powerUp type="PU_GHOST">
+        <duration>6</duration>
+        <magnitude>0</magnitude>
+    </powerUp>
+    <powerUp type="PU_GRAVITY">
+        <duration>2</duration>
+        <magnitude>1.5</magnitude>
+    </powerUp>
+    <powerUp type="PU_INVINCIBILITY">
+        <duration>3.5</duration>
+        <magnitude>0</magnitude>
+    </powerUp>
+    <powerUp type="PU_MAGNETISM">
+        <duration>5</duration>
+        <magnitude>25</magnitude>
+    </powerUp>
+    <powerUp type="PU_OVERLOAD">
+        <duration>5</duration>
+        <magnitude>0</magnitude>
+    </powerUp>
+    <powerUp type="PU_SLOWDOWN">
+        <duration>7</duration>
+        <magnitude>0.5</magnitude>
+    </powerUp>
+    <powerUp type="PU_SPEEDUP">
+        <duration>3</duration>
+        <magnitude>1.75</magnitude>
+    </powerUp>
+    <powerUp type="PU_UNARMED">
+        <duration>3</duration>
+        <magnitude>0</magnitude>
+    </powerUp>
+</powerUps>
