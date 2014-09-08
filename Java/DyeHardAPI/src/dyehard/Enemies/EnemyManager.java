@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import Engine.Vector2;
+import dyehard.Configuration;
 import dyehard.UpdateManager;
 import dyehard.UpdateManager.Updateable;
 import dyehard.Player.Hero;
@@ -13,7 +14,7 @@ import dyehard.World.GameWorld;
 
 public class EnemyManager implements Updateable {
     // This time is in milliseconds
-    private static final float enemyFrequency = 5000f;
+    private static final float enemyFrequency = Configuration.worldEnemyFrequency;
     private static Hero hero;
     private static List<Enemy> enemies;
     private static Timer timer;

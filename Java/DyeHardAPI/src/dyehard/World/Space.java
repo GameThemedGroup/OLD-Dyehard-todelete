@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import Engine.Vector2;
+import dyehard.Configuration;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.Ghost;
 import dyehard.Collectibles.Gravity;
@@ -23,9 +24,9 @@ import dyehard.Util.Colors;
 public class Space extends GameWorldRegion {
     public static float WIDTH = GameWorld.RIGHT_EDGE * 3f;
 
-    private static int powerUpCount = 0;
-    private static int dyePackCount = 0;
-    private static int debrisCount = 0;
+    private static int powerUpCount = Configuration.worldPowerUpCount;
+    private static int dyePackCount = Configuration.worldDyePackCount;
+    private static int debrisCount = Configuration.worldDebrisCount;
 
     private static Random RANDOM = new Random();
 

@@ -3,6 +3,7 @@ package dyehard.World;
 import java.util.LinkedList;
 
 import Engine.BaseCode;
+import dyehard.Configuration;
 import dyehard.UpdateManager;
 import dyehard.UpdateManager.Updateable;
 import dyehard.Background.Background;
@@ -17,7 +18,8 @@ public class GameWorld implements Updateable {
     public static final float RIGHT_EDGE = BaseCode.world.getWidth();
     public static final float TOP_EDGE = BaseCode.world.getHeight();
     public static final float BOTTOM_EDGE = BaseCode.world.getWorldPositionY();
-    public static float Speed = 0.3f;
+    public static final float MAP_LENGTH = Configuration.worldMapLength;
+    public static float Speed = Configuration.worldGameSpeed;
     float distance = 0f;
     private Hero hero;
     private LinkedList<GameWorldRegion> gameRegions;
