@@ -46,9 +46,6 @@ public class UserCode extends DyeHard {
         new DeveloperControls(hero);
 
         Stargate.addColor(Colors.Yellow);
-        Stargate.addColor(Colors.Teal);
-        Stargate.addColor(Colors.Green);
-        Stargate.addColor(Colors.Red);
     }
 
     @Override
@@ -79,8 +76,8 @@ public class UserCode extends DyeHard {
             hero.currentWeapon.fire();
         }
 
-        if (world.nextRegionIsStargate()) {
-            // System.out.println("STARGATE COMING UP");
+        if (world.nextRegionIsSpace()) {
+            System.out.println("SPACE COMING UP");
         }
     }
 }
