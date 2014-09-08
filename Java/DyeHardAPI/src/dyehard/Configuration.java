@@ -34,6 +34,11 @@ public class Configuration {
     public static float overheatCooldownRate;
     public static float overheatHeatLimit;
 
+    // Limited ammo weapon variables
+    public static float limitedFiringRate;
+    public static int limitedReloadAmount;
+    public static int limitedMaxAmmo;
+
     public Configuration() throws Exception {
         factory = DocumentBuilderFactory.newInstance();
         builder = factory.newDocumentBuilder();
@@ -41,6 +46,7 @@ public class Configuration {
         parseEnemyData();
         parseHeroData();
         parseOverheat();
+        parseLimitedAmmo();
     }
 
     private void parseEnemyData() throws Exception {
@@ -142,6 +148,33 @@ public class Configuration {
 
                 overheatHeatLimit = Float.parseFloat(elem
                         .getElementsByTagName("heatLimit").item(0)
+                        .getChildNodes().item(0).getNodeValue());
+            }
+        }
+    }
+
+    private void parseLimitedAmmo() throws Exception {
+        Document document = builder.parse(ClassLoader
+                .getSystemResourceAsStream("resources/LimitedAmmoWeapon.xml"));
+
+        NodeList nodeList = document.getDocumentElement().getChildNodes();
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element elem = (Element) node;
+
+                limitedFiringRate = Float.parseFloat(elem
+                        .getElementsByTagName("firingRate").item(0)
+                        .getChildNodes().item(0).getNodeValue());
+
+                limitedMaxAmmo = Integer.parseInt(elem
+                        .getElementsByTagName("maxAmmo").item(0)
+                        .getChildNodes().item(0).getNodeValue());
+
+                limitedReloadAmount = Integer.parseInt(elem
+                        .getElementsByTagName("reloadAmount").item(0)
                         .getChildNodes().item(0).getNodeValue());
             }
         }
