@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<collectible>
+<dyePacks>
     <dyePack>
         <width>3</width>
         <height>3.5</height>
         <speed>0.3</speed>
     </dyePack>
-</collectible>
+</dyePacks>
