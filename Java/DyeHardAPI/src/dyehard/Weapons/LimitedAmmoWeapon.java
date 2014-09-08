@@ -10,7 +10,7 @@ public class LimitedAmmoWeapon extends Weapon {
 
     public LimitedAmmoWeapon(Hero hero) {
         super(hero);
-        setFireRate(Configuration.limitedFiringRate);
+        timer.setInterval(Configuration.limitedFiringRate);
         currentAmmo = maxAmmo;
     }
 

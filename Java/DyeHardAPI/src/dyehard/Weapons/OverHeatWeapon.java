@@ -11,7 +11,7 @@ public class OverHeatWeapon extends Weapon {
 
     public OverHeatWeapon(Hero hero) {
         super(hero);
-        setFireRate(Configuration.overheatFiringRate);
+        timer.setInterval(Configuration.overheatFiringRate);
         overheated = false;
         currentHeatLevel = 0;
     }

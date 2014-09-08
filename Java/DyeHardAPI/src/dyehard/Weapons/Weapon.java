@@ -82,12 +82,4 @@ public class Weapon extends GameObject implements Updateable {
     public String toString() {
         return "Default";
     }
-
-    public void setFireRate(float rate) {
-        if (rate >= 0) {
-            timer = new Timer(rate);
-        } else {
-            System.err.println("Fire rate cannot be less than 0!");
-        }
-    }
 }
