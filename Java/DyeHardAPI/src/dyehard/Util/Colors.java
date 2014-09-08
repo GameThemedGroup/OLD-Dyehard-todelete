@@ -52,4 +52,33 @@ public class Colors {
         }
         return colors;
     }
+
+    public static ArrayList<Color> randomUniqueColorSet(int count,
+            ArrayList<Color> unavailableColors) {
+        // get a random and unique subset of the available colors
+
+        ArrayList<Integer> range = new ArrayList<Integer>();
+        for (int i = 0; i < Colors.colorCount; i++) {
+            range.add(i);
+        }
+        Collections.shuffle(range);
+
+        // get the colors from the indexes in the sample list
+        ArrayList<Color> colors = new ArrayList<Color>();
+        colors.addAll(unavailableColors);
+
+        int addCount = 0;
+        for (int i = 0; i < range.size() - 1; i++) {
+            if (addCount >= count) {
+                break;
+            }
+
+            if (!colors.contains(colorPicker(range.get(i)))) {
+                colors.add(colorPicker(range.get(i)));
+                addCount++;
+            }
+        }
+
+        return colors;
+    }
 }
