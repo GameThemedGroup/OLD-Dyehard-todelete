@@ -5,13 +5,14 @@ import java.awt.Color;
 import Engine.Text;
 import Engine.Vector2;
 import dyehard.Collidable;
+import dyehard.Configuration;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
 
 public abstract class PowerUp extends Collidable implements Cloneable,
         Comparable<PowerUp> {
-    public static final float height = 2f;
-    public static float width = 5f;
+    public static final float width = Configuration.powerUpWidth;
+    public static final float height = Configuration.powerUpHeight;
 
     protected int applicationOrder;
     protected float duration = 5000f;
@@ -35,11 +36,11 @@ public abstract class PowerUp extends Collidable implements Cloneable,
         texture = other.texture;
     }
 
-    public void initialize(Vector2 center, Vector2 velocity) {
+    public void initialize(Vector2 center) {
         timer.setInterval(duration);
 
         this.center = center;
-        this.velocity = velocity;
+        velocity = new Vector2(-Configuration.powerUpSpeed, 0f);
 
         size.set(width, height);
         shouldTravel = true;

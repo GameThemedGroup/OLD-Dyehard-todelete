@@ -3,7 +3,7 @@ package dyehard.Collectibles;
 import Engine.BaseCode;
 import Engine.Primitive;
 import dyehard.Collidable;
-import dyehard.DHR;
+import dyehard.Configuration;
 import dyehard.Player.Hero;
 import dyehard.Player.HeroInterfaces.HeroCollision;
 import dyehard.Player.HeroInterfaces.HeroDamage;
@@ -14,7 +14,8 @@ public class Ghost extends PowerUp implements HeroCollision, HeroDamage {
 
     public Ghost() {
         super();
-        duration = DHR.getPowerupData(DHR.PowerupID.PU_GHOST).duration * 1000;
+        duration = Configuration
+                .getPowerUpData(Configuration.PowerUpType.PU_GHOST).duration * 1000;
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Blue.png");
         applicationOrder = 90;
         label.setText("Ghost");

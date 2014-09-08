@@ -2,7 +2,7 @@ package dyehard.Collectibles;
 
 import Engine.BaseCode;
 import Engine.Primitive;
-import dyehard.DHR;
+import dyehard.Configuration;
 import dyehard.Player.Hero;
 import dyehard.Player.HeroInterfaces.HeroDamage;
 
@@ -11,7 +11,8 @@ public class Invincibility extends PowerUp {
 
     public Invincibility() {
         super();
-        duration = DHR.getPowerupData(DHR.PowerupID.PU_INVINCIBILITY).duration * 1000;
+        duration = Configuration
+                .getPowerUpData(Configuration.PowerUpType.PU_INVINCIBILITY).duration * 1000;
 
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Pink.png");
         applicationOrder = 100;

@@ -5,12 +5,13 @@ import java.awt.Color;
 import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.Collidable;
+import dyehard.Configuration;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 
 public class DyePack extends Collidable {
-    public static final float height = 3.5f;
-    public static final float width = 3f;
+    public static final float width = Configuration.dyePackWidth;
+    public static final float height = Configuration.dyePackHeight;
 
     public DyePack(Color color) {
         this.color = color;
@@ -19,9 +20,9 @@ public class DyePack extends Collidable {
         visible = false;
     }
 
-    public void initialize(Vector2 center, Vector2 velocity) {
+    public void initialize(Vector2 center) {
         this.center = center;
-        this.velocity = velocity;
+        velocity = new Vector2(-Configuration.dyePackSpeed, 0f);
 
         size.set(width, height);
         shouldTravel = true;

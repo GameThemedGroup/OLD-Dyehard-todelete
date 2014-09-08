@@ -1,14 +1,16 @@
 package dyehard.Collectibles;
 
-import dyehard.DHR;
+import dyehard.Configuration;
 import dyehard.Player.Hero;
 
 public class Gravity extends PowerUp {
 
-    protected float magnitude = DHR.getPowerupData(DHR.PowerupID.PU_GRAVITY).magnitude;
+    protected float magnitude = Configuration
+            .getPowerUpData(Configuration.PowerUpType.PU_GRAVITY).magnitude;
 
     public Gravity() {
-        duration = DHR.getPowerupData(DHR.PowerupID.PU_GRAVITY).duration * 1000;
+        duration = Configuration
+                .getPowerUpData(Configuration.PowerUpType.PU_GRAVITY).duration * 1000;
         applicationOrder = 2;
         label.setText("Gravity");
     }

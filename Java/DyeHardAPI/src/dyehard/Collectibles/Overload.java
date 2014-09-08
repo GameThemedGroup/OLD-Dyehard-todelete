@@ -1,15 +1,18 @@
 package dyehard.Collectibles;
 
 import Engine.BaseCode;
+import dyehard.Configuration;
 import dyehard.Player.Hero;
 import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.Weapons.OverHeatWeapon;
 
 public class Overload extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(2, Game.Pink);
+
     public Overload() {
         super();
-        timer.setInterval(duration);
+        duration = Configuration
+                .getPowerUpData(Configuration.PowerUpType.PU_OVERLOAD).duration * 1000;
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Red.png");
         applicationOrder = 30;
         label.setText("Overload");

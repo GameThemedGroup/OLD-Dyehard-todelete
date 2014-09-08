@@ -5,22 +5,23 @@ import java.util.Set;
 import Engine.Vector2;
 import dyehard.Collidable;
 import dyehard.CollisionManager;
-import dyehard.DHR;
+import dyehard.Configuration;
 import dyehard.Player.Hero;
 
 public class Magnetism extends PowerUp {
 
-    protected float magnitude = DHR.getPowerupData(DHR.PowerupID.PU_MAGNETISM).magnitude;
+    protected float magnitude = Configuration
+            .getPowerUpData(Configuration.PowerUpType.PU_MAGNETISM).magnitude;
+    protected final float attractionDistance = magnitude;
 
     public Magnetism() {
         super();
-        duration = DHR.getPowerupData(DHR.PowerupID.PU_MAGNETISM).duration * 1000;
+        duration = Configuration
+                .getPowerUpData(Configuration.PowerUpType.PU_MAGNETISM).duration * 1000;
 
         applicationOrder = 40;
         label.setText("Magnet");
     }
-
-    protected final float attractionDistance = magnitude;
 
     @Override
     public void apply(Hero hero) {

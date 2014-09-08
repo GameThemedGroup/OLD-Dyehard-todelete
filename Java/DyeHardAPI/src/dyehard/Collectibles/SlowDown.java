@@ -4,18 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Engine.BaseCode;
-import dyehard.DHR;
+import dyehard.Configuration;
 import dyehard.Enemies.Enemy;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
 
 public class SlowDown extends PowerUp {
 
-    protected float magnitude = DHR.getPowerupData(DHR.PowerupID.PU_SLOWDOWN).magnitude;
+    protected float magnitude = Configuration
+            .getPowerUpData(Configuration.PowerUpType.PU_SLOWDOWN).magnitude;
 
     public SlowDown() {
         super();
-        duration = DHR.getPowerupData(DHR.PowerupID.PU_SLOWDOWN).duration * 1000;
+        duration = Configuration
+                .getPowerUpData(Configuration.PowerUpType.PU_SLOWDOWN).duration * 1000;
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Green.png");
         enemySpeedModifier = magnitude;
         isApplied = false;

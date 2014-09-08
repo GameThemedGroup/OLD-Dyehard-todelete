@@ -1,15 +1,15 @@
 package dyehard.Collectibles;
 
-import dyehard.DHR;
+import dyehard.Configuration;
 import dyehard.Player.Hero;
 import dyehard.Weapons.BrokenWeapon;
 
 public class Unarmed extends PowerUp {
 
-    protected float duration = DHR.getPowerupData(DHR.PowerupID.PU_UNARMED).duration * 1000;
-
     public Unarmed() {
         super();
+        duration = Configuration
+                .getPowerUpData(Configuration.PowerUpType.PU_UNARMED).duration * 1000;
         timer.setInterval(duration);
         applicationOrder = 0;
         label.setText("Unarmed");
