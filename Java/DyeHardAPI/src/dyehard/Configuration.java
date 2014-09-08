@@ -61,21 +61,10 @@ public class Configuration {
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element elem = (Element) node;
 
-                float width = Float.parseFloat(elem
-                        .getElementsByTagName("width").item(0).getChildNodes()
-                        .item(0).getNodeValue());
-
-                float height = Float.parseFloat(elem
-                        .getElementsByTagName("height").item(0).getChildNodes()
-                        .item(0).getNodeValue());
-
-                float sleepTimer = Float.parseFloat(elem
-                        .getElementsByTagName("sleepTimer").item(0)
-                        .getChildNodes().item(0).getNodeValue());
-
-                float speed = Float.parseFloat(elem
-                        .getElementsByTagName("speed").item(0).getChildNodes()
-                        .item(0).getNodeValue());
+                float width = parseFloat(elem, "width");
+                float height = parseFloat(elem, "height");
+                float sleepTimer = parseFloat(elem, "sleepTimer");
+                float speed = parseFloat(elem, "speed");
 
                 if (node.getAttributes().getNamedItem("type").getNodeValue()
                         .equals("Portal")) {
@@ -105,23 +94,11 @@ public class Configuration {
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element elem = (Element) node;
 
-                heroWidth = Float.parseFloat(elem.getElementsByTagName("width")
-                        .item(0).getChildNodes().item(0).getNodeValue());
-
-                heroHeight = Float.parseFloat(elem
-                        .getElementsByTagName("height").item(0).getChildNodes()
-                        .item(0).getNodeValue());
-
-                heroJetSpeed = Float.parseFloat(elem
-                        .getElementsByTagName("jetSpeed").item(0)
-                        .getChildNodes().item(0).getNodeValue());
-
-                heroSpeedLimit = Float.parseFloat(elem
-                        .getElementsByTagName("speedLimit").item(0)
-                        .getChildNodes().item(0).getNodeValue());
-
-                heroDrag = Float.parseFloat(elem.getElementsByTagName("drag")
-                        .item(0).getChildNodes().item(0).getNodeValue());
+                heroWidth = parseFloat(elem, "width");
+                heroHeight = parseFloat(elem, "height");
+                heroJetSpeed = parseFloat(elem, "jetSpeed");
+                heroSpeedLimit = parseFloat(elem, "speedLimit");
+                heroDrag = parseFloat(elem, "drag");
             }
         }
     }
@@ -138,17 +115,9 @@ public class Configuration {
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element elem = (Element) node;
 
-                overheatFiringRate = Float.parseFloat(elem
-                        .getElementsByTagName("firingRate").item(0)
-                        .getChildNodes().item(0).getNodeValue());
-
-                overheatCooldownRate = Float.parseFloat(elem
-                        .getElementsByTagName("cooldownRate").item(0)
-                        .getChildNodes().item(0).getNodeValue());
-
-                overheatHeatLimit = Float.parseFloat(elem
-                        .getElementsByTagName("heatLimit").item(0)
-                        .getChildNodes().item(0).getNodeValue());
+                overheatFiringRate = parseFloat(elem, "firingRate");
+                overheatCooldownRate = parseFloat(elem, "cooldownRate");
+                overheatHeatLimit = parseFloat(elem, "heatLimit");
             }
         }
     }
@@ -165,18 +134,20 @@ public class Configuration {
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element elem = (Element) node;
 
-                limitedFiringRate = Float.parseFloat(elem
-                        .getElementsByTagName("firingRate").item(0)
-                        .getChildNodes().item(0).getNodeValue());
-
-                limitedMaxAmmo = Integer.parseInt(elem
-                        .getElementsByTagName("maxAmmo").item(0)
-                        .getChildNodes().item(0).getNodeValue());
-
-                limitedReloadAmount = Integer.parseInt(elem
-                        .getElementsByTagName("reloadAmount").item(0)
-                        .getChildNodes().item(0).getNodeValue());
+                limitedFiringRate = parseFloat(elem, "firingRate");
+                limitedMaxAmmo = parseInt(elem, "maxAmmo");
+                limitedReloadAmount = parseInt(elem, "reloadAmount");
             }
         }
+    }
+
+    private float parseFloat(Element elem, String tag) {
+        return Float.parseFloat(elem.getElementsByTagName(tag).item(0)
+                .getChildNodes().item(0).getNodeValue());
+    }
+
+    private int parseInt(Element elem, String tag) {
+        return Integer.parseInt(elem.getElementsByTagName(tag).item(0)
+                .getChildNodes().item(0).getNodeValue());
     }
 }
