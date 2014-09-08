@@ -11,10 +11,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import dyehard.Enemies.CollectorEnemy;
-import dyehard.Enemies.PortalEnemy;
-import dyehard.Enemies.ShootingEnemy;
-
 /**
  * Adapted from the "Parse an XML File using the DOM Parser" example by
  * Sotirios-Efstathios Maneas located here:
@@ -71,6 +67,19 @@ public class Configuration {
 
     private static Map<PowerUpType, PowerUpData> powerUps = new HashMap<PowerUpType, PowerUpData>();
 
+    public static class EnemyData {
+        public float width;
+        public float height;
+        public float sleepTimer;
+        public float speed;
+    }
+
+    public enum EnemyType {
+        EN_PORTAL, EN_SHOOTING, EN_COLLECTOR
+    }
+
+    private static Map<EnemyType, EnemyData> enemies = new HashMap<EnemyType, EnemyData>();
+
     public Configuration() throws Exception {
         factory = DocumentBuilderFactory.newInstance();
         builder = factory.newDocumentBuilder();
@@ -106,25 +115,22 @@ public class Configuration {
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element elem = (Element) node;
 
-                float width = parseFloat(elem, "width");
-                float height = parseFloat(elem, "height");
-                float sleepTimer = parseFloat(elem, "sleepTimer");
-                float speed = parseFloat(elem, "speed");
+                EnemyType type = EnemyType.valueOf(node.getAttributes()
+                        .getNamedItem("type").getNodeValue());
 
-                if (node.getAttributes().getNamedItem("type").getNodeValue()
-                        .equals("Portal")) {
-                    PortalEnemy.setAttributes(width, height, sleepTimer, speed);
-                } else if (node.getAttributes().getNamedItem("type")
-                        .getNodeValue().equals("Shooting")) {
-                    ShootingEnemy.setAttributes(width, height, sleepTimer,
-                            speed);
-                } else if (node.getAttributes().getNamedItem("type")
-                        .getNodeValue().equals("Collector")) {
-                    CollectorEnemy.setAttributes(width, height, sleepTimer,
-                            speed);
-                }
+                EnemyData value = new EnemyData();
+                value.width = parseFloat(elem, "width");
+                value.height = parseFloat(elem, "height");
+                value.sleepTimer = parseFloat(elem, "sleepTimer");
+                value.speed = parseFloat(elem, "speed");
+
+                enemies.put(type, value);
             }
         }
+    }
+
+    public static EnemyData getEnemyData(EnemyType type) {
+        return enemies.get(type);
     }
 
     private void parseHeroData() throws Exception {
@@ -198,7 +204,7 @@ public class Configuration {
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element elem = (Element) node;
 
-                worldEnemyFrequency = parseFloat(elem, "enemyFrequency");
+                worldEnemyFrequency = parseFloat(elem, "enemySpawnTimer");
                 worldPowerUpCount = parseInt(elem, "powerUpCount");
                 worldDyePackCount = parseInt(elem, "dyePackCount");
                 worldDebrisCount = parseInt(elem, "debrisCount");
