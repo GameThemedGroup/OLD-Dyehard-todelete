@@ -34,8 +34,8 @@ public class Stargate extends GameWorldRegion {
         position = leftEdge + width / 2f;
 
         ArrayList<Color> colors = new ArrayList<Color>();
-        colors.addAll(userColors);
-        colors.addAll(Colors.randomColorSet(GATE_COUNT - userColors.size()));
+        colors.addAll(Colors.randomUniqueColorSet(
+                GATE_COUNT - userColors.size(), userColors));
         Collections.shuffle(colors);
 
         gates = new Gate[GATE_COUNT];
