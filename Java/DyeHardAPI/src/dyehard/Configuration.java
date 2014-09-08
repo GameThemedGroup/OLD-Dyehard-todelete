@@ -1,5 +1,8 @@
 package dyehard;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -47,6 +50,27 @@ public class Configuration {
     public static float worldMapLength;
     public static float worldGameSpeed;
 
+    // Dye pack variables
+    public static float dyePackWidth;
+    public static float dyePackHeight;
+    public static float dyePackSpeed;
+
+    // Power up variables
+    public static float powerUpWidth;
+    public static float powerUpHeight;
+    public static float powerUpSpeed;
+
+    public static class PowerUpData {
+        public float duration;
+        public float magnitude;
+    }
+
+    public enum PowerUpType {
+        PU_GHOST, PU_GRAVITY, PU_INVINCIBILITY, PU_MAGNETISM, PU_OVERLOAD, PU_SLOWDOWN, PU_SPEEDUP, PU_UNARMED,
+    }
+
+    private static Map<PowerUpType, PowerUpData> powerUps = new HashMap<PowerUpType, PowerUpData>();
+
     public Configuration() throws Exception {
         factory = DocumentBuilderFactory.newInstance();
         builder = factory.newDocumentBuilder();
@@ -56,6 +80,8 @@ public class Configuration {
         parseOverheatData();
         parseLimitedAmmoData();
         parseWorldData();
+        parseDyePackData();
+        parsePowerUpData();
     }
 
     private float parseFloat(Element elem, String tag) {
@@ -180,5 +206,59 @@ public class Configuration {
                 worldGameSpeed = parseFloat(elem, "gameSpeed");
             }
         }
+    }
+
+    private void parseDyePackData() throws Exception {
+        Document document = builder.parse(ClassLoader
+                .getSystemResourceAsStream("resources/DyePacks.xml"));
+
+        NodeList nodeList = document.getDocumentElement().getChildNodes();
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element elem = (Element) node;
+
+                dyePackWidth = parseFloat(elem, "width");
+                dyePackHeight = parseFloat(elem, "height");
+                dyePackSpeed = parseFloat(elem, "speed");
+            }
+        }
+    }
+
+    private void parsePowerUpData() throws Exception {
+        Document document = builder.parse(ClassLoader
+                .getSystemResourceAsStream("resources/PowerUps.xml"));
+
+        NodeList nodeList = document.getDocumentElement().getChildNodes();
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element elem = (Element) node;
+
+                if (node.getAttributes().getNamedItem("type").getNodeValue()
+                        .equals("Shared")) {
+                    powerUpWidth = parseFloat(elem, "width");
+                    powerUpHeight = parseFloat(elem, "height");
+                    powerUpSpeed = parseFloat(elem, "speed");
+                } else {
+                    PowerUpType type = PowerUpType.valueOf(node.getAttributes()
+                            .getNamedItem("type").getNodeValue());
+
+                    PowerUpData value = new PowerUpData();
+                    value.duration = parseFloat(elem, "duration");
+                    value.magnitude = parseFloat(elem, "magnitude");
+
+                    powerUps.put(type, value);
+                }
+            }
+        }
+    }
+
+    public static PowerUpData getPowerUpData(PowerUpType type) {
+        return powerUps.get(type);
     }
 }
