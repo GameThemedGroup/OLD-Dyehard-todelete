@@ -8,7 +8,6 @@
 	
     <powerUp type="PU_GHOST">
         <duration>6</duration>
-        <magnitude>0</magnitude>
     </powerUp>
     <powerUp type="PU_GRAVITY">
         <duration>2</duration>
@@ -16,7 +15,6 @@
     </powerUp>
     <powerUp type="PU_INVINCIBILITY">
         <duration>3.5</duration>
-        <magnitude>0</magnitude>
     </powerUp>
     <powerUp type="PU_MAGNETISM">
         <duration>5</duration>
@@ -24,7 +22,6 @@
     </powerUp>
     <powerUp type="PU_OVERLOAD">
         <duration>5</duration>
-        <magnitude>0</magnitude>
     </powerUp>
     <powerUp type="PU_SLOWDOWN">
         <duration>7</duration>
@@ -36,6 +33,5 @@
     </powerUp>
     <powerUp type="PU_UNARMED">
         <duration>3</duration>
-        <magnitude>0</magnitude>
     </powerUp>
 </powerUps>
