@@ -9,7 +9,6 @@ import Engine.Vector2;
 import dyehard.Actor;
 import dyehard.Collidable;
 import dyehard.DyehardKeyboard;
-import dyehard.DyehardRectangle;
 import dyehard.Player.Hero;
 import dyehard.Util.ImageTint;
 import dyehard.Util.Timer;
@@ -29,8 +28,6 @@ public class Enemy extends Actor {
     private float behaviorChangeTime = 3000f;
     private Timer timer;
 
-    public DyehardRectangle shadow;
-
     public Enemy(Vector2 center, float width, float height, Hero hero) {
         super(center, width, height);
         this.hero = hero;
@@ -44,14 +41,6 @@ public class Enemy extends Actor {
         this(center, width, height, hero);
         baseTexture = BaseCode.resources.loadImage(texturePath);
         texture = baseTexture;
-
-        shadow = new DyehardRectangle(this);
-        shadow.center.sub(new Vector2(7f, 7f));
-        shadow.texture = ImageTint.tintedImage(texture, Color.BLACK, 0.75f);
-        shadow.visible = false;
-
-        this.removeFromAutoDrawSet();
-        this.addToAutoDrawSet();
     }
 
     @Override
@@ -87,14 +76,6 @@ public class Enemy extends Actor {
         }
 
         super.update();
-        shadow.center = this.center.clone();
-        shadow.center.sub(new Vector2(7f, 7f));
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
-        shadow.destroy();
     }
 
     public void chaseHero() {

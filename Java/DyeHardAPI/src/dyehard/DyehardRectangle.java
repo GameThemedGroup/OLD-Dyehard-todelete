@@ -39,6 +39,8 @@ public class DyehardRectangle extends Primitive {
     protected int ticksPerFrame;
     protected int currentTick;
 
+    DyehardRectangle shadow;
+
     public DyehardRectangle() {
         super();
     }

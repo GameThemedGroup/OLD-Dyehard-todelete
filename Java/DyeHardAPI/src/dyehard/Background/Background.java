@@ -59,6 +59,8 @@ public class Background extends UpdateObject {
         for (Enemy e : EnemyManager.getEnemies()) {
             drawShadow(e);
         }
+
+        drawShadow(GameWorld.sHero);
     }
 
     private void updateTileQueue(List<Tile> tiles) {
@@ -86,10 +88,17 @@ public class Background extends UpdateObject {
         return textures;
     }
 
-    public void drawShadow(Enemy enemy) {
+    public void drawShadow(DyehardRectangle graphic) {
         Tile t = ship.get(0);
 
-        DyehardRectangle shadow = enemy.shadow;
+        DyehardRectangle shadow;
+
+        shadow = new DyehardRectangle(graphic);
+        shadow.center.sub(new Vector2(7f, 7f));
+        shadow.size = graphic.size.clone();
+        shadow.texture = ImageTint.tintedImage(graphic.texture, Color.BLACK,
+                0.75f);
+        shadow.destroy();
 
         // grab the top-left corner of the shadow
         Vector2 shadowPosition = new Vector2();
