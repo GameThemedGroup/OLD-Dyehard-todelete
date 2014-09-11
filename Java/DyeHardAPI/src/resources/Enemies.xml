@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file controls enemy attributes. -->
+
+<!-- sleepTimer: The amount of time in seconds an 
+enemy stands still before chasing Dye. -->
+
 <enemies>
     <enemy type="PORTAL_ENEMY">
         <width>10</width>
@@ -6,13 +12,18 @@
         <sleepTimer>3</sleepTimer>
         <speed>0.3</speed>
         <uniqueAttributes>
+            <!-- How often portals are spawned. Default 
+            is one portal every two seconds. -->
             <portalSpawnInterval>2</portalSpawnInterval>
         </uniqueAttributes>
     </enemy>
+    <!-- The portals created by a portal enemy. -->
     <enemy type="PORTAL_SPAWN">
         <width>4</width>
         <height>4</height>
         <uniqueAttributes>
+            <!-- The amount of time in seconds a portal 
+            spends on the screen before disappearing. -->
             <duration>3</duration>
         </uniqueAttributes>
     </enemy>
