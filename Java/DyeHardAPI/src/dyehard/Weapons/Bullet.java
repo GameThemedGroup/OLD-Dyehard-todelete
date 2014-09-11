@@ -40,9 +40,9 @@ public class Bullet extends Collidable {
     @Override
     public void update() {
         // TODO replace with hero fire points
-        center = hero.center.clone().add(new Vector2(size.getX() / 2, 0));
+        center = hero.center.clone().add(
+                new Vector2(size.getX() / 2, hero.size.getY() / 3.25f));
         super.update();
-
         if (timer.isDone()) {
             destroy();
         }
