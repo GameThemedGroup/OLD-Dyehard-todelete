@@ -16,6 +16,7 @@ import dyehard.Configuration;
 import dyehard.DyeHard;
 import dyehard.DyehardKeyboard;
 import dyehard.Collectibles.DyePack;
+import dyehard.Collectibles.Invincibility;
 import dyehard.Collectibles.PowerUp;
 import dyehard.Player.HeroInterfaces.HeroCollision;
 import dyehard.Player.HeroInterfaces.HeroDamage;
@@ -153,7 +154,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public void moveUp() {
         // Upward speed needs to counter the effects of gravity
         totalThrust
-                .add(new Vector2(0f, defaultJetSpeed - currentGravity.getY()));
+        .add(new Vector2(0f, defaultJetSpeed - currentGravity.getY()));
     }
 
     public void moveDown() {
@@ -253,8 +254,12 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     @Override
     public void damageHero(Hero hero, Primitive who) {
-        center.set(20f, 20f);
         GameState.RemainingLives--;
+
+        powerups.clear();
+        powerups.add(new Invincibility());
+        applyPowerups();
+
         if (GameState.RemainingLives <= 0) {
             alive = false;
         }
