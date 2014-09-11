@@ -11,10 +11,10 @@ public class CollectorEnemy extends Enemy {
         super(center, 0, 0, currentHero,
                 "Textures/Enemies/minion_collector.png");
 
-        width = Configuration.getEnemyData(EnemyType.EN_COLLECTOR).width;
-        height = Configuration.getEnemyData(EnemyType.EN_COLLECTOR).height;
-        sleepTimer = Configuration.getEnemyData(EnemyType.EN_COLLECTOR).sleepTimer * 1000f;
-        speed = Configuration.getEnemyData(EnemyType.EN_COLLECTOR).speed;
+        width = Configuration.getEnemyData(EnemyType.COLLECTOR_ENEMY).width;
+        height = Configuration.getEnemyData(EnemyType.COLLECTOR_ENEMY).height;
+        sleepTimer = Configuration.getEnemyData(EnemyType.COLLECTOR_ENEMY).sleepTimer * 1000f;
+        speed = Configuration.getEnemyData(EnemyType.COLLECTOR_ENEMY).speed;
     }
 
     @Override
