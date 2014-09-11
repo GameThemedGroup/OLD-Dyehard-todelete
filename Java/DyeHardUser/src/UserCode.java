@@ -1,5 +1,6 @@
 import java.awt.event.KeyEvent;
 
+import dyehard.Configuration;
 import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.Ghost;
@@ -17,6 +18,12 @@ public class UserCode extends DyeHard {
 
     @Override
     protected void initialize() {
+        try {
+            new Configuration();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         hero = new Hero();
         hero.registerWeapon(new SpreadFireWeapon(hero));
         hero.registerWeapon(new OverHeatWeapon(hero));
@@ -54,7 +61,7 @@ public class UserCode extends DyeHard {
          * if (keyboard.isButtonDown(KeyEvent.VK_U)) { JohnsPowerUp john = new
          * JohnsPowerUp(); john.center.set(hero.center.getX() + 10f,
          * hero.center.getY()); Space.registerPowerUp(john); }
-         * 
+         *
          * if (keyboard.isButtonDown(KeyEvent.VK_I)) { DyePack p = new
          * DyePack(Colors.Yellow); p.center.set(hero.center.getX() + 10f,
          * hero.center.getY()); Space.registerDyePack(p); }

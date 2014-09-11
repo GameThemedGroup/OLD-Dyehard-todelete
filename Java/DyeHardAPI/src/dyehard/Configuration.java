@@ -1,5 +1,10 @@
 package dyehard;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +15,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import Engine.BaseCode;
 
 /**
  * Adapted from the "Parse an XML File using the DOM Parser" example by
@@ -112,9 +119,39 @@ public class Configuration {
         return 0;
     }
 
+    private InputStream loadExternalFile(String path) {
+        String basePath = BaseCode.resources.basePath;
+        URL url;
+
+        try {
+            url = new URL(basePath + path);
+            URLConnection in = url.openConnection();
+            if (in.getContentLengthLong() > 0) {
+                return url.openStream();
+            }
+        } catch (MalformedURLException e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     private NodeList createNodeList(String file) throws Exception {
-        Document document = builder.parse(ClassLoader
-                .getSystemResourceAsStream("resources/" + file + ".xml"));
+
+        String filePath = "resources/" + file + ".xml";
+
+        InputStream is = null;
+
+        if (is == null) {
+            is = loadExternalFile(filePath);
+        }
+
+        if (is == null) {
+            is = ClassLoader.getSystemResourceAsStream(filePath);
+        }
+
+        Document document = builder.parse(is);
 
         return document.getDocumentElement().getChildNodes();
     }
