@@ -25,8 +25,8 @@ public class Portal extends GameObject {
     public Portal(Vector2 center, Hero hero) {
         this.center = center.clone();
 
-        width = Configuration.getEnemyData(EnemyType.EN_PORTALSPAWN).width;
-        height = Configuration.getEnemyData(EnemyType.EN_PORTALSPAWN).height;
+        width = Configuration.getEnemyData(EnemyType.PORTAL_SPAWN).width;
+        height = Configuration.getEnemyData(EnemyType.PORTAL_SPAWN).height;
         parseNodeList();
 
         size.set(width, height);
@@ -51,7 +51,7 @@ public class Portal extends GameObject {
 
     public void parseNodeList() {
         NodeList nodeList = Configuration
-                .getEnemyData(EnemyType.EN_PORTALSPAWN).uniqueAttributes;
+                .getEnemyData(EnemyType.PORTAL_SPAWN).uniqueAttributes;
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);

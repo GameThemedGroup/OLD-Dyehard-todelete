@@ -14,14 +14,14 @@ public class PortalEnemy extends Enemy {
         super(center, 0, 0, currentHero, "Textures/Enemies/minion_portal.png");
 
         portalSpawnInterval = Float.parseFloat(parseNodeList(
-                EnemyType.EN_PORTAL, "portalSpawnInterval")) * 1000;
+                EnemyType.PORTAL_ENEMY, "portalSpawnInterval")) * 1000;
 
         timer = new Timer(portalSpawnInterval);
 
-        width = Configuration.getEnemyData(EnemyType.EN_PORTAL).width;
-        height = Configuration.getEnemyData(EnemyType.EN_PORTAL).height;
-        sleepTimer = Configuration.getEnemyData(EnemyType.EN_PORTAL).sleepTimer * 1000f;
-        speed = Configuration.getEnemyData(EnemyType.EN_PORTAL).speed;
+        width = Configuration.getEnemyData(EnemyType.PORTAL_ENEMY).width;
+        height = Configuration.getEnemyData(EnemyType.PORTAL_ENEMY).height;
+        sleepTimer = Configuration.getEnemyData(EnemyType.PORTAL_ENEMY).sleepTimer * 1000f;
+        speed = Configuration.getEnemyData(EnemyType.PORTAL_ENEMY).speed;
     }
 
     @Override

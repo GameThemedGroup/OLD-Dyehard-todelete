@@ -37,7 +37,7 @@ public class LimitedAmmoWeapon extends Weapon {
 
     @Override
     public int totalValue() {
-        return totalAmmo;
+        return maxAmmo;
     }
 
     @Override
