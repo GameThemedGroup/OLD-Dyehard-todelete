@@ -6,32 +6,32 @@
 		<speed>0.3</speed>
     </sharedAttributes>
 	
-    <powerUp type="PU_GHOST">
+    <powerUp type="GHOST">
         <duration>6</duration>
     </powerUp>
-    <powerUp type="PU_GRAVITY">
+    <powerUp type="GRAVITY">
         <duration>2</duration>
         <magnitude>1.5</magnitude>
     </powerUp>
-    <powerUp type="PU_INVINCIBILITY">
+    <powerUp type="INVINCIBILITY">
         <duration>3.5</duration>
     </powerUp>
-    <powerUp type="PU_MAGNETISM">
+    <powerUp type="MAGNETISM">
         <duration>5</duration>
         <magnitude>25</magnitude>
     </powerUp>
-    <powerUp type="PU_OVERLOAD">
+    <powerUp type="OVERLOAD">
         <duration>5</duration>
     </powerUp>
-    <powerUp type="PU_SLOWDOWN">
+    <powerUp type="SLOWDOWN">
         <duration>7</duration>
         <magnitude>0.5</magnitude>
     </powerUp>
-    <powerUp type="PU_SPEEDUP">
+    <powerUp type="SPEEDUP">
         <duration>3</duration>
         <magnitude>1.75</magnitude>
     </powerUp>
-    <powerUp type="PU_UNARMED">
+    <powerUp type="UNARMED">
         <duration>3</duration>
     </powerUp>
 </powerUps>
