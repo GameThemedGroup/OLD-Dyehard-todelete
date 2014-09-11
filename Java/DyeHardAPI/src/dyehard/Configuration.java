@@ -144,7 +144,6 @@ public class Configuration {
     }
 
     private NodeList createNodeList(String file) throws Exception {
-
         String filePath = "resources/" + file + ".xml";
 
         InputStream is = null;
