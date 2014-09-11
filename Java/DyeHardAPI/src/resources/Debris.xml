@@ -2,6 +2,9 @@
 
 <!-- This file controls the attributes for debris. -->
 
+<!-- speed: Debris moves at at varying speeds. This number
+influences the random speed generated for individual debris. -->
+
 <obstacles>
     <obstacle type="Debris">
         <width>6</width>
