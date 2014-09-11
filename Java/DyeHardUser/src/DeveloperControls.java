@@ -83,6 +83,10 @@ public class DeveloperControls extends UpdateObject {
                 ((LimitedAmmoWeapon) hero.currentWeapon).reload();
             }
         }
+
+        if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_I)) {
+            hero.debugInvincibility = !hero.debugInvincibility;
+        }
     }
 
     private void updatePowerupText() {

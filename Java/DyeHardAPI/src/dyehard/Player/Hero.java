@@ -30,6 +30,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public float currentJetSpeed;
     public Vector2 currentGravity;
     public Set<PowerUp> powerups;
+    public boolean debugInvincibility;
 
     public final HeroCollision defaultCollisionHandler = this;
     public final HeroDamage defaultDamageHandler = this;
@@ -253,8 +254,11 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     @Override
     public void damageHero(Hero hero, Primitive who) {
-        center.set(20f, 20f);
-        GameState.RemainingLives--;
+        if (!debugInvincibility) {
+            center.set(20f, 20f);
+            GameState.RemainingLives--;
+        }
+
         if (GameState.RemainingLives <= 0) {
             alive = false;
         }
