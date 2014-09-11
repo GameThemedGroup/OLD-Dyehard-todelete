@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <enemies>
-    <enemy type="EN_PORTAL">
+    <enemy type="PORTAL_ENEMY">
         <width>10</width>
         <height>10</height>
         <sleepTimer>3</sleepTimer>
@@ -9,20 +9,20 @@
             <portalSpawnInterval>2</portalSpawnInterval>
         </uniqueAttributes>
     </enemy>
-    <enemy type="EN_PORTALSPAWN">
+    <enemy type="PORTAL_SPAWN">
         <width>4</width>
         <height>4</height>
         <uniqueAttributes>
             <duration>3</duration>
         </uniqueAttributes>
     </enemy>
-    <enemy type="EN_SHOOTING">
+    <enemy type="SHOOTING_ENEMY">
         <width>10</width>
         <height>10</height>
         <sleepTimer>3</sleepTimer>
         <speed>0.3</speed>
     </enemy>
-    <enemy type="EN_COLLECTOR">
+    <enemy type="COLLECTOR_ENEMY">
         <width>10</width>
         <height>10</height>
         <sleepTimer>3</sleepTimer>
