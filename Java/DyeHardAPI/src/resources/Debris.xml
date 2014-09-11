@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file controls the attributes for debris. -->
+
+<obstacles>
+    <obstacle type="Debris">
+        <width>6</width>
+        <height>6</height>
+        <speed>0.3</speed>
+    </obstacle>
+</obstacles>

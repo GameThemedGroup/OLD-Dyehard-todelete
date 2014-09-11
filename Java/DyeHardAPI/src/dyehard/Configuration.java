@@ -63,6 +63,11 @@ public class Configuration {
     public static float powerUpHeight;
     public static float powerUpSpeed;
 
+    // Debris variables
+    public static float debrisWidth;
+    public static float debrisHeight;
+    public static float debrisSpeed;
+
     public static class PowerUpData {
         public float duration;
         public float magnitude;
@@ -99,6 +104,7 @@ public class Configuration {
         parseWorldData();
         parseDyePackData();
         parsePowerUpData();
+        parseDebrisData();
     }
 
     private float parseFloat(Element elem, String tag) {
@@ -300,5 +306,21 @@ public class Configuration {
 
     public static PowerUpData getPowerUpData(PowerUpType type) {
         return powerUps.get(type);
+    }
+
+    private void parseDebrisData() throws Exception {
+        NodeList nodeList = createNodeList("Debris");
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element elem = (Element) node;
+
+                debrisWidth = parseFloat(elem, "width");
+                debrisHeight = parseFloat(elem, "height");
+                debrisSpeed = parseFloat(elem, "speed");
+            }
+        }
     }
 }
