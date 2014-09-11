@@ -9,7 +9,7 @@ public class Unarmed extends PowerUp {
     public Unarmed() {
         super();
         duration = Configuration
-                .getPowerUpData(Configuration.PowerUpType.PU_UNARMED).duration * 1000;
+                .getPowerUpData(Configuration.PowerUpType.UNARMED).duration * 1000;
         timer.setInterval(duration);
         applicationOrder = 0;
         label.setText("Unarmed");

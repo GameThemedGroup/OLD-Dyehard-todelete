@@ -69,7 +69,7 @@ public class Configuration {
     }
 
     public enum PowerUpType {
-        PU_GHOST, PU_GRAVITY, PU_INVINCIBILITY, PU_MAGNETISM, PU_OVERLOAD, PU_SLOWDOWN, PU_SPEEDUP, PU_UNARMED,
+        GHOST, GRAVITY, INVINCIBILITY, MAGNETISM, OVERLOAD, SLOWDOWN, SPEEDUP, UNARMED,
     }
 
     private static Map<PowerUpType, PowerUpData> powerUps = new HashMap<PowerUpType, PowerUpData>();
