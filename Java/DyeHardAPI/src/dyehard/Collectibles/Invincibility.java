@@ -12,7 +12,7 @@ public class Invincibility extends PowerUp {
     public Invincibility() {
         super();
         duration = Configuration
-                .getPowerUpData(Configuration.PowerUpType.PU_INVINCIBILITY).duration * 1000;
+                .getPowerUpData(Configuration.PowerUpType.INVINCIBILITY).duration * 1000;
 
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Pink.png");
         applicationOrder = 100;

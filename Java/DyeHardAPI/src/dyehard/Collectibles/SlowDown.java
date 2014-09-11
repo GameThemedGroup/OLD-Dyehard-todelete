@@ -12,12 +12,12 @@ import dyehard.Player.Hero;
 public class SlowDown extends PowerUp {
 
     protected float magnitude = Configuration
-            .getPowerUpData(Configuration.PowerUpType.PU_SLOWDOWN).magnitude;
+            .getPowerUpData(Configuration.PowerUpType.SLOWDOWN).magnitude;
 
     public SlowDown() {
         super();
         duration = Configuration
-                .getPowerUpData(Configuration.PowerUpType.PU_SLOWDOWN).duration * 1000;
+                .getPowerUpData(Configuration.PowerUpType.SLOWDOWN).duration * 1000;
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Green.png");
         enemySpeedModifier = magnitude;
         isApplied = false;

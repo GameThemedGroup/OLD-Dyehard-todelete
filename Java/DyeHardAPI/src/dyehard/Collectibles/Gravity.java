@@ -6,11 +6,11 @@ import dyehard.Player.Hero;
 public class Gravity extends PowerUp {
 
     protected float magnitude = Configuration
-            .getPowerUpData(Configuration.PowerUpType.PU_GRAVITY).magnitude;
+            .getPowerUpData(Configuration.PowerUpType.GRAVITY).magnitude;
 
     public Gravity() {
         duration = Configuration
-                .getPowerUpData(Configuration.PowerUpType.PU_GRAVITY).duration * 1000;
+                .getPowerUpData(Configuration.PowerUpType.GRAVITY).duration * 1000;
         applicationOrder = 2;
         label.setText("Gravity");
     }

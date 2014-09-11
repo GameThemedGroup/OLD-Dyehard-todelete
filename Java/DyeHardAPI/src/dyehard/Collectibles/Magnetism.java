@@ -11,13 +11,13 @@ import dyehard.Player.Hero;
 public class Magnetism extends PowerUp {
 
     protected float magnitude = Configuration
-            .getPowerUpData(Configuration.PowerUpType.PU_MAGNETISM).magnitude;
+            .getPowerUpData(Configuration.PowerUpType.MAGNETISM).magnitude;
     protected final float attractionDistance = magnitude;
 
     public Magnetism() {
         super();
         duration = Configuration
-                .getPowerUpData(Configuration.PowerUpType.PU_MAGNETISM).duration * 1000;
+                .getPowerUpData(Configuration.PowerUpType.MAGNETISM).duration * 1000;
 
         applicationOrder = 40;
         label.setText("Magnet");

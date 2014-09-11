@@ -13,12 +13,12 @@ public class SpeedUp extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(0, DyeHard.Green);
 
     protected float magnitude = Configuration
-            .getPowerUpData(Configuration.PowerUpType.PU_SPEEDUP).magnitude;
+            .getPowerUpData(Configuration.PowerUpType.SPEEDUP).magnitude;
 
     public SpeedUp() {
         super();
         duration = Configuration
-                .getPowerUpData(Configuration.PowerUpType.PU_SPEEDUP).duration * 1000;
+                .getPowerUpData(Configuration.PowerUpType.SPEEDUP).duration * 1000;
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Green.png");
         enemySpeedModifier = magnitude;
         isApplied = false;

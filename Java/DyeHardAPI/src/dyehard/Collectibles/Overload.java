@@ -12,7 +12,7 @@ public class Overload extends PowerUp {
     public Overload() {
         super();
         duration = Configuration
-                .getPowerUpData(Configuration.PowerUpType.PU_OVERLOAD).duration * 1000;
+                .getPowerUpData(Configuration.PowerUpType.OVERLOAD).duration * 1000;
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Red.png");
         applicationOrder = 30;
         label.setText("Overload");
