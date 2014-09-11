@@ -4,12 +4,13 @@ import java.util.Random;
 
 import Engine.BaseCode;
 import Engine.Vector2;
+import dyehard.Configuration;
 import dyehard.World.GameWorld;
 
 public class Debris extends Obstacle {
     private static Random RANDOM = new Random();
-    private final float height = 6f;
-    private final float width = 6f;
+    private final float width = Configuration.debrisWidth;
+    private final float height = Configuration.debrisHeight;
 
     public Debris(float minX, float maxX) {
         float randomX = (maxX - minX - width) * RANDOM.nextFloat() + minX
@@ -20,7 +21,7 @@ public class Debris extends Obstacle {
         center.set(new Vector2(randomX, randomY));
         size.set(width, height);
 
-        float speed = GameWorld.Speed;
+        float speed = Configuration.debrisSpeed;
         velocity = new Vector2(-(RANDOM.nextFloat() * speed + speed / 4f), 0f);
         shouldTravel = true;
 
