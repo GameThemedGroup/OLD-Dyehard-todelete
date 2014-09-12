@@ -18,7 +18,7 @@ the end of the map. -->
         <powerUpCount>5</powerUpCount>
         <dyePackCount>11</dyePackCount>
         <debrisCount>10</debrisCount>
-        <mapLength>0</mapLength>
+        <mapLength>3000</mapLength>
         <gameSpeed>0.3</gameSpeed>
     </dyeHard>
 </world>
