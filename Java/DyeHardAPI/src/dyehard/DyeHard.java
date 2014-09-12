@@ -78,7 +78,7 @@ public abstract class DyeHard extends LibraryCode {
         resources.setClassInJar(this);
 
         state = State.PLAYING;
-        GameState.TargetDistance = 3000; // TODO magic number
+        GameState.TargetDistance = Configuration.worldMapLength;
         world = new GameWorld();
 
         initialize(); // call user code Initialize()

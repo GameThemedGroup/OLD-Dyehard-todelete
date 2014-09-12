@@ -19,9 +19,8 @@ public class GameWorld implements Updateable {
     public static final float RIGHT_EDGE = BaseCode.world.getWidth();
     public static final float TOP_EDGE = BaseCode.world.getHeight();
     public static final float BOTTOM_EDGE = BaseCode.world.getWorldPositionY();
-    public static final float MAP_LENGTH = Configuration.worldMapLength;
     public static float Speed = Configuration.worldGameSpeed;
-    
+
     float distance = 0f;
     private Hero hero;
     private LinkedList<GameWorldRegion> gameRegions;
@@ -62,6 +61,10 @@ public class GameWorld implements Updateable {
     public boolean gameOver() {
         if (hero == null) {
             return false;
+        }
+
+        if (GameState.DistanceTravelled == GameState.TargetDistance) {
+            return true;
         }
 
         return GameState.RemainingLives <= 0;
