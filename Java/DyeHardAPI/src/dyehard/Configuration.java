@@ -25,8 +25,8 @@ import Engine.BaseCode;
  */
 
 public class Configuration {
-    private DocumentBuilderFactory factory;
-    private DocumentBuilder builder;
+    private static DocumentBuilderFactory factory;
+    private static DocumentBuilder builder;
 
     // Hero variables
     public static float heroWidth;
@@ -50,7 +50,7 @@ public class Configuration {
     public static int worldPowerUpCount;
     public static int worldDyePackCount;
     public static int worldDebrisCount;
-    public static float worldMapLength;
+    public static int worldMapLength;
     public static float worldGameSpeed;
 
     // Dye pack variables
@@ -93,21 +93,25 @@ public class Configuration {
 
     private static Map<EnemyType, EnemyData> enemies = new HashMap<EnemyType, EnemyData>();
 
-    public Configuration() throws Exception {
+    static {
         factory = DocumentBuilderFactory.newInstance();
-        builder = factory.newDocumentBuilder();
 
-        parseEnemyData();
-        parseHeroData();
-        parseOverheatData();
-        parseLimitedAmmoData();
-        parseWorldData();
-        parseDyePackData();
-        parsePowerUpData();
-        parseDebrisData();
+        try {
+            builder = factory.newDocumentBuilder();
+            parseEnemyData();
+            parseHeroData();
+            parseOverheatData();
+            parseLimitedAmmoData();
+            parseWorldData();
+            parseDyePackData();
+            parsePowerUpData();
+            parseDebrisData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private float parseFloat(Element elem, String tag) {
+    private static float parseFloat(Element elem, String tag) {
         if (elem.getElementsByTagName(tag).item(0) != null) {
             return Float.parseFloat(elem.getElementsByTagName(tag).item(0)
                     .getChildNodes().item(0).getNodeValue());
@@ -116,7 +120,7 @@ public class Configuration {
         return 0;
     }
 
-    private int parseInt(Element elem, String tag) {
+    private static int parseInt(Element elem, String tag) {
         if (elem.getElementsByTagName(tag).item(0) != null) {
             return Integer.parseInt(elem.getElementsByTagName(tag).item(0)
                     .getChildNodes().item(0).getNodeValue());
@@ -125,7 +129,7 @@ public class Configuration {
         return 0;
     }
 
-    private InputStream loadExternalFile(String path) {
+    private static InputStream loadExternalFile(String path) {
         String basePath = BaseCode.resources.basePath;
         URL url;
 
@@ -143,7 +147,7 @@ public class Configuration {
         return null;
     }
 
-    private NodeList createNodeList(String file) throws Exception {
+    private static NodeList createNodeList(String file) throws Exception {
         String filePath = "resources/" + file + ".xml";
 
         InputStream is = null;
@@ -161,7 +165,7 @@ public class Configuration {
         return document.getDocumentElement().getChildNodes();
     }
 
-    private void parseEnemyData() throws Exception {
+    private static void parseEnemyData() throws Exception {
         NodeList nodeList = createNodeList("Enemies");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -190,7 +194,7 @@ public class Configuration {
         return enemies.get(type);
     }
 
-    private void parseHeroData() throws Exception {
+    private static void parseHeroData() throws Exception {
         NodeList nodeList = createNodeList("Hero");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -208,7 +212,7 @@ public class Configuration {
         }
     }
 
-    private void parseOverheatData() throws Exception {
+    private static void parseOverheatData() throws Exception {
         NodeList nodeList = createNodeList("OverheatWeapon");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -224,7 +228,7 @@ public class Configuration {
         }
     }
 
-    private void parseLimitedAmmoData() throws Exception {
+    private static void parseLimitedAmmoData() throws Exception {
         NodeList nodeList = createNodeList("LimitedAmmoWeapon");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -240,7 +244,7 @@ public class Configuration {
         }
     }
 
-    private void parseWorldData() throws Exception {
+    private static void parseWorldData() throws Exception {
         NodeList nodeList = createNodeList("World");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -253,13 +257,13 @@ public class Configuration {
                 worldPowerUpCount = parseInt(elem, "powerUpCount");
                 worldDyePackCount = parseInt(elem, "dyePackCount");
                 worldDebrisCount = parseInt(elem, "debrisCount");
-                worldMapLength = parseFloat(elem, "mapLength");
+                worldMapLength = parseInt(elem, "mapLength");
                 worldGameSpeed = parseFloat(elem, "gameSpeed");
             }
         }
     }
 
-    private void parseDyePackData() throws Exception {
+    private static void parseDyePackData() throws Exception {
         NodeList nodeList = createNodeList("DyePacks");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -275,7 +279,7 @@ public class Configuration {
         }
     }
 
-    private void parsePowerUpData() throws Exception {
+    private static void parsePowerUpData() throws Exception {
         NodeList nodeList = createNodeList("PowerUps");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -307,7 +311,7 @@ public class Configuration {
         return powerUps.get(type);
     }
 
-    private void parseDebrisData() throws Exception {
+    private static void parseDebrisData() throws Exception {
         NodeList nodeList = createNodeList("Debris");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
