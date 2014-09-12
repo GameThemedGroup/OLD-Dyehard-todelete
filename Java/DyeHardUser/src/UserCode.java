@@ -1,6 +1,5 @@
 import java.awt.event.KeyEvent;
 
-import dyehard.Configuration;
 import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.Ghost;
@@ -18,11 +17,6 @@ public class UserCode extends DyeHard {
 
     @Override
     protected void initialize() {
-        try {
-            new Configuration();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         hero = new Hero();
         hero.registerWeapon(new SpreadFireWeapon(hero));
