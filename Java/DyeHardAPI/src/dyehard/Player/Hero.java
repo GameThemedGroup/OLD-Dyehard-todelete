@@ -40,7 +40,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public final Vector2 defaultGravity = new Vector2(0f, 0f);
     public Vector2 totalThrust = new Vector2();
 
-    private float speedLimitX = Configuration.heroSpeedLimit;
+    private final float speedLimitX = Configuration.heroSpeedLimit;
     private static float drag = Configuration.heroDrag;
 
     private int collectedDyepacks;
@@ -50,16 +50,17 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     protected DynamicDyePack dynamicDyepack;
     protected Vector2 previousVelocity;
     protected Vector2 currentVelocity;
+    protected final static Vector2 startingLocation = new Vector2(20f, 20f);
 
-    private ArrayList<Weapon> weaponRack;
-    private HashMap<Integer, Integer> weaponHotkeys;
+    private final ArrayList<Weapon> weaponRack;
+    private final HashMap<Integer, Integer> weaponHotkeys;
 
     public enum Direction {
         UP, DOWN, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, NEUTRAL
     }
 
     public Hero() {
-        super(new Vector2(20f, 20f), Configuration.heroWidth,
+        super(startingLocation.clone(), Configuration.heroWidth,
                 Configuration.heroHeight); // TODO remove magic numbers
 
         color = Colors.randomColor();
@@ -155,7 +156,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public void moveUp() {
         // Upward speed needs to counter the effects of gravity
         totalThrust
-        .add(new Vector2(0f, defaultJetSpeed - currentGravity.getY()));
+                .add(new Vector2(0f, defaultJetSpeed - currentGravity.getY()));
     }
 
     public void moveDown() {
@@ -258,7 +259,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         powerups.clear();
         powerups.add(new Invincibility());
         applyPowerups();
-        
+
         if (!debugInvincibility) {
             GameState.RemainingLives--;
         }
@@ -266,6 +267,8 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         if (GameState.RemainingLives <= 0) {
             alive = false;
         }
+
+        hero.center.set(startingLocation.clone());
     }
 
     @Override
