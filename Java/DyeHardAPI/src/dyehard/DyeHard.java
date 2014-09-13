@@ -52,6 +52,10 @@ public abstract class DyeHard extends LibraryCode {
             }
             break;
         case GAMEOVER:
+            if (keyboard.isButtonTapped(KeyEvent.VK_SPACE)) {
+                state = State.PLAYING;
+                GameState.RemainingLives = 4;
+            }
             break;
         }
     }
