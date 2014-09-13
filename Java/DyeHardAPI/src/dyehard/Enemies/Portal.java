@@ -33,7 +33,6 @@ public class Portal extends GameObject {
         this.hero = hero;
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Box1.png");
         color = Color.black;
-        this.hero = hero;
         timer = new Timer(duration);
     }
 
@@ -50,8 +49,7 @@ public class Portal extends GameObject {
     }
 
     public void parseNodeList() {
-        NodeList nodeList = Configuration
-                .getEnemyData(EnemyType.PORTAL_SPAWN).uniqueAttributes;
+        NodeList nodeList = Configuration.getEnemyData(EnemyType.PORTAL_SPAWN).uniqueAttributes;
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);

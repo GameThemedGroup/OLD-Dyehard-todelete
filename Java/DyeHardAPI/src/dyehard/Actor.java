@@ -30,16 +30,6 @@ public class Actor extends Collidable {
         return color;
     }
 
-    public void setTexture(String resourceName) {
-        throw new UnsupportedOperationException();
-        // position.texture = resourceName;
-    }
-
-    public void setLabel(String label) {
-        throw new UnsupportedOperationException();
-        // position.Label = label;
-    }
-
     public void kill(Primitive who) {
         destroy();
     }
