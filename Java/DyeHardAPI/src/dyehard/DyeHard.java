@@ -43,10 +43,6 @@ public abstract class DyeHard extends LibraryCode {
             if (keyboard.isButtonTapped(KeyEvent.VK_A)) {
                 state = State.PLAYING;
             }
-            /*
-             * if (keyboard.isButtonDown(KeyEvent.VK_Q)) { state = State.BEGIN;
-             * world = new GameWorld(keyboard); // pauseScreen.remove(); }
-             */
             break;
         case PLAYING:
             if (keyboard.isButtonTapped(KeyEvent.VK_A)) {
@@ -56,10 +52,6 @@ public abstract class DyeHard extends LibraryCode {
             }
             break;
         case GAMEOVER:
-            /*
-             * if (keyboard.isButtonDown(KeyEvent.VK_A)) { state = State.BEGIN;
-             * world = new GameWorld(keyboard); // } `
-             */
             break;
         }
     }

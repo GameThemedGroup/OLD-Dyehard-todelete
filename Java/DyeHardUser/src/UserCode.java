@@ -23,19 +23,13 @@ public class UserCode extends DyeHard {
         hero.registerWeapon(new OverHeatWeapon(hero));
         hero.registerWeapon(new LimitedAmmoWeapon(hero));
 
-        // Space.numberOfDefaultPowerUps(5);
-
         Ghost g = new Ghost();
         g.center.set(30f, 20f);
         Space.registerPowerUp(g);
 
-        // Space.numberOfDefaultDyePacks(11);
-
         DyePack p = new DyePack(Colors.Yellow);
         p.center.set(60f, 30f);
         Space.registerDyePack(p);
-
-        // Space.numberOfDefaultDebris(10);
 
         world.initialize(hero);
 
