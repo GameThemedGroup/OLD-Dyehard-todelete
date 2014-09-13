@@ -1,9 +1,11 @@
 package dyehard;
 
-import Engine.World.BoundCollidedStatus;
+import dyehard.World.GameWorld;
 
 public abstract class Collidable extends GameObject {
     protected ManagerState collidableState;
+
+    private static final float offset = 30f;
 
     public Collidable() {
         collidableState = ManagerState.ACTIVE;
@@ -25,11 +27,11 @@ public abstract class Collidable extends GameObject {
     }
 
     private static boolean isInsideWorld(Collidable o) {
-        // The Collidable is destroyed once it leaves the map through the left,
-        // top, or bottom portion of the map.
-        BoundCollidedStatus collisionStatus = o.collideWorldBound();
-        if (!o.isInsideWorldBound()
-                && collisionStatus != BoundCollidedStatus.RIGHT) {
+        // The Collidable is destroyed once it's too far from the map to the
+        // left, top, or bottom portion of the map. offset is 30f for now
+        if ((o.center.getX() < (GameWorld.LEFT_EDGE - offset))
+                || (o.center.getY() < (GameWorld.BOTTOM_EDGE - offset))
+                || (o.center.getY() > (GameWorld.TOP_EDGE + offset))) {
             return false;
         }
 
