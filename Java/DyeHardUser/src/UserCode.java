@@ -2,7 +2,6 @@ import java.awt.event.KeyEvent;
 
 import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
-import dyehard.Collectibles.Ghost;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.Weapons.LimitedAmmoWeapon;
@@ -23,9 +22,9 @@ public class UserCode extends DyeHard {
         hero.registerWeapon(new OverHeatWeapon(hero));
         hero.registerWeapon(new LimitedAmmoWeapon(hero));
 
-        Ghost g = new Ghost();
-        g.center.set(30f, 20f);
-        Space.registerPowerUp(g);
+        // Ghost g = new Ghost();
+        // g.center.set(30f, 20f);
+        // Space.registerPowerUp(g);
 
         DyePack p = new DyePack(Colors.Yellow);
         p.center.set(60f, 30f);
