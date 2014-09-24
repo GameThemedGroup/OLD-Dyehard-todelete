@@ -10,12 +10,10 @@ import dyehard.ManagerState;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 import dyehard.Util.ImageTint;
-import dyehard.Util.Timer;
 
 public class Bullet extends Collidable {
     public Color dyeColor;
 
-    Timer timer;
     Hero hero;
     boolean firing = true;
 
@@ -26,7 +24,6 @@ public class Bullet extends Collidable {
 
     public Bullet(Hero hero) {
         this.hero = hero;
-        timer = new Timer(500);
 
         size = r.size;
 
@@ -48,7 +45,7 @@ public class Bullet extends Collidable {
                     new Vector2(size.getX() / 2, hero.size.getY() / 3.25f));
         }
         super.update();
-        if (timer.isDone()) {
+        if (spriteCycleDone) {
             destroy();
         }
     }

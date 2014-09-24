@@ -9,6 +9,8 @@ import Engine.Vector2;
 // Sprite sheet code ported from the C# engine, which
 // is credited to Samuel Cook and Ron Cook for adding support for that.
 public class DyehardRectangle extends Primitive {
+    public boolean spriteCycleDone = false;
+
     private boolean drawImage = true;
     private boolean drawFilledRect = true;
 
@@ -158,7 +160,10 @@ public class DyehardRectangle extends Primitive {
 
         if (currentFrame >= totalFrames - 1) {
             currentFrame = 0;
+            spriteCycleDone = true;
             return;
+        } else {
+            spriteCycleDone = false;
         }
         ++currentFrame;
 
@@ -192,6 +197,7 @@ public class DyehardRectangle extends Primitive {
         return frameCoords[currentFrame][3];
     }
 
+    @Override
     public void draw() {
         if (drawImage && texture != null) {
             if (usingSpriteSheet) {
@@ -252,11 +258,13 @@ public class DyehardRectangle extends Primitive {
 
     // From the C# code "TexturedPrimitivePixelCollide.cs"
     public boolean pixelTouches(DyehardRectangle otherPrim, Vector2 collidePoint) {
-        if (texture == null || otherPrim.texture == null)
+        if (texture == null || otherPrim.texture == null) {
             return false;
+        }
 
-        if (!primitivesTouches(otherPrim))
+        if (!primitivesTouches(otherPrim)) {
             return false;
+        }
 
         Vector2 myXDir = Vector2.rotateVectorByAngle(Vector2.unitX,
                 (float) Math.toRadians(rotate));
@@ -283,8 +291,9 @@ public class DyehardRectangle extends Primitive {
                 int myColor = ((texture.getRGB(x, y) >> 24) & 0xff);
 
                 // Skip transparent pixels
-                if (myColor <= 0)
+                if (myColor <= 0) {
                     continue;
+                }
 
                 collidePoint.set(indexToCameraPosition(x - minX, y - minY,
                         myXDir, myYDir));
@@ -295,12 +304,14 @@ public class DyehardRectangle extends Primitive {
 
                 // TODO add check for otherPrim spriteSheet width/height
                 if (xMin < 0 || xMin >= otherPrim.texture.getWidth()
-                        || yMin < 0 || yMin >= otherPrim.texture.getHeight())
+                        || yMin < 0 || yMin >= otherPrim.texture.getHeight()) {
                     continue;
+                }
 
                 // overlap found!
-                if (((otherPrim.texture.getRGB(xMin, yMin) >> 24) & 0xff) > 0)
+                if (((otherPrim.texture.getRGB(xMin, yMin) >> 24) & 0xff) > 0) {
                     return true;
+                }
             }
         }
 
@@ -310,8 +321,8 @@ public class DyehardRectangle extends Primitive {
     private Vector2 indexToCameraPosition(int i, int j, Vector2 xDir,
             Vector2 yDir) {
         // Translate from percent across image to percent across size
-        float x = i * size.getX() / (float) (texture.getWidth() - 1);
-        float y = j * size.getY() / (float) (texture.getHeight() - 1);
+        float x = i * size.getX() / (texture.getWidth() - 1);
+        float y = j * size.getY() / (texture.getHeight() - 1);
 
         Vector2 r = center.clone()
                 .add(xDir.clone().mult(x - (size.getX() * 0.5f)))
