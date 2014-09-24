@@ -21,16 +21,13 @@ public class CollisionManager {
     static Set<Collidable> collidables = new HashSet<Collidable>();
     static Set<Collidable> newCollidables = new HashSet<Collidable>();
 
-    static Set<Collidable> actors = new HashSet<Collidable>();
-    static Set<Collidable> newActors = new HashSet<Collidable>();
-
     /**
      * Indicates that Actors are ready to start colliding with other registered
      * actors and collidables.
      */
     public static void registerActor(Collidable c) {
         if (c != null) {
-            newActors.add(c);
+            newCollidables.add(c);
         }
     }
 
@@ -45,36 +42,48 @@ public class CollisionManager {
     }
 
     public static void update() {
-        for (Collidable actor : actors) {
-            for (Collidable obj : collidables) {
-                if (actor.collideState() != ManagerState.ACTIVE
-                        || obj.collideState() != ManagerState.ACTIVE)
-                    continue;
 
-                if (actor != obj && actor.collided(obj)) {
-                    actor.handleCollision(obj);
-                    obj.handleCollision(actor);
-                }
-            }
-        }
+        // for (Iterator<Collidable> i = collidables.iterator(); i.hasNext();) {
+        // Collidable c1 = i.next();
+        // if (c1 == null || c1.collideState() == ManagerState.DESTROYED) {
+        // i.remove();
+        // } else {
+        // for (Iterator<Collidable> j = collidables.iterator(); j
+        // .hasNext();) {
+        // Collidable c2 = j.next();
+        // if (c2 == null
+        // || c2.collideState() == ManagerState.DESTROYED) {
+        // j.remove();
+        // } else if (c1.collideState() == ManagerState.ACTIVE
+        // && c2.collideState() == ManagerState.ACTIVE
+        // && c1 != c2 && c1.collided(c2)) {
+        // c1.handleCollision(c2);
+        // c2.handleCollision(c1);
+        // }
+        // }
+        // }
+        // }
 
-        for (Collidable a : actors) {
-            for (Collidable b : actors) {
-                if (a != b && a.collided(b)) {
-                    a.handleCollision(b);
-                    b.handleCollision(a);
+        for (Collidable c1 : collidables) {
+            if (c1.collideState() != ManagerState.ACTIVE) {
+                continue;
+            } else {
+                for (Collidable c2 : collidables) {
+                    if (c2.collideState() != ManagerState.ACTIVE) {
+                        continue;
+                    }
+
+                    else if (c1 != c2 && c1.collided(c2)) {
+                        c1.handleCollision(c2);
+                        c2.handleCollision(c1);
+                    }
                 }
             }
         }
 
         collidables.addAll(newCollidables);
-        collidables.addAll(newActors);
         newCollidables.clear();
         removeInactiveObjects(collidables);
-
-        actors.addAll(newActors);
-        newActors.clear();
-        removeInactiveObjects(actors);
     }
 
     private static void removeInactiveObjects(Set<Collidable> set) {
@@ -90,9 +99,5 @@ public class CollisionManager {
 
     public static final Set<Collidable> getCollidables() {
         return collidables;
-    }
-
-    public static final Set<Collidable> getActors() {
-        return actors;
     }
 }
