@@ -13,9 +13,9 @@ public class Overload extends PowerUp {
         super();
         duration = Configuration
                 .getPowerUpData(Configuration.PowerUpType.OVERLOAD).duration * 1000;
-        texture = BaseCode.resources.loadImage("Textures/PowerUp_Red.png");
+        texture = BaseCode.resources.loadImage("Textures/PowerUp_Overload.png");
         applicationOrder = 30;
-        label.setText("Overload");
+        // label.setText("Overload");
     }
 
     @Override

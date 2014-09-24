@@ -14,9 +14,10 @@ public class Invincibility extends PowerUp {
         duration = Configuration
                 .getPowerUpData(Configuration.PowerUpType.INVINCIBILITY).duration * 1000;
 
-        texture = BaseCode.resources.loadImage("Textures/PowerUp_Pink.png");
+        texture = BaseCode.resources
+                .loadImage("Textures/PowerUp_Invincibility.png");
         applicationOrder = 100;
-        label.setText("Invin");
+        // label.setText("Invin");
     }
 
     @Override

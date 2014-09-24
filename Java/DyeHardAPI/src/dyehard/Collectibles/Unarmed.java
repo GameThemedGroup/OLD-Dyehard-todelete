@@ -1,5 +1,6 @@
 package dyehard.Collectibles;
 
+import Engine.BaseCode;
 import dyehard.Configuration;
 import dyehard.Player.Hero;
 import dyehard.Weapons.BrokenWeapon;
@@ -10,9 +11,10 @@ public class Unarmed extends PowerUp {
         super();
         duration = Configuration
                 .getPowerUpData(Configuration.PowerUpType.UNARMED).duration * 1000;
+        texture = BaseCode.resources.loadImage("Textures/PowerUp_Unarmed.png");
         timer.setInterval(duration);
         applicationOrder = 0;
-        label.setText("Unarmed");
+        // label.setText("Unarmed");
     }
 
     @Override

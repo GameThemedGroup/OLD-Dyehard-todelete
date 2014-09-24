@@ -19,11 +19,11 @@ public class SpeedUp extends PowerUp {
         super();
         duration = Configuration
                 .getPowerUpData(Configuration.PowerUpType.SPEEDUP).duration * 1000;
-        texture = BaseCode.resources.loadImage("Textures/PowerUp_Green.png");
+        texture = BaseCode.resources.loadImage("Textures/PowerUp_SpeedUp.png");
         enemySpeedModifier = magnitude;
         isApplied = false;
         applicationOrder = 20;
-        label.setText("Speed");
+        // label.setText("Speed");
     }
 
     protected boolean isApplied;

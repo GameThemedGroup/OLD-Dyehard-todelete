@@ -1,5 +1,6 @@
 package dyehard.Collectibles;
 
+import Engine.BaseCode;
 import dyehard.Configuration;
 import dyehard.Player.Hero;
 
@@ -11,6 +12,7 @@ public class Gravity extends PowerUp {
     public Gravity() {
         duration = Configuration
                 .getPowerUpData(Configuration.PowerUpType.GRAVITY).duration * 1000;
+        texture = BaseCode.resources.loadImage("Textures/PowerUp_Blue.png");
         applicationOrder = 2;
         label.setText("Gravity");
     }

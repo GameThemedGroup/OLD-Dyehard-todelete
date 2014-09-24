@@ -18,11 +18,11 @@ public class SlowDown extends PowerUp {
         super();
         duration = Configuration
                 .getPowerUpData(Configuration.PowerUpType.SLOWDOWN).duration * 1000;
-        texture = BaseCode.resources.loadImage("Textures/PowerUp_Green.png");
+        texture = BaseCode.resources.loadImage("Textures/PowerUp_SlowDown.png");
         enemySpeedModifier = magnitude;
         isApplied = false;
         applicationOrder = 10;
-        label.setText("Slow");
+        // label.setText("Slow");
     }
 
     protected boolean isApplied;

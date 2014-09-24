@@ -2,6 +2,7 @@ package dyehard.Collectibles;
 
 import java.util.Set;
 
+import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.Collidable;
 import dyehard.CollisionManager;
@@ -19,8 +20,10 @@ public class Magnetism extends PowerUp {
         duration = Configuration
                 .getPowerUpData(Configuration.PowerUpType.MAGNETISM).duration * 1000;
 
+        texture = BaseCode.resources
+                .loadImage("Textures/PowerUp_Magnetism.png");
         applicationOrder = 40;
-        label.setText("Magnet");
+        // label.setText("Magnet");
     }
 
     @Override
