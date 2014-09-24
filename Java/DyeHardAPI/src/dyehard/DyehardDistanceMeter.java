@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import Engine.BaseCode;
 import Engine.Rectangle;
 import dyehard.DHR.ImageID;
 import dyehard.World.GameWorld;
@@ -66,5 +67,13 @@ public class DyehardDistanceMeter {
         float startX = progress.center.getX() - progress.size.getX() / 2f;
 
         return startX + value * scale;
+    }
+
+    public void setProgTexture(String name) {
+        dyeMarker.texture = BaseCode.resources.loadImage("Textures/" + name
+                + ".png");
+        dyeMarker.size.set(3.5f, 3.5f); // TODO clean up original dyeMarker
+                                        // declaration, also consider not using
+                                        // fixed numbers.
     }
 }

@@ -8,6 +8,7 @@ import dyehard.Collidable;
 import dyehard.CollisionManager;
 import dyehard.Configuration;
 import dyehard.Player.Hero;
+import dyehard.Player.Hero.CurPowerUp;
 
 public class Magnetism extends PowerUp {
 
@@ -29,6 +30,7 @@ public class Magnetism extends PowerUp {
     @Override
     public void apply(Hero hero) {
         Set<Collidable> collidables = CollisionManager.getCollidables();
+        hero.curPowerUp = CurPowerUp.MAGNET;
 
         for (Collidable c : collidables) {
             if (c instanceof DyePack || c instanceof PowerUp) {
@@ -46,7 +48,7 @@ public class Magnetism extends PowerUp {
 
     @Override
     public void unapply(Hero hero) {
-        // does not affect hero
+        hero.curPowerUp = CurPowerUp.NONE;
         return;
     }
 

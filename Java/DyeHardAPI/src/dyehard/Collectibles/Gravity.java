@@ -3,6 +3,7 @@ package dyehard.Collectibles;
 import Engine.BaseCode;
 import dyehard.Configuration;
 import dyehard.Player.Hero;
+import dyehard.Player.Hero.CurPowerUp;
 
 public class Gravity extends PowerUp {
 
@@ -20,11 +21,13 @@ public class Gravity extends PowerUp {
     @Override
     public void apply(Hero hero) {
         hero.currentGravity.set(0f, -magnitude);
+        hero.curPowerUp = CurPowerUp.GRAVITY;
     }
 
     @Override
     public void unapply(Hero hero) {
         hero.currentGravity.set(0f, 0f);
+        hero.curPowerUp = CurPowerUp.NONE;
     }
 
     @Override

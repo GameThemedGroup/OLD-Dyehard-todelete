@@ -4,6 +4,7 @@ import Engine.BaseCode;
 import Engine.Primitive;
 import dyehard.Configuration;
 import dyehard.Player.Hero;
+import dyehard.Player.Hero.CurPowerUp;
 import dyehard.Player.HeroInterfaces.HeroDamage;
 
 public class Invincibility extends PowerUp {
@@ -35,6 +36,7 @@ public class Invincibility extends PowerUp {
         hero.size.set(Configuration.heroWidth * 2,
                 Configuration.heroHeight * 1.3333f);
         hero.isInvin = true;
+        hero.curPowerUp = CurPowerUp.INVIN;
     }
 
     @Override
@@ -42,6 +44,7 @@ public class Invincibility extends PowerUp {
         hero.texture = BaseCode.resources.loadImage("Textures/Hero/Dye.png");
         hero.size.set(Configuration.heroWidth, Configuration.heroHeight);
         hero.isInvin = false;
+        hero.curPowerUp = CurPowerUp.NONE;
         hero.damageHandler = null;
     }
 

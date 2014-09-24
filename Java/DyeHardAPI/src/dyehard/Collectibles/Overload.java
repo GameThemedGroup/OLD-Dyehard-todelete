@@ -3,6 +3,7 @@ package dyehard.Collectibles;
 import Engine.BaseCode;
 import dyehard.Configuration;
 import dyehard.Player.Hero;
+import dyehard.Player.Hero.CurPowerUp;
 import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.Weapons.OverHeatWeapon;
 
@@ -20,6 +21,7 @@ public class Overload extends PowerUp {
 
     @Override
     public void apply(Hero hero) {
+        hero.curPowerUp = CurPowerUp.OVERLOAD;
         if (hero.currentWeapon instanceof OverHeatWeapon) {
             ((OverHeatWeapon) hero.currentWeapon).currentHeatLevel = 0f;
             ((OverHeatWeapon) hero.currentWeapon).overheated = false;
@@ -30,8 +32,7 @@ public class Overload extends PowerUp {
 
     @Override
     public void unapply(Hero hero) {
-        // TODO Auto-generated method stub
-
+        hero.curPowerUp = CurPowerUp.NONE;
     }
 
     @Override

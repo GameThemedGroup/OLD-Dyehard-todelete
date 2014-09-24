@@ -31,6 +31,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public float currentJetSpeed;
     public Vector2 currentGravity;
     public Set<PowerUp> powerups;
+    public CurPowerUp curPowerUp;
     public boolean debugInvincibility;
     public boolean isInvin;
 
@@ -60,10 +61,15 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         UP, DOWN, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, NEUTRAL
     }
 
+    public enum CurPowerUp {
+        GHOST, INVIN, MAGNET, OVERLOAD, SLOW, SPEED, UNARMED, GRAVITY, NONE
+    }
+
     public Hero() {
         super(startingLocation.clone(), Configuration.heroWidth,
                 Configuration.heroHeight); // TODO remove magic numbers
 
+        curPowerUp = CurPowerUp.NONE;
         color = Colors.randomColor();
         directionState = Direction.NEUTRAL;
         dynamicDyepack = new DynamicDyePack(this);

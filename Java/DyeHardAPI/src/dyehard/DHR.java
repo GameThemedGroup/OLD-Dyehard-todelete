@@ -83,17 +83,20 @@ public class DHR {
                 "bin/resources/" + csvPath, };
 
         for (String path : filePaths) {
-            if (input == null)
+            if (input == null) {
                 input = loadExternalFile(path);
+            }
         }
 
         for (String path : filePaths) {
-            if (input == null)
+            if (input == null) {
                 input = DHR.class.getClassLoader().getResourceAsStream(path);
+            }
         }
 
-        if (input == null)
+        if (input == null) {
             MessageOnce.showAlert("Error reading configuration files.");
+        }
 
         BufferedReader br = new BufferedReader(new InputStreamReader(input));
         String line;

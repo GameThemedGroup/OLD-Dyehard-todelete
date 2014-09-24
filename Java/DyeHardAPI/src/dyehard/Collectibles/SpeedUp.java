@@ -8,6 +8,7 @@ import dyehard.Configuration;
 import dyehard.Enemies.Enemy;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
+import dyehard.Player.Hero.CurPowerUp;
 
 public class SpeedUp extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(0, DyeHard.Green);
@@ -43,6 +44,7 @@ public class SpeedUp extends PowerUp {
         }
 
         isApplied = true;
+        hero.curPowerUp = CurPowerUp.SPEED;
     }
 
     @Override
@@ -50,6 +52,7 @@ public class SpeedUp extends PowerUp {
         for (Enemy e : affectedEnemies) {
             e.speed /= enemySpeedModifier;
         }
+        hero.curPowerUp = CurPowerUp.NONE;
     }
 
     @Override

@@ -8,6 +8,7 @@ import dyehard.Configuration;
 import dyehard.Enemies.Enemy;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
+import dyehard.Player.Hero.CurPowerUp;
 
 public class SlowDown extends PowerUp {
 
@@ -42,6 +43,7 @@ public class SlowDown extends PowerUp {
         }
 
         isApplied = true;
+        hero.curPowerUp = CurPowerUp.SLOW;
     }
 
     @Override
@@ -49,6 +51,7 @@ public class SlowDown extends PowerUp {
         for (Enemy e : affectedEnemies) {
             e.speed /= enemySpeedModifier;
         }
+        hero.curPowerUp = CurPowerUp.NONE;
     }
 
     @Override

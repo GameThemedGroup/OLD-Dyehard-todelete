@@ -5,6 +5,7 @@ import Engine.Primitive;
 import dyehard.Collidable;
 import dyehard.Configuration;
 import dyehard.Player.Hero;
+import dyehard.Player.Hero.CurPowerUp;
 import dyehard.Player.HeroInterfaces.HeroCollision;
 import dyehard.Player.HeroInterfaces.HeroDamage;
 import dyehard.World.Gate.DeathGate;
@@ -30,12 +31,14 @@ public class Ghost extends PowerUp implements HeroCollision, HeroDamage {
     public void apply(Hero hero) {
         hero.collisionHandler = this;
         hero.damageHandler = this;
+        hero.curPowerUp = CurPowerUp.GHOST;
     }
 
     @Override
     public void unapply(Hero hero) {
         hero.collisionHandler = hero.defaultCollisionHandler;
         hero.damageHandler = hero.defaultDamageHandler;
+        hero.curPowerUp = CurPowerUp.NONE;
     }
 
     @Override

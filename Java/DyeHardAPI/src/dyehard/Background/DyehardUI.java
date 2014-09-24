@@ -76,5 +76,37 @@ public class DyehardUI extends UpdateObject {
         }
         scoreText.setText(Integer.toString(GameState.Score));
         distanceMeter.setValue(GameState.DistanceTravelled);
+
+        // controls texture of the progress marker in UI Bar
+        switch (hero.curPowerUp) {
+        case GHOST:
+            distanceMeter.setProgTexture("PowerUp_Ghost");
+            break;
+        case INVIN:
+            distanceMeter.setProgTexture("PowerUp_Invincibility");
+            break;
+        case MAGNET:
+            distanceMeter.setProgTexture("PowerUp_Magnetism");
+            break;
+        case OVERLOAD:
+            distanceMeter.setProgTexture("PowerUp_Overload");
+            break;
+        case SLOW:
+            distanceMeter.setProgTexture("PowerUp_SlowDown");
+            break;
+        case SPEED:
+            distanceMeter.setProgTexture("PowerUp_SpeedUp");
+            break;
+        case UNARMED:
+            distanceMeter.setProgTexture("PowerUp_Unarmed");
+            break;
+        case GRAVITY:
+            distanceMeter.setProgTexture("UI/Dyehard_UI_Progress_marker_empty");
+            break;
+        case NONE:
+            distanceMeter.setProgTexture("UI/Dyehard_UI_Progress_marker_empty");
+            break;
+        }
+
     }
 }
