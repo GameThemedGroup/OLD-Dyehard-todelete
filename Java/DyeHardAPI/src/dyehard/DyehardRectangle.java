@@ -173,6 +173,10 @@ public class DyehardRectangle extends Primitive {
         return totalFrames;
     }
 
+    public int getCurFrame() {
+        return currentFrame;
+    }
+
     public void setFrameNumber(int frameNumber) {
         currentFrame = frameNumber;
         // currentFrame = Math.clamp(currentFrame, 0, totalFrames - 1)
