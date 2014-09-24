@@ -48,8 +48,10 @@ public class SlowDown extends PowerUp {
 
     @Override
     public void unapply(Hero hero) {
-        for (Enemy e : affectedEnemies) {
-            e.speed /= enemySpeedModifier;
+        if (affectedEnemies != null) {
+            for (Enemy e : affectedEnemies) {
+                e.speed /= enemySpeedModifier;
+            }
         }
         hero.curPowerUp = CurPowerUp.NONE;
     }
