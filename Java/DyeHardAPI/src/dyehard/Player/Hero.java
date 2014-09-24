@@ -265,6 +265,10 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     @Override
     public void damageHero(Hero hero, Primitive who) {
+        // Only one powerup can be active at a time
+        for (PowerUp p : powerups) {
+            p.unapply(this);
+        }
         powerups.clear();
         powerups.add(new Invincibility());
         applyPowerups();
