@@ -75,7 +75,8 @@ public class Gate {
         public void handleCollision(Collidable other) {
             if (other instanceof Actor) {
                 Actor target = (Actor) other;
-                if (target.getColor() != dyeColor) {
+                if ((target.getColor() != dyeColor)
+                        && (target.getColor() != null)) {
                     target.kill(this);
                 }
             }
