@@ -23,7 +23,7 @@ public class GameWorld implements Updateable {
 
     float distance = 0f;
     private Hero hero;
-    private LinkedList<GameWorldRegion> gameRegions;
+    private final LinkedList<GameWorldRegion> gameRegions;
 
     public GameWorld() {
         gameRegions = new LinkedList<GameWorldRegion>();

@@ -26,6 +26,10 @@ public abstract class Collidable extends GameObject {
         }
     }
 
+    public void updateGate() {
+        super.update();
+    }
+
     private static boolean isInsideWorld(Collidable o) {
         // The Collidable is destroyed once it's too far from the map to the
         // left, top, or bottom portion of the map. offset is 30f for now

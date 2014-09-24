@@ -9,9 +9,9 @@ import dyehard.GameObject;
 import dyehard.Player.Hero;
 
 public class Gate {
-    private StargatePath path;
-    private DeathGate deathGate;
-    private GatePreview preview;
+    private final StargatePath path;
+    private final DeathGate deathGate;
+    private final GatePreview preview;
 
     public Gate(int offset, Hero hero, float leftEdge, Color color, float width) {
         // set up pipe
@@ -94,5 +94,11 @@ public class Gate {
             }
         }
 
+        @Override
+        public void update() {
+            // update() in collideable prematurely destroys gate, seperate
+            // udpate function made.
+            updateGate();
+        }
     }
 }

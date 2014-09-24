@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import Engine.Vector2;
-import dyehard.GameObject;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 
@@ -14,7 +12,7 @@ public class Stargate extends GameWorldRegion {
     public static final float WIDTH = GameWorld.RIGHT_EDGE * 2.0f;
     private Gate[] gates;
     private Platform[] platforms;
-    private GameObject backdrop;
+    // private GameObject backdrop;
     private static ArrayList<Color> userColors;
 
     public Hero hero;
@@ -49,13 +47,13 @@ public class Stargate extends GameWorldRegion {
             platforms[i] = new Platform(i, leftEdge, boundary);
         }
 
-        float height = GameWorld.TOP_EDGE;
-        backdrop = new GameObject();
-        backdrop.center = new Vector2(position, height / 2);
-        backdrop.size.set(width, height);
-        backdrop.color = new Color(0, 0, 0, 130);
-        backdrop.velocity = new Vector2(-speed, 0f);
-        backdrop.visible = true;
+        // float height = GameWorld.TOP_EDGE;
+        // backdrop = new GameObject();
+        // backdrop.center = new Vector2(position, height / 2);
+        // backdrop.size.set(width, height);
+        // backdrop.color = new Color(0, 0, 0, 130);
+        // backdrop.velocity = new Vector2(-speed, 0f);
+        // backdrop.visible = true;
     }
 
     public static void addColor(Color c) {
