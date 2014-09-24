@@ -1,6 +1,8 @@
 package dyehard.Player;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -8,11 +10,13 @@ import java.util.TreeSet;
 
 import Engine.BaseCode;
 import Engine.Primitive;
+import Engine.Rectangle;
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
 import dyehard.Actor;
 import dyehard.Collidable;
 import dyehard.Configuration;
+import dyehard.DHR;
 import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.Invincibility;
@@ -20,6 +24,7 @@ import dyehard.Collectibles.PowerUp;
 import dyehard.Player.HeroInterfaces.HeroCollision;
 import dyehard.Player.HeroInterfaces.HeroDamage;
 import dyehard.Util.Colors;
+import dyehard.Util.ImageTint;
 import dyehard.Weapons.OverHeatWeapon;
 import dyehard.Weapons.Weapon;
 import dyehard.World.GameState;
@@ -40,6 +45,8 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public final float defaultJetSpeed = Configuration.heroJetSpeed;
     public final Vector2 defaultGravity = new Vector2(0f, 0f);
     public Vector2 totalThrust = new Vector2();
+    public HashMap<Color, BufferedImage> bulletTextures = new HashMap<Color, BufferedImage>();
+    public Vector2 bulletSize;
 
     private final float speedLimitX = Configuration.heroSpeedLimit;
     private static float drag = Configuration.heroDrag;
@@ -52,6 +59,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     protected Vector2 previousVelocity;
     protected Vector2 currentVelocity;
     protected final static Vector2 startingLocation = new Vector2(20f, 20f);
+    protected Rectangle r;
 
     private final ArrayList<Weapon> weaponRack;
     private final HashMap<Integer, Integer> weaponHotkeys;
@@ -68,14 +76,24 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         super(startingLocation.clone(), Configuration.heroWidth,
                 Configuration.heroHeight); // TODO remove magic numbers
 
+        // TODO magic numbers
+        r = DHR.getScaledRectangle(new Vector2(1920, 1080), new Vector2(590,
+                120), "Textures/dye_attack_muzzle_flash_animation.png");
+
         curPowerUp = CurPowerUp.NONE;
         color = Colors.randomColor();
+        if (!bulletTextures.containsKey(color)) {
+            bulletTextures.put(color,
+                    ImageTint.tintedImage(r.texture, color, 1f));
+        }
         directionState = Direction.NEUTRAL;
         dynamicDyepack = new DynamicDyePack(this);
         texture = BaseCode.resources.loadImage("Textures/Hero/Dye.png");
 
         collectedDyepacks = 0;
         collectedPowerups = 0;
+
+        bulletSize = r.size;
 
         powerups = new TreeSet<PowerUp>();
 
@@ -293,6 +311,15 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     @Override
     public void collideWithHero(Hero hero, Collidable other) {
         super.handleCollision(other);
+    }
+
+    @Override
+    public void setColor(Color color) {
+        this.color = color;
+        if (!bulletTextures.containsKey(color)) {
+            bulletTextures.put(color,
+                    ImageTint.tintedImage(r.texture, color, 1f));
+        }
     }
 
     @Override

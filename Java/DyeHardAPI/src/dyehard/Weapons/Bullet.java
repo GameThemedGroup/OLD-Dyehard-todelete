@@ -2,14 +2,11 @@ package dyehard.Weapons;
 
 import java.awt.Color;
 
-import Engine.Rectangle;
 import Engine.Vector2;
 import dyehard.Collidable;
-import dyehard.DHR;
 import dyehard.ManagerState;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
-import dyehard.Util.ImageTint;
 
 public class Bullet extends Collidable {
     public Color dyeColor;
@@ -17,18 +14,13 @@ public class Bullet extends Collidable {
     Hero hero;
     boolean firing = true;
 
-    // TODO magic numbers
-    static Rectangle r = DHR.getScaledRectangle(new Vector2(1920, 1080),
-            new Vector2(590, 120),
-            "Textures/dye_attack_muzzle_flash_animation.png");
-
     public Bullet(Hero hero) {
         this.hero = hero;
 
-        size = r.size;
+        size = hero.bulletSize;
 
         dyeColor = hero.getColor();
-        texture = ImageTint.tintedImage(r.texture, dyeColor, 1f);
+        texture = hero.bulletTextures.get(dyeColor);
 
         setUsingSpriteSheet(true);
         setSpriteSheet(texture, 590, 120, 7, 2);
