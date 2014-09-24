@@ -1,16 +1,11 @@
 package dyehard.Collectibles;
 
 import Engine.BaseCode;
-import Engine.Primitive;
-import dyehard.Collidable;
 import dyehard.Configuration;
 import dyehard.Player.Hero;
 import dyehard.Player.Hero.CurPowerUp;
-import dyehard.Player.HeroInterfaces.HeroCollision;
-import dyehard.Player.HeroInterfaces.HeroDamage;
-import dyehard.World.Gate.DeathGate;
 
-public class Ghost extends PowerUp implements HeroCollision, HeroDamage {
+public class Ghost extends PowerUp {
     // public static PowerUpMeter meter = new PowerUpMeter(1, Game.Blue);
 
     public Ghost() {
@@ -29,30 +24,16 @@ public class Ghost extends PowerUp implements HeroCollision, HeroDamage {
 
     @Override
     public void apply(Hero hero) {
-        hero.collisionHandler = this;
-        hero.damageHandler = this;
+        hero.collisionOn = false;
+        hero.damageOn = false;
         hero.curPowerUp = CurPowerUp.GHOST;
     }
 
     @Override
     public void unapply(Hero hero) {
-        hero.collisionHandler = hero.defaultCollisionHandler;
-        hero.damageHandler = hero.defaultDamageHandler;
+        hero.collisionOn = true;
+        hero.damageOn = true;
         hero.curPowerUp = CurPowerUp.NONE;
-    }
-
-    @Override
-    public void collideWithHero(Hero hero, Collidable other) {
-        // Hero becomes unable to collide with other objects
-        return;
-    }
-
-    @Override
-    public void damageHero(Hero hero, Primitive who) {
-        if (!(who instanceof DeathGate)) {
-            hero.damageHandler = hero.defaultDamageHandler;
-            hero.kill(who);
-        }
     }
 
     @Override

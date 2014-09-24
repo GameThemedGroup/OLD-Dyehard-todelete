@@ -24,10 +24,11 @@ import dyehard.Util.Colors;
 import dyehard.Weapons.OverHeatWeapon;
 import dyehard.Weapons.Weapon;
 import dyehard.World.GameState;
+import dyehard.World.Gate.DeathGate;
 
 public class Hero extends Actor implements HeroCollision, HeroDamage {
-    public HeroCollision collisionHandler;
-    public HeroDamage damageHandler;
+    public boolean collisionOn = true;
+    public boolean damageOn = true;
     public Weapon currentWeapon;
     public float currentJetSpeed;
     public Vector2 currentGravity;
@@ -36,8 +37,6 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public boolean debugInvincibility;
     public boolean isInvin;
 
-    public final HeroCollision defaultCollisionHandler = this;
-    public final HeroDamage defaultDamageHandler = this;
     public final Weapon defaultWeapon = new OverHeatWeapon(this);
     public final float defaultJetSpeed = Configuration.heroJetSpeed;
     public final Vector2 defaultGravity = new Vector2(0f, 0f);
@@ -257,9 +256,9 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     @Override
     public void kill(Primitive who) {
-        if (damageHandler != null) {
-            damageHandler.damageHero(this, who);
-        } else {
+        if ((damageOn)
+                || ((who instanceof DeathGate) && curPowerUp == CurPowerUp.GHOST)) {
+
             damageHero(this, who);
         }
     }
@@ -283,10 +282,8 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     @Override
     public void handleCollision(Collidable other) {
-        if (collisionHandler != null) {
-            collisionHandler.collideWithHero(this, other);
-        } else {
-            collideWithHero(this, other);
+        if (collisionOn) {
+            super.handleCollision(other);
         }
     }
 

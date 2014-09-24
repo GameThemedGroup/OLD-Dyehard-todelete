@@ -1,11 +1,9 @@
 package dyehard.Collectibles;
 
 import Engine.BaseCode;
-import Engine.Primitive;
 import dyehard.Configuration;
 import dyehard.Player.Hero;
 import dyehard.Player.Hero.CurPowerUp;
-import dyehard.Player.HeroInterfaces.HeroDamage;
 
 public class Invincibility extends PowerUp {
 
@@ -24,13 +22,7 @@ public class Invincibility extends PowerUp {
 
     @Override
     public void apply(Hero hero) {
-        hero.damageHandler = new HeroDamage() {
-            @Override
-            public void damageHero(Hero hero, Primitive who) {
-                // The hero becomes immune to damage
-                return;
-            }
-        };
+        hero.damageOn = false;
         hero.texture = BaseCode.resources
                 .loadImage("Textures/Hero/Dye_Invincible.png");
         hero.size.set(Configuration.heroWidth * 2,
@@ -45,7 +37,7 @@ public class Invincibility extends PowerUp {
         hero.size.set(Configuration.heroWidth, Configuration.heroHeight);
         hero.isInvin = false;
         hero.curPowerUp = CurPowerUp.NONE;
-        hero.damageHandler = null;
+        hero.damageOn = true;
     }
 
     @Override
