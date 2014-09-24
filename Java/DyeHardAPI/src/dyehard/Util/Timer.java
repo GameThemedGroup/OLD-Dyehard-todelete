@@ -1,39 +1,31 @@
 package dyehard.Util;
 
-import dyehard.DyeHard;
-import dyehard.UpdateObject;
-
-public class Timer extends UpdateObject {
-    private float currentTime;
+public class Timer {
+    private final float startTime;
     private float endTime;
     private float interval;
 
     public Timer(float milliSeconds) {
-        // Converting milliseconds to nanoseconds
-        currentTime = 0;
-        interval = milliSeconds;
-        endTime = currentTime + interval;
+        startTime = System.nanoTime();
+        interval = milliSeconds * 1000000; // milli to nano
+        endTime = startTime + interval;
     }
 
     public boolean isDone() {
-        return currentTime >= endTime;
+        return System.nanoTime() >= endTime;
     }
 
     public void reset() {
-        endTime = currentTime + interval;
+        endTime = System.nanoTime() + interval;
     }
 
     public void setInterval(float milliSeconds) {
-        interval = milliSeconds;
+        interval = milliSeconds * 1000000; // milli to nano
     }
 
     public float timeRemaining() {
         // Returns the amount of time left in milliseconds
-        return endTime - currentTime;
+        return (endTime - System.nanoTime()) / 1000000;
     }
 
-    @Override
-    public void update() {
-        currentTime += DyeHard.DELTA_TIME * 1000;
-    }
 }
