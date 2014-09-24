@@ -7,6 +7,7 @@ import dyehard.Player.Hero;
 import dyehard.Player.HeroInterfaces.HeroDamage;
 
 public class Invincibility extends PowerUp {
+
     // public static PowerUpMeter meter = new PowerUpMeter(2, Game.Pink);
 
     public Invincibility() {
@@ -22,8 +23,6 @@ public class Invincibility extends PowerUp {
 
     @Override
     public void apply(Hero hero) {
-        hero.texture = BaseCode.resources
-                .loadImage("Textures/Hero/Dye_Invin.png");
         hero.damageHandler = new HeroDamage() {
             @Override
             public void damageHero(Hero hero, Primitive who) {
@@ -31,11 +30,16 @@ public class Invincibility extends PowerUp {
                 return;
             }
         };
+        hero.texture = BaseCode.resources
+                .loadImage("Textures/Hero/Dye_Invincible.png");
+        hero.size.set(Configuration.heroWidth * 2,
+                Configuration.heroHeight * 1.3333f);
     }
 
     @Override
     public void unapply(Hero hero) {
         hero.texture = BaseCode.resources.loadImage("Textures/Hero/Dye.png");
+        hero.size.set(Configuration.heroWidth, Configuration.heroHeight);
         hero.damageHandler = null;
     }
 
