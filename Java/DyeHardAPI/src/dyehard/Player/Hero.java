@@ -21,6 +21,7 @@ import dyehard.Collectibles.PowerUp;
 import dyehard.Player.HeroInterfaces.HeroCollision;
 import dyehard.Player.HeroInterfaces.HeroDamage;
 import dyehard.Util.Colors;
+import dyehard.Weapons.OverHeatWeapon;
 import dyehard.Weapons.Weapon;
 import dyehard.World.GameState;
 
@@ -37,7 +38,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     public final HeroCollision defaultCollisionHandler = this;
     public final HeroDamage defaultDamageHandler = this;
-    public final Weapon defaultWeapon = new Weapon(this);
+    public final Weapon defaultWeapon = new OverHeatWeapon(this);
     public final float defaultJetSpeed = Configuration.heroJetSpeed;
     public final Vector2 defaultGravity = new Vector2(0f, 0f);
     public Vector2 totalThrust = new Vector2();
@@ -122,7 +123,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         handleInput();
         updateDirectionState();
         updateMovement();
-        selectWeapon();
+        // selectWeapon();
         clampToWorldBounds();
 
         dynamicDyepack.update();
