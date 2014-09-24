@@ -32,6 +32,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public Vector2 currentGravity;
     public Set<PowerUp> powerups;
     public boolean debugInvincibility;
+    public boolean isInvin;
 
     public final HeroCollision defaultCollisionHandler = this;
     public final HeroDamage defaultDamageHandler = this;
@@ -89,6 +90,8 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
         previousVelocity = new Vector2(0f, 0f);
         currentVelocity = new Vector2(0f, 0f);
+
+        isInvin = false;
     }
 
     public void updateMovement() {

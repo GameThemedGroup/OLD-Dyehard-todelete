@@ -34,12 +34,14 @@ public class Invincibility extends PowerUp {
                 .loadImage("Textures/Hero/Dye_Invincible.png");
         hero.size.set(Configuration.heroWidth * 2,
                 Configuration.heroHeight * 1.3333f);
+        hero.isInvin = true;
     }
 
     @Override
     public void unapply(Hero hero) {
         hero.texture = BaseCode.resources.loadImage("Textures/Hero/Dye.png");
         hero.size.set(Configuration.heroWidth, Configuration.heroHeight);
+        hero.isInvin = false;
         hero.damageHandler = null;
     }
 
