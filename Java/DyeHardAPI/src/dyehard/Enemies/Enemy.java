@@ -87,8 +87,10 @@ public class Enemy extends Actor {
     @Override
     public void handleCollision(Collidable other) {
         super.handleCollision(other);
-        if (other instanceof Hero && pixelTouches(hero)) {
-            ((Hero) other).kill(this);
+        if ((other instanceof Hero) && (hero.damageOn)) {
+            if (pixelTouches(hero)) {
+                ((Hero) other).kill(this);
+            }
         }
     }
 

@@ -52,10 +52,12 @@ public class Bullet extends Collidable {
 
     @Override
     public void handleCollision(Collidable other) {
-        if (other instanceof Enemy && pixelTouches(other)) {
-            Enemy enemy = (Enemy) other;
-            enemy.setColor(dyeColor);
-            collidableState = ManagerState.DESTROYED;
+        if ((other instanceof Enemy) && (other.color != dyeColor)) {
+            if (pixelTouches(other)) {
+                Enemy enemy = (Enemy) other;
+                enemy.setColor(dyeColor);
+                collidableState = ManagerState.DESTROYED;
+            }
         }
     }
 }
