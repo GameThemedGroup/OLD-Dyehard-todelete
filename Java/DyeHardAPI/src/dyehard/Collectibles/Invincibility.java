@@ -22,6 +22,8 @@ public class Invincibility extends PowerUp {
 
     @Override
     public void apply(Hero hero) {
+        hero.texture = BaseCode.resources
+                .loadImage("Textures/Hero/Dye_Invin.png");
         hero.damageHandler = new HeroDamage() {
             @Override
             public void damageHero(Hero hero, Primitive who) {
@@ -33,6 +35,7 @@ public class Invincibility extends PowerUp {
 
     @Override
     public void unapply(Hero hero) {
+        hero.texture = BaseCode.resources.loadImage("Textures/Hero/Dye.png");
         hero.damageHandler = null;
     }
 
