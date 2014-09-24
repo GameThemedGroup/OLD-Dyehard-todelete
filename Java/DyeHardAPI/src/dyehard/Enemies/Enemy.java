@@ -19,6 +19,7 @@ import dyehard.Util.Timer;
 
 public class Enemy extends Actor {
     public float speed;
+    public boolean beenHit = false;
 
     protected Hero hero;
     protected EnemyState enemyState;

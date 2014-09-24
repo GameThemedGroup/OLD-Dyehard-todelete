@@ -6,6 +6,7 @@ import Engine.Vector2;
 import dyehard.Actor;
 import dyehard.Collidable;
 import dyehard.GameObject;
+import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 
 public class Gate {
@@ -75,8 +76,12 @@ public class Gate {
         public void handleCollision(Collidable other) {
             if (other instanceof Actor) {
                 Actor target = (Actor) other;
-                if ((target.getColor() != dyeColor)
-                        && (target.getColor() != null)) {
+                if (target.getColor() != dyeColor) {
+                    if (target instanceof Enemy) {
+                        if (((Enemy) target).beenHit) {
+                            target.kill(this);
+                        }
+                    }
                     target.kill(this);
                 }
             }

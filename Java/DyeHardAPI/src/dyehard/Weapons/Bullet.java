@@ -56,6 +56,7 @@ public class Bullet extends Collidable {
             if (pixelTouches(other)) {
                 Enemy enemy = (Enemy) other;
                 enemy.setColor(dyeColor);
+                enemy.beenHit = true;
                 collidableState = ManagerState.DESTROYED;
             }
         }
