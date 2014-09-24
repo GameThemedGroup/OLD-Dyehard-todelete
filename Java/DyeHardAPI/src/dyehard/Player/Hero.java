@@ -14,7 +14,6 @@ import dyehard.Actor;
 import dyehard.Collidable;
 import dyehard.Configuration;
 import dyehard.DyeHard;
-import dyehard.DyehardKeyboard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.Invincibility;
 import dyehard.Collectibles.PowerUp;
@@ -213,16 +212,16 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     }
 
     // Select a weapon in the weapon rack based on the input
-    private void selectWeapon() {
-        for (int hotkey : weaponHotkeys.keySet()) {
-            if (DyehardKeyboard.isKeyDown(hotkey)) {
-                int weaponIndex = weaponHotkeys.get(hotkey);
-                if (weaponIndex < weaponRack.size() && weaponIndex >= 0) {
-                    currentWeapon = weaponRack.get(weaponIndex);
-                }
-            }
-        }
-    }
+    // private void selectWeapon() {
+    // for (int hotkey : weaponHotkeys.keySet()) {
+    // if (DyehardKeyboard.isKeyDown(hotkey)) {
+    // int weaponIndex = weaponHotkeys.get(hotkey);
+    // if (weaponIndex < weaponRack.size() && weaponIndex >= 0) {
+    // currentWeapon = weaponRack.get(weaponIndex);
+    // }
+    // }
+    // }
+    // }
 
     public void collect(DyePack dye) {
         dye.activate(this);
