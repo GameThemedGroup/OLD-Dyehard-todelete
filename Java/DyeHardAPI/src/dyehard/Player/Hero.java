@@ -266,9 +266,9 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
         if (GameState.RemainingLives <= 0) {
             alive = false;
+        } else {
+            hero.center.set(startingLocation.clone());
         }
-
-        hero.center.set(startingLocation.clone());
     }
 
     @Override
