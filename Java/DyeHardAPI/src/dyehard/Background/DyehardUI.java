@@ -43,6 +43,8 @@ public class DyehardUI extends UpdateObject {
             hearts.add(heart);
         }
 
+        baseHeart.visible = false;
+
         distanceMeter = new DyehardDistanceMeter(GameState.TargetDistance);
 
         // TODO magic numbers

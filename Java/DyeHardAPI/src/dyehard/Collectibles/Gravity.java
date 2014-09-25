@@ -15,7 +15,7 @@ public class Gravity extends PowerUp {
                 .getPowerUpData(Configuration.PowerUpType.GRAVITY).duration * 1000;
         texture = BaseCode.resources.loadImage("Textures/PowerUp_Blue.png");
         applicationOrder = 2;
-        label.setText("Gravity");
+        // label.setText("Gravity");
     }
 
     @Override

@@ -39,6 +39,8 @@ public class DyehardDistanceMeter {
             markers.add(marker);
         }
 
+        baseMarker.visible = false;
+
         filledMarker = DHR.getTexture(ImageID.UI_PATH_MARKER_FULL);
 
         dyeMarker = DHR.getScaledRectangle(ImageID.UI_DYE_PATH_MARKER);
