@@ -34,12 +34,13 @@ public class GameWorld implements Updateable {
         this.hero = hero;
 
         new Background();
-        new DyehardUI(hero);
         new Laser(hero);
 
         // Draw the hero on top of the background
         hero.removeFromAutoDrawSet();
         hero.addToAutoDrawSet();
+
+        new DyehardUI(hero);
 
         UpdateManager.register(this);
 

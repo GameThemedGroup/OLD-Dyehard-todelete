@@ -24,6 +24,7 @@ public class DyehardDistanceMeter {
         currentValue = 0;
 
         progress = DHR.getScaledRectangle(ImageID.UI_PATH);
+        progress.alwaysOnTop = true;
 
         progress.center.setX(GameWorld.RIGHT_EDGE / 2);
         progress.center.setY(fromTop(progress, 1.4f));
@@ -44,6 +45,7 @@ public class DyehardDistanceMeter {
         filledMarker = DHR.getTexture(ImageID.UI_PATH_MARKER_FULL);
 
         dyeMarker = DHR.getScaledRectangle(ImageID.UI_DYE_PATH_MARKER);
+        dyeMarker.alwaysOnTop = true;
         dyeMarker.center.setY(fromTop(dyeMarker, 0.9f));
 
         setValue(currentValue);

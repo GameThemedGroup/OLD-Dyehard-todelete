@@ -26,12 +26,15 @@ public class DyehardUI extends UpdateObject {
 
     public DyehardUI(Hero hero) {
         this.hero = hero;
+        new DyeMeter(hero);
 
         hud = DHR.getScaledRectangle(ImageID.UI_HUD);
         hud.center.setX(GameWorld.RIGHT_EDGE / 2);
         hud.center.setY(fromTop(hud, 0f));
+        hud.alwaysOnTop = true;
 
         Rectangle baseHeart = DHR.getScaledRectangle(ImageID.UI_HEART);
+        baseHeart.alwaysOnTop = true;
         hearts = new ArrayList<Rectangle>();
         for (int i = 0; i < 4; ++i) {
             Rectangle heart = new Rectangle(baseHeart);
@@ -53,8 +56,6 @@ public class DyehardUI extends UpdateObject {
         scoreText.setBackColor(Color.black);
         scoreText.setFontSize(18);
         scoreText.setFontName("Arial");
-
-        new DyeMeter(hero);
     }
 
     protected float fromTop(Rectangle image, float padding) {
