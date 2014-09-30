@@ -14,10 +14,10 @@ the end of the map. -->
 
 <world>
     <dyeHard>
-        <enemySpawnTimer>5</enemySpawnTimer>
+        <enemySpawnTimer>8</enemySpawnTimer>
         <powerUpCount>5</powerUpCount>
         <dyePackCount>11</dyePackCount>
-        <debrisCount>10</debrisCount>
+        <debrisCount>8</debrisCount>
         <mapLength>3000</mapLength>
         <gameSpeed>0.3</gameSpeed>
     </dyeHard>
