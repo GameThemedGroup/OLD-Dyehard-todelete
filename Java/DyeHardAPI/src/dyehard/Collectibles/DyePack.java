@@ -8,16 +8,20 @@ import dyehard.Collidable;
 import dyehard.Configuration;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
+import dyehard.Util.Timer;
 
 public class DyePack extends Collidable {
     public static final float width = Configuration.dyePackWidth;
     public static final float height = Configuration.dyePackHeight;
+
+    protected Timer t;
 
     public DyePack(Color color) {
         this.color = color;
         texture = BaseCode.resources.loadImage(getTexture(color));
         shouldTravel = false;
         visible = false;
+        t = new Timer();
     }
 
     public void initialize(Vector2 center) {
@@ -54,6 +58,12 @@ public class DyePack extends Collidable {
             return "Textures/Dye_Red.png";
         }
         return "";
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        rotate += 60f * t.deltaTime();
     }
 
     @Override
