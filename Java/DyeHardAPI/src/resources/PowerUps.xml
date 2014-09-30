@@ -13,8 +13,8 @@ force on Dye. Not all power ups have a magnitude. -->
     <!-- Changing any of these attributes will change them for 
     all power ups. -->
     <sharedAttributes type="Shared">
-        <width>5</width>
-		<height>5</height>
+        <width>5.1</width>
+		<height>3.9</height>
 		<speed>0.3</speed>
     </sharedAttributes>
 	

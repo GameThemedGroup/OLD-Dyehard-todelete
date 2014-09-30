@@ -82,25 +82,25 @@ public class DyehardUI extends UpdateObject {
         // controls texture of the progress marker in UI Bar
         switch (hero.curPowerUp) {
         case GHOST:
-            distanceMeter.setProgTexture("PowerUp_Ghost");
+            distanceMeter.setProgTexture("UI/UI_Ghost");
             break;
         case INVIN:
-            distanceMeter.setProgTexture("PowerUp_Invincibility");
+            distanceMeter.setProgTexture("UI/UI_Invincibility");
             break;
         case MAGNET:
-            distanceMeter.setProgTexture("PowerUp_Magnetism");
+            distanceMeter.setProgTexture("UI/UI_Magnetism");
             break;
         case OVERLOAD:
-            distanceMeter.setProgTexture("PowerUp_Overload");
+            distanceMeter.setProgTexture("UI/UI_Overload");
             break;
         case SLOW:
-            distanceMeter.setProgTexture("PowerUp_SlowDown");
+            distanceMeter.setProgTexture("UI/UI_SlowDown");
             break;
         case SPEED:
-            distanceMeter.setProgTexture("PowerUp_SpeedUp");
+            distanceMeter.setProgTexture("UI/UI_SpeedUp");
             break;
         case UNARMED:
-            distanceMeter.setProgTexture("PowerUp_Unarmed");
+            distanceMeter.setProgTexture("UI/UI_Unarmed");
             break;
         case GRAVITY:
             distanceMeter.setProgTexture("UI/Dyehard_UI_Progress_marker_empty");
