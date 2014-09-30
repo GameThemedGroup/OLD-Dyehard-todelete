@@ -14,6 +14,7 @@ import dyehard.Collectibles.Invincibility;
 import dyehard.Collectibles.Magnetism;
 import dyehard.Collectibles.Overload;
 import dyehard.Collectibles.PowerUp;
+import dyehard.Collectibles.Repel;
 import dyehard.Collectibles.SlowDown;
 import dyehard.Collectibles.SpeedUp;
 import dyehard.Collectibles.Unarmed;
@@ -57,6 +58,7 @@ public class Space extends GameWorldRegion {
         powerUpTypes.add(new SpeedUp());
         powerUpTypes.add(new Unarmed());
         powerUpTypes.add(new Gravity());
+        powerUpTypes.add(new Repel());
     }
 
     @Override

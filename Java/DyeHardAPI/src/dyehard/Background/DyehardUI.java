@@ -103,6 +103,9 @@ public class DyehardUI extends UpdateObject {
         case UNARMED:
             distanceMeter.setProgTexture("UI/UI_Unarmed");
             break;
+        case REPEL:
+            distanceMeter.setProgTexture("UI/UI_Repel");
+            break;
         case GRAVITY:
             distanceMeter.setProgTexture("UI/Dyehard_UI_Progress_marker_empty");
             break;

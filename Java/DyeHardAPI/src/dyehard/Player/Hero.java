@@ -69,7 +69,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     }
 
     public enum CurPowerUp {
-        GHOST, INVIN, MAGNET, OVERLOAD, SLOW, SPEED, UNARMED, GRAVITY, NONE
+        GHOST, INVIN, MAGNET, OVERLOAD, SLOW, SPEED, UNARMED, GRAVITY, REPEL, NONE
     }
 
     public Hero() {

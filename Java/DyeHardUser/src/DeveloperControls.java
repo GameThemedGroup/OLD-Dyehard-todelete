@@ -17,6 +17,7 @@ import dyehard.Collectibles.Invincibility;
 import dyehard.Collectibles.Magnetism;
 import dyehard.Collectibles.Overload;
 import dyehard.Collectibles.PowerUp;
+import dyehard.Collectibles.Repel;
 import dyehard.Collectibles.SlowDown;
 import dyehard.Collectibles.SpeedUp;
 import dyehard.Collectibles.Unarmed;
@@ -27,12 +28,12 @@ import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.World.GameWorld;
 
 public class DeveloperControls extends UpdateObject {
-    private Hero hero;
+    private final Hero hero;
 
     Text weaponText;
     List<Text> powerupText;
 
-    private HashMap<Integer, PowerUp> generationHotkeys;
+    private final HashMap<Integer, PowerUp> generationHotkeys;
 
     public DeveloperControls(Hero hero) {
         super();
@@ -48,6 +49,7 @@ public class DeveloperControls extends UpdateObject {
         generationHotkeys.put(KeyEvent.VK_N, new Unarmed());
         generationHotkeys.put(KeyEvent.VK_M, new Magnetism());
         generationHotkeys.put(KeyEvent.VK_COMMA, new Gravity());
+        generationHotkeys.put(KeyEvent.VK_PERIOD, new Repel());
 
         weaponText = createTextAt(3f, 1f);
         powerupText = new ArrayList<Text>();

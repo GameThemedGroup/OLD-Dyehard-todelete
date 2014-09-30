@@ -32,6 +32,10 @@ force on Dye. Not all power ups have a magnitude. -->
         <duration>5</duration>
         <magnitude>25</magnitude>
     </powerUp>
+    <powerUp type="REPEL">
+        <duration>5</duration>
+        <magnitude>25</magnitude>
+    </powerUp>
     <powerUp type="OVERLOAD">
         <duration>5</duration>
     </powerUp>
