@@ -18,6 +18,7 @@ public abstract class PowerUp extends Collidable implements Cloneable,
     protected float duration = 5000f;
     protected Timer timer;
     protected Text label;
+    protected Timer t;
 
     public PowerUp() {
         shouldTravel = false;
@@ -30,6 +31,7 @@ public abstract class PowerUp extends Collidable implements Cloneable,
         label.setBackColor(Color.BLACK);
         label.setFontSize(20);
         label.setFontName("Arial");
+        t = new Timer();
     }
 
     public PowerUp(PowerUp other) {
@@ -50,6 +52,7 @@ public abstract class PowerUp extends Collidable implements Cloneable,
     @Override
     public void update() {
         super.update();
+        rotate += 60f * t.deltaTime();
         label.center.set(center.getX() - 2.5f, center.getY() - 0.5f);
     }
 
