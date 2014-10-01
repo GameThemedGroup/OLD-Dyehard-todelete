@@ -19,6 +19,8 @@ public class DyehardRectangle extends Primitive {
     };
 
     private boolean usingSpriteSheet = false;
+    private boolean panning = false;
+    private boolean vertical = false;
     /**
      * Sprite tolerance is for letting spritesheets with odd widths/heights to
      * include outermost sprites. This is because the spritemapping algorithm
@@ -58,6 +60,14 @@ public class DyehardRectangle extends Primitive {
 
     public void setUsingSpriteSheet(boolean usingSpriteSheet) {
         this.usingSpriteSheet = usingSpriteSheet;
+    }
+
+    public boolean panning() {
+        return panning;
+    }
+
+    public void setPanning(boolean panning) {
+        this.panning = panning;
     }
 
     /**
@@ -204,6 +214,68 @@ public class DyehardRectangle extends Primitive {
         return frameCoords[currentFrame][3];
     }
 
+    private int getSpriteUpperX2() {
+        return frameCoords[currentFrame][4];
+    }
+
+    private int getSpriteUpperY2() {
+        return frameCoords[currentFrame][5];
+    }
+
+    private int getSpriteLowerX2() {
+        return frameCoords[currentFrame][6];
+    }
+
+    private int getSpriteLowerY2() {
+        return frameCoords[currentFrame][7];
+    }
+
+    public void setPanningSheet(BufferedImage texture, int width, int height,
+            int totalFrames, int ticksPerFrame, boolean vertical) {
+        if (totalFrames <= 0) {
+            return;
+        }
+        this.texture = texture;
+
+        frameWidth = width;
+        frameHeight = height;
+        this.vertical = vertical;
+        frameCoords = new int[totalFrames][8];
+        this.totalFrames = totalFrames;
+        currentFrame = 0;
+
+        currentTick = 0;
+        this.ticksPerFrame = ticksPerFrame;
+
+        int offset;
+        if (vertical) {
+            offset = frameHeight / totalFrames;
+            for (int i = 0; i < totalFrames; i++) {
+                frameCoords[i][0] = frameWidth;
+                frameCoords[i][1] = frameHeight;
+                frameCoords[i][2] = 0;
+                frameCoords[i][3] = i * offset;
+                frameCoords[i][4] = frameWidth;
+                frameCoords[i][5] = i * offset;
+                frameCoords[i][6] = 0;
+                frameCoords[i][7] = 0;
+            }
+
+        } else {
+            offset = frameWidth / totalFrames;
+            for (int i = 0; i < totalFrames; i++) {
+                frameCoords[i][0] = frameWidth;
+                frameCoords[i][1] = frameHeight;
+                frameCoords[i][2] = i * offset;
+                frameCoords[i][3] = 0;
+                frameCoords[i][4] = i * offset;
+                frameCoords[i][5] = frameHeight;
+                frameCoords[i][6] = 0;
+                frameCoords[i][7] = 0;
+            }
+        }
+    }
+
     @Override
     public void draw() {
         if (drawImage && texture != null) {
@@ -215,6 +287,55 @@ public class DyehardRectangle extends Primitive {
                                 + (size.getY() * 0.5f), getSpriteLowerX(),
                         getSpriteLowerY(), getSpriteUpperX(),
                         getSpriteUpperY(), rotate);
+                updateSpriteSheetAnimation();
+            } else if (panning) {
+                if (vertical) {
+                    BaseCode.resources
+                            .drawImage(
+                                    texture,
+                                    center.getX() - (size.getX() * 0.5f),
+                                    center.getY()
+                                            - (size.getY() * (float) (0.5 - (currentFrame / totalFrames))),
+                                    center.getX() + (size.getX() * 0.5f),
+                                    center.getY() + (size.getY() * 0.5f),
+                                    getSpriteLowerX(), getSpriteLowerY(),
+                                    getSpriteUpperX(), getSpriteUpperY(),
+                                    rotate);
+                    BaseCode.resources
+                            .drawImage(
+                                    texture,
+                                    center.getX() - (size.getX() * 0.5f),
+                                    center.getY() - (size.getY() * 0.5f),
+                                    center.getX() + (size.getX() * 0.5f),
+                                    center.getY()
+                                            - (size.getY() * (float) (0.5 - (currentFrame / totalFrames))),
+                                    getSpriteLowerX2(), getSpriteLowerY2(),
+                                    getSpriteUpperX2(), getSpriteUpperY2(),
+                                    rotate);
+                } else {
+                    BaseCode.resources
+                            .drawImage(
+                                    texture,
+                                    center.getX()
+                                            - (size.getX() * (float) (0.5 - (currentFrame / totalFrames))),
+                                    center.getY() - (size.getY() * 0.5f),
+                                    center.getX() + (size.getX() * 0.5f),
+                                    center.getY() + (size.getY() * 0.5f),
+                                    getSpriteLowerX(), getSpriteLowerY(),
+                                    getSpriteUpperX(), getSpriteUpperY(),
+                                    rotate);
+                    BaseCode.resources
+                            .drawImage(
+                                    texture,
+                                    center.getX() - (size.getX() * 0.5f),
+                                    center.getY() - (size.getY() * 0.5f),
+                                    center.getX()
+                                            - (size.getX() * (float) (0.5 - (currentFrame / totalFrames))),
+                                    center.getY() + (size.getY() * 0.5f),
+                                    getSpriteLowerX2(), getSpriteLowerY2(),
+                                    getSpriteUpperX2(), getSpriteUpperY2(),
+                                    rotate);
+                }
                 updateSpriteSheetAnimation();
             } else {
                 BaseCode.resources.drawImage(texture,

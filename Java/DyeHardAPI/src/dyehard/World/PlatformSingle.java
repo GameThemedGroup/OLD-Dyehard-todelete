@@ -25,6 +25,8 @@ public class PlatformSingle extends Obstacle {
         arc.texture = BaseCode.resources
                 .loadImage("Textures/Background/Warp_Divider_Arc.png");
         arc.size = size.clone();
+        arc.setPanning(true);
+        arc.setPanningSheet(arc.texture, 260, 50, 10, 2, false);
         // so the platform is on top of the arc
         removeFromAutoDrawSet();
         addToAutoDrawSet();
