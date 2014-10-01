@@ -45,9 +45,14 @@ public class ChargerEnemy extends Enemy {
         float deltaT = t.deltaTime();
         if (chasing) {
             if (!setImage) {
-                BufferedImage temp = BaseCode.resources
-                        .loadImage("Textures/Enemies/Charger_AnimSheet_Attack.png");
-                setSpriteSheet(temp, 340, 140, 11, 8);
+                if (color == null) {
+                    BufferedImage temp = BaseCode.resources
+                            .loadImage("Textures/Enemies/Charger_AnimSheet_Attack.png");
+                    setSpriteSheet(temp, 340, 140, 11, 8);
+                } else {
+                    setSpriteSheet(Hero.chargerAttackTextures.get(color), 340,
+                            140, 11, 8);
+                }
                 setImage = true;
             }
             if ((getCurFrame() == 9) && (!charge)) {
@@ -74,7 +79,18 @@ public class ChargerEnemy extends Enemy {
 
     @Override
     public void setColor(Color color) {
-        this.color = color;
+        if (this.color != color) {
+            this.color = color;
+            int temp = getCurFrame();
+            if (chasing) {
+                setSpriteSheet(Hero.chargerAttackTextures.get(color), 340, 140,
+                        11, 8);
+            } else {
+                setSpriteSheet(Hero.chargerIdleTextures.get(color), 340, 140,
+                        11, 8);
+            }
+            setCurFrame(temp);
+        }
     }
 
     @Override

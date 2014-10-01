@@ -31,6 +31,9 @@ import dyehard.World.GameState;
 import dyehard.World.Gate.DeathGate;
 
 public class Hero extends Actor implements HeroCollision, HeroDamage {
+    public static HashMap<Color, BufferedImage> chargerIdleTextures = new HashMap<Color, BufferedImage>();
+    public static HashMap<Color, BufferedImage> chargerAttackTextures = new HashMap<Color, BufferedImage>();
+
     public boolean collisionOn = true;
     public boolean damageOn = true;
     public Weapon currentWeapon;
@@ -70,6 +73,22 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     public enum CurPowerUp {
         GHOST, INVIN, MAGNET, OVERLOAD, SLOW, SPEED, UNARMED, GRAVITY, REPEL, NONE
+    }
+
+    static {
+        BufferedImage idle = BaseCode.resources
+                .loadImage("Textures/Enemies/Charger_AnimSheet_Idle.png");
+        BufferedImage attack = BaseCode.resources
+                .loadImage("Textures/Enemies/Charger_AnimSheet_Attack.png");
+
+        // Fill the hashmap with tinted images for later use
+        for (int i = 0; i < 6; i++) {
+            Color temp = Colors.colorPicker(i);
+            chargerIdleTextures.put(temp,
+                    ImageTint.tintedImage(idle, temp, 0.25f));
+            chargerAttackTextures.put(temp,
+                    ImageTint.tintedImage(attack, temp, 0.25f));
+        }
     }
 
     public Hero() {

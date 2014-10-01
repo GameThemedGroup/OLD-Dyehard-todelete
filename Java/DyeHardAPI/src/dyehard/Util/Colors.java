@@ -15,7 +15,7 @@ public class Colors {
     public static Color Pink = new Color(215, 59, 148);
     public static Color Blue = new Color(50, 75, 150);
 
-    private static Color colorPicker(int choice) {
+    public static Color colorPicker(int choice) {
         switch (choice) {
         case 0:
             return Green;
