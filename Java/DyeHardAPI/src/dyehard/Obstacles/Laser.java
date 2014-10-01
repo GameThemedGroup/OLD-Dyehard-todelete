@@ -1,23 +1,24 @@
 package dyehard.Obstacles;
 
-import java.awt.Color;
-
+import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.GameObject;
 import dyehard.Player.Hero;
 import dyehard.World.GameWorld;
 
 public class Laser extends GameObject {
-    private Hero hero;
+    private final Hero hero;
 
     public Laser(Hero hero) {
         this.hero = hero;
-        float padding = 1f;
         float height = GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE;
-        float width = 1.5f;
-        center = new Vector2(width / 2 + padding, height / 2);
+        float width = height * 220 / 512;
+        center = new Vector2(width / 2 - 3, height / 2);
         size.set(width, height);
-        color = Color.lightGray;
+        texture = BaseCode.resources
+                .loadImage("Textures/Background/DeathEdge.png");
+        setPanning(true);
+        setPanningSheet(texture, 220, 512, 20, 3, true);
     }
 
     // TODO should we put this collision into the user code?
