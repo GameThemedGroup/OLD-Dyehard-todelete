@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import Engine.Primitive;
 import Engine.Vector2;
+import dyehard.Enemies.ChargerEnemy;
 import dyehard.Obstacles.Obstacle;
 import dyehard.Util.Collision;
 
@@ -37,7 +38,11 @@ public class Actor extends Collidable {
     @Override
     public void handleCollision(Collidable other) {
         if (other instanceof Obstacle) {
-            collideWith(this, (Obstacle) other);
+            if (this instanceof ChargerEnemy) {
+                other.destroy();
+            } else {
+                collideWith(this, (Obstacle) other);
+            }
         }
     }
 

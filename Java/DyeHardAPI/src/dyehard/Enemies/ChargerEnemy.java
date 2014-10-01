@@ -1,5 +1,6 @@
 package dyehard.Enemies;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import Engine.BaseCode;
@@ -49,7 +50,7 @@ public class ChargerEnemy extends Enemy {
                 setSpriteSheet(temp, 340, 140, 11, 8);
                 setImage = true;
             }
-            if ((spriteCycleDone) && (!charge)) {
+            if ((getCurFrame() == 9) && (!charge)) {
                 charge = true;
             }
             if (charge) {
@@ -69,6 +70,11 @@ public class ChargerEnemy extends Enemy {
         if (center.getX() < GameWorld.LEFT_EDGE) {
             destroy();
         }
+    }
+
+    @Override
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     @Override
