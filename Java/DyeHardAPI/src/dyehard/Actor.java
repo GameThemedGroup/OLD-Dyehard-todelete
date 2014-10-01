@@ -7,6 +7,7 @@ import Engine.Vector2;
 import dyehard.Enemies.ChargerEnemy;
 import dyehard.Obstacles.Obstacle;
 import dyehard.Util.Collision;
+import dyehard.World.PlatformSingle;
 
 public class Actor extends Collidable {
     protected boolean alive;
@@ -38,7 +39,8 @@ public class Actor extends Collidable {
     @Override
     public void handleCollision(Collidable other) {
         if (other instanceof Obstacle) {
-            if (this instanceof ChargerEnemy) {
+            if ((this instanceof ChargerEnemy)
+                    && (!(other instanceof PlatformSingle))) {
                 other.destroy();
             } else {
                 collideWith(this, (Obstacle) other);
