@@ -17,7 +17,6 @@ public class Platform {
         // set up platform
         float Ypos = ((offset * 1f) / Stargate.GATE_COUNT) * GameWorld.TOP_EDGE;
         int numPlat = (int) (Stargate.WIDTH / width);
-        System.out.println(leftEdge);
         if (continuous) {
             for (int i = 0; i < numPlat; i++) {
                 float Xpos = (width * i) + leftEdge + (width / 2);

@@ -19,12 +19,13 @@ public class Laser extends GameObject {
                 .loadImage("Textures/Background/DeathEdge.png");
         setPanning(true);
         setPanningSheet(texture, 220, 512, 15, 2, true);
+        alwaysOnTop = true;
     }
 
     // TODO should we put this collision into the user code?
     @Override
     public void update() {
-        if (collided(hero)) {
+        if (hero.center.getX() + 4 < center.getX()) {
             hero.kill(this);
         }
     }
