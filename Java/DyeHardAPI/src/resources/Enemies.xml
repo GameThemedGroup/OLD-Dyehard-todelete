@@ -39,4 +39,10 @@ enemy stands still before chasing Dye. -->
         <sleepTimer>3</sleepTimer>
         <speed>0.3</speed>
     </enemy>
+    <enemy type="CHARGER_ENEMY">
+        <width>13.2</width>
+        <height>4.2</height>
+        <sleepTimer>3</sleepTimer>
+        <speed>0.15</speed>
+    </enemy>
 </enemies>

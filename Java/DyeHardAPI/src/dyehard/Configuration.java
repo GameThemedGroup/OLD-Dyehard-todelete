@@ -88,7 +88,7 @@ public class Configuration {
     }
 
     public enum EnemyType {
-        PORTAL_ENEMY, PORTAL_SPAWN, SHOOTING_ENEMY, COLLECTOR_ENEMY
+        PORTAL_ENEMY, PORTAL_SPAWN, SHOOTING_ENEMY, COLLECTOR_ENEMY, CHARGER_ENEMY
     }
 
     private static Map<EnemyType, EnemyData> enemies = new HashMap<EnemyType, EnemyData>();

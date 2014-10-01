@@ -166,7 +166,6 @@ public class DyehardRectangle extends Primitive {
             spriteCycleDone = false;
         }
         ++currentFrame;
-
     }
 
     public int getNumFrames() {
@@ -213,7 +212,6 @@ public class DyehardRectangle extends Primitive {
                         getSpriteLowerY(), getSpriteUpperX(),
                         getSpriteUpperY(), rotate);
                 updateSpriteSheetAnimation();
-
             } else {
                 BaseCode.resources.drawImage(texture,
                         center.getX() - (size.getX() * 0.5f), center.getY()
