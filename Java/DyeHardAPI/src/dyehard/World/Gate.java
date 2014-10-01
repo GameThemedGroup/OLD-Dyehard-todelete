@@ -44,11 +44,11 @@ public class Gate {
             gWaves.put(temp, ImageTint.tintedImage(gWave, temp, 1f));
 
             BufferedImage img = ImageTint.tintedImage(gPath, temp, 1f);
-            BufferedImage img2 = ImageTint.tintedImage(gWave, temp, 1f);
+            // BufferedImage img2 = ImageTint.tintedImage(gWave, temp, 1f);
 
             Graphics2D g2 = img.createGraphics();
             g2.drawImage(img, 0, 0, null);
-            g2.drawImage(img2, 0, 0, null);
+            // g2.drawImage(img2, 0, 0, null);
             g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
                     RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -67,7 +67,7 @@ public class Gate {
                     RenderingHints.VALUE_STROKE_PURE);
 
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_IN,
-                    0.4f));
+                    0.25f));
             g2.setColor(temp);
 
             g2.fillRect(0, 0, 512, 120);
@@ -87,7 +87,7 @@ public class Gate {
         path.center = new Vector2(position, drawOffset);
         path.size.set(width, drawHeight - (Platform.height * 2));
         path.setPanning(true);
-        path.setPanningSheet(gPaths.get(color), 512, 120, 12, 2, false);
+        path.setPanningSheet(gPaths.get(color), 512, 120, 32, 2, false);
         path.dyeColor = color;
         path.velocity = new Vector2(-GameWorld.Speed, 0f);
         path.shouldTravel = true;
