@@ -18,7 +18,7 @@ public class Laser extends GameObject {
         texture = BaseCode.resources
                 .loadImage("Textures/Background/DeathEdge.png");
         setPanning(true);
-        setPanningSheet(texture, 220, 512, 15, 2, true);
+        setPanningSheet(texture, 220, 512, 8, 4, true);
         alwaysOnTop = true;
     }
 

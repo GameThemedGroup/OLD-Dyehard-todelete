@@ -1,18 +1,81 @@
 package dyehard.World;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
+import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.Actor;
 import dyehard.Collidable;
 import dyehard.GameObject;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
+import dyehard.Util.Colors;
+import dyehard.Util.ImageTint;
 
 public class Gate {
     private final StargatePath path;
     private final DeathGate deathGate;
     private final GatePreview preview;
+
+    private static HashMap<Color, BufferedImage> dGates = new HashMap<Color, BufferedImage>();
+    private static HashMap<Color, BufferedImage> gWaves = new HashMap<Color, BufferedImage>();
+    private static HashMap<Color, BufferedImage> gPaths = new HashMap<Color, BufferedImage>();
+    private static HashMap<Color, BufferedImage> gEdges = new HashMap<Color, BufferedImage>();
+
+    static {
+        BufferedImage dGate = BaseCode.resources
+                .loadImage("Textures/Background/Warp_start_Anim.png");
+        BufferedImage gWave = BaseCode.resources
+                .loadImage("Textures/Background/Warp_Path_wave.png");
+        BufferedImage gPath = BaseCode.resources
+                .loadImage("Textures/Background/Warp_Path.png");
+        BufferedImage gEdge = BaseCode.resources
+                .loadImage("Textures/Background/Warp_wave_edge.png");
+        // Fill the hashmaps with tinted images for later use
+        for (int i = 0; i < 6; i++) {
+            Color temp = Colors.colorPicker(i);
+
+            dGates.put(temp, ImageTint.tintedImage(dGate, temp, 1f));
+            gWaves.put(temp, ImageTint.tintedImage(gWave, temp, 1f));
+
+            BufferedImage img = ImageTint.tintedImage(gPath, temp, 1f);
+            BufferedImage img2 = ImageTint.tintedImage(gWave, temp, 1f);
+
+            Graphics2D g2 = img.createGraphics();
+            g2.drawImage(img, 0, 0, null);
+            g2.drawImage(img2, 0, 0, null);
+            g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
+                    RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+                    RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            g2.setRenderingHint(RenderingHints.KEY_DITHERING,
+                    RenderingHints.VALUE_DITHER_ENABLE);
+            g2.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
+                    RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            g2.setRenderingHint(RenderingHints.KEY_RENDERING,
+                    RenderingHints.VALUE_RENDER_QUALITY);
+            g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                    RenderingHints.VALUE_STROKE_PURE);
+
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_IN,
+                    0.4f));
+            g2.setColor(temp);
+
+            g2.fillRect(0, 0, 512, 120);
+            g2.dispose();
+            gPaths.put(temp, img);
+            gEdges.put(temp, ImageTint.tintedImage(gEdge, temp, 1f));
+        }
+    }
 
     public Gate(int offset, Hero hero, float leftEdge, Color color, float width) {
         // set up pipe
@@ -23,8 +86,8 @@ public class Gate {
         path = new StargatePath();
         path.center = new Vector2(position, drawOffset);
         path.size.set(width, drawHeight - (Platform.height * 2));
-        path.color = new Color(color.getRed(), color.getGreen(),
-                color.getBlue(), 100);
+        path.setPanning(true);
+        path.setPanningSheet(gPaths.get(color), 512, 120, 12, 2, false);
         path.dyeColor = color;
         path.velocity = new Vector2(-GameWorld.Speed, 0f);
         path.shouldTravel = true;
@@ -33,9 +96,10 @@ public class Gate {
         // adjacent but not overlapping
         deathGate = new DeathGate();
         deathGate.center = new Vector2(leftEdge, path.center.getY());
-        deathGate.size.set(0.5f, path.size.getY());
-        // This color is transparent
-        deathGate.color = new Color(128, 0, 0, 0);
+        deathGate.size.set(0.46875f * path.size.getY(), path.size.getY());
+        // Texture premade in static function
+        deathGate.setUsingSpriteSheet(true);
+        deathGate.setSpriteSheet(dGates.get(color), 60, 128, 24, 2);
         deathGate.dyeColor = color;
         deathGate.visible = true;
         deathGate.velocity = new Vector2(-GameWorld.Speed, 0f);

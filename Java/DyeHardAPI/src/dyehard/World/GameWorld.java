@@ -43,7 +43,7 @@ public class GameWorld implements Updateable {
         new Laser(hero);
         UpdateManager.register(this);
 
-        addRegion(new Space(hero));
+        addRegion(new Stargate(hero));
     }
 
     // Adds a region to the queue of upcoming regions
