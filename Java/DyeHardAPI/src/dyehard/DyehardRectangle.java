@@ -295,7 +295,7 @@ public class DyehardRectangle extends Primitive {
                                     texture,
                                     center.getX() - (size.getX() * 0.5f),
                                     center.getY()
-                                            - (size.getY() * (float) (0.5 - (currentFrame / totalFrames))),
+                                            - (size.getY() * (0.5f - ((float) currentFrame / totalFrames))),
                                     center.getX() + (size.getX() * 0.5f),
                                     center.getY() + (size.getY() * 0.5f),
                                     getSpriteLowerX(), getSpriteLowerY(),
@@ -308,7 +308,7 @@ public class DyehardRectangle extends Primitive {
                                     center.getY() - (size.getY() * 0.5f),
                                     center.getX() + (size.getX() * 0.5f),
                                     center.getY()
-                                            - (size.getY() * (float) (0.5 - (currentFrame / totalFrames))),
+                                            - (size.getY() * (0.5f - ((float) currentFrame / totalFrames))),
                                     getSpriteLowerX2(), getSpriteLowerY2(),
                                     getSpriteUpperX2(), getSpriteUpperY2(),
                                     rotate);
@@ -316,10 +316,10 @@ public class DyehardRectangle extends Primitive {
                     BaseCode.resources
                             .drawImage(
                                     texture,
-                                    center.getX()
-                                            - (size.getX() * (float) (0.5 - (currentFrame / totalFrames))),
+                                    center.getX() - (size.getX() * 0.5f),
                                     center.getY() - (size.getY() * 0.5f),
-                                    center.getX() + (size.getX() * 0.5f),
+                                    center.getX()
+                                            + (size.getX() * (0.5f - ((float) currentFrame / totalFrames))),
                                     center.getY() + (size.getY() * 0.5f),
                                     getSpriteLowerX(), getSpriteLowerY(),
                                     getSpriteUpperX(), getSpriteUpperY(),
@@ -327,10 +327,10 @@ public class DyehardRectangle extends Primitive {
                     BaseCode.resources
                             .drawImage(
                                     texture,
-                                    center.getX() - (size.getX() * 0.5f),
-                                    center.getY() - (size.getY() * 0.5f),
                                     center.getX()
-                                            - (size.getX() * (float) (0.5 - (currentFrame / totalFrames))),
+                                            + (size.getX() * (0.5f - ((float) currentFrame / totalFrames))),
+                                    center.getY() - (size.getY() * 0.5f),
+                                    center.getX() + (size.getX() * 0.5f),
                                     center.getY() + (size.getY() * 0.5f),
                                     getSpriteLowerX2(), getSpriteLowerY2(),
                                     getSpriteUpperX2(), getSpriteUpperY2(),

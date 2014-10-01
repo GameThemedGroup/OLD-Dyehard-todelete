@@ -18,7 +18,7 @@ public class Laser extends GameObject {
         texture = BaseCode.resources
                 .loadImage("Textures/Background/DeathEdge.png");
         setPanning(true);
-        setPanningSheet(texture, 220, 512, 20, 3, true);
+        setPanningSheet(texture, 220, 512, 15, 2, true);
     }
 
     // TODO should we put this collision into the user code?
