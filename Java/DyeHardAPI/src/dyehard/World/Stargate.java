@@ -4,12 +4,15 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import Engine.Vector2;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 
 public class Stargate extends GameWorldRegion {
     public static final int GATE_COUNT = 4;
     public static final float WIDTH = GameWorld.RIGHT_EDGE * 2.0f;
+    public boolean heroLeft;
+
     private Gate[] gates;
     private Platform[] platforms;
     // private GameObject backdrop;
@@ -21,6 +24,7 @@ public class Stargate extends GameWorldRegion {
         this.hero = hero;
         width = Stargate.WIDTH;
         speed = -GameWorld.Speed;
+        heroLeft = false;
     }
 
     static {
@@ -54,6 +58,19 @@ public class Stargate extends GameWorldRegion {
         // backdrop.color = new Color(0, 0, 0, 130);
         // backdrop.velocity = new Vector2(-speed, 0f);
         // backdrop.visible = true;
+    }
+
+    // if hero leaves the StarGate, he cannot re-enter
+    public void blockHero() {
+        if (heroLeft) {
+            if (hero.center.getX() <= (rightEdge() + 2)) {
+                hero.center.add(new Vector2(rightEdge() - hero.center.getX()
+                        + 2, 0f));
+                hero.velocity.setX(0f);
+            }
+        } else if (hero.center.getX() > (rightEdge() + 2)) {
+            heroLeft = true;
+        }
     }
 
     public static void addColor(Color c) {

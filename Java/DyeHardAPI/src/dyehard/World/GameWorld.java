@@ -79,6 +79,9 @@ public class GameWorld implements Updateable {
 
         for (GameWorldRegion e : gameRegions) {
             e.moveLeft();
+            if (e instanceof Stargate) {
+                ((Stargate) e).blockHero();
+            }
             distance += Speed;
             GameState.DistanceTravelled = (int) distance;
         }
