@@ -31,8 +31,8 @@ public class ChargerEnemy extends Enemy {
         chasing = false;
         setImage = false;
         charge = false;
-        xOffset = 30f;
-        yOffset = 5f;
+        xOffset = 45f;
+        yOffset = 7f;
 
         setUsingSpriteSheet(true);
         setSpriteSheet(texture, 340, 140, 13, 2);
