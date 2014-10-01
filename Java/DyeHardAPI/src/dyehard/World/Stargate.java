@@ -45,6 +45,8 @@ public class Stargate extends GameWorldRegion {
             gates[i] = new Gate(i, hero, leftEdge, colors.get(i), width);
         }
 
+        System.out.println(leftEdge);
+        System.out.println(position);
         platforms = new Platform[GATE_COUNT + 1];
         for (int i = 0; i < platforms.length; i++) {
             boolean boundary = (i == 0) || (i == platforms.length - 1);

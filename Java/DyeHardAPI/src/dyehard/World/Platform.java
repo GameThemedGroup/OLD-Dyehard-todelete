@@ -1,17 +1,13 @@
 package dyehard.World;
 
-import java.awt.Color;
 import java.util.Random;
 
 import Engine.Vector2;
-import dyehard.Obstacles.Obstacle;
 
 public class Platform {
-    private static int SEGMENT_COUNT = 30;
-    private static float WIDTH = Stargate.WIDTH / SEGMENT_COUNT;
     public static float height = 1.25f;
+    private final float width = 6.5f;
     private static Random RANDOM = new Random();
-    private final float mask = 0.1f; // overlap between platform segments
 
     public Platform(int offset, float leftEdge, boolean continuous) {
         fillPlatform(offset, leftEdge, continuous);
@@ -20,32 +16,29 @@ public class Platform {
     private void fillPlatform(int offset, float leftEdge, boolean continuous) {
         // set up platform
         float Ypos = ((offset * 1f) / Stargate.GATE_COUNT) * GameWorld.TOP_EDGE;
-
+        int numPlat = (int) (Stargate.WIDTH / width);
+        System.out.println(leftEdge);
         if (continuous) {
-            float Xpos = leftEdge + (Stargate.WIDTH / 2);
-            createPlatform(new Vector2(Xpos, Ypos), Stargate.WIDTH);
+            for (int i = 0; i < numPlat; i++) {
+                float Xpos = (width * i) + leftEdge + (width / 2);
+                new PlatformSingle(new Vector2(Xpos, Ypos));
+            }
         } else {
             // randomly fill platform
             int consecutiveChance = 10;
             boolean platform = true;
-            for (int i = 0; i < SEGMENT_COUNT; i++) {
-                if (platform) {
-                    float Xpos = (WIDTH * 0.5f) + leftEdge + (i * WIDTH);
-                    createPlatform(new Vector2(Xpos, Ypos), WIDTH);
-                }
-                consecutiveChance -= 2;
+            for (int i = 0; i < numPlat; i++) {
                 if (consecutiveChance <= 0
                         || RANDOM.nextInt(consecutiveChance) == 0) {
                     platform = !platform;
                     consecutiveChance = 10;
                 }
+                if (platform) {
+                    float Xpos = (width * i) + leftEdge + (width / 2);
+                    new PlatformSingle(new Vector2(Xpos, Ypos));
+                }
+                consecutiveChance -= 1;
             }
         }
-    }
-
-    private void createPlatform(Vector2 center, float width) {
-        Vector2 size = new Vector2(width + mask, height);
-        Color color = new Color(112, 138, 144);
-        new Obstacle(center, size, color);
     }
 }
