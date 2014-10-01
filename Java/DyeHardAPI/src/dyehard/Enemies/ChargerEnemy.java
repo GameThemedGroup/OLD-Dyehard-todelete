@@ -67,7 +67,8 @@ public class ChargerEnemy extends Enemy {
                     new Vector2(-speed * (deltaT * 100), 0f));
             float xDif = Math.abs(hero.center.getX() - center.getX());
             float yDif = center.getY() - hero.center.getY();
-            if ((xDif < xOffset) && (yDif < yOffset)) {
+            if ((xDif < xOffset) && (yDif < yOffset)
+                    && (center.getX() < (GameWorld.RIGHT_EDGE) - 5)) {
                 chasing = true;
             }
         }
