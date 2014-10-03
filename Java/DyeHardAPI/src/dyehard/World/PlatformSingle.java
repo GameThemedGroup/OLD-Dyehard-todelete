@@ -35,6 +35,9 @@ public class PlatformSingle extends Obstacle {
     @Override
     public void update() {
         super.update();
+        if (center.getX() < (GameWorld.LEFT_EDGE - 5f)) {
+            arc.destroy();
+        }
     }
 
 }
