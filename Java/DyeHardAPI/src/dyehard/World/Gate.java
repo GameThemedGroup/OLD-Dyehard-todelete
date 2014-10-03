@@ -107,7 +107,7 @@ public class Gate {
         preview = new GatePreview();
         preview.center = new Vector2(GameWorld.RIGHT_EDGE, drawOffset);
         preview.size.set(4f, 0f);
-        preview.color = path.color;
+        preview.color = path.dyeColor;
         preview.visible = true;
     }
 
