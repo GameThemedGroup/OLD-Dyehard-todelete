@@ -29,7 +29,6 @@ public class Gate {
         // Fill the hashmaps with tinted images for later use
         for (int i = 0; i < 6; i++) {
             Color temp = Colors.colorPicker(i);
-            System.out.println(temp.getRed());
             dGates.put(temp, ImageTint.tintedImage(dGate, temp, 0.25f));
 
             String colorString = "";
