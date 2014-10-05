@@ -41,11 +41,11 @@ public class GameWorld implements Updateable {
         new DyehardUI(hero);
         new Laser(hero);
 
-        hero.alwaysOnTop();
+        // hero.alwaysOnTop();
 
         UpdateManager.register(this);
 
-        addRegion(new Stargate(hero));
+        addRegion(new Space(hero));
     }
 
     // Adds a region to the queue of upcoming regions

@@ -13,9 +13,11 @@ import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.Util.ImageTint;
+import dyehard.Util.TextureTile;
 
 public class Gate {
     private final StargatePath path;
+    private final StargatePathFront pathFront;
     private final DeathGate deathGate;
     private final GatePreview preview;
 
@@ -26,6 +28,7 @@ public class Gate {
     static {
         BufferedImage dGate = BaseCode.resources
                 .loadImage("Textures/Background/Warp_start_Anim.png");
+        TextureTile tile = new TextureTile();
         // Fill the hashmaps with tinted images for later use
         for (int i = 0; i < 6; i++) {
             Color temp = Colors.colorPicker(i);
@@ -52,12 +55,13 @@ public class Gate {
                 colorString = "blue";
                 break;
             }
-            gPathBack.put(temp, BaseCode.resources
-                    .loadImage("Textures/Background/Warp_green_back.png"));
-            gPathFront.put(
-                    temp,
+
+            gPathBack.put(temp, tile.setTiling(
                     BaseCode.resources.loadImage("Textures/Background/Warp_"
-                            + colorString + "_front.png"));
+                            + colorString + "_back.png"), 10, false));
+            gPathFront.put(temp, tile.setTiling(
+                    BaseCode.resources.loadImage("Textures/Background/Warp_"
+                            + colorString + "_front.png"), 10, false));
         }
     }
 
@@ -71,10 +75,11 @@ public class Gate {
         path.center = new Vector2(position, drawOffset);
         path.size.set(width, drawHeight - (Platform.height * 2));
         path.setPanning(true);
-        path.setPanningSheet(gPathBack.get(color), 200, 140, 32, 2, false);
+        path.setPanningSheet(gPathBack.get(color), 200, 140, 86, 1, false);
         path.dyeColor = color;
         path.velocity = new Vector2(-GameWorld.Speed, 0f);
         path.shouldTravel = true;
+        // path.visible = false;
 
         // gate is slightly set back from left edge to avoid killing when
         // adjacent but not overlapping
@@ -90,6 +95,16 @@ public class Gate {
         deathGate.shouldTravel = true;
 
         hero.drawOnTop();
+
+        pathFront = new StargatePathFront();
+        pathFront.center = new Vector2(position, drawOffset);
+        pathFront.size.set(width, drawHeight - (Platform.height * 2));
+        pathFront.setPanning(true);
+        pathFront
+                .setPanningSheet(gPathFront.get(color), 200, 140, 86, 1, false);
+        pathFront.velocity = new Vector2(-GameWorld.Speed, 0f);
+        pathFront.shouldTravel = true;
+        pathFront.reverse = true;
 
         preview = new GatePreview();
         preview.center = new Vector2(GameWorld.RIGHT_EDGE, drawOffset);
@@ -155,6 +170,24 @@ public class Gate {
             // update() in collideable prematurely destroys gate, seperate
             // udpate function made.
             updateGate();
+        }
+    }
+
+    public class StargatePathFront extends Collidable {
+
+        @Override
+        public void handleCollision(Collidable other) {
+            // don't do anything
+        }
+
+        @Override
+        public void update() {
+            // update() in collideable prematurely destroys gate, seperate
+            // udpate function made.
+            updateGate();
+            removeFromAutoDrawSet();
+            addToAutoDrawSet();
+
         }
     }
 }
