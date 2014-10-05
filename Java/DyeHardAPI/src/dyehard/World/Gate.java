@@ -47,31 +47,13 @@ public class Gate {
 
             Graphics2D g2 = img.createGraphics();
             g2.drawImage(img, 0, 0, null);
-            // g2.drawImage(img2, 0, 0, null);
-            // g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
-            // RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            // g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-            // RenderingHints.VALUE_ANTIALIAS_ON);
-            // g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
-            // RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            // g2.setRenderingHint(RenderingHints.KEY_DITHERING,
-            // RenderingHints.VALUE_DITHER_ENABLE);
-            // g2.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
-            // RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-            // g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-            // RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-            // g2.setRenderingHint(RenderingHints.KEY_RENDERING,
-            // RenderingHints.VALUE_RENDER_QUALITY);
-            // g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-            // RenderingHints.VALUE_STROKE_PURE);
-
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_IN,
                     0.25f));
             g2.setColor(temp);
 
             g2.fillRect(0, 0, 512, 120);
             g2.dispose();
-            gPaths.put(temp, img);
+            gPaths.put(temp, gPath);
             gEdges.put(temp, ImageTint.tintedImage(gEdge, temp, 1f));
         }
     }

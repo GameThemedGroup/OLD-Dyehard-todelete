@@ -260,6 +260,18 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     // }
     // }
 
+    public void alwaysOnTop() {
+        alwaysOnTop = true;
+        dynamicDyepack.alwaysOnTop = true;
+    }
+
+    public void drawOnTop() {
+        removeFromAutoDrawSet();
+        addToAutoDrawSet();
+        dynamicDyepack.removeFromAutoDrawSet();
+        dynamicDyepack.addToAutoDrawSet();
+    }
+
     public void collect(DyePack dye) {
         dye.activate(this);
         collectedDyepacks += 1;

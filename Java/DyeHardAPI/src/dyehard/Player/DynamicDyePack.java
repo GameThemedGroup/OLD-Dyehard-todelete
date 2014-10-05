@@ -67,8 +67,8 @@ public class DynamicDyePack extends Rectangle {
 
     @Override
     public void draw() {
-        removeFromAutoDrawSet();
-        addToAutoDrawSet();
+        // removeFromAutoDrawSet();
+        // addToAutoDrawSet();
         super.draw();
     }
 

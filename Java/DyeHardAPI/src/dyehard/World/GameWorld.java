@@ -36,14 +36,16 @@ public class GameWorld implements Updateable {
         new Background();
 
         // Draw the hero on top of the background
-        hero.removeFromAutoDrawSet();
-        hero.addToAutoDrawSet();
+        hero.drawOnTop();
 
         new DyehardUI(hero);
         new Laser(hero);
+
+        hero.alwaysOnTop();
+
         UpdateManager.register(this);
 
-        addRegion(new Space(hero));
+        addRegion(new Stargate(hero));
     }
 
     // Adds a region to the queue of upcoming regions
