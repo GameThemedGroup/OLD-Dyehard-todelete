@@ -1,8 +1,6 @@
 package dyehard.World;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
@@ -22,39 +20,45 @@ public class Gate {
     private final GatePreview preview;
 
     private static HashMap<Color, BufferedImage> dGates = new HashMap<Color, BufferedImage>();
-    private static HashMap<Color, BufferedImage> gWaves = new HashMap<Color, BufferedImage>();
-    private static HashMap<Color, BufferedImage> gPaths = new HashMap<Color, BufferedImage>();
-    private static HashMap<Color, BufferedImage> gEdges = new HashMap<Color, BufferedImage>();
+    private static HashMap<Color, BufferedImage> gPathBack = new HashMap<Color, BufferedImage>();
+    private static HashMap<Color, BufferedImage> gPathFront = new HashMap<Color, BufferedImage>();
 
     static {
         BufferedImage dGate = BaseCode.resources
                 .loadImage("Textures/Background/Warp_start_Anim.png");
-        BufferedImage gWave = BaseCode.resources
-                .loadImage("Textures/Background/Warp_Path_wave.png");
-        BufferedImage gPath = BaseCode.resources
-                .loadImage("Textures/Background/Warp_Path.png");
-        BufferedImage gEdge = BaseCode.resources
-                .loadImage("Textures/Background/Warp_wave_edge.png");
         // Fill the hashmaps with tinted images for later use
         for (int i = 0; i < 6; i++) {
             Color temp = Colors.colorPicker(i);
+            System.out.println(temp.getRed());
+            dGates.put(temp, ImageTint.tintedImage(dGate, temp, 0.25f));
 
-            dGates.put(temp, ImageTint.tintedImage(dGate, temp, 1f));
-            gWaves.put(temp, ImageTint.tintedImage(gWave, temp, 1f));
-
-            BufferedImage img = ImageTint.tintedImage(gPath, temp, 0.25f);
-            // BufferedImage img2 = ImageTint.tintedImage(gWave, temp, 1f);
-
-            Graphics2D g2 = img.createGraphics();
-            g2.drawImage(img, 0, 0, null);
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_IN,
-                    0.25f));
-            g2.setColor(temp);
-
-            g2.fillRect(0, 0, 512, 120);
-            g2.dispose();
-            gPaths.put(temp, gPath);
-            gEdges.put(temp, ImageTint.tintedImage(gEdge, temp, 1f));
+            String colorString = "";
+            switch (i) {
+            case 0:
+                colorString = "green";
+                break;
+            case 1:
+                colorString = "red";
+                break;
+            case 2:
+                colorString = "yellow";
+                break;
+            case 3:
+                colorString = "teal";
+                break;
+            case 4:
+                colorString = "pink";
+                break;
+            case 5:
+                colorString = "blue";
+                break;
+            }
+            gPathBack.put(temp, BaseCode.resources
+                    .loadImage("Textures/Background/Warp_green_back.png"));
+            gPathFront.put(
+                    temp,
+                    BaseCode.resources.loadImage("Textures/Background/Warp_"
+                            + colorString + "_front.png"));
         }
     }
 
@@ -68,7 +72,7 @@ public class Gate {
         path.center = new Vector2(position, drawOffset);
         path.size.set(width, drawHeight - (Platform.height * 2));
         path.setPanning(true);
-        path.setPanningSheet(gPaths.get(color), 512, 120, 32, 2, false);
+        path.setPanningSheet(gPathBack.get(color), 200, 140, 32, 2, false);
         path.dyeColor = color;
         path.velocity = new Vector2(-GameWorld.Speed, 0f);
         path.shouldTravel = true;
@@ -85,6 +89,8 @@ public class Gate {
         deathGate.visible = true;
         deathGate.velocity = new Vector2(-GameWorld.Speed, 0f);
         deathGate.shouldTravel = true;
+
+        hero.drawOnTop();
 
         preview = new GatePreview();
         preview.center = new Vector2(GameWorld.RIGHT_EDGE, drawOffset);
