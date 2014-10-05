@@ -11,6 +11,7 @@ import Engine.Vector2;
 public class DyehardRectangle extends Primitive {
     public boolean spriteCycleDone = false;
 
+    public boolean reverse = false;
     private boolean drawImage = true;
     private boolean drawFilledRect = true;
 
@@ -167,15 +168,27 @@ public class DyehardRectangle extends Primitive {
         }
 
         currentTick = 0;
-
-        if (currentFrame >= totalFrames - 1) {
-            currentFrame = 0;
-            spriteCycleDone = true;
-            return;
+        if (reverse) {
+            --currentFrame;
+            if (currentFrame < 0) {
+                currentFrame = totalFrames - 1;
+                return;
+            }
+            if (currentFrame == 0) {
+                spriteCycleDone = true;
+            } else {
+                spriteCycleDone = false;
+            }
         } else {
-            spriteCycleDone = false;
+            if (currentFrame >= totalFrames - 1) {
+                currentFrame = 0;
+                spriteCycleDone = true;
+                return;
+            } else {
+                spriteCycleDone = false;
+            }
+            ++currentFrame;
         }
-        ++currentFrame;
     }
 
     public int getNumFrames() {
