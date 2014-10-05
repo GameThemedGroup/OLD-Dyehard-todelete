@@ -42,7 +42,7 @@ public class Gate {
             dGates.put(temp, ImageTint.tintedImage(dGate, temp, 1f));
             gWaves.put(temp, ImageTint.tintedImage(gWave, temp, 1f));
 
-            BufferedImage img = ImageTint.tintedImage(gPath, temp, 1f);
+            BufferedImage img = ImageTint.tintedImage(gPath, temp, 0.25f);
             // BufferedImage img2 = ImageTint.tintedImage(gWave, temp, 1f);
 
             Graphics2D g2 = img.createGraphics();
@@ -95,10 +95,10 @@ public class Gate {
         // adjacent but not overlapping
         deathGate = new DeathGate();
         deathGate.center = new Vector2(leftEdge, path.center.getY());
-        deathGate.size.set(0.46875f * path.size.getY(), path.size.getY());
+        deathGate.size.set(0.9091f * path.size.getY(), path.size.getY());
         // Texture premade in static function
         deathGate.setUsingSpriteSheet(true);
-        deathGate.setSpriteSheet(dGates.get(color), 60, 128, 24, 2);
+        deathGate.setSpriteSheet(dGates.get(color), 200, 220, 24, 2);
         deathGate.dyeColor = color;
         deathGate.visible = true;
         deathGate.velocity = new Vector2(-GameWorld.Speed, 0f);
