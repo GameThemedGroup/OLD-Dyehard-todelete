@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class TextureTile {
+    // tileNum = number of tiles wanted, img = one tile in bufferedImage
+    // this allows user to make a large buffered image using smaller tiles
     public BufferedImage setTiling(BufferedImage img, int tileNum,
             boolean vertical) {
         int currentEnd = 0;
