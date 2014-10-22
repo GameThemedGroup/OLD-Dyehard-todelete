@@ -1,5 +1,8 @@
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
+import Engine.BaseCode;
 import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Player.Hero;
@@ -17,13 +20,25 @@ public class UserCode extends DyeHard {
     @Override
     protected void initialize() {
         hero = new Hero();
-        // try {
-        // Robot robot = new Robot();
-        // robot.mouseMove((int) hero.center.getX(), (int) hero.center.getY());
-        // } catch (AWTException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
+
+        // move mouse to where center of hero is
+        try {
+            Robot robot = new Robot();
+            System.out.println(window.getWidth());
+
+            robot.mouseMove(
+                    window.getLocationOnScreen().x
+                            + (int) (hero.center.getX() * window.getWidth() / BaseCode.world
+                                    .getWidth()),
+                    window.getLocationOnScreen().y
+                            + window.getHeight()
+                            - (int) (hero.center.getX() * window.getWidth() / BaseCode.world
+                                    .getWidth()));
+        } catch (AWTException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         hero.registerWeapon(new SpreadFireWeapon(hero));
         hero.registerWeapon(new OverHeatWeapon(hero));
         hero.registerWeapon(new LimitedAmmoWeapon(hero));
@@ -59,6 +74,7 @@ public class UserCode extends DyeHard {
         // }
 
         hero.moveTo(mouse.getWorldX(), mouse.getWorldY());
+        // System.out.println(MouseInfo.getPointerInfo().getLocation());
 
         if (keyboard.isButtonDown(KeyEvent.VK_F)) {
             hero.currentWeapon.fire();
