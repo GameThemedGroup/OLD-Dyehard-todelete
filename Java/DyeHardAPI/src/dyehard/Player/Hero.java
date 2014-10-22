@@ -274,8 +274,29 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
             setTexture();
 
-            center.setX(center.getX() + (xOffset * 0.2f));
-            center.setY(center.getY() + (yOffset * 0.2f));
+            if (xOffset > 0) {
+                center.setX(center.getX() + Math.min((xOffset * 0.2f), 2f));
+            } else if (xOffset < 0) {
+                center.setX(center.getX() + Math.max((xOffset * 0.2f), -2f));
+            }
+
+            if (yOffset > 0) {
+                center.setY(center.getY() + Math.min((yOffset * 0.2f), 2f));
+            } else if (yOffset < 0) {
+                center.setY(center.getY() + Math.max((yOffset * 0.2f), -2f));
+            }
+
+            // if ((!collideRight) && (xOffset > 0)) {
+            // center.setX(center.getX() + (xOffset * 0.2f));
+            // } else if ((!collideLeft) && (xOffset < 0)) {
+            // center.setX(center.getX() + (xOffset * 0.2f));
+            // }
+            //
+            // if ((!collideUp) && (yOffset > 0)) {
+            // center.setY(center.getY() + (yOffset * 0.2f));
+            // } else if ((!collideDown) && (yOffset < 0)) {
+            // center.setY(center.getY() + (yOffset * 0.2f));
+            // }
         }
     }
 

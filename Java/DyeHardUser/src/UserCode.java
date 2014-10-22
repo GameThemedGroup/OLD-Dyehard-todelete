@@ -24,7 +24,6 @@ public class UserCode extends DyeHard {
         // move mouse to where center of hero is
         try {
             Robot robot = new Robot();
-            System.out.println(window.getWidth());
 
             robot.mouseMove(
                     window.getLocationOnScreen().x

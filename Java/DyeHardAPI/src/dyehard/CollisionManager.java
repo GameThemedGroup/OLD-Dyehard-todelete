@@ -77,6 +77,10 @@ public class CollisionManager {
                         c1.handleCollision(c2);
                         c2.handleCollision(c1);
                     }
+                    // else if ((c1 instanceof Hero) && (c2 instanceof Obstacle)
+                    // && !c1.collided(c2)) {
+                    // c2.revertCollideStatus((Hero) c1);
+                    // }
                 }
             }
         }

@@ -15,6 +15,7 @@ import dyehard.World.GameWorld;
  * 
  */
 public class Obstacle extends Collidable {
+
     public Obstacle() {
     }
 

@@ -11,6 +11,10 @@ import dyehard.World.PlatformSingle;
 
 public class Actor extends Collidable {
     protected boolean alive;
+    public boolean collideLeft = false;
+    public boolean collideRight = false;
+    public boolean collideUp = false;
+    public boolean collideDown = false;
 
     public Actor(Vector2 position, float width, float height) {
         CollisionManager.registerActor(this);
@@ -60,18 +64,47 @@ public class Actor extends Collidable {
 
             // Stop the character from moving if they collide with the
             // Collidable
-            if (Math.abs(out.getX()) > 0.01f) {
+            if (Math.abs(out.getX()) > 0f) {
                 if (Math.signum(out.getX()) != Math.signum(actor.velocity
                         .getX())) {
                     actor.velocity.setX(0f);
                 }
+                // if (actor instanceof Hero) {
+                // if (out.getX() > 0) {
+                // actor.collideLeft = true;
+                // actor.collideRight = false;
+                // obstacle.heroLeft = true;
+                // obstacle.heroRight = false;
+                // System.out.println("hero collide left");
+                // } else {
+                // actor.collideLeft = false;
+                // actor.collideRight = true;
+                // obstacle.heroLeft = false;
+                // obstacle.heroRight = true;
+                // System.out.println("hero collide Right");
+                // }
+                // }
+
             }
 
-            if (Math.abs(out.getY()) > 0.01f) {
+            if (Math.abs(out.getY()) > 0f) {
                 if (Math.signum(out.getY()) != Math.signum(actor.velocity
                         .getY())) {
                     actor.velocity.setY(0f);
                 }
+                // if (actor instanceof Hero) {
+                // if (out.getX() > 0) {
+                // actor.collideDown = true;
+                // actor.collideUp = false;
+                // obstacle.heroUp = true;
+                // obstacle.heroDown = false;
+                // } else {
+                // actor.collideDown = false;
+                // actor.collideUp = true;
+                // obstacle.heroUp = false;
+                // obstacle.heroDown = true;
+                // }
+                // }
             }
         }
     }
