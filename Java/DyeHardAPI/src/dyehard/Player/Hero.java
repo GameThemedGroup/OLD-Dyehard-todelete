@@ -235,30 +235,33 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     }
 
     public void moveTo(float x, float y) {
-        float xOffset = x - center.getX();
-        float yOffset = y - center.getY();
+        if (DyeHard.getState() == DyeHard.State.PLAYING) {
+            float xOffset = x - center.getX();
+            float yOffset = y - center.getY();
 
-        if (Math.abs(xOffset) + Math.abs(yOffset) < 0.2f) {
-            directionState = Direction.NEUTRAL;
-        } else if ((xOffset * xOffset) > (yOffset * yOffset)) {
-            if (xOffset > 0) {
-                directionState = Direction.NEUTRAL; // TODO change to Right when
-                                                    // texture comes
+            if (Math.abs(xOffset) + Math.abs(yOffset) < 0.2f) {
+                directionState = Direction.NEUTRAL;
+            } else if ((xOffset * xOffset) > (yOffset * yOffset)) {
+                if (xOffset > 0) {
+                    directionState = Direction.NEUTRAL; // TODO change to Right
+                                                        // when
+                                                        // texture comes
+                } else {
+                    directionState = Direction.LEFT;
+                }
             } else {
-                directionState = Direction.LEFT;
+                if (yOffset > 0) {
+                    directionState = Direction.UP;
+                } else {
+                    directionState = Direction.DOWN;
+                }
             }
-        } else {
-            if (yOffset > 0) {
-                directionState = Direction.UP;
-            } else {
-                directionState = Direction.DOWN;
-            }
+
+            setTexture();
+
+            center.setX(center.getX() + (xOffset * 0.2f));
+            center.setY(center.getY() + (yOffset * 0.2f));
         }
-
-        setTexture();
-
-        center.setX(center.getX() + (xOffset * 0.2f));
-        center.setY(center.getY() + (yOffset * 0.2f));
     }
 
     private void setTexture() {

@@ -11,7 +11,7 @@ public abstract class DyeHard extends LibraryCode {
     // The amount of time that has elapsed since the last frame
     public static float DELTA_TIME = 1f / 40f;
 
-    protected enum State {
+    public enum State {
         BEGIN, PAUSED, PLAYING, GAMEOVER
     }
 
@@ -97,6 +97,10 @@ public abstract class DyeHard extends LibraryCode {
         }
 
         update(); // call user code update()
+    }
+
+    public static State getState() {
+        return state;
     }
 
     protected abstract void update();
