@@ -87,6 +87,9 @@ public class GameWorld implements Updateable {
             }
             distance += Speed;
             GameState.DistanceTravelled = (int) distance;
+            if ((int) distance % 50 == 0) {
+                GameState.Score = (int) distance;
+            }
         }
         updateSequence();
     }
