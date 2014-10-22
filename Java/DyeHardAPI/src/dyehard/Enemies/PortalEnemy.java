@@ -5,13 +5,17 @@ import dyehard.Configuration;
 import dyehard.Configuration.EnemyType;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
+import dyehard.World.GameWorld;
 
 public class PortalEnemy extends Enemy {
     protected Timer timer;
     protected float portalSpawnInterval;
 
     public PortalEnemy(Vector2 center, Hero currentHero) {
-        super(center, 0, 0, currentHero, "Textures/Enemies/minion_portal.png");
+        super(center, 0, 0, currentHero,
+                "Textures/Enemies/PortalMinion_AnimSheet_Left.png");
+        setUsingSpriteSheet(true);
+        setSpriteSheet(texture, 140, 140, 12, 2);
 
         portalSpawnInterval = Float.parseFloat(parseNodeList(
                 EnemyType.PORTAL_ENEMY, "portalSpawnInterval")) * 1000;
@@ -26,10 +30,12 @@ public class PortalEnemy extends Enemy {
 
     @Override
     public void update() {
-        super.update();
         if (timer.isDone()) {
             new Portal(center.clone(), hero);
             timer.reset();
+        }
+        if (center.getX() < GameWorld.LEFT_EDGE - 5f) {
+            destroy();
         }
     }
 

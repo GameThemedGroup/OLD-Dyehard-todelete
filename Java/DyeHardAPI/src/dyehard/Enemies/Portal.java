@@ -1,7 +1,6 @@
 package dyehard.Enemies;
 
 import java.awt.AWTException;
-import java.awt.Color;
 import java.awt.Robot;
 import java.util.Random;
 
@@ -33,8 +32,10 @@ public class Portal extends GameObject {
 
         size.set(width, height);
         this.hero = hero;
-        texture = BaseCode.resources.loadImage("Textures/PowerUp_Box1.png");
-        color = Color.black;
+        texture = BaseCode.resources
+                .loadImage("Textures/Enemies/Minion_Portal_AnimSheet.png");
+        setUsingSpriteSheet(true);
+        setSpriteSheet(texture, 160, 160, 20, 2);
         timer = new Timer(duration);
     }
 

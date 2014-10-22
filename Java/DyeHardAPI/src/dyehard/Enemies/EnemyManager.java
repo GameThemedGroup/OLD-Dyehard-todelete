@@ -48,18 +48,15 @@ public class EnemyManager extends UpdateObject {
         // TODO: Replace magic numbers
         float randomY = RANDOM.nextInt((int) GameWorld.TOP_EDGE - 8) + 5;
         Vector2 position = new Vector2(GameWorld.RIGHT_EDGE + 10, randomY);
-        switch (RANDOM.nextInt(4)) {
+        switch (RANDOM.nextInt(3)) {
         case 1:
             enemies.add(new PortalEnemy(position, hero));
             break;
         case 2:
-            enemies.add(new CollectorEnemy(position, hero));
-            break;
-        case 3:
             enemies.add(new ChargerEnemy(position, hero));
             break;
         default:
-            enemies.add(new ShootingEnemy(position, hero));
+            enemies.add(new RegularEnemy(position, hero));
             break;
         }
         enemies.get(enemies.size() - 1).initialize();

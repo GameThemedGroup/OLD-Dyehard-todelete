@@ -28,8 +28,8 @@ enemy stands still before chasing Dye. -->
         </uniqueAttributes>
     </enemy>
     <enemy type="SHOOTING_ENEMY">
-        <width>7</width>
-        <height>7</height>
+        <width>7.42</width>
+        <height>5.95</height>
         <sleepTimer>3</sleepTimer>
         <speed>0.15</speed>
     </enemy>
