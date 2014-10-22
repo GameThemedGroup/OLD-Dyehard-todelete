@@ -303,51 +303,37 @@ public class DyehardRectangle extends Primitive {
                 updateSpriteSheetAnimation();
             } else if (panning) {
                 if (vertical) {
-                    BaseCode.resources
-                            .drawImage(
-                                    texture,
-                                    center.getX() - (size.getX() * 0.5f),
-                                    center.getY()
-                                            - (size.getY() * (0.5f - ((float) currentFrame / totalFrames))),
-                                    center.getX() + (size.getX() * 0.5f),
-                                    center.getY() + (size.getY() * 0.5f),
-                                    getSpriteLowerX(), getSpriteLowerY(),
-                                    getSpriteUpperX(), getSpriteUpperY(),
-                                    rotate);
-                    BaseCode.resources
-                            .drawImage(
-                                    texture,
-                                    center.getX() - (size.getX() * 0.5f),
-                                    center.getY() - (size.getY() * 0.5f),
-                                    center.getX() + (size.getX() * 0.5f),
-                                    center.getY()
-                                            - (size.getY() * (0.5f - ((float) currentFrame / totalFrames))),
-                                    getSpriteLowerX2(), getSpriteLowerY2(),
-                                    getSpriteUpperX2(), getSpriteUpperY2(),
-                                    rotate);
+                    float offset = (size.getY() / totalFrames) * currentFrame;
+                    BaseCode.resources.drawImage(texture,
+                            center.getX() - (size.getX() * 0.5f), center.getY()
+                                    - (size.getY() * 0.5f) + offset,
+                            center.getX() + (size.getX() * 0.5f), center.getY()
+                                    + (size.getY() * 0.5f), getSpriteLowerX(),
+                            getSpriteLowerY(), getSpriteUpperX(),
+                            getSpriteUpperY(), rotate);
+                    BaseCode.resources.drawImage(texture,
+                            center.getX() - (size.getX() * 0.5f), center.getY()
+                                    - (size.getY() * 0.5f), center.getX()
+                                    + (size.getX() * 0.5f), center.getY()
+                                    - (size.getY() * 0.5f) + offset,
+                            getSpriteLowerX2(), getSpriteLowerY2(),
+                            getSpriteUpperX2(), getSpriteUpperY2(), rotate);
                 } else {
-                    BaseCode.resources
-                            .drawImage(
-                                    texture,
-                                    center.getX() - (size.getX() * 0.5f),
-                                    center.getY() - (size.getY() * 0.5f),
-                                    center.getX()
-                                            + (size.getX() * (0.5f - ((float) currentFrame / totalFrames))),
-                                    center.getY() + (size.getY() * 0.5f),
-                                    getSpriteLowerX(), getSpriteLowerY(),
-                                    getSpriteUpperX(), getSpriteUpperY(),
-                                    rotate);
-                    BaseCode.resources
-                            .drawImage(
-                                    texture,
-                                    center.getX()
-                                            + (size.getX() * (0.5f - ((float) currentFrame / totalFrames))),
-                                    center.getY() - (size.getY() * 0.5f),
-                                    center.getX() + (size.getX() * 0.5f),
-                                    center.getY() + (size.getY() * 0.5f),
-                                    getSpriteLowerX2(), getSpriteLowerY2(),
-                                    getSpriteUpperX2(), getSpriteUpperY2(),
-                                    rotate);
+                    float offset = (size.getX() / totalFrames) * currentFrame;
+                    BaseCode.resources.drawImage(texture,
+                            center.getX() - (size.getX() * 0.5f), center.getY()
+                                    - (size.getY() * 0.5f), center.getX()
+                                    - (size.getX() * 0.5f) + offset,
+                            center.getY() + (size.getY() * 0.5f),
+                            getSpriteLowerX(), getSpriteLowerY(),
+                            getSpriteUpperX(), getSpriteUpperY(), rotate);
+                    BaseCode.resources.drawImage(texture,
+                            center.getX() - (size.getX() * 0.5f) + offset,
+                            center.getY() - (size.getY() * 0.5f), center.getX()
+                                    + (size.getX() * 0.5f), center.getY()
+                                    + (size.getY() * 0.5f), getSpriteLowerX2(),
+                            getSpriteLowerY2(), getSpriteUpperX2(),
+                            getSpriteUpperY2(), rotate);
                 }
                 updateSpriteSheetAnimation();
             } else {
