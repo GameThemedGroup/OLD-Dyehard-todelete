@@ -16,8 +16,14 @@ public class UserCode extends DyeHard {
 
     @Override
     protected void initialize() {
-
         hero = new Hero();
+        // try {
+        // Robot robot = new Robot();
+        // robot.mouseMove((int) hero.center.getX(), (int) hero.center.getY());
+        // } catch (AWTException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
         hero.registerWeapon(new SpreadFireWeapon(hero));
         hero.registerWeapon(new OverHeatWeapon(hero));
         hero.registerWeapon(new LimitedAmmoWeapon(hero));
@@ -39,23 +45,24 @@ public class UserCode extends DyeHard {
 
     @Override
     protected void update() {
-        if (keyboard.isButtonDown(KeyEvent.VK_UP)) {
-            hero.moveUp();
-        }
-        if (keyboard.isButtonDown(KeyEvent.VK_DOWN)) {
-            hero.moveDown();
-        }
-        if (keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
-            hero.moveLeft();
-        }
-        if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
-            hero.moveRight();
-        }
+        // if (keyboard.isButtonDown(KeyEvent.VK_UP)) {
+        // hero.moveUp();
+        // }
+        // if (keyboard.isButtonDown(KeyEvent.VK_DOWN)) {
+        // hero.moveDown();
+        // }
+        // if (keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
+        // hero.moveLeft();
+        // }
+        // if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
+        // hero.moveRight();
+        // }
+
+        hero.moveTo(mouse.getWorldX(), mouse.getWorldY());
+
         if (keyboard.isButtonDown(KeyEvent.VK_F)) {
             hero.currentWeapon.fire();
         }
-
-        hero.moveTo(mouse.getWorldX(), mouse.getWorldY());
 
         if (world.nextRegionIsSpace()) {
             System.out.println("SPACE COMING UP");

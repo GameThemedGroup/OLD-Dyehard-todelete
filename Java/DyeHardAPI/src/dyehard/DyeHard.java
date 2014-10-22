@@ -31,6 +31,7 @@ public abstract class DyeHard extends LibraryCode {
             keyboard.releaseButton(KeyEvent.VK_ENTER);
             keyboard.releaseButton(KeyEvent.VK_ALT);
             window.toggleFullscreen();
+            window.requestFocusInWindow();
         }
 
         switch (state) {
@@ -65,6 +66,7 @@ public abstract class DyeHard extends LibraryCode {
     @Override
     public void initializeWorld() {
         super.initializeWorld();
+        window.requestFocusInWindow();
 
         // Replace the default keyboard input with DyehardKeyboard
         window.removeKeyListener(keyboard);
