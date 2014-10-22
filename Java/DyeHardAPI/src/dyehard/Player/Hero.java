@@ -139,7 +139,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         }
         directionState = Direction.NEUTRAL;
         dynamicDyepack = new DynamicDyePack(this);
-        texture = BaseCode.resources.loadImage("Textures/Hero/Dye_Neutral.png");
+        texture = BaseCode.resources.loadImage("Textures/Hero/Dye_NEUTRAL.png");
 
         collectedDyepacks = 0;
         collectedPowerups = 0;

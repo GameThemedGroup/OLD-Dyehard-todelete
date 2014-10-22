@@ -21,18 +21,18 @@ public class Gate {
     private final DeathGate deathGate;
     private final GatePreview preview;
 
-    private static BufferedImage gDoorBack;
-    private static BufferedImage gDoorFront;
+    // private static BufferedImage gDoorBack;
+    // private static BufferedImage gDoorFront;
 
     private static HashMap<Color, BufferedImage> dGates = new HashMap<Color, BufferedImage>();
     private static HashMap<Color, BufferedImage> gPathBack = new HashMap<Color, BufferedImage>();
     private static HashMap<Color, BufferedImage> gPathFront = new HashMap<Color, BufferedImage>();
 
     public static void setGatePathImages() {
-        gDoorFront = BaseCode.resources
-                .loadImage("Textures/Background/warpGate_front.png");
-        gDoorBack = BaseCode.resources
-                .loadImage("Textures/BackGround/warpGate_back.png");
+        // gDoorFront = BaseCode.resources
+        // .loadImage("Textures/Background/Entrance_front.png");
+        // gDoorBack = BaseCode.resources
+        // .loadImage("Textures/BackGround/Entrance_back.png");
 
         BufferedImage dGate = BaseCode.resources
                 .loadImage("Textures/Background/Warp_start_Anim.png");
@@ -174,10 +174,14 @@ public class Gate {
             size.set(s);
             visible = true;
             if (front) {
-                texture = gDoorFront;
+                texture = BaseCode.resources
+                        .loadImage("Textures/Background/Entrance_front.png");
+                ;
                 alwaysOnTop = true;
             } else {
-                texture = gDoorBack;
+                texture = BaseCode.resources
+                        .loadImage("Textures/Background/Entrance_back.png");
+                ;
             }
             isFrontPiece = front;
             velocity = new Vector2(-GameWorld.Speed, 0f);
