@@ -32,6 +32,8 @@ public class GameWorld implements Updateable {
     public void initialize(Hero hero) {
         new EnemyManager(hero);
         this.hero = hero;
+        // preload the gate path images
+        dyehard.World.Gate.setGatePathImages();
 
         new Background();
 

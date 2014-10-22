@@ -25,7 +25,7 @@ public class Gate {
     private static HashMap<Color, BufferedImage> gPathBack = new HashMap<Color, BufferedImage>();
     private static HashMap<Color, BufferedImage> gPathFront = new HashMap<Color, BufferedImage>();
 
-    static {
+    public static void setGatePathImages() {
         BufferedImage dGate = BaseCode.resources
                 .loadImage("Textures/Background/Warp_start_Anim.png");
         TextureTile tile = new TextureTile();
@@ -56,6 +56,7 @@ public class Gate {
                 break;
             }
 
+            // cache the tiled portal images
             gPathBack.put(temp, tile.setTiling(
                     BaseCode.resources.loadImage("Textures/Background/Warp_"
                             + colorString + "_back.png"), 10, false));
@@ -75,7 +76,7 @@ public class Gate {
         path.center = new Vector2(position, drawOffset);
         path.size.set(width, drawHeight - (Platform.height * 2));
         path.setPanning(true);
-        path.setPanningSheet(gPathBack.get(color), 200, 140, 86, 1, false);
+        path.setPanningSheet(gPathBack.get(color), 200, 140, 12, 3, false);
         path.dyeColor = color;
         path.velocity = new Vector2(-GameWorld.Speed, 0f);
         path.shouldTravel = true;
@@ -100,8 +101,7 @@ public class Gate {
         pathFront.center = new Vector2(position, drawOffset);
         pathFront.size.set(width, drawHeight - (Platform.height * 2));
         pathFront.setPanning(true);
-        pathFront
-                .setPanningSheet(gPathFront.get(color), 200, 140, 86, 1, false);
+        pathFront.setPanningSheet(gPathFront.get(color), 200, 140, 6, 4, false);
         pathFront.velocity = new Vector2(-GameWorld.Speed, 0f);
         pathFront.shouldTravel = true;
         pathFront.reverse = true;
