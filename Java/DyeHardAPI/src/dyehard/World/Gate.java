@@ -21,11 +21,19 @@ public class Gate {
     private final DeathGate deathGate;
     private final GatePreview preview;
 
+    private static BufferedImage gDoorBack;
+    private static BufferedImage gDoorFront;
+
     private static HashMap<Color, BufferedImage> dGates = new HashMap<Color, BufferedImage>();
     private static HashMap<Color, BufferedImage> gPathBack = new HashMap<Color, BufferedImage>();
     private static HashMap<Color, BufferedImage> gPathFront = new HashMap<Color, BufferedImage>();
 
     public static void setGatePathImages() {
+        gDoorFront = BaseCode.resources
+                .loadImage("Textures/Background/warpGate_front.png");
+        gDoorBack = BaseCode.resources
+                .loadImage("Textures/BackGround/warpGate_back.png");
+
         BufferedImage dGate = BaseCode.resources
                 .loadImage("Textures/Background/Warp_start_Anim.png");
         TextureTile tile = new TextureTile();
@@ -80,13 +88,16 @@ public class Gate {
         path.dyeColor = color;
         path.velocity = new Vector2(-GameWorld.Speed, 0f);
         path.shouldTravel = true;
-        // path.visible = false;
 
-        // gate is slightly set back from left edge to avoid killing when
-        // adjacent but not overlapping
+        float gateHeight = path.size.getY() + 2f;
+
+        // entrance back
+        new GateDoor(new Vector2(leftEdge - 3.8f, path.center.getY()),
+                new Vector2(0.852564f * gateHeight, gateHeight), false, color);
+
         deathGate = new DeathGate();
-        deathGate.center = new Vector2(leftEdge, path.center.getY());
-        deathGate.size.set(0.9091f * path.size.getY(), path.size.getY());
+        deathGate.center = new Vector2(leftEdge - 8f, path.center.getY());
+        deathGate.size.set(0.9091f * (gateHeight + 2f), gateHeight + 2f);
         // Texture premade in static function
         deathGate.setUsingSpriteSheet(true);
         deathGate.setSpriteSheet(dGates.get(color), 200, 220, 24, 2);
@@ -94,6 +105,10 @@ public class Gate {
         deathGate.visible = true;
         deathGate.velocity = new Vector2(-GameWorld.Speed, 0f);
         deathGate.shouldTravel = true;
+
+        // entrance front
+        new GateDoor(new Vector2(leftEdge - 3.8f, path.center.getY()),
+                new Vector2(0.852564f * gateHeight, gateHeight), true, color);
 
         hero.drawOnTop();
 
@@ -134,24 +149,56 @@ public class Gate {
         }
     }
 
-    public class DeathGate extends Collidable {
+    public class DeathGate extends GameObject {
         public Color dyeColor;
 
         @Override
+        public void update() {
+            super.update();
+            if (center.getX() < GameWorld.LEFT_EDGE - 10f) {
+                destroy();
+            }
+        }
+    }
+
+    public class GateDoor extends Collidable {
+        private final boolean isFrontPiece;
+        public Color dyeColor;
+
+        public GateDoor(Vector2 c, Vector2 s, boolean front, Color color) {
+            dyeColor = color;
+            center = c;
+            size.set(s);
+            visible = true;
+            if (front) {
+                texture = gDoorFront;
+                alwaysOnTop = true;
+            } else {
+                texture = gDoorBack;
+            }
+            isFrontPiece = front;
+            velocity = new Vector2(-GameWorld.Speed, 0f);
+            shouldTravel = true;
+        }
+
+        @Override
         public void handleCollision(Collidable other) {
-            if (other instanceof Actor) {
-                Actor target = (Actor) other;
-                if (target.getColor() != dyeColor) {
-                    if (target instanceof Enemy) {
-                        if (((Enemy) target).beenHit) {
+            if (isFrontPiece) {
+                if (other instanceof Actor) {
+                    Actor target = (Actor) other;
+                    if (target.center.getX() < center.getX()) {
+                        if (target.getColor() != dyeColor) {
+                            if (target instanceof Enemy) {
+                                if (((Enemy) target).beenHit) {
+                                    target.kill(this);
+                                }
+                            }
                             target.kill(this);
                         }
                     }
-                    target.kill(this);
                 }
             }
         }
-
     }
 
     public class StargatePath extends Collidable {
