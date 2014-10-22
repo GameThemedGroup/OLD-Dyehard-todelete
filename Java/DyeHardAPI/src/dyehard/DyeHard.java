@@ -71,6 +71,8 @@ public abstract class DyeHard extends LibraryCode {
         keyboard = new DyehardKeyboard();
         window.addKeyListener(keyboard);
 
+        window.addMouseListener(mouse);
+
         resources.setClassInJar(this);
 
         state = State.PLAYING;
@@ -96,4 +98,5 @@ public abstract class DyeHard extends LibraryCode {
     }
 
     protected abstract void update();
+
 }

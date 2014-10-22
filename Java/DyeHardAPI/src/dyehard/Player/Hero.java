@@ -216,6 +216,14 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         totalThrust.add(new Vector2(defaultJetSpeed, 0));
     }
 
+    public void moveTo(float x, float y) {
+        float xOffset = x - center.getX();
+        float yOffset = y - center.getY();
+
+        center.setX(center.getX() + (xOffset * 0.2f));
+        center.setY(center.getY() + (yOffset * 0.2f));
+    }
+
     private void handleInput() {
         velocity.add(totalThrust);
         totalThrust.set(0f, 0f);

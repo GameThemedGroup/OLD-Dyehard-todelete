@@ -55,6 +55,8 @@ public class UserCode extends DyeHard {
             hero.currentWeapon.fire();
         }
 
+        hero.moveTo(mouse.getWorldX(), mouse.getWorldY());
+
         if (world.nextRegionIsSpace()) {
             System.out.println("SPACE COMING UP");
         }
