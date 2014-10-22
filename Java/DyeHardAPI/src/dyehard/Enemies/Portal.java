@@ -1,6 +1,8 @@
 package dyehard.Enemies;
 
+import java.awt.AWTException;
 import java.awt.Color;
+import java.awt.Robot;
 import java.util.Random;
 
 import org.w3c.dom.Element;
@@ -41,6 +43,17 @@ public class Portal extends GameObject {
         if (collided(hero)) {
             Random rand = new Random();
             hero.center.set(rand.nextInt(90) + 5, rand.nextInt(50) + 5);
+            // move mouse to where center of hero is
+            try {
+                Robot robot = new Robot();
+
+                robot.mouseMove(
+                        (int) BaseCode.world.worldToScreenX(hero.center.getX()),
+                        (int) BaseCode.world.worldToScreenY(hero.center.getY()));
+            } catch (AWTException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             hero.velocity = new Vector2(0f, 0f);
         }
         if (timer.isDone()) {
