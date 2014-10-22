@@ -16,7 +16,7 @@ public abstract class DyeHard extends LibraryCode {
     }
 
     // Game state
-    protected State state;
+    protected static State state;
     protected GameWorld world;
 
     private void checkControl() {

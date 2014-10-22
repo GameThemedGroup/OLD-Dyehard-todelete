@@ -162,32 +162,34 @@ public class DyehardRectangle extends Primitive {
      * Updates the currently drawn sprite of the spritesheet.
      */
     private void updateSpriteSheetAnimation() {
-        if (currentTick < ticksPerFrame) {
-            currentTick++;
-            return;
-        }
+        if (DyeHard.state == DyeHard.State.PLAYING) {
+            if (currentTick < ticksPerFrame) {
+                currentTick++;
+                return;
+            }
 
-        currentTick = 0;
-        if (reverse) {
-            --currentFrame;
-            if (currentFrame < 0) {
-                currentFrame = totalFrames - 1;
-                return;
-            }
-            if (currentFrame == 0) {
-                spriteCycleDone = true;
+            currentTick = 0;
+            if (reverse) {
+                --currentFrame;
+                if (currentFrame < 0) {
+                    currentFrame = totalFrames - 1;
+                    return;
+                }
+                if (currentFrame == 0) {
+                    spriteCycleDone = true;
+                } else {
+                    spriteCycleDone = false;
+                }
             } else {
-                spriteCycleDone = false;
+                if (currentFrame >= totalFrames - 1) {
+                    currentFrame = 0;
+                    spriteCycleDone = true;
+                    return;
+                } else {
+                    spriteCycleDone = false;
+                }
+                ++currentFrame;
             }
-        } else {
-            if (currentFrame >= totalFrames - 1) {
-                currentFrame = 0;
-                spriteCycleDone = true;
-                return;
-            } else {
-                spriteCycleDone = false;
-            }
-            ++currentFrame;
         }
     }
 
