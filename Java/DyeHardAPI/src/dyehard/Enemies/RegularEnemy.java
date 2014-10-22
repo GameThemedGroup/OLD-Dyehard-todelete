@@ -1,5 +1,7 @@
 package dyehard.Enemies;
 
+import java.awt.Color;
+
 import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.Configuration;
@@ -26,15 +28,41 @@ public class RegularEnemy extends Enemy {
     public void update() {
         super.update();
         if ((velocity.getX() > 0) && left) {
-            texture = BaseCode.resources
-                    .loadImage("Textures/Enemies/Regular_AnimSheet_Right.png");
-            setSpriteSheet(texture, 212, 170, 5, 5);
+            if (color == null) {
+                texture = BaseCode.resources
+                        .loadImage("Textures/Enemies/Regular_AnimSheet_Right.png");
+                setSpriteSheet(texture, 212, 170, 5, 5);
+            } else {
+                setSpriteSheet(Hero.regularRightTextures.get(color), 212, 170,
+                        5, 5);
+            }
             left = false;
         } else if ((velocity.getX() < 0) && !left) {
-            texture = BaseCode.resources
-                    .loadImage("Textures/Enemies/Regular_AnimSheet_Left.png");
-            setSpriteSheet(texture, 212, 170, 5, 5);
+            if (color == null) {
+                texture = BaseCode.resources
+                        .loadImage("Textures/Enemies/Regular_AnimSheet_Left.png");
+                setSpriteSheet(texture, 212, 170, 5, 5);
+            } else {
+                setSpriteSheet(Hero.regularLeftTextures.get(color), 212, 170,
+                        5, 5);
+            }
             left = true;
+        }
+    }
+
+    @Override
+    public void setColor(Color color) {
+        if (this.color != color) {
+            this.color = color;
+            int temp = getCurFrame();
+            if (left) {
+                setSpriteSheet(Hero.regularLeftTextures.get(color), 212, 170,
+                        5, 5);
+            } else {
+                setSpriteSheet(Hero.regularRightTextures.get(color), 212, 170,
+                        5, 5);
+            }
+            setCurFrame(temp);
         }
     }
 

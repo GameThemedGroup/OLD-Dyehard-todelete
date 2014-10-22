@@ -1,5 +1,7 @@
 package dyehard.Enemies;
 
+import java.awt.Color;
+
 import Engine.Vector2;
 import dyehard.Configuration;
 import dyehard.Configuration.EnemyType;
@@ -36,6 +38,16 @@ public class PortalEnemy extends Enemy {
         }
         if (center.getX() < GameWorld.LEFT_EDGE - 5f) {
             destroy();
+        }
+    }
+
+    @Override
+    public void setColor(Color color) {
+        if (this.color != color) {
+            this.color = color;
+            int temp = getCurFrame();
+            setSpriteSheet(Hero.portalEnemyTextures.get(color), 140, 140, 12, 2);
+            setCurFrame(temp);
         }
     }
 

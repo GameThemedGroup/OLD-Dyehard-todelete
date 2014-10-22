@@ -33,6 +33,9 @@ import dyehard.World.Gate.DeathGate;
 public class Hero extends Actor implements HeroCollision, HeroDamage {
     public static HashMap<Color, BufferedImage> chargerIdleTextures = new HashMap<Color, BufferedImage>();
     public static HashMap<Color, BufferedImage> chargerAttackTextures = new HashMap<Color, BufferedImage>();
+    public static HashMap<Color, BufferedImage> regularLeftTextures = new HashMap<Color, BufferedImage>();
+    public static HashMap<Color, BufferedImage> regularRightTextures = new HashMap<Color, BufferedImage>();
+    public static HashMap<Color, BufferedImage> portalEnemyTextures = new HashMap<Color, BufferedImage>();
     private static HashMap<Direction, BufferedImage> dyeTextures = new HashMap<Direction, BufferedImage>();
     private static HashMap<Direction, BufferedImage> dyeFireTextures = new HashMap<Direction, BufferedImage>();
 
@@ -84,6 +87,12 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
                 .loadImage("Textures/Enemies/Charger_AnimSheet_Idle.png");
         BufferedImage attack = BaseCode.resources
                 .loadImage("Textures/Enemies/Charger_AnimSheet_Attack.png");
+        BufferedImage regularLeft = BaseCode.resources
+                .loadImage("Textures/Enemies/Regular_AnimSheet_Left.png");
+        BufferedImage regularRight = BaseCode.resources
+                .loadImage("Textures/Enemies/Regular_AnimSheet_Right.png");
+        BufferedImage portalEnemy = BaseCode.resources
+                .loadImage("Textures/Enemies/PortalMinion_AnimSheet_Left.png");
 
         // Fill the hashmap with tinted images for later use
         for (int i = 0; i < 6; i++) {
@@ -92,6 +101,12 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
                     ImageTint.tintedImage(idle, temp, 0.25f));
             chargerAttackTextures.put(temp,
                     ImageTint.tintedImage(attack, temp, 0.25f));
+            regularLeftTextures.put(temp,
+                    ImageTint.tintedImage(regularLeft, temp, 0.25f));
+            regularRightTextures.put(temp,
+                    ImageTint.tintedImage(regularRight, temp, 0.25f));
+            portalEnemyTextures.put(temp,
+                    ImageTint.tintedImage(portalEnemy, temp, 0.25f));
         }
 
         for (Direction dir : Direction.values()) {
