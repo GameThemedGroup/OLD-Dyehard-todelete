@@ -48,11 +48,11 @@ public class DynamicDyePack extends Rectangle {
 
         // Constant offset for all directions
         offsets = new HashMap<Direction, Offset>();
-        offsets.put(Direction.UP, new Offset(30, -1, 1));
-        offsets.put(Direction.DOWN, new Offset(30, -1, 1));
-        offsets.put(Direction.LEFT, new Offset(30, -1, 1));
+        offsets.put(Direction.UP, new Offset(30, -0.8f, 0.2f));
+        offsets.put(Direction.DOWN, new Offset(30, -1, 0f));
+        offsets.put(Direction.LEFT, new Offset(30, -1, 0.2f));
         // offsets.put(Direction.RIGHT, new Offset(30, -1, 1));
-        offsets.put(Direction.NEUTRAL, new Offset(30, -1, 1));
+        offsets.put(Direction.NEUTRAL, new Offset(30, -1, 1f));
     }
 
     @Override
