@@ -76,7 +76,7 @@ public class UserCode extends DyeHard {
         hero.moveTo(mouse.getWorldX(), mouse.getWorldY());
         // System.out.println(MouseInfo.getPointerInfo().getLocation());
 
-        if (keyboard.isButtonDown(KeyEvent.VK_F)) {
+        if ((keyboard.isButtonDown(KeyEvent.VK_F)) || (mouse.isButtonDown(1))) {
             hero.currentWeapon.fire();
         }
 
