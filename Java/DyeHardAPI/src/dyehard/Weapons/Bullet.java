@@ -29,16 +29,14 @@ public class Bullet extends Collidable {
     @Override
     public void update() {
         // TODO replace with hero fire points
-        if (hero.isInvin) {
-            center = hero.center.clone().add(
-                    new Vector2(size.getX() / 2, hero.size.getY() / 4.3f));
-        } else {
-            center = hero.center.clone().add(
-                    new Vector2(size.getX() / 2, hero.size.getY() / 3.25f));
-        }
+        center = hero.center.clone().add(
+                new Vector2(size.getX() / 2, hero.size.getY() / 4f));
+
+        hero.isFiring = true;
         super.update();
 
         if (spriteCycleDone) {
+            hero.isFiring = false;
             destroy();
         }
     }

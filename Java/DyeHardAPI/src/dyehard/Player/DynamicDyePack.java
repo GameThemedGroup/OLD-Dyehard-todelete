@@ -51,12 +51,8 @@ public class DynamicDyePack extends Rectangle {
         offsets.put(Direction.UP, new Offset(30, -1, 1));
         offsets.put(Direction.DOWN, new Offset(30, -1, 1));
         offsets.put(Direction.LEFT, new Offset(30, -1, 1));
-        offsets.put(Direction.RIGHT, new Offset(30, -1, 1));
+        // offsets.put(Direction.RIGHT, new Offset(30, -1, 1));
         offsets.put(Direction.NEUTRAL, new Offset(30, -1, 1));
-        offsets.put(Direction.TOPLEFT, new Offset(30, -1, 1));
-        offsets.put(Direction.TOPRIGHT, new Offset(30, -1, 1));
-        offsets.put(Direction.BOTTOMLEFT, new Offset(30, -1, 1));
-        offsets.put(Direction.BOTTOMRIGHT, new Offset(30, -1, 1));
     }
 
     @Override

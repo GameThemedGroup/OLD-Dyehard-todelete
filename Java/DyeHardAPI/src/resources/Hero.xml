@@ -10,8 +10,8 @@ to move -->
 
 <hero>
     <dye id="Dye">
-        <width>4.2</width>
-        <height>6.3</height>
+        <width>4.25</width>
+        <height>9</height>
         <jetSpeed>2.5</jetSpeed>
         <speedLimit>50</speedLimit>
         <drag>0.97</drag>

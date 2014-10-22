@@ -23,18 +23,18 @@ public class Invincibility extends PowerUp {
     @Override
     public void apply(Hero hero) {
         hero.damageOn = false;
-        hero.texture = BaseCode.resources
-                .loadImage("Textures/Hero/Dye_Invincible.png");
-        hero.size.set(Configuration.heroWidth * 2,
-                Configuration.heroHeight * 1.3333f);
+        // hero.texture = BaseCode.resources
+        // .loadImage("Textures/Hero/Dye_Invincible.png");
+        // hero.size.set(Configuration.heroWidth * 2,
+        // Configuration.heroHeight * 1.3333f);
         hero.isInvin = true;
         hero.curPowerUp = CurPowerUp.INVIN;
     }
 
     @Override
     public void unapply(Hero hero) {
-        hero.texture = BaseCode.resources.loadImage("Textures/Hero/Dye.png");
-        hero.size.set(Configuration.heroWidth, Configuration.heroHeight);
+        // hero.texture = BaseCode.resources.loadImage("Textures/Hero/Dye.png");
+        // hero.size.set(Configuration.heroWidth, Configuration.heroHeight);
         hero.isInvin = false;
         hero.curPowerUp = CurPowerUp.NONE;
         hero.damageOn = true;

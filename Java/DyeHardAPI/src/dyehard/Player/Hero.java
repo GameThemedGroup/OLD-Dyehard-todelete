@@ -33,6 +33,8 @@ import dyehard.World.Gate.DeathGate;
 public class Hero extends Actor implements HeroCollision, HeroDamage {
     public static HashMap<Color, BufferedImage> chargerIdleTextures = new HashMap<Color, BufferedImage>();
     public static HashMap<Color, BufferedImage> chargerAttackTextures = new HashMap<Color, BufferedImage>();
+    private static HashMap<Direction, BufferedImage> dyeTextures = new HashMap<Direction, BufferedImage>();
+    private static HashMap<Direction, BufferedImage> dyeFireTextures = new HashMap<Direction, BufferedImage>();
 
     public boolean collisionOn = true;
     public boolean damageOn = true;
@@ -43,6 +45,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public CurPowerUp curPowerUp;
     public boolean debugInvincibility;
     public boolean isInvin;
+    public boolean isFiring;
 
     public final Weapon defaultWeapon = new OverHeatWeapon(this);
     public final float defaultJetSpeed = Configuration.heroJetSpeed;
@@ -56,6 +59,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     private int collectedDyepacks;
     private int collectedPowerups;
+    private final float sizeScale;
 
     protected Direction directionState;
     protected DynamicDyePack dynamicDyepack;
@@ -68,7 +72,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     private final HashMap<Integer, Integer> weaponHotkeys;
 
     public enum Direction {
-        UP, DOWN, LEFT, RIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, NEUTRAL
+        UP, DOWN, LEFT, NEUTRAL
     }
 
     public enum CurPowerUp {
@@ -89,11 +93,24 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
             chargerAttackTextures.put(temp,
                     ImageTint.tintedImage(attack, temp, 0.25f));
         }
+
+        for (Direction dir : Direction.values()) {
+            dyeTextures.put(
+                    dir,
+                    BaseCode.resources.loadImage("Textures/Hero/Dye_"
+                            + dir.toString() + ".png"));
+            dyeFireTextures.put(
+                    dir,
+                    BaseCode.resources.loadImage("Textures/Hero/Dye_"
+                            + dir.toString() + "_Fire.png"));
+        }
     }
 
     public Hero() {
         super(startingLocation.clone(), Configuration.heroWidth,
                 Configuration.heroHeight); // TODO remove magic numbers
+
+        sizeScale = size.getY() / 9f;
 
         // TODO magic numbers
         r = DHR.getScaledRectangle(new Vector2(1920, 1080), new Vector2(590,
@@ -107,7 +124,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         }
         directionState = Direction.NEUTRAL;
         dynamicDyepack = new DynamicDyePack(this);
-        texture = BaseCode.resources.loadImage("Textures/Hero/Dye.png");
+        texture = BaseCode.resources.loadImage("Textures/Hero/Dye_Neutral.png");
 
         collectedDyepacks = 0;
         collectedPowerups = 0;
@@ -134,6 +151,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         currentVelocity = new Vector2(0f, 0f);
 
         isInvin = false;
+        isFiring = false;
     }
 
     public void updateMovement() {
@@ -156,7 +174,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public void update() {
         applyPowerups();
         handleInput();
-        updateDirectionState();
+        // updateDirectionState();
         updateMovement();
         // selectWeapon();
         clampToWorldBounds();
@@ -220,8 +238,64 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         float xOffset = x - center.getX();
         float yOffset = y - center.getY();
 
+        if (Math.abs(xOffset) + Math.abs(yOffset) < 0.2f) {
+            directionState = Direction.NEUTRAL;
+        } else if ((xOffset * xOffset) > (yOffset * yOffset)) {
+            if (xOffset > 0) {
+                directionState = Direction.NEUTRAL; // TODO change to Right when
+                                                    // texture comes
+            } else {
+                directionState = Direction.LEFT;
+            }
+        } else {
+            if (yOffset > 0) {
+                directionState = Direction.UP;
+            } else {
+                directionState = Direction.DOWN;
+            }
+        }
+
+        setTexture();
+
         center.setX(center.getX() + (xOffset * 0.2f));
         center.setY(center.getY() + (yOffset * 0.2f));
+    }
+
+    private void setTexture() {
+        if (isFiring) {
+            switch (directionState) {
+            case NEUTRAL:
+                size.set(new Vector2(3.35f * sizeScale, 8.4f * sizeScale));
+                break;
+            case UP:
+                size.set(new Vector2(5.2f * sizeScale, 6.9f * sizeScale));
+                break;
+            case DOWN:
+                size.set(new Vector2(3.4f * sizeScale, 5.8f * sizeScale));
+                break;
+            case LEFT:
+                size.set(new Vector2(3.35f * sizeScale, 6.2f * sizeScale));
+                break;
+            }
+            texture = dyeFireTextures.get(directionState);
+        } else {
+            switch (directionState) {
+            case NEUTRAL:
+                size.set(new Vector2(Configuration.heroWidth,
+                        Configuration.heroHeight));
+                break;
+            case UP:
+                size.set(new Vector2(4f * sizeScale, 7.25f * sizeScale));
+                break;
+            case DOWN:
+                size.set(new Vector2(3.55f * sizeScale, 6.05f * sizeScale));
+                break;
+            case LEFT:
+                size.set(new Vector2(3.9f * sizeScale, 5.2f * sizeScale));
+                break;
+            }
+            texture = dyeTextures.get(directionState);
+        }
     }
 
     private void handleInput() {
@@ -229,32 +303,32 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         totalThrust.set(0f, 0f);
     }
 
-    public void updateDirectionState() {
-        previousVelocity = currentVelocity.clone();
-        currentVelocity = velocity.clone();
-        Vector2 tempVelocity = currentVelocity.clone().sub(
-                previousVelocity.clone());
-
-        if (tempVelocity.getY() > 1f && tempVelocity.getX() < -1f) {
-            directionState = Direction.TOPLEFT;
-        } else if (tempVelocity.getY() > 1f && tempVelocity.getX() > 1f) {
-            directionState = Direction.TOPRIGHT;
-        } else if (tempVelocity.getY() < -1f && tempVelocity.getX() < -1f) {
-            directionState = Direction.BOTTOMLEFT;
-        } else if (tempVelocity.getY() < -1f && tempVelocity.getX() > 1f) {
-            directionState = Direction.BOTTOMRIGHT;
-        } else if (tempVelocity.getY() > 1f) {
-            directionState = Direction.UP;
-        } else if (tempVelocity.getY() < -1f) {
-            directionState = Direction.DOWN;
-        } else if (tempVelocity.getX() < -1f) {
-            directionState = Direction.LEFT;
-        } else if (tempVelocity.getX() > 1f) {
-            directionState = Direction.RIGHT;
-        } else {
-            directionState = Direction.NEUTRAL;
-        }
-    }
+    // public void updateDirectionState() {
+    // previousVelocity = currentVelocity.clone();
+    // currentVelocity = velocity.clone();
+    // Vector2 tempVelocity = currentVelocity.clone().sub(
+    // previousVelocity.clone());
+    //
+    // if (tempVelocity.getY() > 1f && tempVelocity.getX() < -1f) {
+    // directionState = Direction.TOPLEFT;
+    // } else if (tempVelocity.getY() > 1f && tempVelocity.getX() > 1f) {
+    // directionState = Direction.TOPRIGHT;
+    // } else if (tempVelocity.getY() < -1f && tempVelocity.getX() < -1f) {
+    // directionState = Direction.BOTTOMLEFT;
+    // } else if (tempVelocity.getY() < -1f && tempVelocity.getX() > 1f) {
+    // directionState = Direction.BOTTOMRIGHT;
+    // } else if (tempVelocity.getY() > 1f) {
+    // directionState = Direction.UP;
+    // } else if (tempVelocity.getY() < -1f) {
+    // directionState = Direction.DOWN;
+    // } else if (tempVelocity.getX() < -1f) {
+    // directionState = Direction.LEFT;
+    // } else if (tempVelocity.getX() > 1f) {
+    // directionState = Direction.RIGHT;
+    // } else {
+    // directionState = Direction.NEUTRAL;
+    // }
+    // }
 
     // Select a weapon in the weapon rack based on the input
     // private void selectWeapon() {
