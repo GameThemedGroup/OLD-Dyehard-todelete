@@ -80,11 +80,13 @@ public class Gate {
         float drawHeight = GameWorld.TOP_EDGE / Stargate.GATE_COUNT;
         float drawOffset = drawHeight * (offset + 0.5f);
 
+        int pathTF = 16;
+
         path = new StargatePath();
         path.center = new Vector2(position, drawOffset);
         path.size.set(width, drawHeight - (Platform.height * 2));
         path.setPanning(true);
-        path.setPanningSheet(gPathBack.get(color), 200, 140, 12, 3, false);
+        path.setPanningSheet(gPathBack.get(color), 200, 140, pathTF, 2, false);
         path.dyeColor = color;
         path.velocity = new Vector2(-GameWorld.Speed, 0f);
         path.shouldTravel = true;
@@ -116,7 +118,8 @@ public class Gate {
         pathFront.center = new Vector2(position, drawOffset);
         pathFront.size.set(width, drawHeight - (Platform.height * 2));
         pathFront.setPanning(true);
-        pathFront.setPanningSheet(gPathFront.get(color), 200, 140, 6, 4, false);
+        pathFront.setPanningSheet(gPathFront.get(color), 200, 140, pathTF, 2,
+                false);
         pathFront.velocity = new Vector2(-GameWorld.Speed, 0f);
         pathFront.shouldTravel = true;
         pathFront.reverse = true;
