@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import Engine.BaseCode;
 import Engine.Primitive;
 import Engine.Vector2;
+import dyehard.World.GameWorld;
 
 // Sprite sheet code ported from the C# engine, which
 // is credited to Samuel Cook and Ron Cook for adding support for that.
@@ -193,6 +194,48 @@ public class DyehardRectangle extends Primitive {
         }
     }
 
+    private void updatePanningAnimation() {
+        if (DyeHard.state == DyeHard.State.PLAYING) {
+            if (currentTick < ticksPerFrame) {
+                currentTick++;
+                return;
+            }
+
+            currentTick = 0;
+            if (reverse) {
+                int temp0 = frameCoords[totalFrames - 1][0];
+                int temp1 = frameCoords[totalFrames - 1][1];
+                int temp2 = frameCoords[totalFrames - 1][2];
+                int temp3 = frameCoords[totalFrames - 1][3];
+                for (int i = totalFrames - 1; i > 0; i--) {
+                    frameCoords[i][0] = frameCoords[i - 1][0];
+                    frameCoords[i][1] = frameCoords[i - 1][1];
+                    frameCoords[i][2] = frameCoords[i - 1][2];
+                    frameCoords[i][3] = frameCoords[i - 1][3];
+                }
+                frameCoords[0][0] = temp0;
+                frameCoords[0][1] = temp1;
+                frameCoords[0][2] = temp2;
+                frameCoords[0][3] = temp3;
+            } else {
+                int temp0 = frameCoords[0][0];
+                int temp1 = frameCoords[0][1];
+                int temp2 = frameCoords[0][2];
+                int temp3 = frameCoords[0][3];
+                for (int i = 0; i < totalFrames - 1; i++) {
+                    frameCoords[i][0] = frameCoords[i + 1][0];
+                    frameCoords[i][1] = frameCoords[i + 1][1];
+                    frameCoords[i][2] = frameCoords[i + 1][2];
+                    frameCoords[i][3] = frameCoords[i + 1][3];
+                }
+                frameCoords[totalFrames - 1][0] = temp0;
+                frameCoords[totalFrames - 1][1] = temp1;
+                frameCoords[totalFrames - 1][2] = temp2;
+                frameCoords[totalFrames - 1][3] = temp3;
+            }
+        }
+    }
+
     public int getNumFrames() {
         return totalFrames;
     }
@@ -229,22 +272,6 @@ public class DyehardRectangle extends Primitive {
         return frameCoords[currentFrame][3];
     }
 
-    private int getSpriteUpperX2() {
-        return frameCoords[currentFrame][4];
-    }
-
-    private int getSpriteUpperY2() {
-        return frameCoords[currentFrame][5];
-    }
-
-    private int getSpriteLowerX2() {
-        return frameCoords[currentFrame][6];
-    }
-
-    private int getSpriteLowerY2() {
-        return frameCoords[currentFrame][7];
-    }
-
     public void setPanningSheet(BufferedImage texture, int width, int height,
             int totalFrames, int ticksPerFrame, boolean vertical) {
         if (totalFrames <= 0) {
@@ -255,38 +282,37 @@ public class DyehardRectangle extends Primitive {
         frameWidth = width;
         frameHeight = height;
         this.vertical = vertical;
-        frameCoords = new int[totalFrames][8];
+        frameCoords = new int[totalFrames][4];
         this.totalFrames = totalFrames;
         currentFrame = 0;
 
         currentTick = 0;
         this.ticksPerFrame = ticksPerFrame;
 
-        int offset;
         if (vertical) {
-            offset = frameHeight / totalFrames;
+            int curStart = 0;
+            int curEnd = frameHeight / totalFrames;
+            int offset = frameHeight / totalFrames;
             for (int i = 0; i < totalFrames; i++) {
                 frameCoords[i][0] = frameWidth;
-                frameCoords[i][1] = frameHeight;
+                frameCoords[i][1] = curEnd;
                 frameCoords[i][2] = 0;
-                frameCoords[i][3] = i * offset;
-                frameCoords[i][4] = frameWidth;
-                frameCoords[i][5] = i * offset;
-                frameCoords[i][6] = 0;
-                frameCoords[i][7] = 0;
+                frameCoords[i][3] = curStart;
+                curStart += offset;
+                curEnd += offset;
             }
 
         } else {
-            offset = frameWidth / totalFrames;
+            int curStart = 0;
+            int curEnd = frameWidth / totalFrames;
+            int offset = frameWidth / totalFrames;
             for (int i = 0; i < totalFrames; i++) {
-                frameCoords[i][0] = frameWidth;
+                frameCoords[i][0] = curEnd;
                 frameCoords[i][1] = frameHeight;
-                frameCoords[i][2] = i * offset;
+                frameCoords[i][2] = curStart;
                 frameCoords[i][3] = 0;
-                frameCoords[i][4] = i * offset;
-                frameCoords[i][5] = frameHeight;
-                frameCoords[i][6] = 0;
-                frameCoords[i][7] = 0;
+                curStart += offset;
+                curEnd += offset;
             }
         }
     }
@@ -305,53 +331,34 @@ public class DyehardRectangle extends Primitive {
                 updateSpriteSheetAnimation();
             } else if (panning) {
                 if (vertical) {
-                    BaseCode.resources
-                            .drawImage(
-                                    texture,
-                                    center.getX() - (size.getX() * 0.5f),
-                                    center.getY()
-                                            - (size.getY() * (0.5f - ((float) currentFrame / totalFrames))),
-                                    center.getX() + (size.getX() * 0.5f),
-                                    center.getY() + (size.getY() * 0.5f),
-                                    getSpriteLowerX(), getSpriteLowerY(),
-                                    getSpriteUpperX(), getSpriteUpperY(),
-                                    rotate);
-                    BaseCode.resources
-                            .drawImage(
-                                    texture,
-                                    center.getX() - (size.getX() * 0.5f),
-                                    center.getY() - (size.getY() * 0.5f),
-                                    center.getX() + (size.getX() * 0.5f),
-                                    center.getY()
-                                            - (size.getY() * (0.5f - ((float) currentFrame / totalFrames))),
-                                    getSpriteLowerX2(), getSpriteLowerY2(),
-                                    getSpriteUpperX2(), getSpriteUpperY2(),
-                                    rotate);
+                    for (int i = 0; i < totalFrames; i++) {
+                        float tHeight = size.getY() / totalFrames;
+                        float tStart = center.getY() - (size.getY() * 0.5f)
+                                + (i * tHeight);
+                        BaseCode.resources.drawImage(texture, center.getX()
+                                - (size.getX() * 0.5f), tStart, center.getX()
+                                + (size.getX() * 0.5f), tStart + tHeight,
+                                frameCoords[i][2], frameCoords[i][3],
+                                frameCoords[i][0], frameCoords[i][1], rotate);
+                    }
                 } else {
-                    BaseCode.resources
-                            .drawImage(
-                                    texture,
-                                    center.getX() - (size.getX() * 0.5f),
+                    for (int i = 0; i < totalFrames; i++) {
+                        float tWidth = size.getX() / totalFrames;
+                        float tStart = center.getX() - (size.getX() * 0.5f)
+                                + (i * tWidth);
+                        if ((tStart < GameWorld.RIGHT_EDGE)
+                                && (tStart + tWidth > GameWorld.LEFT_EDGE)) {
+                            BaseCode.resources.drawImage(texture, tStart,
                                     center.getY() - (size.getY() * 0.5f),
-                                    center.getX()
-                                            + (size.getX() * (0.5f - ((float) currentFrame / totalFrames))),
+                                    tStart + tWidth,
                                     center.getY() + (size.getY() * 0.5f),
-                                    getSpriteLowerX(), getSpriteLowerY(),
-                                    getSpriteUpperX(), getSpriteUpperY(),
+                                    frameCoords[i][2], frameCoords[i][3],
+                                    frameCoords[i][0], frameCoords[i][1],
                                     rotate);
-                    BaseCode.resources
-                            .drawImage(
-                                    texture,
-                                    center.getX()
-                                            + (size.getX() * (0.5f - ((float) currentFrame / totalFrames))),
-                                    center.getY() - (size.getY() * 0.5f),
-                                    center.getX() + (size.getX() * 0.5f),
-                                    center.getY() + (size.getY() * 0.5f),
-                                    getSpriteLowerX2(), getSpriteLowerY2(),
-                                    getSpriteUpperX2(), getSpriteUpperY2(),
-                                    rotate);
+                        }
+                    }
                 }
-                updateSpriteSheetAnimation();
+                updatePanningAnimation();
             } else {
                 BaseCode.resources.drawImage(texture,
                         center.getX() - (size.getX() * 0.5f), center.getY()

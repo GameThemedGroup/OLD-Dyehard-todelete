@@ -20,7 +20,7 @@ public class Laser extends GameObject {
         texture = tile.setTiling(BaseCode.resources
                 .loadImage("Textures/Background/DeathEdge.png"), 2, true);
         setPanning(true);
-        setPanningSheet(texture, 220, 1024, 8, 4, true);
+        setPanningSheet(texture, 220, 1024, 4, 4, true);
         alwaysOnTop = true;
     }
 
