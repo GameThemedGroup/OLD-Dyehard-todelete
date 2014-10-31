@@ -7,7 +7,6 @@ import java.util.List;
 import Engine.BaseCode;
 import Engine.Rectangle;
 import dyehard.DHR.ImageID;
-import dyehard.World.GameWorld;
 
 public class DyehardDistanceMeter {
     protected int maxValue;
@@ -26,7 +25,7 @@ public class DyehardDistanceMeter {
         progress = DHR.getScaledRectangle(ImageID.UI_PATH);
         progress.alwaysOnTop = true;
 
-        progress.center.setX(GameWorld.RIGHT_EDGE / 2);
+        progress.center.setX(BaseCode.world.getWidth() / 2);
         progress.center.setY(fromTop(progress, 1.4f));
 
         Rectangle baseMarker = DHR.getScaledRectangle(ImageID.UI_PATH_MARKER);
@@ -52,7 +51,7 @@ public class DyehardDistanceMeter {
     }
 
     protected float fromTop(Rectangle image, float padding) {
-        return GameWorld.TOP_EDGE - image.size.getY() / 2f - padding;
+        return BaseCode.world.getHeight() - image.size.getY() / 2f - padding;
     }
 
     public void setValue(int value) {

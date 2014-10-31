@@ -12,7 +12,6 @@ import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.GameObject;
 import dyehard.UpdateObject;
-import dyehard.World.GameWorld;
 
 public class Background extends UpdateObject {
     private final Deque<Tile> ship;
@@ -116,7 +115,7 @@ public class Background extends UpdateObject {
         }
 
         public boolean isOffScreen() {
-            return rightEdge() < GameWorld.LEFT_EDGE;
+            return rightEdge() < BaseCode.world.getPositionX();
         }
     }
 

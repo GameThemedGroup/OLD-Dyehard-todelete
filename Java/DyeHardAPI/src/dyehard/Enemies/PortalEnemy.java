@@ -2,12 +2,12 @@ package dyehard.Enemies;
 
 import java.awt.Color;
 
+import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.Configuration;
 import dyehard.Configuration.EnemyType;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
-import dyehard.World.GameWorld;
 
 public class PortalEnemy extends Enemy {
     protected Timer timer;
@@ -36,7 +36,7 @@ public class PortalEnemy extends Enemy {
             new Portal(center.clone(), hero);
             timer.reset();
         }
-        if (center.getX() < GameWorld.LEFT_EDGE - 5f) {
+        if (center.getX() < BaseCode.world.getPositionX() - 5f) {
             destroy();
         }
     }

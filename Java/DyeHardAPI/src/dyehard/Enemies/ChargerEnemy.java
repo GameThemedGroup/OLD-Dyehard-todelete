@@ -9,7 +9,6 @@ import dyehard.Configuration;
 import dyehard.Configuration.EnemyType;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
-import dyehard.World.GameWorld;
 
 public class ChargerEnemy extends Enemy {
     private boolean chasing;
@@ -69,12 +68,12 @@ public class ChargerEnemy extends Enemy {
             float xDif = Math.abs(hero.center.getX() - center.getX());
             float yDif = center.getY() - hero.center.getY();
             if ((xDif < xOffset) && (yDif < yOffset)
-                    && (center.getX() < (GameWorld.RIGHT_EDGE) - 5)) {
+                    && (center.getX() < (BaseCode.world.getWidth()) - 5)) {
                 chasing = true;
             }
         }
 
-        if (center.getX() < GameWorld.LEFT_EDGE) {
+        if (center.getX() < BaseCode.world.getPositionX()) {
             destroy();
         }
     }

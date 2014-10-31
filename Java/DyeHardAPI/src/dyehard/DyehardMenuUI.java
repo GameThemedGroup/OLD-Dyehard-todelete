@@ -3,7 +3,6 @@ package dyehard;
 import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.Util.DyeHardSound;
-import dyehard.World.GameWorld;
 
 public class DyehardMenuUI {
     private final MenuSelect menuSelect;
@@ -31,8 +30,8 @@ public class DyehardMenuUI {
 
         menuHud = new DyehardRectangle();
         menuHud.size = new Vector2(40f, 40f);
-        menuHud.center = new Vector2(GameWorld.RIGHT_EDGE / 2,
-                GameWorld.TOP_EDGE / 2);
+        menuHud.center = new Vector2(BaseCode.world.getWidth() / 2,
+                BaseCode.world.getHeight() / 2);
         menuHud.texture = BaseCode.resources
                 .loadImage("Textures/UI/UI_Menu.png");
         menuHud.alwaysOnTop = true;

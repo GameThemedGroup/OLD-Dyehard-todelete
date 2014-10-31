@@ -8,6 +8,7 @@ import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.Actor;
 import dyehard.Collidable;
+import dyehard.Configuration;
 import dyehard.GameObject;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
@@ -78,7 +79,7 @@ public class Gate {
     public Gate(int offset, Hero hero, float leftEdge, Color color, float width) {
         // set up pipe
         float position = (width * 0.5f) + leftEdge;
-        float drawHeight = GameWorld.TOP_EDGE / Stargate.GATE_COUNT;
+        float drawHeight = BaseCode.world.getHeight() / Stargate.GATE_COUNT;
         float drawOffset = drawHeight * (offset + 0.5f);
 
         int pathTF = 10;
@@ -91,7 +92,7 @@ public class Gate {
         path.setPanningSheet(gPathBack.get(color), 200, 140, pathTF, pathTick,
                 false);
         path.dyeColor = color;
-        path.velocity = new Vector2(-GameWorld.Speed, 0f);
+        path.velocity = new Vector2(-Configuration.worldGameSpeed, 0f);
         path.shouldTravel = true;
 
         float gateHeight = path.size.getY() + 2f;
@@ -113,7 +114,7 @@ public class Gate {
         deathGate.setSpriteSheet(dGates.get(color), 200, 220, 24, 2);
         deathGate.dyeColor = color;
         deathGate.visible = true;
-        deathGate.velocity = new Vector2(-GameWorld.Speed, 0f);
+        deathGate.velocity = new Vector2(-Configuration.worldGameSpeed, 0f);
         deathGate.shouldTravel = true;
 
         // entrance front
@@ -133,12 +134,12 @@ public class Gate {
         pathFront.setPanning(true);
         pathFront.setPanningSheet(gPathFront.get(color), 200, 140, pathTF,
                 pathTick, false);
-        pathFront.velocity = new Vector2(-GameWorld.Speed, 0f);
+        pathFront.velocity = new Vector2(-Configuration.worldGameSpeed, 0f);
         pathFront.shouldTravel = true;
         pathFront.reverse = true;
 
         preview = new GatePreview();
-        preview.center = new Vector2(GameWorld.RIGHT_EDGE, drawOffset);
+        preview.center = new Vector2(BaseCode.world.getWidth(), drawOffset);
         preview.size.set(4f, 0f);
         preview.color = path.dyeColor;
         preview.visible = true;
@@ -152,7 +153,7 @@ public class Gate {
             visible = (path.center.getX() - (path.size.getX() / 2)) > ((preview.center
                     .getX() - (preview.size.getX() / 2)) + preview.size.getX())
             // Was path.LowerLeft.X
-                    && (GameWorld.RIGHT_EDGE + (Space.WIDTH * 0.7f)) > (path.center
+                    && (BaseCode.world.getWidth() + (Space.WIDTH * 0.7f)) > (path.center
                             .getX() - (path.size.getX() / 2));
             if (preview.visible) {
                 preview.size
@@ -171,7 +172,7 @@ public class Gate {
         @Override
         public void update() {
             super.update();
-            if (center.getX() < GameWorld.LEFT_EDGE - 10f) {
+            if (center.getX() < BaseCode.world.getPositionX() - 10f) {
                 destroy();
             }
         }
@@ -198,7 +199,7 @@ public class Gate {
                 ;
             }
             this.death = death;
-            velocity = new Vector2(-GameWorld.Speed, 0f);
+            velocity = new Vector2(-Configuration.worldGameSpeed, 0f);
             shouldTravel = true;
         }
 

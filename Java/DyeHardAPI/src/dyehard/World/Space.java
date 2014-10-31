@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.Configuration;
 import dyehard.Collectibles.DyePack;
@@ -23,7 +24,7 @@ import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 
 public class Space extends GameWorldRegion {
-    public static float WIDTH = GameWorld.RIGHT_EDGE * 3f;
+    public static float WIDTH = BaseCode.world.getWidth() * 3f;
 
     private static int powerUpCount = Configuration.worldPowerUpCount;
     private static int dyePackCount = Configuration.worldDyePackCount;
@@ -42,7 +43,7 @@ public class Space extends GameWorldRegion {
 
     public Space(Hero hero) {
         width = WIDTH;
-        speed = -GameWorld.Speed;
+        speed = -Configuration.worldGameSpeed;
     }
 
     static {
@@ -107,7 +108,8 @@ public class Space extends GameWorldRegion {
         // Powerups are distributed within uniformly distributed regions
         float regionWidth = width / powerups.size();
         float regionStart = leftEdge();
-        float regionHeight = GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE;
+        float regionHeight = BaseCode.world.getHeight()
+                - BaseCode.world.getWorldPositionY();
         float posX, posY;
 
         for (int i = 0; i < powerups.size(); i++) {
@@ -138,7 +140,8 @@ public class Space extends GameWorldRegion {
         // Dyepacks are distributed within uniformly distributed regions
         float regionWidth = width / dyeList.size();
         float regionStart = leftEdge();
-        float regionHeight = GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE;
+        float regionHeight = BaseCode.world.getHeight()
+                - BaseCode.world.getWorldPositionY();
 
         float posX, posY;
 

@@ -2,6 +2,7 @@ package dyehard.World;
 
 import java.util.Random;
 
+import Engine.BaseCode;
 import Engine.Vector2;
 
 public class Platform {
@@ -15,7 +16,8 @@ public class Platform {
 
     private void fillPlatform(int offset, float leftEdge, boolean continuous) {
         // set up platform
-        float Ypos = ((offset * 1f) / Stargate.GATE_COUNT) * GameWorld.TOP_EDGE;
+        float Ypos = ((offset * 1f) / Stargate.GATE_COUNT)
+                * BaseCode.world.getHeight();
         int numPlat = (int) (Stargate.WIDTH / width);
         if (continuous) {
             for (int i = 0; i < numPlat; i++) {

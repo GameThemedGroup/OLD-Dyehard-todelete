@@ -1,7 +1,6 @@
 package dyehard;
 
 import Engine.LibraryCode;
-import dyehard.World.GameWorld;
 
 public abstract class DyeHard extends LibraryCode {
     public final static String bgMusicPath = "Audio/BgMusic.wav";
@@ -12,7 +11,6 @@ public abstract class DyeHard extends LibraryCode {
 
     // Game state
     protected static State state;
-    protected GameWorld world;
 
     protected abstract void initialize();
 

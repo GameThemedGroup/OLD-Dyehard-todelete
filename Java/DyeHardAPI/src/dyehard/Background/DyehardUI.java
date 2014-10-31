@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import Engine.BaseCode;
 import Engine.Rectangle;
 import Engine.Text;
 import Engine.Vector2;
@@ -15,7 +16,6 @@ import dyehard.UpdateObject;
 import dyehard.Player.DyeMeter;
 import dyehard.Player.Hero;
 import dyehard.World.GameState;
-import dyehard.World.GameWorld;
 
 public class DyehardUI extends UpdateObject {
     protected Hero hero;
@@ -29,7 +29,7 @@ public class DyehardUI extends UpdateObject {
         new DyeMeter(hero);
 
         hud = DHR.getScaledRectangle(ImageID.UI_HUD);
-        hud.center.setX(GameWorld.RIGHT_EDGE / 2);
+        hud.center.setX(BaseCode.world.getWidth() / 2);
         hud.center.setY(fromTop(hud, 0f));
         hud.alwaysOnTop = true;
 
@@ -41,8 +41,8 @@ public class DyehardUI extends UpdateObject {
             float width = heart.size.getX();
 
             // TODO magic numbers
-            heart.center = new Vector2(GameWorld.RIGHT_EDGE - i * 1.62f * width
-                    - 4f, GameWorld.TOP_EDGE - width / 2 - 1.4f);
+            heart.center = new Vector2(BaseCode.world.getWidth() - i * 1.62f
+                    * width - 4f, BaseCode.world.getHeight() - width / 2 - 1.4f);
             hearts.add(heart);
         }
 
@@ -51,7 +51,7 @@ public class DyehardUI extends UpdateObject {
         distanceMeter = new DyehardDistanceMeter(GameState.TargetDistance);
 
         // TODO magic numbers
-        scoreText = new Text("", 4f, GameWorld.TOP_EDGE - 3.25f);
+        scoreText = new Text("", 4f, BaseCode.world.getHeight() - 3.25f);
         scoreText.setFrontColor(Color.white);
         scoreText.setBackColor(Color.black);
         scoreText.setFontSize(18);
@@ -59,7 +59,7 @@ public class DyehardUI extends UpdateObject {
     }
 
     protected float fromTop(Rectangle image, float padding) {
-        return GameWorld.TOP_EDGE - image.size.getY() / 2f - padding;
+        return BaseCode.world.getHeight() - image.size.getY() / 2f - padding;
     }
 
     @Override

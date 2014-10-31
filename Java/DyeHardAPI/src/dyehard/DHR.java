@@ -16,7 +16,6 @@ import Engine.BaseCode;
 import Engine.MessageOnce;
 import Engine.Rectangle;
 import Engine.Vector2;
-import dyehard.World.GameWorld;
 
 public class DHR {
     public interface CsvParser {
@@ -251,8 +250,8 @@ public class DHR {
      * @return The size of the graphic in game world units
      */
     public static Vector2 scaleToGameWorld(Vector2 screen, Vector2 size) {
-        float widthRatio = screen.getX() / GameWorld.RIGHT_EDGE;
-        float heightRatio = screen.getY() / GameWorld.TOP_EDGE;
+        float widthRatio = screen.getX() / BaseCode.world.getWidth();
+        float heightRatio = screen.getY() / BaseCode.world.getHeight();
 
         Vector2 scaledSize = new Vector2();
         scaledSize.setX(size.getX() / widthRatio);

@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import Engine.BaseCode;
 import Engine.Primitive;
 import Engine.Vector2;
-import dyehard.World.GameWorld;
 
 // Sprite sheet code ported from the C# engine, which
 // is credited to Samuel Cook and Ron Cook for adding support for that.
@@ -346,8 +345,9 @@ public class DyehardRectangle extends Primitive {
                         float tWidth = size.getX() / totalFrames;
                         float tStart = center.getX() - (size.getX() * 0.5f)
                                 + (i * tWidth);
-                        if ((tStart < GameWorld.RIGHT_EDGE)
-                                && (tStart + tWidth > GameWorld.LEFT_EDGE)) {
+                        if ((tStart < BaseCode.world.getWidth())
+                                && (tStart + tWidth > BaseCode.world
+                                        .getPositionX())) {
                             BaseCode.resources.drawImage(texture, tStart,
                                     center.getY() - (size.getY() * 0.5f),
                                     tStart + tWidth,

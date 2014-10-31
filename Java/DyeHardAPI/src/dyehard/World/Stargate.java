@@ -4,13 +4,15 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import Engine.BaseCode;
 import Engine.Vector2;
+import dyehard.Configuration;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 
 public class Stargate extends GameWorldRegion {
     public static final int GATE_COUNT = 4;
-    public static final float WIDTH = GameWorld.RIGHT_EDGE * 2.0f;
+    public static final float WIDTH = BaseCode.world.getWidth() * 2.0f;
     public boolean heroLeft;
 
     private Gate[] gates;
@@ -23,7 +25,7 @@ public class Stargate extends GameWorldRegion {
     public Stargate(Hero hero) {
         this.hero = hero;
         width = Stargate.WIDTH;
-        speed = -GameWorld.Speed;
+        speed = -Configuration.worldGameSpeed;
         heroLeft = false;
     }
 

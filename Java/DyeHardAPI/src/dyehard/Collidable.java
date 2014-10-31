@@ -1,6 +1,6 @@
 package dyehard;
 
-import dyehard.World.GameWorld;
+import Engine.BaseCode;
 
 public abstract class Collidable extends GameObject {
     protected ManagerState collidableState;
@@ -38,9 +38,9 @@ public abstract class Collidable extends GameObject {
     private static boolean isInsideWorld(Collidable o) {
         // The Collidable is destroyed once it's too far from the map to the
         // left, top, or bottom portion of the map. offset is 30f for now
-        if ((o.center.getX() < (GameWorld.LEFT_EDGE - offset))
-                || (o.center.getY() < (GameWorld.BOTTOM_EDGE - offset))
-                || (o.center.getY() > (GameWorld.TOP_EDGE + offset))) {
+        if ((o.center.getX() < (BaseCode.world.getPositionX() - offset))
+                || (o.center.getY() < (BaseCode.world.getWorldPositionY()))
+                || (o.center.getY() > (BaseCode.world.getHeight() + offset))) {
             return false;
         }
 

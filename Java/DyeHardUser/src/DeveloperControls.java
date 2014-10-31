@@ -25,7 +25,6 @@ import dyehard.Enemies.Enemy;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
 import dyehard.Weapons.LimitedAmmoWeapon;
-import dyehard.World.GameWorld;
 
 public class DeveloperControls extends UpdateObject {
     private final Hero hero;

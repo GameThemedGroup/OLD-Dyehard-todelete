@@ -5,14 +5,14 @@ import Engine.Vector2;
 import dyehard.GameObject;
 import dyehard.Player.Hero;
 import dyehard.Util.TextureTile;
-import dyehard.World.GameWorld;
 
 public class Laser extends GameObject {
     private final Hero hero;
 
     public Laser(Hero hero) {
         this.hero = hero;
-        float height = GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE;
+        float height = BaseCode.world.getHeight()
+                - BaseCode.world.getWorldPositionY();
         float width = height * 220 / 1024;
         center = new Vector2(width / 2 - 2, height / 2);
         size.set(width, height);

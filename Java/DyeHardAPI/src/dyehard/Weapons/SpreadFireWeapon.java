@@ -2,20 +2,20 @@ package dyehard.Weapons;
 
 import java.awt.Color;
 
+import Engine.BaseCode;
 import Engine.Rectangle;
 import Engine.Vector2;
 import dyehard.Player.Hero;
-import dyehard.World.GameWorld;
 
 public class SpreadFireWeapon extends Weapon {
-    private Rectangle info;
+    private final Rectangle info;
 
     public SpreadFireWeapon(Hero hero) {
         super(hero);
 
         info = new Rectangle();
-        info.center = new Vector2(GameWorld.LEFT_EDGE + 12,
-                GameWorld.TOP_EDGE - 4);
+        info.center = new Vector2(BaseCode.world.getPositionX() + 12,
+                BaseCode.world.getHeight() - 4);
         info.size.set(4, 4);
         info.color = Color.BLUE;
     }

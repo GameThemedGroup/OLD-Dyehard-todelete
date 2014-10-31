@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import Engine.Vector2;
 import dyehard.Collidable;
-import dyehard.World.GameWorld;
+import dyehard.Configuration;
 
 /**
  * Obstacles represent objects that friendly and enemy units are unable to pass.
@@ -22,7 +22,7 @@ public class Obstacle extends Collidable {
     public Obstacle(Vector2 center, Vector2 size, Color color) {
         this.center = center;
         this.size = size;
-        velocity = new Vector2(-GameWorld.Speed, 0f);
+        velocity = new Vector2(-Configuration.worldGameSpeed, 0f);
         shouldTravel = true;
         this.color = color;
     }

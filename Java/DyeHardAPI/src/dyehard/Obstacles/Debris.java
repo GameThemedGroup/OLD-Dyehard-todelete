@@ -5,7 +5,6 @@ import java.util.Random;
 import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.Configuration;
-import dyehard.World.GameWorld;
 
 public class Debris extends Obstacle {
     private static Random RANDOM = new Random();
@@ -15,7 +14,8 @@ public class Debris extends Obstacle {
     public Debris(float minX, float maxX) {
         float randomX = (maxX - minX - width) * RANDOM.nextFloat() + minX
                 + width / 2f;
-        float randomY = (GameWorld.TOP_EDGE - GameWorld.BOTTOM_EDGE - height)
+        float randomY = (BaseCode.world.getHeight()
+                - BaseCode.world.getWorldPositionY() - height)
                 * RANDOM.nextFloat() + height / 2f;
 
         center.set(new Vector2(randomX, randomY));
