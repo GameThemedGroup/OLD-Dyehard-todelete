@@ -6,10 +6,10 @@ import java.awt.image.BufferedImage;
 import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.Configuration;
+import dyehard.GameWorld;
 import dyehard.Configuration.EnemyType;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
-import dyehard.World.GameWorld;
 
 public class ChargerEnemy extends Enemy {
     private boolean chasing;
