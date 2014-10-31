@@ -12,6 +12,7 @@ import dyehard.GameObject;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
+import dyehard.Util.DyeHardSound;
 import dyehard.Util.ImageTint;
 import dyehard.Util.TextureTile;
 
@@ -212,8 +213,12 @@ public class Gate {
                                 if (((Enemy) target).beenHit) {
                                     target.kill(this);
                                 }
+                            } else if (target instanceof Hero) {
+                                target.kill(this);
                             }
-                            target.kill(this);
+                        }
+                        if (target instanceof Hero) {
+                            DyeHardSound.play(DyeHardSound.wormHoleSound);
                         }
                     }
                 }

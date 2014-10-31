@@ -43,27 +43,6 @@ public class CollisionManager {
 
     public static void update() {
 
-        // for (Iterator<Collidable> i = collidables.iterator(); i.hasNext();) {
-        // Collidable c1 = i.next();
-        // if (c1 == null || c1.collideState() == ManagerState.DESTROYED) {
-        // i.remove();
-        // } else {
-        // for (Iterator<Collidable> j = collidables.iterator(); j
-        // .hasNext();) {
-        // Collidable c2 = j.next();
-        // if (c2 == null
-        // || c2.collideState() == ManagerState.DESTROYED) {
-        // j.remove();
-        // } else if (c1.collideState() == ManagerState.ACTIVE
-        // && c2.collideState() == ManagerState.ACTIVE
-        // && c1 != c2 && c1.collided(c2)) {
-        // c1.handleCollision(c2);
-        // c2.handleCollision(c1);
-        // }
-        // }
-        // }
-        // }
-
         for (Collidable c1 : collidables) {
             if (c1.collideState() != ManagerState.ACTIVE) {
                 continue;
@@ -77,10 +56,6 @@ public class CollisionManager {
                         c1.handleCollision(c2);
                         c2.handleCollision(c1);
                     }
-                    // else if ((c1 instanceof Hero) && (c2 instanceof Obstacle)
-                    // && !c1.collided(c2)) {
-                    // c2.revertCollideStatus((Hero) c1);
-                    // }
                 }
             }
         }

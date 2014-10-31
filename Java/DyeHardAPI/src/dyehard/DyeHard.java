@@ -2,14 +2,13 @@ package dyehard;
 
 import java.awt.event.KeyEvent;
 
+import Engine.BaseCode;
 import Engine.LibraryCode;
 import dyehard.World.GameState;
 import dyehard.World.GameWorld;
 
 public abstract class DyeHard extends LibraryCode {
-    // TODO replace this with method that returns time passed since last frame
-    // The amount of time that has elapsed since the last frame
-    public static float DELTA_TIME = 1f / 40f;
+    public final String bgMusicPath = "Audio/BgMusic.wav";
 
     public enum State {
         BEGIN, PAUSED, PLAYING, GAMEOVER
@@ -43,19 +42,23 @@ public abstract class DyeHard extends LibraryCode {
         case PAUSED:
             if (keyboard.isButtonTapped(KeyEvent.VK_A)) {
                 state = State.PLAYING;
+                BaseCode.resources.resumeSound();
             }
             break;
         case PLAYING:
             if (keyboard.isButtonTapped(KeyEvent.VK_A)) {
                 state = State.PAUSED;
+                BaseCode.resources.pauseSound();
             } else if (world.gameOver()) {
                 state = State.GAMEOVER;
+                BaseCode.resources.pauseSound();
             }
             break;
         case GAMEOVER:
             if (keyboard.isButtonTapped(KeyEvent.VK_SPACE)) {
                 state = State.PLAYING;
                 GameState.RemainingLives = 4;
+                BaseCode.resources.resumeSound();
             }
             break;
         }
@@ -80,6 +83,10 @@ public abstract class DyeHard extends LibraryCode {
         state = State.PLAYING;
         GameState.TargetDistance = Configuration.worldMapLength;
         world = new GameWorld();
+
+        // preload sound/music, and play bg music
+        BaseCode.resources.preloadSound(bgMusicPath);
+        BaseCode.resources.playSoundLooping(bgMusicPath);
 
         initialize(); // call user code Initialize()
     }

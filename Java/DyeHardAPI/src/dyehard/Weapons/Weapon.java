@@ -10,6 +10,7 @@ import dyehard.UpdateManager.Updateable;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.DyeMeter.Progressable;
 import dyehard.Player.Hero;
+import dyehard.Util.DyeHardSound;
 import dyehard.Util.Timer;
 
 public class Weapon extends GameObject implements Updateable, Progressable {
@@ -18,8 +19,8 @@ public class Weapon extends GameObject implements Updateable, Progressable {
     protected Hero hero;
     protected Queue<GameObject> bullets;
     protected ArrayList<Enemy> enemies;
-    // Weapon fires 4 bullets/second, time is in milliseconds
-    protected float fireRate = 250f;
+    // Weapon fires 1 bullet/second, time is in milliseconds
+    protected float fireRate = 1000f;
     protected Timer timer;
 
     public Weapon(Hero hero) {
@@ -31,8 +32,9 @@ public class Weapon extends GameObject implements Updateable, Progressable {
     // Fire the weapon
     public void fire() {
         if (timer.isDone()) {
+            DyeHardSound.play(DyeHardSound.paintSpraySound);
             new Bullet(hero);
-            timer.reset();
+            timer = new Timer(fireRate);
         }
     }
 

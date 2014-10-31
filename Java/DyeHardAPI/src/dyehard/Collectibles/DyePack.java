@@ -8,6 +8,7 @@ import dyehard.Collidable;
 import dyehard.Configuration;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
+import dyehard.Util.DyeHardSound;
 import dyehard.Util.Timer;
 
 public class DyePack extends Collidable {
@@ -71,6 +72,7 @@ public class DyePack extends Collidable {
         if (other instanceof Hero) {
             Hero hero = (Hero) other;
             hero.collect(this);
+            DyeHardSound.play(DyeHardSound.pickUpSound);
         }
     }
 }

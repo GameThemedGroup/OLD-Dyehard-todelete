@@ -7,6 +7,7 @@ import Engine.Vector2;
 import dyehard.Collidable;
 import dyehard.Configuration;
 import dyehard.Player.Hero;
+import dyehard.Util.DyeHardSound;
 import dyehard.Util.Timer;
 
 public abstract class PowerUp extends Collidable implements Cloneable,
@@ -86,6 +87,7 @@ public abstract class PowerUp extends Collidable implements Cloneable,
         if (other instanceof Hero) {
             Hero hero = (Hero) other;
             hero.collect(this);
+            DyeHardSound.play(DyeHardSound.powerUpSound);
         }
     }
 

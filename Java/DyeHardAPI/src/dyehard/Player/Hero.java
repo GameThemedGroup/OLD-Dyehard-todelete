@@ -181,7 +181,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
         // Scale the velocity to the frame rate
         Vector2 frameVelocity = velocity.clone();
-        frameVelocity.mult(DyeHard.DELTA_TIME);
+        // frameVelocity.mult(DyeHard.DELTA_TIME);
         center.add(frameVelocity);
     }
 
@@ -190,7 +190,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         applyPowerups();
         handleInput();
         // updateDirectionState();
-        updateMovement();
+        // updateMovement();
         // selectWeapon();
         clampToWorldBounds();
 
