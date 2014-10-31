@@ -10,12 +10,12 @@ import Engine.Vector2;
 import dyehard.DHR;
 import dyehard.DHR.ImageID;
 import dyehard.DyehardDistanceMeter;
-import dyehard.GameWorld;
 import dyehard.ManagerState;
 import dyehard.UpdateObject;
 import dyehard.Player.DyeMeter;
 import dyehard.Player.Hero;
 import dyehard.World.GameState;
+import dyehard.World.GameWorld;
 
 public class DyehardUI extends UpdateObject {
     protected Hero hero;

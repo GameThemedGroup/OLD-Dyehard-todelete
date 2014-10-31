@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import Engine.Vector2;
-import dyehard.GameWorld;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 
