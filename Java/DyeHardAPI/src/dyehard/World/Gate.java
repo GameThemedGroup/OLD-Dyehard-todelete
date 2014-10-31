@@ -23,6 +23,8 @@ public class Gate {
     private final DeathGate deathGate;
     private final GatePreview preview;
 
+    private final float platHeight = 1.25f;
+
     // private static BufferedImage gDoorBack;
     // private static BufferedImage gDoorFront;
 
@@ -76,18 +78,17 @@ public class Gate {
         }
     }
 
-    public Gate(int offset, Hero hero, float leftEdge, Color color, float width) {
+    public Gate(Hero hero, Color color, float width, float height, float x,
+            float y) {
         // set up pipe
-        float position = (width * 0.5f) + leftEdge;
-        float drawHeight = BaseCode.world.getHeight() / Stargate.GATE_COUNT;
-        float drawOffset = drawHeight * (offset + 0.5f);
-
         int pathTF = 10;
         int pathTick = 2;
 
+        float leftEdge = x - (width / 2f);
+
         path = new StargatePath();
-        path.center = new Vector2(position, drawOffset);
-        path.size.set(width, drawHeight - (Platform.height * 2));
+        path.center = new Vector2(x, y);
+        path.size.set(width, height);
         path.setPanning(true);
         path.setPanningSheet(gPathBack.get(color), 200, 140, pathTF, pathTick,
                 false);
@@ -129,8 +130,8 @@ public class Gate {
         hero.drawOnTop();
 
         pathFront = new StargatePathFront();
-        pathFront.center = new Vector2(position, drawOffset);
-        pathFront.size.set(width, drawHeight - (Platform.height * 2));
+        pathFront.center = new Vector2(x, y);
+        pathFront.size.set(width, height);
         pathFront.setPanning(true);
         pathFront.setPanningSheet(gPathFront.get(color), 200, 140, pathTF,
                 pathTick, false);
@@ -139,7 +140,7 @@ public class Gate {
         pathFront.reverse = true;
 
         preview = new GatePreview();
-        preview.center = new Vector2(BaseCode.world.getWidth(), drawOffset);
+        preview.center = new Vector2(BaseCode.world.getWidth(), y);
         preview.size.set(4f, 0f);
         preview.color = path.dyeColor;
         preview.visible = true;
@@ -152,16 +153,16 @@ public class Gate {
 
             visible = (path.center.getX() - (path.size.getX() / 2)) > ((preview.center
                     .getX() - (preview.size.getX() / 2)) + preview.size.getX())
-            // Was path.LowerLeft.X
-                    && (BaseCode.world.getWidth() + (Space.WIDTH * 0.7f)) > (path.center
+            // Was path.LowerLeft.X TODO code it to work with different width
+                    && (BaseCode.world.getWidth() + (BaseCode.world.getWidth() * 3f * 0.7f)) > (path.center
                             .getX() - (path.size.getX() / 2));
             if (preview.visible) {
                 preview.size
                         // Was path.LowerLeft.X and preview.LowerLeft.X
-                        .setY(((path.size.getY() + (Platform.height * 2)) * (1 - (((path.center
+                        .setY(((path.size.getY() + (platHeight * 2)) * (1 - (((path.center
                                 .getX() - (path.size.getX() / 2)) - ((preview.center
                                 .getX() - (preview.size.getX() / 2)) + preview.size
-                                .getX())) / (Space.WIDTH)))));
+                                .getX())) / (BaseCode.world.getWidth() * 3f)))));
             }
         }
     }

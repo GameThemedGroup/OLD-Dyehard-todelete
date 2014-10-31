@@ -14,7 +14,6 @@ import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.Weapons.OverHeatWeapon;
 import dyehard.Weapons.SpreadFireWeapon;
 import dyehard.World.GameState;
-import dyehard.World.Stargate;
 
 public class UserCode extends DyeHard {
     private boolean menuActive = false;

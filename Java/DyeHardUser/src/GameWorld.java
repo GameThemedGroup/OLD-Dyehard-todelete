@@ -12,8 +12,6 @@ import dyehard.Obstacles.Laser;
 import dyehard.Player.Hero;
 import dyehard.World.GameState;
 import dyehard.World.GameWorldRegion;
-import dyehard.World.Space;
-import dyehard.World.Stargate;
 
 public class GameWorld implements Updateable {
     public DyehardMenuUI menu;
