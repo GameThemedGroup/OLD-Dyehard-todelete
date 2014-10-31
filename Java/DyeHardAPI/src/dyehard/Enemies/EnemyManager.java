@@ -66,4 +66,10 @@ public class EnemyManager extends UpdateObject {
     public static List<Enemy> getEnemies() {
         return enemies;
     }
+
+    @Override
+    public void setSpeed(float v) {
+        // TODO Auto-generated method stub
+
+    }
 }

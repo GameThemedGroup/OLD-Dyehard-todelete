@@ -89,6 +89,13 @@ public class DeveloperControls extends UpdateObject {
         if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_I)) {
             hero.debugInvincibility = !hero.debugInvincibility;
         }
+
+        // Debug speed up 10x
+        if (DyehardKeyboard.isKeyDown(KeyEvent.VK_G)) {
+            UpdateManager.speedUp = true;
+        } else {
+            UpdateManager.speedUp = false;
+        }
     }
 
     private void updatePowerupText() {
@@ -134,5 +141,11 @@ public class DeveloperControls extends UpdateObject {
 
         PowerUp p = powerUp.clone();
         p.initialize(position);
+    }
+
+    @Override
+    public void setSpeed(float v) {
+        // TODO Auto-generated method stub
+
     }
 }

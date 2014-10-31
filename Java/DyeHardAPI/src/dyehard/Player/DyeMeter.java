@@ -61,4 +61,10 @@ public class DyeMeter extends UpdateObject {
 
         meter.setFrameNumber((int) (meter.getNumFrames() * meterPercent));
     }
+
+    @Override
+    public void setSpeed(float v) {
+        // TODO Auto-generated method stub
+
+    }
 }

@@ -21,6 +21,12 @@ public abstract class GameWorldRegion {
         position += speed;
     }
 
+    // for debugging speedup purpose
+    public void moveLeft(float factor) {
+        // #TODO maybe take out for final version
+        position += speed * factor;
+    }
+
     // Instructs the region to construct its components using the leftEdge as
     // its starting location
     public abstract void initialize(float leftEdge);

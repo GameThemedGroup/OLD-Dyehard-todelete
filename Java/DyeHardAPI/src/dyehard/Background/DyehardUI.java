@@ -115,4 +115,10 @@ public class DyehardUI extends UpdateObject {
         }
 
     }
+
+    @Override
+    public void setSpeed(float v) {
+        // TODO Auto-generated method stub
+
+    }
 }

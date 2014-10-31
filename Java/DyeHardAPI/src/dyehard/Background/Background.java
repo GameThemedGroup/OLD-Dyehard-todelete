@@ -15,23 +15,23 @@ import dyehard.UpdateObject;
 import dyehard.World.GameWorld;
 
 public class Background extends UpdateObject {
-    private Deque<Tile> ship;
-    private List<BufferedImage> shipTextures;
-    private String[] shipTexturePaths = {
+    private final Deque<Tile> ship;
+    private final List<BufferedImage> shipTextures;
+    private final String[] shipTexturePaths = {
             "Textures/Background/Dyehard_ship_tile_01.png",
             "Textures/Background/Dyehard_ship_tile_02.png",
             "Textures/Background/Dyehard_ship_tile_03.png",
             "Textures/Background/Dyehard_ship_tile_04.png", };
 
-    private Deque<Tile> background;
-    private List<BufferedImage> backgroundTextures;
-    private String[] backgroundTexturePaths = {
+    private final Deque<Tile> background;
+    private final List<BufferedImage> backgroundTextures;
+    private final String[] backgroundTexturePaths = {
             "Textures/Background/Dyehard_starfield_01.png",
             "Textures/Background/Dyehard_starfield_02.png", };
 
-    private Deque<Tile> foreground;
-    private List<BufferedImage> foregroundTextures;
-    private String[] foregroundTexturePaths = {
+    private final Deque<Tile> foreground;
+    private final List<BufferedImage> foregroundTextures;
+    private final String[] foregroundTexturePaths = {
             "Textures/Background/Dyehard_starfield_stars.png",
             "Textures/Background/Dyehard_starfield_stars.png", };
 
@@ -118,5 +118,10 @@ public class Background extends UpdateObject {
         public boolean isOffScreen() {
             return rightEdge() < GameWorld.LEFT_EDGE;
         }
+    }
+
+    @Override
+    public void setSpeed(float v) {
+        // TODO Auto-generated method stub
     }
 }

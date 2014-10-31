@@ -14,6 +14,7 @@ import dyehard.Obstacles.Laser;
 import dyehard.Player.Hero;
 
 public class GameWorld implements Updateable {
+    private static float factor = 1f;
     // private final float StartSpeed = 0.2f;
     public static final float LEFT_EDGE = BaseCode.world.getPositionX();
     public static final float RIGHT_EDGE = BaseCode.world.getWidth();
@@ -81,7 +82,11 @@ public class GameWorld implements Updateable {
         }
 
         for (GameWorldRegion e : gameRegions) {
-            e.moveLeft();
+            if (factor > 1) {
+                e.moveLeft(factor);
+            } else {
+                e.moveLeft();
+            }
             if (e instanceof Stargate) {
                 ((Stargate) e).blockHero();
             }
@@ -140,5 +145,11 @@ public class GameWorld implements Updateable {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void setSpeed(float factor) {
+        // TODO Auto-generated method stub
+        GameWorld.factor = factor;
     }
 }

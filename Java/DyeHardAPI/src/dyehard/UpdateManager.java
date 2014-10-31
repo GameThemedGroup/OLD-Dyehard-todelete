@@ -4,8 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class UpdateManager {
+    public static boolean speedUp = false;
+
     public interface Updateable {
+
         public void update();
+
+        public void setSpeed(float factor);
 
         public ManagerState updateState();
     }
@@ -17,6 +22,11 @@ public class UpdateManager {
         for (Updateable o : gameObjects) {
             if (o != null && o.updateState() == ManagerState.ACTIVE) {
                 o.update();
+                if (speedUp) {
+                    o.setSpeed(10f);
+                } else if (!speedUp) {
+                    o.setSpeed(0.1f);
+                }
             }
         }
 
