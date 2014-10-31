@@ -1,4 +1,3 @@
-
 import java.util.LinkedList;
 
 import Engine.BaseCode;
@@ -9,7 +8,6 @@ import dyehard.UpdateManager;
 import dyehard.UpdateManager.Updateable;
 import dyehard.Background.Background;
 import dyehard.Background.DyehardUI;
-import dyehard.Enemies.EnemyManager;
 import dyehard.Obstacles.Laser;
 import dyehard.Player.Hero;
 import dyehard.World.GameState;
@@ -19,6 +17,8 @@ import dyehard.World.Stargate;
 
 public class GameWorld implements Updateable {
     public DyehardMenuUI menu;
+
+    private static EnemyGenerator enemyGenerator;
 
     private static float factor = 1f;
     // private final float StartSpeed = 0.2f;
@@ -37,7 +37,7 @@ public class GameWorld implements Updateable {
     }
 
     public void initialize(Hero hero) {
-        new EnemyManager(hero);
+        enemyGenerator = new EnemyGenerator(hero);
         this.hero = hero;
         // preload the gate path images
         dyehard.World.Gate.setGatePathImages();
@@ -103,6 +103,7 @@ public class GameWorld implements Updateable {
                 GameState.Score = (int) distance;
             }
         }
+        enemyGenerator.update();
         updateSequence();
     }
 

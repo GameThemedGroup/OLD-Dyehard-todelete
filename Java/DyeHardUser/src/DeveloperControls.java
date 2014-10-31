@@ -63,7 +63,7 @@ public class DeveloperControls extends UpdateObject {
         updatePowerupText();
 
         if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_E)) {
-            EnemyManager.generateEnemy();
+            EnemyGenerator.generateEnemy();
         }
 
         // 'K' to kill all the enemies on screen
