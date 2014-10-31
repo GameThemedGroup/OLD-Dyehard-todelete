@@ -80,8 +80,8 @@ public class Gate {
         float drawHeight = GameWorld.TOP_EDGE / Stargate.GATE_COUNT;
         float drawOffset = drawHeight * (offset + 0.5f);
 
-        int pathTF = 8;
-        int pathTick = 1;
+        int pathTF = 10;
+        int pathTick = 2;
 
         path = new StargatePath();
         path.center = new Vector2(position, drawOffset);
