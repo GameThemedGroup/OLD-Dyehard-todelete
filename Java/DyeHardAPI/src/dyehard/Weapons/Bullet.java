@@ -58,7 +58,8 @@ public class Bullet extends Collidable {
 
             float xMax = center.getX() + (offset * size.getX())
                     + (other.size.getX() * 0.5f);
-            float xMin = center.getX() - (0.5f * other.size.getX());
+            float xMin = center.getX() - (size.getX() * 0.5f)
+                    - (0.5f * other.size.getX());
 
             float yMax = center.getY() + (0.15f * size.getY())
                     + (other.size.getY() * 0.4f);
