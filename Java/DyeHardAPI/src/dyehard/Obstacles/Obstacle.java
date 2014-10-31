@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import Engine.Vector2;
 import dyehard.Collidable;
-import dyehard.GameWorld;
+import dyehard.World.GameWorld;
 
 /**
  * Obstacles represent objects that friendly and enemy units are unable to pass.

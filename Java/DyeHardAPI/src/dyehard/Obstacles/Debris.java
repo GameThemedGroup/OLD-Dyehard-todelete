@@ -5,7 +5,7 @@ import java.util.Random;
 import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.Configuration;
-import dyehard.GameWorld;
+import dyehard.World.GameWorld;
 
 public class Debris extends Obstacle {
     private static Random RANDOM = new Random();

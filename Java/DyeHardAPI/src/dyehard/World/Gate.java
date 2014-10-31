@@ -9,7 +9,6 @@ import Engine.Vector2;
 import dyehard.Actor;
 import dyehard.Collidable;
 import dyehard.GameObject;
-import dyehard.GameWorld;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;

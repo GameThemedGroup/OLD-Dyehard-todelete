@@ -7,7 +7,6 @@ import java.util.Random;
 
 import Engine.Vector2;
 import dyehard.Configuration;
-import dyehard.GameWorld;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.Ghost;
 import dyehard.Collectibles.Gravity;
