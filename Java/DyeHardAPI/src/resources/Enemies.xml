@@ -19,8 +19,8 @@ enemy stands still before chasing Dye. -->
     </enemy>
     <!-- The portals created by a portal enemy. -->s
     <enemy type="PORTAL_SPAWN">
-        <width>5</width>
-        <height>5</height>
+        <width>10</width>
+        <height>10</height>
         <uniqueAttributes>
             <!-- The amount of time in seconds a portal 
             spends on the screen before disappearing. -->
