@@ -97,7 +97,12 @@ public class Gate {
 
         // entrance back
         new GateDoor(new Vector2(leftEdge - 3.8f, path.center.getY()),
-                new Vector2(0.852564f * gateHeight, gateHeight), false, color);
+                new Vector2(0.852564f * gateHeight, gateHeight), false, false,
+                color);
+        // exit back
+        new GateDoor(new Vector2(leftEdge + width - 3.8f, path.center.getY()),
+                new Vector2(0.852564f * gateHeight, gateHeight), false, false,
+                color);
 
         deathGate = new DeathGate();
         deathGate.center = new Vector2(leftEdge - 8f, path.center.getY());
@@ -112,7 +117,12 @@ public class Gate {
 
         // entrance front
         new GateDoor(new Vector2(leftEdge - 3.8f, path.center.getY()),
-                new Vector2(0.852564f * gateHeight, gateHeight), true, color);
+                new Vector2(0.852564f * gateHeight, gateHeight), true, true,
+                color);
+        // exit front
+        new GateDoor(new Vector2(leftEdge + width - 3.8f, path.center.getY()),
+                new Vector2(0.852564f * gateHeight, gateHeight), true, false,
+                color);
 
         hero.drawOnTop();
 
@@ -167,10 +177,11 @@ public class Gate {
     }
 
     public class GateDoor extends Collidable {
-        private final boolean isFrontPiece;
+        private final boolean death;
         public Color dyeColor;
 
-        public GateDoor(Vector2 c, Vector2 s, boolean front, Color color) {
+        public GateDoor(Vector2 c, Vector2 s, boolean front, boolean death,
+                Color color) {
             dyeColor = color;
             center = c;
             size.set(s);
@@ -185,14 +196,14 @@ public class Gate {
                         .loadImage("Textures/Background/Entrance_back.png");
                 ;
             }
-            isFrontPiece = front;
+            this.death = death;
             velocity = new Vector2(-GameWorld.Speed, 0f);
             shouldTravel = true;
         }
 
         @Override
         public void handleCollision(Collidable other) {
-            if (isFrontPiece) {
+            if (death) {
                 if (other instanceof Actor) {
                     Actor target = (Actor) other;
                     if (target.center.getX() < center.getX()) {
