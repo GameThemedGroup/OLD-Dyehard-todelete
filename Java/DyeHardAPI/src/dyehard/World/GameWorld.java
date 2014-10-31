@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import Engine.BaseCode;
 import dyehard.Configuration;
+import dyehard.DyehardMenuUI;
 import dyehard.ManagerState;
 import dyehard.UpdateManager;
 import dyehard.UpdateManager.Updateable;
@@ -14,6 +15,8 @@ import dyehard.Obstacles.Laser;
 import dyehard.Player.Hero;
 
 public class GameWorld implements Updateable {
+    public DyehardMenuUI menu;
+
     private static float factor = 1f;
     // private final float StartSpeed = 0.2f;
     public static final float LEFT_EDGE = BaseCode.world.getPositionX();
@@ -42,6 +45,7 @@ public class GameWorld implements Updateable {
         hero.drawOnTop();
 
         new DyehardUI(hero);
+        menu = new DyehardMenuUI();
         new Laser(hero);
 
         // hero.alwaysOnTop();

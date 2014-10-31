@@ -8,10 +8,10 @@ import dyehard.World.GameState;
 import dyehard.World.GameWorld;
 
 public abstract class DyeHard extends LibraryCode {
-    public final String bgMusicPath = "Audio/BgMusic.wav";
+    public final static String bgMusicPath = "Audio/BgMusic.wav";
 
     public enum State {
-        BEGIN, PAUSED, PLAYING, GAMEOVER
+        BEGIN, PAUSED, PLAYING, GAMEOVER, QUIT
     }
 
     // Game state
@@ -42,16 +42,13 @@ public abstract class DyeHard extends LibraryCode {
         case PAUSED:
             if (keyboard.isButtonTapped(KeyEvent.VK_A)) {
                 state = State.PLAYING;
-                BaseCode.resources.resumeSound();
             }
             break;
         case PLAYING:
             if (keyboard.isButtonTapped(KeyEvent.VK_A)) {
                 state = State.PAUSED;
-                BaseCode.resources.pauseSound();
             } else if (world.gameOver()) {
                 state = State.GAMEOVER;
-                BaseCode.resources.pauseSound();
             }
             break;
         case GAMEOVER:
@@ -60,6 +57,9 @@ public abstract class DyeHard extends LibraryCode {
                 GameState.RemainingLives = 4;
                 BaseCode.resources.resumeSound();
             }
+            break;
+        case QUIT:
+            window.close();
             break;
         }
     }

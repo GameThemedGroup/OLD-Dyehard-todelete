@@ -27,4 +27,8 @@ public class DyeHardSound {
     public static void setSound(boolean bool) {
         soundPlay = bool;
     }
+
+    public static boolean getSound() {
+        return soundPlay;
+    }
 }

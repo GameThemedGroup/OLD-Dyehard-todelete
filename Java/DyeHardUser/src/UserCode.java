@@ -4,16 +4,15 @@ import java.awt.event.KeyEvent;
 
 import Engine.BaseCode;
 import dyehard.DyeHard;
-import dyehard.Collectibles.DyePack;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.Weapons.OverHeatWeapon;
 import dyehard.Weapons.SpreadFireWeapon;
-import dyehard.World.Space;
 import dyehard.World.Stargate;
 
 public class UserCode extends DyeHard {
+    private boolean menuActive = false;
 
     private Hero hero;
 
@@ -42,14 +41,6 @@ public class UserCode extends DyeHard {
         hero.registerWeapon(new OverHeatWeapon(hero));
         hero.registerWeapon(new LimitedAmmoWeapon(hero));
 
-        // Ghost g = new Ghost();
-        // g.center.set(30f, 20f);
-        // Space.registerPowerUp(g);
-
-        DyePack p = new DyePack(Colors.Yellow);
-        p.center.set(60f, 30f);
-        Space.registerDyePack(p);
-
         world.initialize(hero);
 
         new DeveloperControls(hero);
@@ -59,28 +50,37 @@ public class UserCode extends DyeHard {
 
     @Override
     protected void update() {
-        // if (keyboard.isButtonDown(KeyEvent.VK_UP)) {
-        // hero.moveUp();
-        // }
-        // if (keyboard.isButtonDown(KeyEvent.VK_DOWN)) {
-        // hero.moveDown();
-        // }
-        // if (keyboard.isButtonDown(KeyEvent.VK_LEFT)) {
-        // hero.moveLeft();
-        // }
-        // if (keyboard.isButtonDown(KeyEvent.VK_RIGHT)) {
-        // hero.moveRight();
-        // }
+        // playing, control hero
+        if (state == State.PLAYING) {
+            if (menuActive) {
+                world.menu.active(false);
+                menuActive = false;
+            }
+            hero.moveTo(mouse.getWorldX(), mouse.getWorldY());
+            // System.out.println(MouseInfo.getPointerInfo().getLocation());
 
-        hero.moveTo(mouse.getWorldX(), mouse.getWorldY());
-        // System.out.println(MouseInfo.getPointerInfo().getLocation());
-
-        if ((keyboard.isButtonDown(KeyEvent.VK_F)) || (mouse.isButtonDown(1))) {
-            hero.currentWeapon.fire();
+            if ((keyboard.isButtonDown(KeyEvent.VK_F))
+                    || (mouse.isButtonDown(1))) {
+                hero.currentWeapon.fire();
+                // System.out.println(mouse.getWorldX() + " " +
+                // mouse.getWorldY());
+            }
         }
 
-        if (world.nextRegionIsSpace()) {
-            System.out.println("SPACE COMING UP");
+        // not playing, activate menu
+        else if (state == State.PAUSED || state == State.GAMEOVER) {
+            if (!menuActive) {
+                world.menu.active(true);
+                menuActive = true;
+            } else {
+                if (mouse.isButtonTapped(1)) {
+                    world.menu.select(mouse.getWorldX(), mouse.getWorldY(),
+                            true);
+                } else {
+                    world.menu.select(mouse.getWorldX(), mouse.getWorldY(),
+                            false);
+                }
+            }
         }
     }
 }
