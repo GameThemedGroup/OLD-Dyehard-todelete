@@ -2,6 +2,7 @@ package dyehard.World;
 
 import java.util.Random;
 
+import dyehard.GameWorld;
 import Engine.Vector2;
 
 public class Platform {

@@ -11,8 +11,8 @@ import java.util.Random;
 import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.GameObject;
+import dyehard.GameWorld;
 import dyehard.UpdateObject;
-import dyehard.World.GameWorld;
 
 public class Background extends UpdateObject {
     private final Deque<Tile> ship;
