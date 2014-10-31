@@ -37,7 +37,7 @@ public class ChargerEnemy extends Enemy {
         setUsingSpriteSheet(true);
         setSpriteSheet(texture, 340, 140, 13, 2);
 
-        t = new Timer();
+        t = new Timer(2000);
     }
 
     @Override
@@ -48,14 +48,15 @@ public class ChargerEnemy extends Enemy {
                 if (color == null) {
                     BufferedImage temp = BaseCode.resources
                             .loadImage("Textures/Enemies/Charger_AnimSheet_Attack.png");
-                    setSpriteSheet(temp, 340, 140, 11, 8);
+                    setSpriteSheet(temp, 340, 140, 11, 2);
                 } else {
                     setSpriteSheet(Hero.chargerAttackTextures.get(color), 340,
-                            140, 11, 8);
+                            140, 11, 2);
                 }
                 setImage = true;
+                t.reset();
             }
-            if ((getCurFrame() == 9) && (!charge)) {
+            if (t.isDone() && (!charge)) {
                 charge = true;
             }
             if (charge) {
