@@ -3,6 +3,7 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
 import Engine.BaseCode;
+import dyehard.DyeHard;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.Weapons.LimitedAmmoWeapon;

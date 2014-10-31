@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import Engine.Text;
 import Engine.Vector2;
 import dyehard.DyehardKeyboard;
+import dyehard.UpdateManager;
 import dyehard.UpdateObject;
 import dyehard.Collectibles.Ghost;
 import dyehard.Collectibles.Gravity;
@@ -24,6 +25,7 @@ import dyehard.Enemies.Enemy;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
 import dyehard.Weapons.LimitedAmmoWeapon;
+import dyehard.World.GameWorld;
 
 public class DeveloperControls extends UpdateObject {
     private final Hero hero;

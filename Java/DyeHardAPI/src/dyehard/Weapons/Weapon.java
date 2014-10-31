@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import UpdateManager.Updateable;
 import dyehard.GameObject;
 import dyehard.ManagerState;
+import dyehard.UpdateManager.Updateable;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.DyeMeter.Progressable;
 import dyehard.Player.Hero;

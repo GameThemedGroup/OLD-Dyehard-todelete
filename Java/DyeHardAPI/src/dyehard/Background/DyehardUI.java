@@ -1,7 +1,5 @@
 package dyehard.Background;
 
-import GameWorld;
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +15,7 @@ import dyehard.UpdateObject;
 import dyehard.Player.DyeMeter;
 import dyehard.Player.Hero;
 import dyehard.World.GameState;
+import dyehard.World.GameWorld;
 
 public class DyehardUI extends UpdateObject {
     protected Hero hero;

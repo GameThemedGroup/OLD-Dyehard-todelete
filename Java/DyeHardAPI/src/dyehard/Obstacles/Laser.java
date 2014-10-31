@@ -1,11 +1,11 @@
 package dyehard.Obstacles;
 
-import GameWorld;
 import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.GameObject;
 import dyehard.Player.Hero;
 import dyehard.Util.TextureTile;
+import dyehard.World.GameWorld;
 
 public class Laser extends GameObject {
     private final Hero hero;

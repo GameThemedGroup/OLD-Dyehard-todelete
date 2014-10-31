@@ -1,13 +1,11 @@
 package dyehard;
 
-import DyeHard;
-import GameWorld;
-
 import java.awt.image.BufferedImage;
 
 import Engine.BaseCode;
 import Engine.Primitive;
 import Engine.Vector2;
+import dyehard.World.GameWorld;
 
 // Sprite sheet code ported from the C# engine, which
 // is credited to Samuel Cook and Ron Cook for adding support for that.

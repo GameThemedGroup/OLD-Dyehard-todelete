@@ -1,7 +1,5 @@
 package dyehard;
 
-import GameWorld;
-
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +7,7 @@ import java.util.List;
 import Engine.BaseCode;
 import Engine.Rectangle;
 import dyehard.DHR.ImageID;
+import dyehard.World.GameWorld;
 
 public class DyehardDistanceMeter {
     protected int maxValue;
