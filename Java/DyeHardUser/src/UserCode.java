@@ -3,12 +3,18 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
 import Engine.BaseCode;
+import dyehard.CollisionManager;
+import dyehard.Configuration;
 import dyehard.DyeHard;
+import dyehard.DyehardKeyboard;
+import dyehard.UpdateManager;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.Weapons.OverHeatWeapon;
 import dyehard.Weapons.SpreadFireWeapon;
+import dyehard.World.GameState;
+import dyehard.World.GameWorld;
 import dyehard.World.Stargate;
 
 public class UserCode extends DyeHard {
@@ -16,8 +22,73 @@ public class UserCode extends DyeHard {
 
     private Hero hero;
 
+    private void checkControl() {
+        keyboard.update();
+        if (keyboard.isButtonTapped(KeyEvent.VK_ESCAPE)) {
+            window.close();
+        }
+
+        if (keyboard.isButtonDown(KeyEvent.VK_ALT)
+                && keyboard.isButtonTapped(KeyEvent.VK_ENTER)) {
+
+            keyboard.releaseButton(KeyEvent.VK_ENTER);
+            keyboard.releaseButton(KeyEvent.VK_ALT);
+            window.toggleFullscreen();
+            window.requestFocusInWindow();
+        }
+
+        switch (state) {
+        case BEGIN:
+            if (keyboard.isButtonTapped(KeyEvent.VK_A)) {
+                state = State.PLAYING;
+            }
+            break;
+        case PAUSED:
+            if (keyboard.isButtonTapped(KeyEvent.VK_A)) {
+                state = State.PLAYING;
+            }
+            break;
+        case PLAYING:
+            if (keyboard.isButtonTapped(KeyEvent.VK_A)) {
+                state = State.PAUSED;
+            } else if (world.gameOver()) {
+                state = State.GAMEOVER;
+            }
+            break;
+        case GAMEOVER:
+            if (keyboard.isButtonTapped(KeyEvent.VK_SPACE)) {
+                state = State.PLAYING;
+                GameState.RemainingLives = 4;
+                BaseCode.resources.resumeSound();
+            }
+            break;
+        case QUIT:
+            window.close();
+            break;
+        }
+    }
+
     @Override
     protected void initialize() {
+        window.requestFocusInWindow();
+
+        // Replace the default keyboard input with DyehardKeyboard
+        window.removeKeyListener(keyboard);
+        keyboard = new DyehardKeyboard();
+        window.addKeyListener(keyboard);
+
+        window.addMouseListener(mouse);
+
+        resources.setClassInJar(this);
+
+        state = State.PLAYING;
+        GameState.TargetDistance = Configuration.worldMapLength;
+        world = new GameWorld();
+
+        // preload sound/music, and play bg music
+        BaseCode.resources.preloadSound(bgMusicPath);
+        BaseCode.resources.playSoundLooping(bgMusicPath);
+
         hero = new Hero();
 
         // move mouse to where center of hero is
@@ -50,6 +121,17 @@ public class UserCode extends DyeHard {
 
     @Override
     protected void update() {
+        // update world, run managers
+        checkControl();
+        switch (state) {
+        case PLAYING:
+            UpdateManager.update();
+            CollisionManager.update();
+            break;
+        default:
+            break;
+        }
+
         // playing, control hero
         if (state == State.PLAYING) {
             if (menuActive) {
