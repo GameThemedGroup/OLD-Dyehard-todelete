@@ -1,11 +1,15 @@
 package dyehard;
 
+import java.awt.AWTException;
 import java.awt.Color;
+import java.awt.Robot;
 
+import Engine.BaseCode;
 import Engine.Primitive;
 import Engine.Vector2;
 import dyehard.Enemies.ChargerEnemy;
 import dyehard.Obstacles.Obstacle;
+import dyehard.Player.Hero;
 import dyehard.Util.Collision;
 import dyehard.World.PlatformSingle;
 
@@ -62,6 +66,22 @@ public class Actor extends Collidable {
             // debris
             actor.center.add(out);
 
+            // Move mouse to hero position if actor is hero
+            if (actor instanceof Hero) {
+                // move mouse to where center of hero is
+                try {
+                    Robot robot = new Robot();
+
+                    robot.mouseMove((int) BaseCode.world
+                            .worldToScreenX(actor.center.getX()),
+                            (int) BaseCode.world.worldToScreenY(actor.center
+                                    .getY()));
+                } catch (AWTException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+
             // Stop the character from moving if they collide with the
             // Collidable
             if (Math.abs(out.getX()) > 0f) {
@@ -69,22 +89,6 @@ public class Actor extends Collidable {
                         .getX())) {
                     actor.velocity.setX(0f);
                 }
-                // if (actor instanceof Hero) {
-                // if (out.getX() > 0) {
-                // actor.collideLeft = true;
-                // actor.collideRight = false;
-                // obstacle.heroLeft = true;
-                // obstacle.heroRight = false;
-                // System.out.println("hero collide left");
-                // } else {
-                // actor.collideLeft = false;
-                // actor.collideRight = true;
-                // obstacle.heroLeft = false;
-                // obstacle.heroRight = true;
-                // System.out.println("hero collide Right");
-                // }
-                // }
-
             }
 
             if (Math.abs(out.getY()) > 0f) {
@@ -92,19 +96,6 @@ public class Actor extends Collidable {
                         .getY())) {
                     actor.velocity.setY(0f);
                 }
-                // if (actor instanceof Hero) {
-                // if (out.getX() > 0) {
-                // actor.collideDown = true;
-                // actor.collideUp = false;
-                // obstacle.heroUp = true;
-                // obstacle.heroDown = false;
-                // } else {
-                // actor.collideDown = false;
-                // actor.collideUp = true;
-                // obstacle.heroUp = false;
-                // obstacle.heroDown = true;
-                // }
-                // }
             }
         }
     }
