@@ -1,16 +1,17 @@
 package dyehard.Enemies;
 
+import GameWorld;
+import UpdateManager;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import Engine.Vector2;
 import dyehard.Configuration;
-import dyehard.UpdateManager;
 import dyehard.UpdateObject;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
-import dyehard.World.GameWorld;
 
 public class EnemyManager extends UpdateObject {
     // This time is in milliseconds

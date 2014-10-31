@@ -1,5 +1,7 @@
 package dyehard.Enemies;
 
+import GameWorld;
+
 import java.awt.Color;
 
 import Engine.Vector2;
@@ -7,7 +9,6 @@ import dyehard.Configuration;
 import dyehard.Configuration.EnemyType;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
-import dyehard.World.GameWorld;
 
 public class PortalEnemy extends Enemy {
     protected Timer timer;

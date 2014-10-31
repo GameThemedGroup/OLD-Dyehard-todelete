@@ -1,5 +1,7 @@
 package dyehard.World;
 
+import GameWorld;
+
 import java.util.Random;
 
 import Engine.Vector2;

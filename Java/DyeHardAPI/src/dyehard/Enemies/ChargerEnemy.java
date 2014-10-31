@@ -1,5 +1,7 @@
 package dyehard.Enemies;
 
+import GameWorld;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
@@ -9,7 +11,6 @@ import dyehard.Configuration;
 import dyehard.Configuration.EnemyType;
 import dyehard.Player.Hero;
 import dyehard.Util.Timer;
-import dyehard.World.GameWorld;
 
 public class ChargerEnemy extends Enemy {
     private boolean chasing;

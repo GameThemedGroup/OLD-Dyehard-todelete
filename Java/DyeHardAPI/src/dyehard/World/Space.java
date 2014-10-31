@@ -1,5 +1,7 @@
 package dyehard.World;
 
+import GameWorld;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;

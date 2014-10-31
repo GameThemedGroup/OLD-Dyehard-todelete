@@ -1,6 +1,6 @@
 package dyehard;
 
-import dyehard.World.GameWorld;
+import GameWorld;
 
 public abstract class Collidable extends GameObject {
     protected ManagerState collidableState;

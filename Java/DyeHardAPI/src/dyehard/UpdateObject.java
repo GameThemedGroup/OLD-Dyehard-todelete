@@ -1,6 +1,7 @@
 package dyehard;
 
-import dyehard.UpdateManager.Updateable;
+import UpdateManager;
+import UpdateManager.Updateable;
 
 public abstract class UpdateObject implements Updateable {
 

@@ -1,7 +1,8 @@
 package dyehard;
 
+import UpdateManager;
+import UpdateManager.Updateable;
 import Engine.Vector2;
-import dyehard.UpdateManager.Updateable;
 
 public class GameObject extends DyehardRectangle implements Updateable {
     private boolean speedUpSet = false;

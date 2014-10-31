@@ -1,5 +1,7 @@
 package dyehard.Background;
 
+import GameWorld;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayDeque;
@@ -12,7 +14,6 @@ import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.GameObject;
 import dyehard.UpdateObject;
-import dyehard.World.GameWorld;
 
 public class Background extends UpdateObject {
     private final Deque<Tile> ship;

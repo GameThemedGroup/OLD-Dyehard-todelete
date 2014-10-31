@@ -1,5 +1,7 @@
 package dyehard;
 
+import GameWorld;
+
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -16,7 +18,6 @@ import Engine.BaseCode;
 import Engine.MessageOnce;
 import Engine.Rectangle;
 import Engine.Vector2;
-import dyehard.World.GameWorld;
 
 public class DHR {
     public interface CsvParser {

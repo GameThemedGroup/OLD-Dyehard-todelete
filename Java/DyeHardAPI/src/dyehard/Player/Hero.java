@@ -1,5 +1,7 @@
 package dyehard.Player;
 
+import DyeHard;
+
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -17,7 +19,6 @@ import dyehard.Actor;
 import dyehard.Collidable;
 import dyehard.Configuration;
 import dyehard.DHR;
-import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.Invincibility;
 import dyehard.Collectibles.PowerUp;

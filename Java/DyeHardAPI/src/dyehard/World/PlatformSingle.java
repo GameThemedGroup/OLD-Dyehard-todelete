@@ -1,5 +1,6 @@
 package dyehard.World;
 
+import GameWorld;
 import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.GameObject;
