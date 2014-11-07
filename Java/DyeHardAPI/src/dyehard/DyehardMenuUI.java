@@ -72,12 +72,12 @@ public class DyehardMenuUI {
                 menuSelect.move(musicSelect);
                 if (click) {
                     music = !music;
+                    DyeHardSound.setMusic(music);
                     if (music) {
-                        BaseCode.resources
-                                .playSoundLooping(DyeHard.bgMusicPath);
+                        DyeHardSound.playBgMusic();
                         musicTog.move(musicOn);
                     } else {
-                        BaseCode.resources.stopSound(DyeHard.bgMusicPath);
+                        DyeHardSound.stopBgMusic();
                         musicTog.move(musicOff);
                     }
                 }

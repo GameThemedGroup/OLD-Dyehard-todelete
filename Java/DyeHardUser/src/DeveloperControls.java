@@ -26,6 +26,7 @@ import dyehard.Collectibles.Unarmed;
 import dyehard.Enemies.Enemy;
 import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
+import dyehard.Util.DyeHardSound;
 import dyehard.Weapons.LimitedAmmoWeapon;
 
 public class DeveloperControls extends UpdateObject {
@@ -103,6 +104,29 @@ public class DeveloperControls extends UpdateObject {
                     r.visible = true;
                 }
                 recVis = true;
+            }
+        }
+
+        if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_W)) {
+            DyeHardSound.play(DyeHardSound.winSound);
+        }
+        if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_L)) {
+            DyeHardSound.play(DyeHardSound.loseSound);
+        }
+        if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_8)) {
+            if (BaseCode.resources.isSoundPlaying(DyeHardSound.enemySpaceship1)) {
+                BaseCode.resources.stopSound(DyeHardSound.enemySpaceship1);
+            } else {
+                BaseCode.resources
+                        .playSoundLooping(DyeHardSound.enemySpaceship1);
+            }
+        }
+        if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_9)) {
+            if (BaseCode.resources.isSoundPlaying(DyeHardSound.enemySpaceship2)) {
+                BaseCode.resources.stopSound(DyeHardSound.enemySpaceship2);
+            } else {
+                BaseCode.resources
+                        .playSoundLooping(DyeHardSound.enemySpaceship2);
             }
         }
 

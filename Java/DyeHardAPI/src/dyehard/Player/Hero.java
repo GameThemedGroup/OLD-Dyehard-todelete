@@ -439,7 +439,6 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     @Override
     public void damageHero(Hero hero, Primitive who) {
-        DyeHardSound.play(DyeHardSound.lifeLostSound);
         // Only one powerup can be active at a time
         for (PowerUp p : powerups) {
             p.unapply(this);
@@ -454,7 +453,9 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
         if (GameState.RemainingLives <= 0) {
             alive = false;
+            DyeHardSound.play(DyeHardSound.loseSound);
         } else {
+            DyeHardSound.play(DyeHardSound.lifeLostSound);
             hero.center.set(startingLocation.clone());
         }
     }

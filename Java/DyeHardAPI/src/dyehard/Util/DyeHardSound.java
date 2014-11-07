@@ -4,12 +4,14 @@ import Engine.BaseCode;
 
 public class DyeHardSound {
     private static boolean soundPlay = true;
+    private static boolean musicPlay = true;
     // Music/Sound path strings
+    public final static String bgMusicPath = "Audio/BgMusic.wav";
     public final static String pickUpSound = "Audio/PickupSound.wav";
     public final static String powerUpSound = "Audio/Powerup.wav";
     public final static String paintSpraySound = "Audio/PaintSpraySound.wav";
     public final static String enemySpaceship1 = "Audio/EnemySpaceship1.wav";
-    public final static String enemySpaceship2 = "Audio/EnemySpaceship1.wav";
+    public final static String enemySpaceship2 = "Audio/EnemySpaceship2.wav";
     public final static String loseSound = "Audio/DyeLose.wav";
     public final static String winSound = "Audio/DyeWin.wav";
     public final static String lifeLostSound = "Audio/LifeLost.wav";
@@ -19,6 +21,7 @@ public class DyeHardSound {
 
     static {
         // load sounds for later interactions
+        BaseCode.resources.preloadSound(bgMusicPath);
         BaseCode.resources.preloadSound(pickUpSound);
         BaseCode.resources.preloadSound(powerUpSound);
         BaseCode.resources.preloadSound(paintSpraySound);
@@ -38,11 +41,31 @@ public class DyeHardSound {
         }
     }
 
+    public static void playBgMusic() {
+        if (musicPlay) {
+            BaseCode.resources.playSoundLooping(bgMusicPath);
+        }
+    }
+
+    public static void stopBgMusic() {
+        if (!musicPlay) {
+            BaseCode.resources.stopSound(bgMusicPath);
+        }
+    }
+
     public static void setSound(boolean bool) {
         soundPlay = bool;
     }
 
     public static boolean getSound() {
         return soundPlay;
+    }
+
+    public static void setMusic(boolean bool) {
+        musicPlay = bool;
+    }
+
+    public static boolean getMusic() {
+        return musicPlay;
     }
 }

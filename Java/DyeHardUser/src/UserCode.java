@@ -10,6 +10,7 @@ import dyehard.DyehardKeyboard;
 import dyehard.UpdateManager;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
+import dyehard.Util.DyeHardSound;
 import dyehard.Weapons.LimitedAmmoWeapon;
 import dyehard.Weapons.OverHeatWeapon;
 import dyehard.Weapons.SpreadFireWeapon;
@@ -99,8 +100,7 @@ public class UserCode extends DyeHard {
         world = new GameWorld();
 
         // preload sound/music, and play bg music
-        BaseCode.resources.preloadSound(bgMusicPath);
-        BaseCode.resources.playSoundLooping(bgMusicPath);
+        DyeHardSound.playBgMusic();
 
         hero = new Hero();
 
