@@ -72,12 +72,12 @@ public class Stargate extends GameWorldRegion {
     // if hero leaves the StarGate, he cannot re-enter
     public void blockHero() {
         if (heroLeft) {
-            if (hero.center.getX() <= (rightEdge() + 2)) {
+            if (hero.center.getX() <= (rightEdge() + hero.size.getX() / 2f)) {
                 hero.center.add(new Vector2(rightEdge() - hero.center.getX()
-                        + 2, 0f));
+                        + hero.size.getX() / 2f, 0f));
                 hero.velocity.setX(0f);
             }
-        } else if (hero.center.getX() > (rightEdge() + 2)) {
+        } else if (hero.center.getX() > (rightEdge() + hero.size.getX() / 2f)) {
             heroLeft = true;
         }
     }

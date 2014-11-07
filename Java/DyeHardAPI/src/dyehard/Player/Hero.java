@@ -22,6 +22,7 @@ import dyehard.Collectibles.PowerUp;
 import dyehard.Player.HeroInterfaces.HeroCollision;
 import dyehard.Player.HeroInterfaces.HeroDamage;
 import dyehard.Util.Colors;
+import dyehard.Util.DyeHardSound;
 import dyehard.Util.ImageTint;
 import dyehard.Weapons.OverHeatWeapon;
 import dyehard.Weapons.Weapon;
@@ -438,6 +439,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     @Override
     public void damageHero(Hero hero, Primitive who) {
+        DyeHardSound.play(DyeHardSound.lifeLostSound);
         // Only one powerup can be active at a time
         for (PowerUp p : powerups) {
             p.unapply(this);

@@ -18,6 +18,8 @@ import dyehard.Util.ImageTint;
 import dyehard.Util.TextureTile;
 
 public class Gate {
+    private final Hero hero;
+
     private final StargatePath path;
     private final StargatePathFront pathFront;
     private final DeathGate deathGate;
@@ -84,6 +86,7 @@ public class Gate {
 
     public Gate(Hero hero, Color color, float width, float height, float x,
             float y) {
+        this.hero = hero;
         // set up pipe
         int pathTF = 10;
         int pathTick = 2;
@@ -224,7 +227,7 @@ public class Gate {
                             }
                         }
                         if (target instanceof Hero) {
-                            DyeHardSound.play(DyeHardSound.wormHoleSound);
+                            DyeHardSound.play(DyeHardSound.portalEnter);
                         }
                     }
                 }
@@ -234,6 +237,7 @@ public class Gate {
 
     public class StargatePath extends Collidable {
         public Color dyeColor;
+        private boolean exitPlayed = false;
 
         @Override
         public void handleCollision(Collidable other) {
@@ -248,6 +252,29 @@ public class Gate {
             // update() in collideable prematurely destroys gate, seperate
             // udpate function made.
             updateGate();
+            // portal loop music
+            if (((center.getX() - size.getX() / 2f) < BaseCode.world.getWidth())
+                    && (!BaseCode.resources
+                            .isSoundPlaying(DyeHardSound.portalLoop))
+                    && (DyeHardSound.getSound())) {
+                BaseCode.resources.playSoundLooping(DyeHardSound.portalLoop);
+            } else if (!DyeHardSound.getSound()
+                    && BaseCode.resources
+                            .isSoundPlaying(DyeHardSound.portalLoop)) {
+                BaseCode.resources.stopSound(DyeHardSound.portalLoop);
+            }
+            // end portal loop music
+            if (center.getX() + size.getX() / 2 < BaseCode.world.getPositionX() - 5f) {
+                BaseCode.resources.stopSound(DyeHardSound.portalLoop);
+                destroy();
+            }
+
+            // portal exit sound
+            if ((hero.center.getX() > center.getX() + size.getX() / 2f)
+                    && (!exitPlayed)) {
+                DyeHardSound.play(DyeHardSound.portalExit);
+                exitPlayed = true;
+            }
         }
     }
 
@@ -278,6 +305,6 @@ public class Gate {
         entranceBack.destroy();
         exitFront.destroy();
         exitBack.destroy();
-
+        BaseCode.resources.stopSound(DyeHardSound.portalLoop);
     }
 }
