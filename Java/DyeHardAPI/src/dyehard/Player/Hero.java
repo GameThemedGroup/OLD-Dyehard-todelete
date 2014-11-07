@@ -48,6 +48,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public CurPowerUp curPowerUp;
     public boolean debugInvincibility;
     public boolean isInvin;
+    public boolean isRepel;
     public boolean isFiring;
 
     public final Weapon defaultWeapon = new OverHeatWeapon(this);
@@ -66,6 +67,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     protected Direction directionState;
     protected DynamicDyePack dynamicDyepack;
+    protected HeroEffect heroEffect;
     protected Vector2 previousVelocity;
     protected Vector2 currentVelocity;
     protected final static Vector2 startingLocation = new Vector2(20f, 20f);
@@ -139,6 +141,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         }
         directionState = Direction.NEUTRAL;
         dynamicDyepack = new DynamicDyePack(this);
+        heroEffect = new HeroEffect(this);
         texture = BaseCode.resources.loadImage("Textures/Hero/Dye_NEUTRAL.png");
 
         collectedDyepacks = 0;
@@ -166,6 +169,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         currentVelocity = new Vector2(0f, 0f);
 
         isInvin = false;
+        isRepel = false;
         isFiring = false;
     }
 
@@ -193,8 +197,8 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         // updateMovement();
         // selectWeapon();
         clampToWorldBounds();
-
         dynamicDyepack.update();
+        heroEffect.update();
     }
 
     private void applyPowerups() {
@@ -391,6 +395,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         addToAutoDrawSet();
         dynamicDyepack.removeFromAutoDrawSet();
         dynamicDyepack.addToAutoDrawSet();
+        heroEffect.drawOnTop();
     }
 
     public void collect(DyePack dye) {

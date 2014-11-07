@@ -29,6 +29,7 @@ public class Repel extends PowerUp {
     public void apply(Hero hero) {
         Set<Collidable> collidables = CollisionManager.getCollidables();
         hero.curPowerUp = CurPowerUp.REPEL;
+        hero.isRepel = true;
 
         for (Collidable c : collidables) {
             if (c instanceof DyePack || c instanceof PowerUp) {
@@ -46,6 +47,7 @@ public class Repel extends PowerUp {
 
     @Override
     public void unapply(Hero hero) {
+        hero.isRepel = false;
         hero.curPowerUp = CurPowerUp.NONE;
         return;
     }
