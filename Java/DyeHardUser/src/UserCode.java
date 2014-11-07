@@ -23,9 +23,6 @@ public class UserCode extends DyeHard {
 
     private void checkControl() {
         keyboard.update();
-        if (keyboard.isButtonTapped(KeyEvent.VK_ESCAPE)) {
-            window.close();
-        }
 
         if (keyboard.isButtonDown(KeyEvent.VK_ALT)
                 && keyboard.isButtonTapped(KeyEvent.VK_ENTER)) {
@@ -41,15 +38,31 @@ public class UserCode extends DyeHard {
             if (keyboard.isButtonTapped(KeyEvent.VK_A)) {
                 state = State.PLAYING;
             }
+            if (keyboard.isButtonTapped(KeyEvent.VK_ESCAPE)) {
+                state = State.MENU;
+            }
             break;
         case PAUSED:
             if (keyboard.isButtonTapped(KeyEvent.VK_A)) {
+                state = State.PLAYING;
+            }
+            if (keyboard.isButtonTapped(KeyEvent.VK_ESCAPE)) {
+                state = State.MENU;
+            }
+            break;
+        case MENU:
+            if (keyboard.isButtonTapped(KeyEvent.VK_A)) {
+                state = State.PLAYING;
+            }
+            if (keyboard.isButtonTapped(KeyEvent.VK_ESCAPE)) {
                 state = State.PLAYING;
             }
             break;
         case PLAYING:
             if (keyboard.isButtonTapped(KeyEvent.VK_A)) {
                 state = State.PAUSED;
+            } else if (keyboard.isButtonTapped(KeyEvent.VK_ESCAPE)) {
+                state = State.MENU;
             } else if (world.gameOver()) {
                 state = State.GAMEOVER;
             }
@@ -148,8 +161,8 @@ public class UserCode extends DyeHard {
             }
         }
 
-        // not playing, activate menu
-        else if (state == State.PAUSED || state == State.GAMEOVER) {
+        // state menu or gameover, activate menu
+        else if (state == State.MENU || state == State.GAMEOVER) {
             if (!menuActive) {
                 world.menu.active(true);
                 menuActive = true;

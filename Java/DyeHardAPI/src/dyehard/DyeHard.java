@@ -11,7 +11,7 @@ public abstract class DyeHard extends LibraryCode {
     public final static String bgMusicPath = "Audio/BgMusic.wav";
 
     public enum State {
-        BEGIN, PAUSED, PLAYING, GAMEOVER, QUIT
+        BEGIN, PAUSED, PLAYING, GAMEOVER, QUIT, MENU
     }
 
     // Game state
