@@ -1,15 +1,11 @@
 package dyehard;
 
-import java.awt.AWTException;
 import java.awt.Color;
-import java.awt.Robot;
 
-import Engine.BaseCode;
 import Engine.Primitive;
 import Engine.Vector2;
 import dyehard.Enemies.ChargerEnemy;
 import dyehard.Obstacles.Obstacle;
-import dyehard.Player.Hero;
 import dyehard.Util.Collision;
 import dyehard.World.PlatformSingle;
 
@@ -65,22 +61,6 @@ public class Actor extends Collidable {
             // Move the character so that it's no longer overlapping the
             // debris
             actor.center.add(out);
-
-            // Move mouse to hero position if actor is hero
-            if (actor instanceof Hero) {
-                // move mouse to where center of hero is
-                try {
-                    Robot robot = new Robot();
-
-                    robot.mouseMove((int) BaseCode.world
-                            .worldToScreenX(actor.center.getX()),
-                            (int) BaseCode.world.worldToScreenY(actor.center
-                                    .getY()));
-                } catch (AWTException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
 
             // Stop the character from moving if they collide with the
             // Collidable
