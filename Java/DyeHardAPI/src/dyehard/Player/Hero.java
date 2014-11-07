@@ -64,6 +64,9 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     private int collectedPowerups;
     private final float sizeScale;
 
+    private final float maxHeroSpeed = Configuration.heroSpeedLimit;
+    private final float heroSpeedRatio = Configuration.heroJetSpeed;
+
     protected Direction directionState;
     protected DynamicDyePack dynamicDyepack;
     protected HeroEffect heroEffect;
@@ -279,15 +282,19 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
             setTexture();
 
             if (xOffset > 0) {
-                center.setX(center.getX() + Math.min((xOffset * 0.2f), 2f));
+                center.setX(center.getX()
+                        + Math.min((xOffset * heroSpeedRatio), maxHeroSpeed));
             } else if (xOffset < 0) {
-                center.setX(center.getX() + Math.max((xOffset * 0.2f), -2f));
+                center.setX(center.getX()
+                        + Math.max((xOffset * heroSpeedRatio), -maxHeroSpeed));
             }
 
             if (yOffset > 0) {
-                center.setY(center.getY() + Math.min((yOffset * 0.2f), 2f));
+                center.setY(center.getY()
+                        + Math.min((yOffset * heroSpeedRatio), maxHeroSpeed));
             } else if (yOffset < 0) {
-                center.setY(center.getY() + Math.max((yOffset * 0.2f), -2f));
+                center.setY(center.getY()
+                        + Math.max((yOffset * heroSpeedRatio), -maxHeroSpeed));
             }
 
             // if ((!collideRight) && (xOffset > 0)) {
