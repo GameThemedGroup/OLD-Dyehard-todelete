@@ -52,7 +52,7 @@ public class DyehardMenuUI {
             if ((y > 42.75f) && (y < 47.125f)) {
                 menuSelect.move(restartSelect);
                 if (click) {
-                    DyeHard.state = DyeHard.State.PLAYING;
+                    DyeHard.state = DyeHard.State.RESTART;
                 }
             }
             // hit button 2, sound toggle

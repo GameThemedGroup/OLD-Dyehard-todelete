@@ -478,4 +478,8 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public void destroy() {
         return;
     }
+
+    public Vector2 getStart() {
+        return startingLocation.clone();
+    }
 }

@@ -72,6 +72,9 @@ public class UserCode extends DyeHard {
                 restart();
             }
             break;
+        case RESTART:
+            restart();
+            break;
         case QUIT:
             window.close();
             break;
@@ -164,7 +167,13 @@ public class UserCode extends DyeHard {
                 // mouse.getWorldY());
             }
         }
-
+        // deactive menu if BEGIN state
+        else if (state == State.BEGIN) {
+            if (menuActive) {
+                world.menu.active(false);
+                menuActive = false;
+            }
+        }
         // state menu or gameover, activate menu
         else if (state == State.MENU || state == State.GAMEOVER) {
             if (!menuActive) {

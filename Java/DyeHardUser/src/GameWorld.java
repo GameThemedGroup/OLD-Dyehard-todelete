@@ -85,6 +85,7 @@ public class GameWorld implements Updateable {
         distance = 0f;
         GameState.DistanceTravelled = 0;
         GameState.Score = 0;
+        hero.center = hero.getStart();
     }
 
     public boolean gameOver() {
