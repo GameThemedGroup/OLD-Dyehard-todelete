@@ -10,13 +10,11 @@ import java.util.TreeSet;
 
 import Engine.BaseCode;
 import Engine.Primitive;
-import Engine.Rectangle;
 import Engine.Vector2;
 import Engine.World.BoundCollidedStatus;
 import dyehard.Actor;
 import dyehard.Collidable;
 import dyehard.Configuration;
-import dyehard.DHR;
 import dyehard.DyeHard;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.Invincibility;
@@ -56,7 +54,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public final Vector2 defaultGravity = new Vector2(0f, 0f);
     public Vector2 totalThrust = new Vector2();
     public HashMap<Color, BufferedImage> bulletTextures = new HashMap<Color, BufferedImage>();
-    public Vector2 bulletSize;
+    public HashMap<Color, BufferedImage> muzzleTextures = new HashMap<Color, BufferedImage>();
 
     private final float speedLimitX = Configuration.heroSpeedLimit;
     private static float drag = Configuration.heroDrag;
@@ -71,7 +69,6 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     protected Vector2 previousVelocity;
     protected Vector2 currentVelocity;
     protected final static Vector2 startingLocation = new Vector2(20f, 20f);
-    protected Rectangle r;
 
     private final ArrayList<Weapon> weaponRack;
     private final HashMap<Integer, Integer> weaponHotkeys;
@@ -129,15 +126,19 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
         sizeScale = size.getY() / 9f;
 
-        // TODO magic numbers
-        r = DHR.getScaledRectangle(new Vector2(1920, 1080), new Vector2(590,
-                120), "Textures/dye_attack_muzzle_flash_animation.png");
-
         curPowerUp = CurPowerUp.NONE;
         color = Colors.randomColor();
         if (!bulletTextures.containsKey(color)) {
             bulletTextures.put(color,
-                    ImageTint.tintedImage(r.texture, color, 1f));
+                    ImageTint.tintedImage(BaseCode.resources
+                            .loadImage("Textures/Dye_attack_projectile.png"),
+                            color, 1f));
+            muzzleTextures
+                    .put(color,
+                            ImageTint.tintedImage(
+                                    BaseCode.resources
+                                            .loadImage("Textures/Dye_attack_muzzle_flash_AnimSheet.png"),
+                                    color, 1f));
         }
         directionState = Direction.NEUTRAL;
         dynamicDyepack = new DynamicDyePack(this);
@@ -146,8 +147,6 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
         collectedDyepacks = 0;
         collectedPowerups = 0;
-
-        bulletSize = r.size;
 
         powerups = new TreeSet<PowerUp>();
 
@@ -475,7 +474,15 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         this.color = color;
         if (!bulletTextures.containsKey(color)) {
             bulletTextures.put(color,
-                    ImageTint.tintedImage(r.texture, color, 1f));
+                    ImageTint.tintedImage(BaseCode.resources
+                            .loadImage("Textures/Dye_attack_projectile.png"),
+                            color, 1f));
+            muzzleTextures
+                    .put(color,
+                            ImageTint.tintedImage(
+                                    BaseCode.resources
+                                            .loadImage("Textures/Dye_attack_muzzle_flash_AnimSheet.png"),
+                                    color, 1f));
         }
     }
 
