@@ -15,6 +15,13 @@ public class EnemyManager {
         enemies.add(e);
     }
 
+    public void clear() {
+        for (Enemy e : enemies) {
+            e.destroy();
+        }
+        enemies.clear();
+    }
+
     public static List<Enemy> getEnemies() {
         return enemies;
     }

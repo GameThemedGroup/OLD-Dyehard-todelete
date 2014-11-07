@@ -63,9 +63,28 @@ public class GameWorld implements Updateable {
         float startLocation = 0f;
         if (!gameRegions.isEmpty()) {
             startLocation = gameRegions.getLast().rightEdge();
+            System.out.println(startLocation);
         }
         region.initialize(startLocation);
         gameRegions.add(region);
+    }
+
+    // clear game regions and create new region. true for space false for
+    // stargate.
+    public void restartWorld(boolean space) {
+        while (!gameRegions.isEmpty()) {
+            gameRegions.pop().destroy();
+            System.out.println("destroy");
+        }
+        enemyGenerator.clearEnemy();
+        if (space) {
+            addRegion(new Space(hero));
+        } else {
+            addRegion(new Stargate(hero));
+        }
+        distance = 0f;
+        GameState.DistanceTravelled = 0;
+        GameState.Score = 0;
     }
 
     public boolean gameOver() {

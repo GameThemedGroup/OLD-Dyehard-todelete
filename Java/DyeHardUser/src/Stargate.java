@@ -94,4 +94,14 @@ public class Stargate extends GameWorldRegion {
     public static void clearColors() {
         userColors.clear();
     }
+
+    @Override
+    public void destroy() {
+        for (Gate gate : gates) {
+            gate.destroy();
+        }
+        for (Platform p : platforms) {
+            p.destroy();
+        }
+    }
 }

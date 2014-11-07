@@ -69,8 +69,7 @@ public class UserCode extends DyeHard {
             break;
         case GAMEOVER:
             if (keyboard.isButtonTapped(KeyEvent.VK_SPACE)) {
-                state = State.PLAYING;
-                GameState.RemainingLives = 4;
+                restart();
             }
             break;
         case QUIT:
@@ -128,6 +127,12 @@ public class UserCode extends DyeHard {
         new DeveloperControls(hero);
 
         Stargate.addColor(Colors.Yellow);
+    }
+
+    protected void restart() {
+        GameState.RemainingLives = 4;
+        state = State.BEGIN;
+        world.restartWorld(true);
     }
 
     @Override

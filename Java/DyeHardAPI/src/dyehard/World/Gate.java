@@ -22,6 +22,10 @@ public class Gate {
     private final StargatePathFront pathFront;
     private final DeathGate deathGate;
     private final GatePreview preview;
+    private final GateDoor entranceFront;
+    private final GateDoor entranceBack;
+    private final GateDoor exitFront;
+    private final GateDoor exitBack;
 
     private final float platHeight = 1.25f;
 
@@ -99,13 +103,13 @@ public class Gate {
         float gateHeight = path.size.getY() + 2f;
 
         // entrance back
-        new GateDoor(new Vector2(leftEdge - 3.8f, path.center.getY()),
-                new Vector2(0.852564f * gateHeight, gateHeight), false, false,
-                color);
+        entranceBack = new GateDoor(new Vector2(leftEdge - 3.8f,
+                path.center.getY()), new Vector2(0.852564f * gateHeight,
+                gateHeight), false, false, color);
         // exit back
-        new GateDoor(new Vector2(leftEdge + width - 3.8f, path.center.getY()),
-                new Vector2(0.852564f * gateHeight, gateHeight), false, false,
-                color);
+        exitBack = new GateDoor(new Vector2(leftEdge + width - 3.8f,
+                path.center.getY()), new Vector2(0.852564f * gateHeight,
+                gateHeight), false, false, color);
 
         deathGate = new DeathGate();
         deathGate.center = new Vector2(leftEdge - 8f, path.center.getY());
@@ -119,13 +123,13 @@ public class Gate {
         deathGate.shouldTravel = true;
 
         // entrance front
-        new GateDoor(new Vector2(leftEdge - 3.8f, path.center.getY()),
-                new Vector2(0.852564f * gateHeight, gateHeight), true, true,
-                color);
+        entranceFront = new GateDoor(new Vector2(leftEdge - 3.8f,
+                path.center.getY()), new Vector2(0.852564f * gateHeight,
+                gateHeight), true, true, color);
         // exit front
-        new GateDoor(new Vector2(leftEdge + width - 3.8f, path.center.getY()),
-                new Vector2(0.852564f * gateHeight, gateHeight), true, false,
-                color);
+        exitFront = new GateDoor(new Vector2(leftEdge + width - 3.8f,
+                path.center.getY()), new Vector2(0.852564f * gateHeight,
+                gateHeight), true, false, color);
 
         hero.drawOnTop();
 
@@ -263,5 +267,17 @@ public class Gate {
             addToAutoDrawSet();
 
         }
+    }
+
+    public void destroy() {
+        path.destroy();
+        pathFront.destroy();
+        deathGate.destroy();
+        preview.destroy();
+        entranceFront.destroy();
+        entranceBack.destroy();
+        exitFront.destroy();
+        exitBack.destroy();
+
     }
 }

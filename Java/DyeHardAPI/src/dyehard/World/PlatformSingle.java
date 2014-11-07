@@ -41,4 +41,10 @@ public class PlatformSingle extends Obstacle {
         }
     }
 
+    @Override
+    public void destroy() {
+        arc.destroy();
+        super.destroy();
+    }
+
 }

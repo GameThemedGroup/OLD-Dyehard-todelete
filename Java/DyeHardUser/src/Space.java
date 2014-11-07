@@ -1,4 +1,3 @@
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +39,9 @@ public class Space extends GameWorldRegion {
     private List<DyePack> dyeList;
     private static List<DyePack> userDyePacks;
 
+    // The list of debris that can be randomly generated
+    private List<Debris> debrisList;
+
     public Space(Hero hero) {
         width = WIDTH;
         speed = -Configuration.worldGameSpeed;
@@ -63,6 +65,7 @@ public class Space extends GameWorldRegion {
 
     @Override
     public void initialize(float leftEdge) {
+        debrisList = new ArrayList<Debris>();
         position = leftEdge + width * 0.5f;
         generateCollectibles(leftEdge);
     }
@@ -82,7 +85,7 @@ public class Space extends GameWorldRegion {
         for (int i = 0; i < debrisCount; i++) {
             float regionLeft = leftEdge + (i * region);
             float regionRight = regionLeft + region;
-            new Debris(regionLeft, regionRight);
+            debrisList.add(new Debris(regionLeft, regionRight));
         }
     }
 
@@ -219,6 +222,19 @@ public class Space extends GameWorldRegion {
             debrisCount = count;
         } else {
             throw new IllegalArgumentException();
+        }
+    }
+
+    @Override
+    public void destroy() {
+        for (DyePack d : dyeList) {
+            d.destroy();
+        }
+        for (PowerUp p : powerUpList) {
+            p.destroy();
+        }
+        for (Debris deb : debrisList) {
+            deb.destroy();
         }
     }
 }

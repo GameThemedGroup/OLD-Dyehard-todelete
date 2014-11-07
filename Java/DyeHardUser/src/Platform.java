@@ -1,17 +1,19 @@
-
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-import dyehard.World.PlatformSingle;
 import Engine.BaseCode;
 import Engine.Vector2;
+import dyehard.World.PlatformSingle;
 
 public class Platform {
     public static float height = 1.25f;
     private final float width = 6.5f;
     private static Random RANDOM = new Random();
+    private final List<PlatformSingle> plats;
 
     public Platform(int offset, float leftEdge, boolean continuous) {
+        plats = new ArrayList<PlatformSingle>();
         fillPlatform(offset, leftEdge, continuous);
     }
 
@@ -23,7 +25,7 @@ public class Platform {
         if (continuous) {
             for (int i = 0; i < numPlat; i++) {
                 float Xpos = (width * i) + leftEdge + (width / 2);
-                new PlatformSingle(new Vector2(Xpos, Ypos));
+                plats.add(new PlatformSingle(new Vector2(Xpos, Ypos)));
             }
         } else {
             // randomly fill platform
@@ -37,10 +39,16 @@ public class Platform {
                 }
                 if (platform) {
                     float Xpos = (width * i) + leftEdge + (width / 2);
-                    new PlatformSingle(new Vector2(Xpos, Ypos));
+                    plats.add(new PlatformSingle(new Vector2(Xpos, Ypos)));
                 }
                 consecutiveChance -= 1;
             }
+        }
+    }
+
+    public void destroy() {
+        for (PlatformSingle p : plats) {
+            p.destroy();
         }
     }
 }

@@ -41,6 +41,10 @@ public class EnemyGenerator {
         t.reset();
     }
 
+    public void clearEnemy() {
+        enemyManager.clear();
+    }
+
     public void update() {
         if (t.isDone()) {
             generateEnemy();

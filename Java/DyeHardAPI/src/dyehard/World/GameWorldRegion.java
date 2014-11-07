@@ -30,4 +30,6 @@ public abstract class GameWorldRegion {
     // Instructs the region to construct its components using the leftEdge as
     // its starting location
     public abstract void initialize(float leftEdge);
+
+    public abstract void destroy();
 }
