@@ -71,7 +71,6 @@ public class UserCode extends DyeHard {
             if (keyboard.isButtonTapped(KeyEvent.VK_SPACE)) {
                 state = State.PLAYING;
                 GameState.RemainingLives = 4;
-                BaseCode.resources.resumeSound();
             }
             break;
         case QUIT:
@@ -93,7 +92,7 @@ public class UserCode extends DyeHard {
 
         resources.setClassInJar(this);
 
-        state = State.PLAYING;
+        state = State.BEGIN;
         GameState.TargetDistance = Configuration.worldMapLength;
         world = new GameWorld();
 
