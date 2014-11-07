@@ -6,7 +6,7 @@ public class DyeHardSound {
     private static boolean soundPlay = true;
     // Music/Sound path strings
     public final static String pickUpSound = "Audio/PickupSound.wav";
-    public final static String powerUpSound = "Audio/PowerupSound.wav";
+    public final static String powerUpSound = "Audio/Powerup.wav";
     public final static String paintSpraySound = "Audio/PaintSpraySound.wav";
     public final static String wormHoleSound = "Audio/WormHole.wav";
 
