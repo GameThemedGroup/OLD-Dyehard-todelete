@@ -6,9 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
 
+import Engine.BaseCode;
 import Engine.Text;
 import Engine.Vector2;
 import dyehard.DyehardKeyboard;
+import dyehard.DyehardRectangle;
 import dyehard.UpdateManager;
 import dyehard.UpdateObject;
 import dyehard.Collectibles.Ghost;
@@ -32,6 +34,10 @@ public class DeveloperControls extends UpdateObject {
     Text weaponText;
     List<Text> powerupText;
 
+    // #TODO take out recs, to showcase fps drop only
+    private final List<DyehardRectangle> recs;
+    private boolean recVis = false;
+
     private final HashMap<Integer, PowerUp> generationHotkeys;
 
     public DeveloperControls(Hero hero) {
@@ -53,6 +59,30 @@ public class DeveloperControls extends UpdateObject {
         weaponText = createTextAt(3f, 1f);
         powerupText = new ArrayList<Text>();
 
+        recs = new ArrayList<DyehardRectangle>();
+        float w = 20f;
+        float h = 14f;
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 4; j++) {
+                DyehardRectangle rec = new DyehardRectangle();
+                rec.texture = BaseCode.resources
+                        .loadImage("Textures/Background/Warp_pink_front.png");
+                rec.center = new Vector2(i * w + w / 2, j * h + h / 2);
+                rec.size = new Vector2(w, h);
+                rec.visible = false;
+
+                DyehardRectangle rec2 = new DyehardRectangle();
+                rec2.texture = BaseCode.resources
+                        .loadImage("Textures/Background/Warp_pink_back.png");
+                rec2.center = new Vector2(i * w + w / 2, j * h + h / 2);
+                rec2.size = new Vector2(w, h);
+                rec2.visible = false;
+
+                recs.add(rec);
+                recs.add(rec2);
+            }
+        }
+
         UpdateManager.register(this);
     }
 
@@ -61,6 +91,20 @@ public class DeveloperControls extends UpdateObject {
         weaponText.setText("Weapon: " + hero.currentWeapon.toString());
 
         updatePowerupText();
+
+        if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_D)) {
+            if (recVis) {
+                for (DyehardRectangle r : recs) {
+                    r.visible = false;
+                }
+                recVis = false;
+            } else {
+                for (DyehardRectangle r : recs) {
+                    r.visible = true;
+                }
+                recVis = true;
+            }
+        }
 
         if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_E)) {
             EnemyGenerator.generateEnemy();
