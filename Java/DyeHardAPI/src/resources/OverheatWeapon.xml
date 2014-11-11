@@ -10,8 +10,8 @@ overheats. -->
 
 <weapon>
     <overheatWeapon type="Overheat">
-		<firingRate>250</firingRate>
-	    <cooldownRate>0.03</cooldownRate>
-	    <heatLimit>10</heatLimit>
+		<firingRate>350</firingRate>
+	    <cooldownRate>0.02</cooldownRate>
+	    <heatLimit>5</heatLimit>
 	</overheatWeapon>
 </weapon>

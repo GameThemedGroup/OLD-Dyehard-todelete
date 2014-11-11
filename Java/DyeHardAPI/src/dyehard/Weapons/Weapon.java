@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import dyehard.Configuration;
 import dyehard.GameObject;
 import dyehard.ManagerState;
 import dyehard.UpdateManager.Updateable;
@@ -19,8 +20,7 @@ public class Weapon extends GameObject implements Updateable, Progressable {
     protected Hero hero;
     protected Queue<GameObject> bullets;
     protected ArrayList<Enemy> enemies;
-    // Weapon fires 1 bullet/second, time is in milliseconds
-    protected float fireRate = 500f;
+    protected float fireRate = Configuration.overheatFiringRate;
     protected Timer timer;
 
     public Weapon(Hero hero) {
