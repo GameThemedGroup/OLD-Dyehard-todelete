@@ -78,7 +78,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     private final HashMap<Integer, Integer> weaponHotkeys;
 
     public enum Direction {
-        UP, DOWN, LEFT, NEUTRAL
+        UP, DOWN, BACK, FORWARD, UPFORWARD, UPBACK, DOWNFORWARD, DOWNBACK, NEUTRAL
     }
 
     public enum CurPowerUp {
@@ -261,19 +261,32 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
             float xOffset = x - center.getX();
             float yOffset = y - center.getY();
 
+            float theta = (float) (180.0 / Math.PI * Math.atan2(xOffset,
+                    yOffset));
+
             if (Math.abs(xOffset) + Math.abs(yOffset) < 0.2f) {
                 directionState = Direction.NEUTRAL;
-            } else if ((xOffset * xOffset) > (yOffset * yOffset)) {
-                if (xOffset > 0) {
-                    directionState = Direction.NEUTRAL; // TODO change to Right
-                                                        // when
-                                                        // texture comes
+            } else if (theta > 0) {
+                if (theta < 22.5) {
+                    directionState = Direction.UP;
+                } else if (theta < 67.5) {
+                    directionState = Direction.UPFORWARD;
+                } else if (theta < 112.5) {
+                    directionState = Direction.FORWARD;
+                } else if (theta < 157.5) {
+                    directionState = Direction.DOWNFORWARD;
                 } else {
-                    directionState = Direction.LEFT;
+                    directionState = Direction.DOWN;
                 }
             } else {
-                if (yOffset > 0) {
+                if (theta > -22.5) {
                     directionState = Direction.UP;
+                } else if (theta > -67.5) {
+                    directionState = Direction.UPBACK;
+                } else if (theta > -112.5) {
+                    directionState = Direction.BACK;
+                } else if (theta > -157.5) {
+                    directionState = Direction.DOWNBACK;
                 } else {
                     directionState = Direction.DOWN;
                 }
@@ -296,18 +309,6 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
                 center.setY(center.getY()
                         + Math.max((yOffset * heroSpeedRatio), -maxHeroSpeed));
             }
-
-            // if ((!collideRight) && (xOffset > 0)) {
-            // center.setX(center.getX() + (xOffset * 0.2f));
-            // } else if ((!collideLeft) && (xOffset < 0)) {
-            // center.setX(center.getX() + (xOffset * 0.2f));
-            // }
-            //
-            // if ((!collideUp) && (yOffset > 0)) {
-            // center.setY(center.getY() + (yOffset * 0.2f));
-            // } else if ((!collideDown) && (yOffset < 0)) {
-            // center.setY(center.getY() + (yOffset * 0.2f));
-            // }
         }
     }
 
@@ -323,8 +324,23 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
             case DOWN:
                 size.set(new Vector2(3.4f * sizeScale, 5.8f * sizeScale));
                 break;
-            case LEFT:
+            case BACK:
                 size.set(new Vector2(3.35f * sizeScale, 6.2f * sizeScale));
+                break;
+            case FORWARD:
+                size.set(new Vector2(6.95f * sizeScale, 5.2f * sizeScale));
+                break;
+            case UPFORWARD:
+                size.set(new Vector2(5.55f * sizeScale, 6.35f * sizeScale));
+                break;
+            case UPBACK:
+                size.set(new Vector2(3.9f * sizeScale, 6.4f * sizeScale));
+                break;
+            case DOWNFORWARD:
+                size.set(new Vector2(5.25f * sizeScale, 5.95f * sizeScale));
+                break;
+            case DOWNBACK:
+                size.set(new Vector2(4.1f * sizeScale, 5.4f * sizeScale));
                 break;
             }
             texture = dyeFireTextures.get(directionState);
@@ -340,8 +356,23 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
             case DOWN:
                 size.set(new Vector2(3.55f * sizeScale, 6.05f * sizeScale));
                 break;
-            case LEFT:
+            case BACK:
                 size.set(new Vector2(3.9f * sizeScale, 5.2f * sizeScale));
+                break;
+            case FORWARD:
+                size.set(new Vector2(6.25f * sizeScale, 5.75f * sizeScale));
+                break;
+            case UPFORWARD:
+                size.set(new Vector2(6.15f * sizeScale, 6.7f * sizeScale));
+                break;
+            case UPBACK:
+                size.set(new Vector2(5.5f * sizeScale, 6.85f * sizeScale));
+                break;
+            case DOWNFORWARD:
+                size.set(new Vector2(6f * sizeScale, 4.5f * sizeScale));
+                break;
+            case DOWNBACK:
+                size.set(new Vector2(4.9f * sizeScale, 5.6f * sizeScale));
                 break;
             }
             texture = dyeTextures.get(directionState);

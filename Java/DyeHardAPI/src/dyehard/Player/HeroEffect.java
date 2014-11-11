@@ -1,6 +1,5 @@
 package dyehard.Player;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import Engine.BaseCode;
@@ -59,22 +58,10 @@ public class HeroEffect {
         invin.setSpriteSheet(invin.texture, 200, 300, 10, 2);
         invin.visible = false;
 
-        // Constant offset for all directions
-        offsets = new HashMap<Direction, Offset>();
-        offsets.put(Direction.UP, new Offset(90f, -hero.size.getX() * 0.3f,
-                -hero.size.getY() * 0.2f));
-        offsets.put(Direction.DOWN, new Offset(-90f, -hero.size.getX() * 0.3f,
-                hero.size.getY() * 0.2f));
-        offsets.put(Direction.LEFT, new Offset(180f, hero.size.getX() / 1.8f,
-                hero.size.getY() * 0.1f));
-        // offsets.put(Direction.RIGHT, new Offset(30, -1, 1));
-        offsets.put(Direction.NEUTRAL, new Offset(0f, -hero.size.getX() / 1.6f,
-                hero.size.getY() * 0.1f));
-
         boost = new DyehardRectangle();
-        Offset offset = offsets.get(hero.directionState);
-        boost.rotate = offset.rotation;
-        boost.center = hero.center.clone().add(offset.transform);
+        boost.center = hero.center.clone().add(
+                new Vector2(hero.size.getX() * -.59f, hero.size.getY() * .11f));
+        boost.rotate = 0f;
         boost.size = new Vector2(2f, 2f);
         boost.texture = BaseCode.resources
                 .loadImage("Textures/Hero/Dye_boost_AnimSheet.png");
@@ -84,9 +71,79 @@ public class HeroEffect {
     }
 
     public void update() {
-        Offset offset = offsets.get(hero.directionState);
-        boost.rotate = offset.rotation;
-        boost.center = hero.center.clone().add(offset.transform);
+        if (hero.isFiring) {
+            switch (hero.directionState) {
+            case UP:
+                boost.center = hero.center.clone().add(
+                        new Vector2(hero.size.getX() * .58f, hero.size.getY()
+                                * -.18f));
+                boost.rotate = 90f;
+                boost.visible = true;
+                break;
+            case UPFORWARD:
+                boost.center = hero.center.clone().add(
+                        new Vector2(hero.size.getX() * -.2f, 0f));
+                boost.rotate = 35f;
+                boost.visible = true;
+                break;
+            default:
+                boost.visible = false;
+                break;
+            }
+        } else {
+            switch (hero.directionState) {
+            case NEUTRAL:
+                boost.center = hero.center.clone().add(
+                        new Vector2(hero.size.getX() * -.59f,
+                                hero.size.getY() * .11f));
+                boost.rotate = 0f;
+                boost.visible = true;
+                break;
+            case UP:
+                boost.center = hero.center.clone().add(
+                        new Vector2(hero.size.getX() * -.33f, hero.size.getY()
+                                * -.23f));
+                boost.rotate = 90f;
+                boost.visible = true;
+                break;
+            case DOWN:
+                boost.visible = false;
+                break;
+            case BACK:
+                boost.center = hero.center.clone().add(
+                        new Vector2(hero.size.getX() * .59f,
+                                hero.size.getY() * .13f));
+                boost.rotate = 180f;
+                boost.visible = true;
+                break;
+            case FORWARD:
+                boost.center = hero.center.clone().add(
+                        new Vector2(hero.size.getX() * -.35f,
+                                hero.size.getY() * .08f));
+                boost.rotate = 0f;
+                boost.visible = true;
+                break;
+            case UPFORWARD:
+                boost.center = hero.center.clone().add(
+                        new Vector2(hero.size.getX() * -.4f, 0f));
+                boost.rotate = 35f;
+                boost.visible = true;
+                break;
+            case UPBACK:
+                boost.center = hero.center.clone().add(
+                        new Vector2(hero.size.getX() * .13f, hero.size.getY()
+                                * -.13f));
+                boost.rotate = 180f;
+                boost.visible = true;
+                break;
+            case DOWNFORWARD:
+                boost.visible = false;
+                break;
+            case DOWNBACK:
+                boost.visible = false;
+                break;
+            }
+        }
 
         if (hero.isInvin) {
             if (!invin.visible) {
