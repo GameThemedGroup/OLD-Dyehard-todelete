@@ -21,10 +21,30 @@ public class Portal extends GameObject {
     protected Timer timer;
     protected float width;
     protected float height;
-    protected float duration;
+    protected float duration = 4000f;
+
+    private final boolean collide;
 
     public Portal(Vector2 center, Hero hero) {
         this.center = center.clone();
+
+        width = Configuration.getEnemyData(EnemyType.PORTAL_SPAWN).width;
+        height = Configuration.getEnemyData(EnemyType.PORTAL_SPAWN).height;
+        parseNodeList();
+
+        size.set(width, height);
+        this.hero = hero;
+        texture = BaseCode.resources
+                .loadImage("Textures/Enemies/Minion_Portal_AnimSheet.png");
+        setUsingSpriteSheet(true);
+        setSpriteSheet(texture, 160, 160, 20, 2);
+        timer = new Timer(duration);
+        collide = true;
+    }
+
+    public Portal(Hero hero) {
+        collide = false;
+        center = hero.center.clone();
 
         width = Configuration.getEnemyData(EnemyType.PORTAL_SPAWN).width;
         height = Configuration.getEnemyData(EnemyType.PORTAL_SPAWN).height;
@@ -41,21 +61,24 @@ public class Portal extends GameObject {
 
     @Override
     public void update() {
-        if (collided(hero)) {
-            Random rand = new Random();
-            hero.center.set(rand.nextInt(90) + 5, rand.nextInt(50) + 5);
-            // move mouse to where center of hero is
-            try {
-                Robot robot = new Robot();
+        if (collide) {
+            if (collided(hero)) {
+                Random rand = new Random();
+                hero.center.set(rand.nextInt(90) + 5, rand.nextInt(50) + 5);
+                // move mouse to where center of hero is
+                try {
+                    Robot robot = new Robot();
 
-                robot.mouseMove(
-                        (int) BaseCode.world.worldToScreenX(hero.center.getX()),
-                        (int) BaseCode.world.worldToScreenY(hero.center.getY()));
-            } catch (AWTException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                    robot.mouseMove((int) BaseCode.world
+                            .worldToScreenX(hero.center.getX()),
+                            (int) BaseCode.world.worldToScreenY(hero.center
+                                    .getY()));
+                } catch (AWTException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                hero.velocity = new Vector2(0f, 0f);
             }
-            hero.velocity = new Vector2(0f, 0f);
         }
         if (timer.isDone()) {
             destroy();
