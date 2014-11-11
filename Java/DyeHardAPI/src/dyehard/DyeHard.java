@@ -1,6 +1,7 @@
 package dyehard;
 
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -21,9 +22,12 @@ public abstract class DyeHard extends LibraryCode {
     public void initializeWorld() {
         super.initializeWorld();
         Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Image image = toolkit.getImage("resources/Beak.png");
-        Cursor cursor = toolkit.createCustomCursor(image, new Point(0, 0),
-                "cursor");
+        Image image = toolkit.getImage("resources/DyeHard_Cursor.png");
+        Dimension cursorSize = Toolkit.getDefaultToolkit().getBestCursorSize(
+                image.getHeight(window), image.getHeight(window));
+        Point point = new Point((int) (cursorSize.getWidth() / 2.0),
+                (int) (cursorSize.getHeight() / 2.0)); // hot point to middle
+        Cursor cursor = toolkit.createCustomCursor(image, point, "cursor");
         window.setCursor(cursor);
         initialize(); // call user code Initialize()
     }

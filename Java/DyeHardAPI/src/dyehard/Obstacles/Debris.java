@@ -22,7 +22,7 @@ public class Debris extends Obstacle {
         size.set(width, height);
 
         float speed = Configuration.debrisSpeed;
-        velocity = new Vector2(-(RANDOM.nextFloat() * speed + speed / 4f), 0f);
+        velocity = new Vector2(-(RANDOM.nextFloat() * speed / 2 + speed), 0f);
         shouldTravel = true;
 
         initializeRandomTexture();
