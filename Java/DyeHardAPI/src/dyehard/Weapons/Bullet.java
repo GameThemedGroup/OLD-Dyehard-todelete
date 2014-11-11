@@ -23,9 +23,7 @@ public class Bullet extends Collidable {
         size = new Vector2(6.25f, 2.25f);
         dyeColor = hero.getColor();
         texture = hero.bulletTextures.get(dyeColor);
-        center = hero.center.clone().add(
-                new Vector2(size.getX() / 2, hero.size.getY() / 4f
-                        + size.getY() * 0.5f));
+        setPosition(this);
         shouldTravel = true;
         velocity = new Vector2(3f, 0f);
 
@@ -40,12 +38,8 @@ public class Bullet extends Collidable {
 
     @Override
     public void update() {
-        // TODO replace with hero fire points
-        muzzle.center = hero.center.clone().add(
-                new Vector2(size.getX() / 2, hero.size.getY() / 4f));
-
+        setPosition(muzzle);
         if ((muzzle.spriteCycleDone) && (firing)) {
-            System.out.println("done");
             hero.isFiring = false;
             muzzle.destroy();
             firing = false;
@@ -53,6 +47,56 @@ public class Bullet extends Collidable {
             hero.isFiring = true;
         }
         super.update();
+    }
+
+    private void setPosition(DyehardRectangle c) {
+        switch (hero.getDirection()) {
+        case NEUTRAL:
+            c.center = hero.center.clone()
+                    .add(new Vector2(hero.size.getX() * .6f,
+                            hero.size.getY() * .23f));
+            break;
+        case UP:
+            c.center = hero.center.clone().add(
+                    new Vector2(hero.size.getX() * .58f,
+                            hero.size.getY() * .18f));
+            break;
+        case DOWN:
+            c.center = hero.center.clone().add(
+                    new Vector2(hero.size.getX() * .69f,
+                            hero.size.getY() * .15f));
+            break;
+        case BACK:
+            c.center = hero.center.clone().add(
+                    new Vector2(hero.size.getX() * .74f,
+                            hero.size.getY() * .16f));
+            break;
+        case FORWARD:
+            c.center = hero.center.clone()
+                    .add(new Vector2(hero.size.getX() * .6f,
+                            hero.size.getY() * .14f));
+            break;
+        case UPFORWARD:
+            c.center = hero.center.clone().add(
+                    new Vector2(hero.size.getX() * .63f,
+                            hero.size.getY() * .26f));
+            break;
+        case UPBACK:
+            c.center = hero.center.clone()
+                    .add(new Vector2(hero.size.getX() * .6f,
+                            hero.size.getY() * .16f));
+            break;
+        case DOWNFORWARD:
+            c.center = hero.center.clone().add(
+                    new Vector2(hero.size.getX() * .64f,
+                            hero.size.getY() * .19f));
+            break;
+        case DOWNBACK:
+            c.center = hero.center.clone().add(
+                    new Vector2(hero.size.getX() * .68f,
+                            hero.size.getY() * .13f));
+            break;
+        }
     }
 
     @Override

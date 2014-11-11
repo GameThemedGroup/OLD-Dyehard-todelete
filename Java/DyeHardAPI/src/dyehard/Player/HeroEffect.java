@@ -1,22 +1,10 @@
 package dyehard.Player;
 
-import java.util.Map;
-
 import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.DyehardRectangle;
-import dyehard.Player.Hero.Direction;
 
 public class HeroEffect {
-    public class Offset {
-        public Offset(float rotation, float x, float y) {
-            this.rotation = rotation;
-            transform = new Vector2(x, y);
-        }
-
-        public float rotation;
-        public Vector2 transform;
-    }
 
     private final Hero hero;
 
@@ -24,8 +12,6 @@ public class HeroEffect {
     private final DyehardRectangle repelRight;
     private final DyehardRectangle invin;
     private final DyehardRectangle boost;
-
-    protected Map<Direction, Offset> offsets;
 
     public HeroEffect(Hero hero) {
         this.hero = hero;
@@ -75,8 +61,8 @@ public class HeroEffect {
             switch (hero.directionState) {
             case UP:
                 boost.center = hero.center.clone().add(
-                        new Vector2(hero.size.getX() * .58f, hero.size.getY()
-                                * -.18f));
+                        new Vector2(hero.size.getX() * -.35f,
+                                hero.size.getY() * .2f));
                 boost.rotate = 90f;
                 boost.visible = true;
                 break;

@@ -20,7 +20,7 @@ public class Weapon extends GameObject implements Updateable, Progressable {
     protected Queue<GameObject> bullets;
     protected ArrayList<Enemy> enemies;
     // Weapon fires 1 bullet/second, time is in milliseconds
-    protected float fireRate = 1000f;
+    protected float fireRate = 500f;
     protected Timer timer;
 
     public Weapon(Hero hero) {
@@ -32,7 +32,7 @@ public class Weapon extends GameObject implements Updateable, Progressable {
     // Fire the weapon
     public void fire() {
         if (timer.isDone()) {
-            DyeHardSound.play(DyeHardSound.paintSpraySound);
+            DyeHardSound.playMulti(DyeHardSound.paintSpraySound);
             new Bullet(hero);
             timer = new Timer(fireRate);
         }

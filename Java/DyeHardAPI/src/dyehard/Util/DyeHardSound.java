@@ -41,6 +41,12 @@ public class DyeHardSound {
         }
     }
 
+    public static void playMulti(String path) {
+        if (soundPlay) {
+            BaseCode.resources.playSound(path);
+        }
+    }
+
     public static void playBgMusic() {
         if (musicPlay) {
             BaseCode.resources.playSoundLooping(bgMusicPath);

@@ -466,6 +466,10 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         return collectedPowerups;
     }
 
+    public Direction getDirection() {
+        return directionState;
+    }
+
     @Override
     public void kill(Primitive who) {
         if ((damageOn)
