@@ -4,21 +4,35 @@ public class Timer {
     private float startTime;
     private float endTime;
     private float interval;
+    private final boolean active;
 
     public Timer(float milliSeconds) {
         startTime = System.nanoTime();
         interval = milliSeconds * 1000000; // milli to nano
         endTime = startTime + interval;
+        active = true;
     }
 
     public Timer() {
         startTime = System.nanoTime();
         interval = 100000000;
         endTime = startTime + interval;
+        active = true;
+    }
+
+    public Timer(boolean bool) {
+        active = bool;
+        startTime = System.nanoTime();
+        interval = 100000000;
+        endTime = startTime + interval;
     }
 
     public boolean isDone() {
-        return System.nanoTime() >= endTime;
+        if (!active) {
+            return true;
+        } else {
+            return System.nanoTime() >= endTime;
+        }
     }
 
     public void reset() {

@@ -1,7 +1,6 @@
 package dyehard.Enemies;
 
 import java.awt.Color;
-import java.awt.image.BufferedImage;
 
 import Engine.BaseCode;
 import Engine.Vector2;
@@ -42,12 +41,23 @@ public class ChargerEnemy extends Enemy {
     @Override
     public void update() {
         float deltaT = t.deltaTime();
+        if (harmlessTimer.isDone()) {
+            harmlessTimer = new Timer(false);
+            color = null;
+            if (chasing) {
+                setSpriteSheet(Hero.chargerAttackTextures.get(Color.gray), 340,
+                        140, 11, 2);
+            } else {
+                setSpriteSheet(Hero.chargerIdleTextures.get(Color.gray), 340,
+                        140, 11, 2);
+            }
+        }
+
         if (chasing) {
             if (!setImage) {
                 if (color == null) {
-                    BufferedImage temp = BaseCode.resources
-                            .loadImage("Textures/Enemies/Charger_AnimSheet_Attack.png");
-                    setSpriteSheet(temp, 340, 140, 11, 2);
+                    setSpriteSheet(Hero.chargerAttackTextures.get(Color.gray),
+                            340, 140, 11, 2);
                 } else {
                     setSpriteSheet(Hero.chargerAttackTextures.get(color), 340,
                             140, 11, 2);

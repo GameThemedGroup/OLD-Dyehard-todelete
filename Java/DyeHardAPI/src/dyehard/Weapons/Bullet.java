@@ -135,6 +135,7 @@ public class Bullet extends Collidable {
             Enemy enemy = (Enemy) other;
             enemy.setColor(dyeColor);
             enemy.beenHit = true;
+            enemy.setHarmless();
             collidableState = ManagerState.DESTROYED;
         }
     }

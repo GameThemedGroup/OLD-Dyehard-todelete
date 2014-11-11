@@ -111,6 +111,11 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
             portalEnemyTextures.put(temp,
                     ImageTint.tintedImage(portalEnemy, temp, 0.25f));
         }
+        chargerIdleTextures.put(Color.gray, idle);
+        chargerAttackTextures.put(Color.gray, attack);
+        regularLeftTextures.put(Color.gray, regularLeft);
+        regularRightTextures.put(Color.gray, regularRight);
+        portalEnemyTextures.put(Color.gray, portalEnemy);
 
         for (Direction dir : Direction.values()) {
             dyeTextures.put(
@@ -473,6 +478,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     @Override
     public void kill(Primitive who) {
         if ((damageOn)
+                && (who.color != color)
                 || ((who instanceof DeathGate) && curPowerUp == CurPowerUp.GHOST)) {
 
             damageHero(this, who);

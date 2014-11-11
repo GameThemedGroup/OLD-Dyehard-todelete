@@ -27,9 +27,11 @@ public class Enemy extends Actor {
     protected float width;
     protected float height;
     protected float sleepTimer;
+    protected boolean harmless = false;
 
     // This time is in milliseconds
     private Timer timer;
+    protected Timer harmlessTimer;
 
     protected enum EnemyState {
         BEGIN, CHASEHERO, PLAYING, DEAD
@@ -41,6 +43,7 @@ public class Enemy extends Actor {
         this.hero = hero;
         baseTexture = BaseCode.resources.loadImage(texturePath);
         texture = baseTexture;
+        harmlessTimer = new Timer(false);
     }
 
     public void initialize() {
@@ -65,6 +68,7 @@ public class Enemy extends Actor {
         default:
             break;
         }
+        harmlessReset();
         super.update();
     }
 
@@ -99,6 +103,17 @@ public class Enemy extends Actor {
     public void setColor(Color color) {
         super.setColor(color);
         texture = ImageTint.tintedImage(baseTexture, color, 0.25f);
+    }
+
+    public void setHarmless() {
+        harmlessTimer = new Timer(4000);
+    }
+
+    public void harmlessReset() {
+        if (harmlessTimer.isDone()) {
+            color = null;
+            harmlessTimer = new Timer(false);
+        }
     }
 
     public String parseNodeList(EnemyType type, String tag) {
