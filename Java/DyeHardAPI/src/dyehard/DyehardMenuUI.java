@@ -94,7 +94,53 @@ public class DyehardMenuUI {
                     DyeHard.state = DyeHard.State.QUIT;
                 }
             } else {
-                menuSelect.active(false);
+                // menuSelect.active(false);
+            }
+        }
+        // sound on/off
+        if ((y > 33.375) && (y < 35.625)) {
+            // sound on
+            if ((x > 49.25) && (x < 54.25)) {
+                menuSelect.move(soundSelect);
+                if (click) {
+                    DyeHardSound.setSound(true);
+                    soundTog.move(soundOn);
+                }
+            }
+            // sound off
+            else if ((x > 59.5) && (x < 65.625)) {
+                menuSelect.move(soundSelect);
+                if (click) {
+                    DyeHardSound.setSound(false);
+                    soundTog.move(soundOff);
+                }
+            }
+        }
+        // music on/off
+        else if ((y > 24.75) && (y < 26.875)) {
+            // music on
+            if ((x > 49.25) && (x < 54.25)) {
+                menuSelect.move(musicSelect);
+                if (click) {
+                    if (!music) {
+                        DyeHardSound.setMusic(true);
+                        DyeHardSound.playBgMusic();
+                        musicTog.move(musicOn);
+                        music = true;
+                    }
+                }
+            }
+            // music off
+            else if ((x > 59.5) && (x < 65.625)) {
+                menuSelect.move(musicSelect);
+                if (click) {
+                    if (music) {
+                        DyeHardSound.setMusic(false);
+                        DyeHardSound.stopBgMusic();
+                        musicTog.move(musicOff);
+                        music = false;
+                    }
+                }
             }
         }
     }

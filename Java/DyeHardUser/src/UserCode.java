@@ -150,6 +150,7 @@ public class UserCode extends DyeHard {
         default:
             break;
         }
+        // System.out.println(mouse.getWorldX() + " " + mouse.getWorldY());
 
         // playing, control hero
         if (state == State.PLAYING) {
@@ -158,13 +159,10 @@ public class UserCode extends DyeHard {
                 menuActive = false;
             }
             hero.moveTo(mouse.getWorldX(), mouse.getWorldY());
-            // System.out.println(MouseInfo.getPointerInfo().getLocation());
 
             if ((keyboard.isButtonDown(KeyEvent.VK_F))
                     || (mouse.isButtonDown(1))) {
                 hero.currentWeapon.fire();
-                // System.out.println(mouse.getWorldX() + " " +
-                // mouse.getWorldY());
             }
         }
         // deactive menu if BEGIN state
