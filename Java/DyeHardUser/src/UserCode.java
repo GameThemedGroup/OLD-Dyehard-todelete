@@ -36,11 +36,14 @@ public class UserCode extends DyeHard {
 
         switch (state) {
         case BEGIN:
-            if (keyboard.isButtonTapped(KeyEvent.VK_A)) {
+            if (keyboard.isButtonTapped(KeyEvent.VK_A)
+                    || mouse.isButtonTapped(1)) {
                 state = State.PLAYING;
+                world.start.showScreen(false);
             }
             if (keyboard.isButtonTapped(KeyEvent.VK_ESCAPE)) {
                 state = State.MENU;
+                world.start.showScreen(false);
             }
             break;
         case PAUSED:
@@ -170,6 +173,9 @@ public class UserCode extends DyeHard {
             if (menuActive) {
                 world.menu.active(false);
                 menuActive = false;
+            }
+            if (!world.start.isShown()) {
+                world.start.showScreen(true);
             }
         }
         // state menu or gameover, activate menu
