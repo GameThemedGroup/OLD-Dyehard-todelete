@@ -4,7 +4,7 @@ public class Timer {
     private float startTime;
     private float endTime;
     private float interval;
-    private final boolean active;
+    private boolean active;
 
     public Timer(float milliSeconds) {
         startTime = System.nanoTime();
@@ -33,6 +33,10 @@ public class Timer {
         } else {
             return System.nanoTime() >= endTime;
         }
+    }
+
+    public void setActive(boolean bool) {
+        active = bool;
     }
 
     public void reset() {

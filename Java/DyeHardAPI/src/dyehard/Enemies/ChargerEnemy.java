@@ -42,7 +42,7 @@ public class ChargerEnemy extends Enemy {
     public void update() {
         float deltaT = t.deltaTime();
         if (harmlessTimer.isDone()) {
-            harmlessTimer = new Timer(false);
+            harmlessTimer.setActive(false);
             color = null;
             if (chasing) {
                 setSpriteSheet(Hero.chargerAttackTextures.get(Color.gray), 340,

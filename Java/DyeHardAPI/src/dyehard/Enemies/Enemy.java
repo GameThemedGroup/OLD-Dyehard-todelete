@@ -43,7 +43,8 @@ public class Enemy extends Actor {
         this.hero = hero;
         baseTexture = BaseCode.resources.loadImage(texturePath);
         texture = baseTexture;
-        harmlessTimer = new Timer(false);
+        harmlessTimer = new Timer(4000);
+        harmlessTimer.setActive(false);
     }
 
     public void initialize() {
@@ -106,13 +107,14 @@ public class Enemy extends Actor {
     }
 
     public void setHarmless() {
-        harmlessTimer = new Timer(4000);
+        harmlessTimer.reset();
+        harmlessTimer.setActive(true);
     }
 
     public void harmlessReset() {
         if (harmlessTimer.isDone()) {
             color = null;
-            harmlessTimer = new Timer(false);
+            harmlessTimer.setActive(false);
         }
     }
 

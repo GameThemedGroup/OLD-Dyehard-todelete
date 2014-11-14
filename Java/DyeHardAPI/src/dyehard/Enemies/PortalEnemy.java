@@ -33,7 +33,7 @@ public class PortalEnemy extends Enemy {
     @Override
     public void update() {
         if (harmlessTimer.isDone()) {
-            harmlessTimer = new Timer(false);
+            harmlessTimer.setActive(false);
             color = null;
             setSpriteSheet(Hero.portalEnemyTextures.get(Color.gray), 140, 140,
                     12, 2);
