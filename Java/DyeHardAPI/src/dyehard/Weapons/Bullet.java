@@ -5,7 +5,6 @@ import java.awt.Color;
 import Engine.Vector2;
 import dyehard.Collidable;
 import dyehard.DyehardRectangle;
-import dyehard.ManagerState;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.Hero;
 
@@ -136,7 +135,6 @@ public class Bullet extends Collidable {
             enemy.setColor(dyeColor);
             enemy.beenHit = true;
             enemy.setHarmless();
-            collidableState = ManagerState.DESTROYED;
         }
     }
 }
