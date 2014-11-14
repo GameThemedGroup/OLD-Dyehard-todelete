@@ -117,6 +117,12 @@ public class GameWorld implements Updateable {
             }
             if (e instanceof Stargate) {
                 ((Stargate) e).blockHero();
+                if ((e.leftEdge() > RIGHT_EDGE + 10f)
+                        || (e.leftEdge() < LEFT_EDGE + 30f)) {
+                    enemyGenerator.update();
+                }
+            } else if (gameRegions.size() == 1) {
+                enemyGenerator.update();
             }
             distance += Speed;
             GameState.DistanceTravelled = (int) distance;
@@ -124,7 +130,6 @@ public class GameWorld implements Updateable {
                 GameState.Score = (int) distance;
             }
         }
-        enemyGenerator.update();
         updateSequence();
     }
 
