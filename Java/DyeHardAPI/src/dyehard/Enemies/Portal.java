@@ -1,7 +1,7 @@
 package dyehard.Enemies;
 
-import java.awt.AWTException;
-import java.awt.Robot;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import org.w3c.dom.Element;
@@ -14,6 +14,7 @@ import dyehard.Configuration;
 import dyehard.Configuration.EnemyType;
 import dyehard.GameObject;
 import dyehard.Player.Hero;
+import dyehard.Util.ImageTint;
 import dyehard.Util.Timer;
 
 public class Portal extends GameObject {
@@ -24,6 +25,14 @@ public class Portal extends GameObject {
     protected float duration = 4000f;
 
     private final boolean collide;
+
+    private static BufferedImage exitTexture;
+
+    static {
+        exitTexture = ImageTint.tintedImage(BaseCode.resources
+                .loadImage("Textures/Enemies/Minion_Portal_AnimSheet.png"),
+                Color.blue, 0.5f);
+    }
 
     public Portal(Vector2 center, Hero hero) {
         this.center = center.clone();
@@ -42,21 +51,21 @@ public class Portal extends GameObject {
         collide = true;
     }
 
-    public Portal(Hero hero) {
+    public Portal(Hero hero, Vector2 center) {
         collide = false;
-        center = hero.center.clone();
+        this.center = center.clone();
+
+        this.hero = hero;
 
         width = Configuration.getEnemyData(EnemyType.PORTAL_SPAWN).width;
         height = Configuration.getEnemyData(EnemyType.PORTAL_SPAWN).height;
         parseNodeList();
 
         size.set(width, height);
-        this.hero = hero;
-        texture = BaseCode.resources
-                .loadImage("Textures/Enemies/Minion_Portal_AnimSheet.png");
+        texture = exitTexture;
         setUsingSpriteSheet(true);
         setSpriteSheet(texture, 160, 160, 20, 2);
-        timer = new Timer(duration);
+        timer = new Timer(duration / 4);
     }
 
     @Override
@@ -64,24 +73,16 @@ public class Portal extends GameObject {
         if (collide) {
             if (collided(hero)) {
                 Random rand = new Random();
-                hero.center.set(rand.nextInt(90) + 5, rand.nextInt(50) + 5);
-                // move mouse to where center of hero is
-                try {
-                    Robot robot = new Robot();
-
-                    robot.mouseMove((int) BaseCode.world
-                            .worldToScreenX(hero.center.getX()),
-                            (int) BaseCode.world.worldToScreenY(hero.center
-                                    .getY()));
-                } catch (AWTException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                hero.velocity = new Vector2(0f, 0f);
+                new Portal(hero, new Vector2(rand.nextInt(90) + 5,
+                        rand.nextInt(50) + 5));
                 destroy();
             }
         }
         if (timer.isDone()) {
+            if (!collide) {
+                hero.center.set(center.clone());
+                hero.velocity = new Vector2(0f, 0f);
+            }
             destroy();
         }
     }
