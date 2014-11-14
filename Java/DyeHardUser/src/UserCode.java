@@ -39,6 +39,7 @@ public class UserCode extends DyeHard {
             if (keyboard.isButtonTapped(KeyEvent.VK_A)
                     || mouse.isButtonTapped(1)) {
                 state = State.PLAYING;
+                world.hero.currentWeapon.resetTimer();
                 world.start.showScreen(false);
             }
             if (keyboard.isButtonTapped(KeyEvent.VK_ESCAPE)) {

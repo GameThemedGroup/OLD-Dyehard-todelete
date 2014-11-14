@@ -6,7 +6,6 @@ public class BrokenWeapon extends Weapon {
 
     public BrokenWeapon(Hero hero) {
         super(hero);
-        visible = false;
     }
 
     @Override

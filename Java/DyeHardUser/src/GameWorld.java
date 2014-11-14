@@ -29,7 +29,7 @@ public class GameWorld implements Updateable {
     public static float Speed = Configuration.worldGameSpeed;
 
     float distance = 0f;
-    private Hero hero;
+    protected Hero hero;
     private final LinkedList<GameWorldRegion> gameRegions;
 
     public GameWorld() {

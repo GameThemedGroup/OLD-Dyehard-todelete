@@ -27,6 +27,7 @@ public class Weapon extends GameObject implements Updateable, Progressable {
         this.hero = hero;
         bullets = new LinkedList<GameObject>();
         timer = new Timer(fireRate);
+        visible = false;
     }
 
     // Fire the weapon
@@ -34,8 +35,12 @@ public class Weapon extends GameObject implements Updateable, Progressable {
         if (timer.isDone()) {
             DyeHardSound.playMulti(DyeHardSound.paintSpraySound);
             new Bullet(hero);
-            timer = new Timer(fireRate);
+            timer.reset();
         }
+    }
+
+    public void resetTimer() {
+        timer.reset();
     }
 
     public void setEnemies(ArrayList<Enemy> enemies) {
