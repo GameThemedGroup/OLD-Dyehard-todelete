@@ -42,7 +42,6 @@ public class ChargerEnemy extends Enemy {
     @Override
     public void update() {
         float deltaT = t.deltaTime();
-        System.out.println(deltaT);
 
         if (harmlessTimer.isDone()) {
             harmlessTimer.setActive(false);

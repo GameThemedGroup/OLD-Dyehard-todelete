@@ -78,6 +78,7 @@ public class Portal extends GameObject {
                     e.printStackTrace();
                 }
                 hero.velocity = new Vector2(0f, 0f);
+                destroy();
             }
         }
         if (timer.isDone()) {
