@@ -3,6 +3,7 @@ package dyehard.Player;
 import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.DyehardRectangle;
+import dyehard.Util.DyeHardSound;
 
 public class HeroEffect {
 
@@ -133,11 +134,13 @@ public class HeroEffect {
 
         if (hero.isInvin) {
             if (!invin.visible) {
+                DyeHardSound.playLoop(DyeHardSound.shieldSound);
                 invin.visible = true;
             }
             invin.center = hero.center.clone();
         } else {
             if (invin.visible) {
+                DyeHardSound.stopSound(DyeHardSound.shieldSound);
                 invin.visible = false;
             }
         }

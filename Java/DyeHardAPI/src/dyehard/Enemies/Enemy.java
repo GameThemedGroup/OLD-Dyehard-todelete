@@ -28,6 +28,7 @@ public class Enemy extends Actor {
     protected float height;
     protected float sleepTimer;
     protected boolean harmless = false;
+    protected boolean soundOn = false;
 
     // This time is in milliseconds
     private Timer timer;

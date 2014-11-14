@@ -7,6 +7,7 @@ import Engine.Vector2;
 import dyehard.Configuration;
 import dyehard.Configuration.EnemyType;
 import dyehard.Player.Hero;
+import dyehard.Util.DyeHardSound;
 import dyehard.Util.Timer;
 
 public class ChargerEnemy extends Enemy {
@@ -41,6 +42,8 @@ public class ChargerEnemy extends Enemy {
     @Override
     public void update() {
         float deltaT = t.deltaTime();
+        System.out.println(deltaT);
+
         if (harmlessTimer.isDone()) {
             harmlessTimer.setActive(false);
             color = null;
@@ -54,6 +57,8 @@ public class ChargerEnemy extends Enemy {
         }
 
         if (chasing) {
+            DyeHardSound.playLoop(DyeHardSound.enemySpaceship1);
+            soundOn = true;
             if (!setImage) {
                 if (color == null) {
                     setSpriteSheet(Hero.chargerAttackTextures.get(Color.gray),
@@ -107,5 +112,13 @@ public class ChargerEnemy extends Enemy {
     @Override
     public String toString() {
         return "Charger";
+    }
+
+    @Override
+    public void destroy() {
+        if (soundOn) {
+            DyeHardSound.stopSound(DyeHardSound.enemySpaceship1);
+        }
+        super.destroy();
     }
 }

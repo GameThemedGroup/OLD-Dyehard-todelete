@@ -1,5 +1,6 @@
 package dyehard.Util;
 
+
 public class Timer {
     private float startTime;
     private float endTime;
@@ -29,7 +30,7 @@ public class Timer {
 
     public boolean isDone() {
         if (!active) {
-            return true;
+            return false;
         } else {
             return System.nanoTime() >= endTime;
         }

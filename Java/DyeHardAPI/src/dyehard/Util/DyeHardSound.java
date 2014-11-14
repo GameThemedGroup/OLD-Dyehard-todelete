@@ -18,6 +18,7 @@ public class DyeHardSound {
     public final static String portalEnter = "Audio/PortalEnter.wav";
     public final static String portalExit = "Audio/PortalExit.wav";
     public final static String portalLoop = "Audio/PortalLoop.wav";
+    public final static String shieldSound = "Audio/ShieldSound.wav";
 
     static {
         // load sounds for later interactions
@@ -33,6 +34,7 @@ public class DyeHardSound {
         BaseCode.resources.preloadSound(portalEnter);
         BaseCode.resources.preloadSound(portalExit);
         BaseCode.resources.preloadSound(portalLoop);
+        BaseCode.resources.preloadSound(shieldSound);
     }
 
     public static void play(String path) {
@@ -45,6 +47,16 @@ public class DyeHardSound {
         if (soundPlay) {
             BaseCode.resources.playSound(path);
         }
+    }
+
+    public static void playLoop(String path) {
+        if ((soundPlay) && (!BaseCode.resources.isSoundPlaying(path))) {
+            BaseCode.resources.playSoundLooping(path);
+        }
+    }
+
+    public static void stopSound(String path) {
+        BaseCode.resources.stopSound(path);
     }
 
     public static void playBgMusic() {
@@ -61,6 +73,12 @@ public class DyeHardSound {
 
     public static void setSound(boolean bool) {
         soundPlay = bool;
+        if (!bool) {
+            DyeHardSound.stopSound(DyeHardSound.portalLoop);
+            DyeHardSound.stopSound(DyeHardSound.shieldSound);
+            DyeHardSound.stopSound(DyeHardSound.enemySpaceship1);
+            DyeHardSound.stopSound(DyeHardSound.enemySpaceship2);
+        }
     }
 
     public static boolean getSound() {
