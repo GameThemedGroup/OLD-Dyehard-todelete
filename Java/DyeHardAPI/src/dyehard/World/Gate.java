@@ -15,7 +15,6 @@ import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.Util.DyeHardSound;
 import dyehard.Util.ImageTint;
-import dyehard.Util.TextureTile;
 
 public class Gate {
     private final Hero hero;
@@ -46,7 +45,7 @@ public class Gate {
 
         BufferedImage dGate = BaseCode.resources
                 .loadImage("Textures/Background/Warp_start_Anim.png");
-        TextureTile tile = new TextureTile();
+        // TextureTile tile = new TextureTile();
         // Fill the hashmaps with tinted images for later use
         for (int i = 0; i < 6; i++) {
             Color temp = Colors.colorPicker(i);
@@ -75,12 +74,14 @@ public class Gate {
             }
 
             // cache the tiled portal images
-            gPathBack.put(temp, tile.setTiling(
+            gPathBack.put(
+                    temp,
                     BaseCode.resources.loadImage("Textures/Background/Warp_"
-                            + colorString + "_back.png"), 10, false));
-            gPathFront.put(temp, tile.setTiling(
+                            + colorString + "_back.png"));
+            gPathFront.put(
+                    temp,
                     BaseCode.resources.loadImage("Textures/Background/Warp_"
-                            + colorString + "_front.png"), 10, false));
+                            + colorString + "_front.png"));
         }
     }
 
@@ -88,8 +89,8 @@ public class Gate {
             float y) {
         this.hero = hero;
         // set up pipe
-        int pathTF = 10;
-        int pathTick = 2;
+        int pathTF = 64;
+        int pathTick = 3;
 
         float leftEdge = x - (width / 2f);
 
@@ -97,8 +98,7 @@ public class Gate {
         path.center = new Vector2(x, y);
         path.size.set(width, height);
         path.setPanning(true);
-        path.setPanningSheet(gPathBack.get(color), 200, 140, pathTF, pathTick,
-                false);
+        path.setPanningSheet(gPathBack.get(color), pathTF, pathTick, false);
         path.dyeColor = color;
         path.velocity = new Vector2(-Configuration.worldGameSpeed, 0f);
         path.shouldTravel = true;
@@ -140,8 +140,8 @@ public class Gate {
         pathFront.center = new Vector2(x, y);
         pathFront.size.set(width, height);
         pathFront.setPanning(true);
-        pathFront.setPanningSheet(gPathFront.get(color), 200, 140, pathTF,
-                pathTick, false);
+        pathFront.setPanningSheet(gPathFront.get(color), pathTF, pathTick,
+                false);
         pathFront.velocity = new Vector2(-Configuration.worldGameSpeed, 0f);
         pathFront.shouldTravel = true;
         pathFront.reverse = true;

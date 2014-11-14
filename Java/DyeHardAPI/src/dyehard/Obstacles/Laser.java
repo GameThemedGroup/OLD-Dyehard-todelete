@@ -4,7 +4,6 @@ import Engine.BaseCode;
 import Engine.Vector2;
 import dyehard.GameObject;
 import dyehard.Player.Hero;
-import dyehard.Util.TextureTile;
 
 public class Laser extends GameObject {
     private final Hero hero;
@@ -16,11 +15,10 @@ public class Laser extends GameObject {
         float width = height * 220 / 1024;
         center = new Vector2(width / 2 - 2, height / 2);
         size.set(width, height);
-        TextureTile tile = new TextureTile();
-        texture = tile.setTiling(BaseCode.resources
-                .loadImage("Textures/Background/DeathEdge.png"), 2, true);
+        texture = BaseCode.resources
+                .loadImage("Textures/Background/DeathEdge.png");
         setPanning(true);
-        setPanningSheet(texture, 220, 1024, 4, 4, true);
+        setPanningSheet(texture, 4, 4, true);
         alwaysOnTop = true;
     }
 

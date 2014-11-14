@@ -1,5 +1,6 @@
 package dyehard;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import Engine.BaseCode;
@@ -40,6 +41,7 @@ public class DyehardRectangle extends Primitive {
     protected int currentFrame;
     protected int totalFrames;
     protected int frameWidth, frameHeight;
+    private int extra;
 
     protected int ticksPerFrame;
     protected int currentTick;
@@ -193,48 +195,6 @@ public class DyehardRectangle extends Primitive {
         }
     }
 
-    private void updatePanningAnimation() {
-        if (DyeHard.state == DyeHard.State.PLAYING) {
-            if (currentTick < ticksPerFrame) {
-                currentTick++;
-                return;
-            }
-
-            currentTick = 0;
-            if (reverse) {
-                int temp0 = frameCoords[totalFrames - 1][0];
-                int temp1 = frameCoords[totalFrames - 1][1];
-                int temp2 = frameCoords[totalFrames - 1][2];
-                int temp3 = frameCoords[totalFrames - 1][3];
-                for (int i = totalFrames - 1; i > 0; i--) {
-                    frameCoords[i][0] = frameCoords[i - 1][0];
-                    frameCoords[i][1] = frameCoords[i - 1][1];
-                    frameCoords[i][2] = frameCoords[i - 1][2];
-                    frameCoords[i][3] = frameCoords[i - 1][3];
-                }
-                frameCoords[0][0] = temp0;
-                frameCoords[0][1] = temp1;
-                frameCoords[0][2] = temp2;
-                frameCoords[0][3] = temp3;
-            } else {
-                int temp0 = frameCoords[0][0];
-                int temp1 = frameCoords[0][1];
-                int temp2 = frameCoords[0][2];
-                int temp3 = frameCoords[0][3];
-                for (int i = 0; i < totalFrames - 1; i++) {
-                    frameCoords[i][0] = frameCoords[i + 1][0];
-                    frameCoords[i][1] = frameCoords[i + 1][1];
-                    frameCoords[i][2] = frameCoords[i + 1][2];
-                    frameCoords[i][3] = frameCoords[i + 1][3];
-                }
-                frameCoords[totalFrames - 1][0] = temp0;
-                frameCoords[totalFrames - 1][1] = temp1;
-                frameCoords[totalFrames - 1][2] = temp2;
-                frameCoords[totalFrames - 1][3] = temp3;
-            }
-        }
-    }
-
     public int getNumFrames() {
         return totalFrames;
     }
@@ -271,15 +231,12 @@ public class DyehardRectangle extends Primitive {
         return frameCoords[currentFrame][3];
     }
 
-    public void setPanningSheet(BufferedImage texture, int width, int height,
-            int totalFrames, int ticksPerFrame, boolean vertical) {
+    public void setPanningSheet(BufferedImage t, int totalFrames,
+            int ticksPerFrame, boolean vertical) {
         if (totalFrames <= 0) {
             return;
         }
-        this.texture = texture;
 
-        frameWidth = width;
-        frameHeight = height;
         this.vertical = vertical;
         frameCoords = new int[totalFrames][4];
         this.totalFrames = totalFrames;
@@ -288,32 +245,18 @@ public class DyehardRectangle extends Primitive {
         currentTick = 0;
         this.ticksPerFrame = ticksPerFrame;
 
+        int factor;
         if (vertical) {
-            int curStart = 0;
-            int curEnd = frameHeight / totalFrames;
-            int offset = frameHeight / totalFrames;
-            for (int i = 0; i < totalFrames; i++) {
-                frameCoords[i][0] = frameWidth;
-                frameCoords[i][1] = curEnd;
-                frameCoords[i][2] = 0;
-                frameCoords[i][3] = curStart;
-                curStart += offset;
-                curEnd += offset;
-            }
-
+            float ratio = t.getWidth() / size.getX();
+            factor = ((int) ((size.getY() * ratio) / t.getHeight())) * 2;
+            extra = (factor * t.getHeight()) - ((int) (ratio * size.getY()));
         } else {
-            int curStart = 0;
-            int curEnd = frameWidth / totalFrames;
-            int offset = frameWidth / totalFrames;
-            for (int i = 0; i < totalFrames; i++) {
-                frameCoords[i][0] = curEnd;
-                frameCoords[i][1] = frameHeight;
-                frameCoords[i][2] = curStart;
-                frameCoords[i][3] = 0;
-                curStart += offset;
-                curEnd += offset;
-            }
+            float ratio = t.getHeight() / size.getY();
+            factor = ((int) ((size.getX() * ratio) / t.getWidth())) * 2;
+            extra = (factor * t.getWidth()) - ((int) (ratio * size.getX()));
         }
+        texture = setTiling(t, factor, vertical);
+
     }
 
     @Override
@@ -330,35 +273,27 @@ public class DyehardRectangle extends Primitive {
                 updateSpriteSheetAnimation();
             } else if (panning) {
                 if (vertical) {
-                    for (int i = 0; i < totalFrames; i++) {
-                        float tHeight = size.getY() / totalFrames;
-                        float tStart = center.getY() - (size.getY() * 0.5f)
-                                + (i * tHeight);
-                        BaseCode.resources.drawImage(texture, center.getX()
-                                - (size.getX() * 0.5f), tStart, center.getX()
-                                + (size.getX() * 0.5f), tStart + tHeight,
-                                frameCoords[i][2], frameCoords[i][3],
-                                frameCoords[i][0], frameCoords[i][1], rotate);
-                    }
+                    BaseCode.resources.drawImage(texture,
+                            center.getX() - (size.getX() * 0.5f), center.getY()
+                                    - (size.getY() * 0.5f), center.getX()
+                                    + (size.getX() * 0.5f), center.getY()
+                                    + (size.getY() * 0.5f), 0, extra
+                                    / totalFrames * currentFrame,
+                            texture.getWidth(), extra / totalFrames
+                                    * currentFrame
+                                    + (texture.getHeight() - extra), rotate);
                 } else {
-                    for (int i = 0; i < totalFrames; i++) {
-                        float tWidth = size.getX() / totalFrames;
-                        float tStart = center.getX() - (size.getX() * 0.5f)
-                                + (i * tWidth);
-                        if ((tStart < BaseCode.world.getWidth())
-                                && (tStart + tWidth > BaseCode.world
-                                        .getPositionX())) {
-                            BaseCode.resources.drawImage(texture, tStart,
-                                    center.getY() - (size.getY() * 0.5f),
-                                    tStart + tWidth,
-                                    center.getY() + (size.getY() * 0.5f),
-                                    frameCoords[i][2], frameCoords[i][3],
-                                    frameCoords[i][0], frameCoords[i][1],
-                                    rotate);
-                        }
-                    }
+                    BaseCode.resources.drawImage(texture,
+                            center.getX() - (size.getX() * 0.5f), center.getY()
+                                    - (size.getY() * 0.5f), center.getX()
+                                    + (size.getX() * 0.5f), center.getY()
+                                    + (size.getY() * 0.5f), extra / totalFrames
+                                    * currentFrame, 0, extra / totalFrames
+                                    * currentFrame
+                                    + (texture.getWidth() - extra),
+                            texture.getHeight(), rotate);
                 }
-                updatePanningAnimation();
+                updateSpriteSheetAnimation();
             } else {
                 BaseCode.resources.drawImage(texture,
                         center.getX() - (size.getX() * 0.5f), center.getY()
@@ -647,6 +582,43 @@ public class DyehardRectangle extends Primitive {
         }
 
         return resolved;
+    }
+
+    private BufferedImage setTiling(BufferedImage img, int tileNum,
+            boolean vertical) {
+        int currentEnd = 0;
+        int tileWidth = img.getWidth();
+        int tileHeight = img.getHeight();
+
+        if (vertical) {
+            int width = tileWidth;
+            int height = tileHeight * tileNum;
+
+            BufferedImage newImage = new BufferedImage(width, height,
+                    BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = newImage.createGraphics();
+
+            while (currentEnd < height) {
+                g2.drawImage(img, null, 0, currentEnd);
+                currentEnd += tileHeight;
+            }
+            g2.dispose();
+            return newImage;
+        } else {
+            int width = tileWidth * tileNum;
+            int height = tileHeight;
+
+            BufferedImage newImage = new BufferedImage(width, height,
+                    BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = newImage.createGraphics();
+
+            while (currentEnd < width) {
+                g2.drawImage(img, null, currentEnd, 0);
+                currentEnd += tileWidth;
+            }
+            g2.dispose();
+            return newImage;
+        }
     }
 
     /*
