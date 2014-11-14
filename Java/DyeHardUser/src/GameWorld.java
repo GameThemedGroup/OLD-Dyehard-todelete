@@ -2,6 +2,7 @@ import java.util.LinkedList;
 
 import Engine.BaseCode;
 import dyehard.Configuration;
+import dyehard.DyehardEndMenu;
 import dyehard.DyehardMenuUI;
 import dyehard.ManagerState;
 import dyehard.UpdateManager;
@@ -16,6 +17,7 @@ import dyehard.World.GameWorldRegion;
 
 public class GameWorld implements Updateable {
     public DyehardMenuUI menu;
+    public DyehardEndMenu endMenu;
     public LogScreen start;
 
     private static EnemyGenerator enemyGenerator;
@@ -49,6 +51,7 @@ public class GameWorld implements Updateable {
 
         new DyehardUI(hero);
         menu = new DyehardMenuUI();
+        endMenu = new DyehardEndMenu();
         start = new LogScreen();
         new Laser(hero);
 

@@ -28,7 +28,7 @@ public abstract class DyeHard extends LibraryCode {
         Point point = new Point((int) (cursorSize.getWidth() / 2.0),
                 (int) (cursorSize.getHeight() / 2.0)); // hot point to middle
         Cursor cursor = toolkit.createCustomCursor(image, point, "cursor");
-        window.setCursor(cursor);
+        // window.setCursor(cursor);
         initialize(); // call user code Initialize()
     }
 

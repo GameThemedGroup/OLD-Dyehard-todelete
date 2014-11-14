@@ -18,6 +18,7 @@ import dyehard.World.GameState;
 
 public class UserCode extends DyeHard {
     private boolean menuActive = false;
+    private boolean endMenuActive = false;
 
     private Hero hero;
     protected GameWorld world;
@@ -175,12 +176,16 @@ public class UserCode extends DyeHard {
                 world.menu.active(false);
                 menuActive = false;
             }
+            if (endMenuActive) {
+                world.endMenu.active(false);
+                endMenuActive = false;
+            }
             if (!world.start.isShown()) {
                 world.start.showScreen(true);
             }
         }
-        // state menu or gameover, activate menu
-        else if (state == State.MENU || state == State.GAMEOVER) {
+        // state menu, activate menu
+        else if (state == State.MENU) {
             if (!menuActive) {
                 world.menu.active(true);
                 menuActive = true;
@@ -190,6 +195,30 @@ public class UserCode extends DyeHard {
                             true);
                 } else {
                     world.menu.select(mouse.getWorldX(), mouse.getWorldY(),
+                            false);
+                }
+            }
+        }
+        // state GAMEOVER, activate end menu
+        else if (state == State.GAMEOVER) {
+            if (menuActive) {
+                world.menu.active(false);
+                menuActive = false;
+            }
+            if (!endMenuActive) {
+                if (GameState.RemainingLives <= 0) {
+                    world.endMenu.setMenu(false);
+                } else {
+                    world.endMenu.setMenu(true);
+                }
+                world.endMenu.active(true);
+                endMenuActive = true;
+            } else {
+                if (mouse.isButtonTapped(1)) {
+                    world.endMenu.select(mouse.getWorldX(), mouse.getWorldY(),
+                            true);
+                } else {
+                    world.endMenu.select(mouse.getWorldX(), mouse.getWorldY(),
                             false);
                 }
             }
