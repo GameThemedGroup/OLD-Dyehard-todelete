@@ -45,12 +45,6 @@ public class UserCode extends DyeHard {
     }
 
     private void sample1Ini() {
-        window.addMouseListener(mouse);
-
-        resources.setClassInJar(this);
-
-        state = State.PLAYING;
-
         // hero = new Hero();
         // hero.drawOnTop();
 
@@ -60,7 +54,7 @@ public class UserCode extends DyeHard {
             String[] ms = { "public void dyehard.Player.Hero.drawOnTop()",
                     "public void dyehard.Player.Hero.registerWeapon(dyehard.Weapons.Weapon)" };
             if (cf.validate(cs, ms)) {
-                hero = cf.createObj("dyehard.Player.Hero");
+                hero = cf.createObj("dyehard.Player.Hero0");
                 cf.invokeMethod(hero, "drawOnTop");
             }
         }

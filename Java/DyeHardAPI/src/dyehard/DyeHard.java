@@ -13,6 +13,8 @@ public abstract class DyeHard extends LibraryCode {
         BEGIN, PAUSED, PLAYING, GAMEOVER, QUIT, MENU, RESTART
     }
 
+    public static ClassReflector studentObjRef;
+    private static boolean useStudentObj = false;
     // Game state
     protected static State state;
 
@@ -29,6 +31,24 @@ public abstract class DyeHard extends LibraryCode {
                 (int) (cursorSize.getHeight() / 2.0)); // hot point to middle
         Cursor cursor = toolkit.createCustomCursor(image, point, "cursor");
         window.setCursor(cursor);
+        window.addMouseListener(mouse);
+
+        resources.setClassInJar(this);
+
+        state = State.PLAYING;
+
+        studentObjRef = new ClassReflector("StudentObj");
+        studentObjRef.reflect();
+        String[] cs = { "public StudentObj()",
+                "public StudentObj(Engine.Vector2,float,float)" };
+        String[] ms = { "public float StudentObj.getWidth()",
+                "public float StudentObj.getHeight()",
+                "public void StudentObj.setWidth(float)",
+                "public void StudentObj.setHeight(float)",
+                "public void StudentObj.setCenter(Engine.Vector2)",
+                "public Engine.Vector2 StudentObj.getCenter()" };
+        useStudentObj = studentObjRef.validate(cs, ms);
+
         initialize(); // call user code Initialize()
     }
 
@@ -39,6 +59,10 @@ public abstract class DyeHard extends LibraryCode {
 
     public static State getState() {
         return state;
+    }
+
+    public static boolean useStudentObj() {
+        return useStudentObj;
     }
 
     protected abstract void update();

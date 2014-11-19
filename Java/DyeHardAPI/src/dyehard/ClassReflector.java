@@ -29,8 +29,11 @@ public class ClassReflector {
             // System.out.format("Package:%n  %s%n%n", (p != null ? p.getName()
             // : "-- No Package --"));
 
+            int i = 0;
             for (Constructor<?> constructor : c.getConstructors()) {
-                constructors.put(constructor.getName(), constructor);
+                String temp = constructor.getName() + Integer.toString(i);
+                constructors.put(temp, constructor);
+                i++;
                 // System.out.println(constructor.getName() + "   " +
                 // constructor);
             }
@@ -64,6 +67,7 @@ public class ClassReflector {
                 }
             }
             if (test < 1) {
+                // System.out.println(cs);
                 return false;
             }
         }
