@@ -7,6 +7,7 @@ import java.util.Queue;
 import dyehard.Configuration;
 import dyehard.GameObject;
 import dyehard.ManagerState;
+import dyehard.UpdateManager;
 import dyehard.UpdateManager.Updateable;
 import dyehard.Enemies.Enemy;
 import dyehard.Player.DyeMeter.Progressable;
@@ -14,7 +15,7 @@ import dyehard.Player.Hero;
 import dyehard.Util.DyeHardSound;
 import dyehard.Util.Timer;
 
-public class Weapon extends GameObject implements Updateable, Progressable {
+public class Weapon implements Updateable, Progressable {
     protected static float bulletSpeed = 1f;
     protected static float bulletSize = 1.5f;
     protected Hero hero;
@@ -27,7 +28,7 @@ public class Weapon extends GameObject implements Updateable, Progressable {
         this.hero = hero;
         bullets = new LinkedList<GameObject>();
         timer = new Timer(fireRate);
-        visible = false;
+        UpdateManager.register(this);
     }
 
     // Fire the weapon
@@ -70,5 +71,11 @@ public class Weapon extends GameObject implements Updateable, Progressable {
     @Override
     public int totalValue() {
         return 1;
+    }
+
+    @Override
+    public void setSpeed(float factor) {
+        // TODO Auto-generated method stub
+
     }
 }
