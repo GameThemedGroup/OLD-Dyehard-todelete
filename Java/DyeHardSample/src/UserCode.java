@@ -81,7 +81,6 @@ public class UserCode extends DyeHard {
     }
 
     private void sample4Ini() {
-        dyehard.World.WormHole.setGatePathImages();
         // new WormHole(hero, Colors.randomColor(), 30f, 15f, 100f, 20f);
     }
 

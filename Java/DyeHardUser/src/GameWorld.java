@@ -7,7 +7,6 @@ import dyehard.DyehardMenuUI;
 import dyehard.ManagerState;
 import dyehard.UpdateManager;
 import dyehard.UpdateManager.Updateable;
-import dyehard.Background.Background;
 import dyehard.Background.DyehardUI;
 import dyehard.Background.LogScreen;
 import dyehard.Obstacles.Laser;
@@ -41,10 +40,6 @@ public class GameWorld implements Updateable {
     public void initialize(Hero hero) {
         enemyGenerator = new EnemyGenerator(hero);
         this.hero = hero;
-        // preload the gate path images
-        dyehard.World.WormHole.setGatePathImages();
-
-        new Background();
 
         // Draw the hero on top of the background
         hero.drawOnTop();

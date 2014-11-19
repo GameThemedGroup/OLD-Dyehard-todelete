@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 
 import Engine.LibraryCode;
+import dyehard.Background.Background;
 
 public abstract class DyeHard extends LibraryCode {
     public enum State {
@@ -36,6 +37,11 @@ public abstract class DyeHard extends LibraryCode {
         resources.setClassInJar(this);
 
         state = State.PLAYING;
+
+        // preload the gate path images
+        dyehard.World.WormHole.setGatePathImages();
+
+        new Background();
 
         studentObjRef = new ClassReflector("StudentObj");
         studentObjRef.reflect();
