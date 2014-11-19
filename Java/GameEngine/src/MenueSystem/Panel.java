@@ -1,9 +1,11 @@
 package MenueSystem;
 
 import java.awt.Color;
+import java.awt.Rectangle;
+
 import Engine.BaseCode;
+import Engine.GameObject;
 import Engine.MouseInput;
-import Engine.Rectangle;
 import Engine.Vector2;
 
 /**
@@ -17,7 +19,7 @@ public class Panel {
 	private String idleTexture = "";
 	private String inactiveTexture = "";
 	
-	private Rectangle Background = null;
+	private GameObject Background = null;
 	
 	/** used to find this panel if it is a subPanel of another panel 
 	 * A -1 indicates that the Panel exists on the level above
@@ -51,13 +53,13 @@ public class Panel {
 	private boolean stateUnset = true;
 	
 	public Panel(){
-		Background = new Rectangle();
-		Background.removeFromAutoDrawSet();
+		Background = new GameObject();
+		Background.setToInvisible();
 	}
 	
 	/**
 	 * Will automatically update the state of this panel and all contained panels
-	 * @param mouse
+	 * @param mouse current state of the mouse (position, mouse button, etc.)
 	 */
 	public void autoUpdateState(MouseInput mouse){
 		if(state != PanelState.INACTIVE){
@@ -163,14 +165,14 @@ public class Panel {
 	 * IDLE: all Sub panels are updated normally.
 	 * SELECTED: all Sub panels are updated normally.
 	 * INACTIVE: Sub Panels are not updated.
-	 * @return
+	 * @return current state of the panel.
 	 */
 	public PanelState getState(){
 		return state;
 	}
 	/**
 	 * Will set the image that is currently be used for the panels draw
-	 * @param image the location of the desired image
+	 * @param imageLocation the location of the desired image
 	 */
 	public void setImage(String imageLocation){
 		if(imageLocation != null && !imageLocation.equals("")){
@@ -179,33 +181,33 @@ public class Panel {
 	}
 	/**
 	 * Will return the center of the panel
-	 * @return
+	 * @return the center position of the panel.
 	 */
 	public Vector2 getBackgroundCenter(){
-		return Background.center;
+		return Background.getCenter();
 	}
 	/**
 	 * The current Width and height of the of the panel
-	 * @return
+	 * @return x=width, y=height of the panel.
 	 */
 	public Vector2 getBackgroundSize(){
-		return Background.size;
+		return Background.getSize();
 	}
 	/**
 	 * the current color used by the panel if no image isin use
-	 * @return
+	 * @return color of the background.
 	 */
 	public Color getBackgroundColor() {
-		return Background.color;
+		return Background.getColor();
 	}
 	/**
 	 * Will set the color of the Panel to the given color
-	 * @param color
+	 * @param color new color to be changed to.
 	 * @return if TRUE: the change was successful, if FALSE no changes were made
 	 */
 	public boolean setBackgroundColor(Color color){
 		if(color != null){
-			Background.color = color;
+			Background.setColor(color);
 			return true;
 		}
 		return false;
@@ -215,14 +217,14 @@ public class Panel {
 	 * @return if TRUE, background is visible, if False, background is invisible
 	 */
 	public boolean getBackGroundVisibility(){
-		return Background.visible;
+		return Background.isVisible();
 	}
 	/**
 	 * Will set whether or not the background is visible
 	 * @param visible If TRUE, this background will be made visible. If FALSE, this background will be made invisible
 	 */
 	public void setBackgroundVisiblility(boolean visible){
-		Background.visible = visible;
+		Background.setVisibilityTo(visible);
 	}
 	/**
 	 * If this Panel is another Panel's subPanel this function will return that panel
@@ -257,8 +259,8 @@ public class Panel {
 	}
 	/**
 	 * Will set whether or not this Panel is Visible 
-	 * @param visable If TRUE, this panel will be made visible. If FALSE, this panel will be made invisible
-	 * @param affectSubPanels If TRUE, all of this panels subPanels visibility settings will be set to match this Panels visibility settings.
+	 * @param visible If TRUE, this panel will be made visible. If FALSE, this panel will be made invisible
+	 * @param effectSubPanels If TRUE, all of this panels subPanels visibility settings will be set to match this Panels visibility settings.
 	 * If FALSE, only this panels visibility setting will be affcted
 	 */
 	public void setVisibility(boolean visible, boolean effectSubPanels){
@@ -276,7 +278,7 @@ public class Panel {
 	/**
 	 * Will scale this panel by the given amount in world coordinates
 	 * @param move the amount that this panel will be moved by
-	 * @param affectSubPanels If TRUE, all of this panels subPanels position settings will be set to match this Panels position settings.
+	 * @param effectSubPanels If TRUE, all of this panels subPanels position settings will be set to match this Panels position settings.
 	 */
 	public void movePanel(Vector2 move, boolean effectSubPanels){
 		if(move != null){
@@ -295,12 +297,12 @@ public class Panel {
 	/**
 	 * Will scale this panel by the given amount in world coordinates
 	 * @param scale the amount that will be scaled by 
-	 * @param affectSubPanels If TRUE, all of this panels subPanels size settings will be set to match this Panels size settings.
+	 * @param effectSubPanels If TRUE, all of this panels subPanels size settings will be set to match this Panels size settings.
 	 */
 	public void scalePanel(Vector2 scale, boolean effectSubPanels){
 		if(scale != null){
-			getBackgroundSize().setX(Background.size.getX() * scale.getX());
-			getBackgroundSize().setY(Background.size.getY() * scale.getY());
+			getBackgroundSize().setX(Background.getWidth() * scale.getX());
+			getBackgroundSize().setY(Background.getHeight() * scale.getY());
 			if(effectSubPanels && subPanels != null){
 				int panelsFound = 0;
 				for(int loop = 0; loop < subPanels.length && panelsFound < numberOfPanels; loop++){
@@ -312,11 +314,12 @@ public class Panel {
 			}
 		}
 	}
+	
 	/**
 	 * Will set this panel and all of its subPanels to be drawn automatically
 	 */
 	public void addToAutoDrawSet(){
-		Background.addToAutoDrawSet();
+		Background.setToVisible();
 		if(subPanels != null){
 			int panelsFound = 0;
 			for(int loop = 0; loop < subPanels.length && panelsFound < numberOfPanels; loop++){
@@ -331,7 +334,7 @@ public class Panel {
 	 * Will set this panel and all of its subPanels to not be drawn automatically
 	 */
 	public void removeFromAutoDrawSet(){
-		Background.removeFromAutoDrawSet();
+		Background.setToInvisible();
 		if(subPanels != null){
 			int panelsFound = 0;
 			for(int loop = 0; loop < subPanels.length && panelsFound < numberOfPanels; loop++){
@@ -360,8 +363,10 @@ public class Panel {
 	/**
 	 * Will Draw this panel
 	 * Note This funtion is not called if you use addToAutoDrawSet();
-	 */
+	 *
 	public void draw(){
+		
+	don't need this function!
 		drawThisPanel();
 		if(subPanels != null){
 			int panelsFound = 0;
@@ -372,20 +377,24 @@ public class Panel {
 				}
 			}
 		}
-	}
+		
+	} */
+
 	/**
 	 * Will draw this panel and only this panel. None of this panels subPanels will be drawn. by this function
-	 */
+	 *
 	public void drawThisPanel(){
 		if(Background.visible){
 			Background.draw();
 		}
-	}
+	}*/
+	
 	/**
 	 * Will make a given panel a subPanel of this panel and update 
 	 * note this panel can not be in any other Panels at this point other wise the add will fail
 	 * use remove panel to remove it if necessary
-	 * @return If >= 0 represents the int ID the newSubPanel can be referenced by from this Panel
+	 * @param newSubPanel the new subpanel to be added to this panel.
+	 * @return If positive number represents that the int ID the newSubPanel can be referenced by from this Panel
 	 * 			If negative then the add was unsuccessful and No changes were made
 	 */
 	public int addPanel(Panel newSubPanel){
@@ -437,7 +446,7 @@ public class Panel {
 	}
 	/**
 	 * Will attempt to remove the given Panel and all of its sub Panels from this Tree
-	 * @param the location of the target Panel relative to this Panel
+	 * @param targetPanelLocation the location of the target Panel relative to this Panel
 	 * @return if TRUE: removeTarget was removed successfully, if FALSE: removeTarget was not removed and no changes were made
 	 */
 	public boolean removePanel(int targetPanelLocation){
@@ -455,7 +464,7 @@ public class Panel {
 	}
 	/**
 	 * Will attempt to find the given panel under this panel
-	 * targetID the location of the Panel under this Panel relative to this Panel
+	 * @param targetID the location of the Panel under this Panel relative to this Panel
 	 * @return if null no Panel was found at this location other wise returns a pointer to the Panel at this location
 	 */
 	public Panel getPanel(int targetID){
@@ -482,14 +491,14 @@ public class Panel {
 	 * Will return the current rectangle used for the background
 	 * @return the current rectangle used for the background
 	 */
-	protected Rectangle getBackgroundRectangle(){
+	protected GameObject getBackgroundGameObject(){
 		return Background;
 	}
 	/**
 	 * Will set the Rectangle currently used for the background to the given Rectangle
 	 * @param newBackGround this paramiter can not be null
 	 */
-	protected void setBackgroundRectangle(Rectangle newBackGround){
+	protected void setBackgroundGameObject(GameObject newBackGround){
 		if(newBackGround != null){
 			Background = newBackGround;
 		}

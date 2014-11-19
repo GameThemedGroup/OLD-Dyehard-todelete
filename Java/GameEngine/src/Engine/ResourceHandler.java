@@ -45,7 +45,7 @@ public class ResourceHandler {
 	// Possible locations that resources will be located.
 	// Working directory for running applet with Eclipse is different than
 	// running an application.
-	private final String resourcePath[] = { "resources/", "bin/resources/" };
+	private final String resourcePath[] = { "resources/", "../resources/", "bin/resources/" };
 
 	private World world = null;
 
@@ -134,7 +134,7 @@ public class ResourceHandler {
 	 * to be always on top. If not marked to be always on top, it will be on top
 	 * of all primitives except those marked as always on top.
 	 * 
-	 * @param thePrimitive
+	 * @param thePrimitive the primitive to be moved to the front of drawset.
 	 */
 	public void moveToFrontOfDrawSet(Primitive thePrimitive) {
 		removeFromAutoDrawSet(thePrimitive);
@@ -448,8 +448,8 @@ public class ResourceHandler {
 
 	/**
 	 * Will return true if the given sound is currently playing
-	 * 
-	 * @return
+	 * @param fileName: filename of the audio file to be tested.
+	 * @return true: sounds is playing, false otherwise
 	 */
 	public boolean isSoundPlaying(String fileName) {
 		boolean retVal = false;

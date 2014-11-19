@@ -4,39 +4,25 @@ package Engine;
 import java.util.Vector;
 
 @SuppressWarnings("serial")
-public class SetOfItems<T extends Rectangle> extends Vector<T>
+public class SetOfGameObjects<T extends GameObject> extends Vector<T>
 {
   /**
    * Update all objects contained in the set that are marked as visible.
    */
   public void update()
   {
-    Rectangle current;
+    GameObject current;
 
     for(int i = 0; i < size(); i++)
     {
       current = get(i);
 
-      if(current != null && current.visible)
+      if(current != null && current.isVisible())
       {
         current.update();
       }
     }
   }
-
-  /*
-  public Rectangle getObjectBefore(Rectangle current)
-  {
-    int index = indexOf(current);
-
-    if(index > 0)
-    {
-      return get(index - 1);
-    }
-
-    return null;
-  }
-  */
 
   /**
    * Removes the object at the given index.
@@ -62,7 +48,7 @@ public class SetOfItems<T extends Rectangle> extends Vector<T>
    * @param obj
    *          - The object to remove.
    */
-  public void remove(Rectangle obj)
+  public void remove(GameObject obj)
   {
     remove(indexOf(obj));
   }

@@ -205,6 +205,11 @@ public abstract class GameWindow extends Applet implements Runnable {
 	// Paint the screen
 	public void paint(Graphics theGraphics) {
 		if (didInit && theGraphics != null) {
+			
+screenBufferGraphics.dispose();
+screenBufferGraphics = (Graphics2D) screenBuffer.getGraphics();
+addRenderingHints(screenBufferGraphics);			
+
 			// Clear the buffer
 			screenBufferGraphics.clearRect(0, 0, screenBuffer.getWidth(null),
 					screenBuffer.getHeight(null));

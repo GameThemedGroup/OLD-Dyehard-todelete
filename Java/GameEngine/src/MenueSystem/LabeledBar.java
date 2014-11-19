@@ -1,5 +1,6 @@
 package MenueSystem;
 
+import Engine.SegmentedBar;
 import Engine.Vector2;
 
 
@@ -30,7 +31,7 @@ public class LabeledBar extends Label{
 	}
 	/**
 	 * Will return the activeSegmentedBar
-	 * @return
+	 * @return the active segment bar
 	 */
 	public SegmentedBar getSegmentedBar(){
 		return localBar;
@@ -49,8 +50,8 @@ public class LabeledBar extends Label{
 	}
 	/**
 	 * Will set whether or not this LabeledBar is Visible 
-	 * @param visable If TRUE, this LabeledBar will be made visible. If FALSE, this LabeledBar will be made invisible
-	 * @param affectSubPanels If TRUE, all of this LabeledBar's subPanels visibility settings will be set to match this LabeledBar's visibility settings.
+	 * @param visible If TRUE, this LabeledBar will be made visible. If FALSE, this LabeledBar will be made invisible
+	 * @param effectSubPanels If TRUE, all of this LabeledBar's subPanels visibility settings will be set to match this LabeledBar's visibility settings.
 	 * If FALSE, only this LabeledBar's visibility setting will be affcted
 	 */
 	public void setVisibility(boolean visible, boolean effectSubPanels){
@@ -60,7 +61,7 @@ public class LabeledBar extends Label{
 	/**
 	 * Will move this LabeledBar by the given amount in world coordinates
 	 * @param move the amount that this LabeledBar will be moved by
-	 * @param affectSubPanels If TRUE, all of this LabeledBar's subPanels position settings will be set to match this Button's position settings.
+	 * @param effectSubPanels If TRUE, all of this LabeledBar's subPanels position settings will be set to match this Button's position settings.
 	 */
 	public void movePanel(Vector2 move, boolean effectSubPanels){
 		if(move != null){
@@ -71,7 +72,7 @@ public class LabeledBar extends Label{
 	/**
 	 * Will scale this LabeledBar by the given amount in world coordinates
 	 * @param scale the amount that will be scaled by 
-	 * @param affectSubPanels If TRUE, all of this panels subPanels size settings will be set to match this LabeledBar size settings.
+	 * @param effectSubPanels If TRUE, all of this panels subPanels size settings will be set to match this LabeledBar size settings.
 	 */
 	public void scalePanel(Vector2 scale, boolean effectSubPanels){
 		if(scale != null){
@@ -104,11 +105,11 @@ public class LabeledBar extends Label{
 	/**
 	 * Will Draw this LabeledBar
 	 * Note This function is not called if you use addToAutoDrawSet();
-	 */
+	 *
 	public void drawThisPanel(){
 		super.drawThisPanel();
 		if(localBar.visible){
 			localBar.draw();
 		}
-	}
+	} */
 }

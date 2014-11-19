@@ -1,15 +1,12 @@
-package MenueSystem;
+package Engine;
 
 import java.awt.Color;
-
-import Engine.BaseCode;
-import Engine.Rectangle;
 
 /**
  * Maintains a segmented horizontal Segment bar
  * @author Michael Letter
  */
-public class SegmentedBar extends Rectangle{
+public class SegmentedBar extends Rectangle {
 	private int maxSegments = 0;
 	/** stores the Segment the bar will be representing must be less than SegmentBarDividers.length */
 	private int filledSegments = 0;
@@ -31,8 +28,8 @@ public class SegmentedBar extends Rectangle{
 		}
 	}
 	/**
-	 * if "useImages" is True will set the texture drawn for the inactive segments of bar
-	 * @param activeImageLocation the location of the target image
+	 * Sets the image to show when inactive.
+	 * @param inactiveImageLocation the location of the target image
 	 */
 	public void setInactiveImage(String inactiveImageLocation){
 		if(inactiveImageLocation != null){
@@ -41,7 +38,7 @@ public class SegmentedBar extends Rectangle{
 	}
 	/**
 	 * will set the max Segment of the bar
-	 * @param newmaxSegments
+	 * @param newmaxSegments maximum number of bars to show.
 	 * @return whether or not changes were made
 	 */
 	public boolean setMaxSegments(int newmaxSegments){
@@ -55,15 +52,15 @@ public class SegmentedBar extends Rectangle{
 		return false;
 	}
 	/**
-	 * Does do you think this does
-	 * @return
+	 * Gets maximum number of bar that will be shown.
+	 * @return the max number of bars that will be shown.
 	 */
 	public int getMaxSegments(){
 		return maxSegments;
 	}
 	/**
 	 * Will set the Segment displayed by the bar
-	 * @param newfilledSegments
+	 * @param newfilledSegments number of the segments that will be filled.
 	 * @return whether or not changes were made
 	 */
 	public boolean setFilledSegments(int newfilledSegments){
@@ -77,15 +74,15 @@ public class SegmentedBar extends Rectangle{
 		return false;
 	}
 	/**
-	 * Does do you think this does
-	 * @return
+	 * Gets the number of segments that are filled.
+	 * @return The number of segments that are filled.
 	 */
 	public int getfilledSegments(){
 		return filledSegments;
 	}
 	/**
 	 * Will add as much of increment to the filledSegments as possible 
-	 * @param increment
+	 * @param increment amount to be added.
 	 */
 	public void incrementSegmentsFilled(int increment){
 		filledSegments += increment;

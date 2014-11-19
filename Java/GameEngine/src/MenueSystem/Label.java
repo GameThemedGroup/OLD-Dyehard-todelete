@@ -21,7 +21,8 @@ public class Label extends Panel {
 		lableText.setText("");
 	}
 	/**
-	 * will set the Text that appear on the lable
+	 * will set the Text that appear on the label
+	 * @param text the text to be displayed on the label.
 	 */
 	public void setText(String text){
 		if(text != null){
@@ -84,8 +85,8 @@ public class Label extends Panel {
 	}
 	/**
 	 * Will set whether or not this Label is Visible 
-	 * @param visable If TRUE, this Label will be made visible. If FALSE, this Label will be made invisible
-	 * @param affectSubPanels If TRUE, all of this Label's subPanels visibility settings will be set to match this Label's visibility settings.
+	 * @param visible If TRUE, this Label will be made visible. If FALSE, this Label will be made invisible
+	 * @param effectSubPanels If TRUE, all of this Label's subPanels visibility settings will be set to match this Label's visibility settings.
 	 * If FALSE, only this Label's visibility setting will be affcted
 	 */
 	public void setVisibility(boolean visible, boolean effectSubPanels){
@@ -95,7 +96,7 @@ public class Label extends Panel {
 	/**
 	 * Will scale this Button by the given amount in world coordinates
 	 * @param move the amount that this Button will be moved by
-	 * @param affectSubPanels If TRUE, all of this Button's subPanels position settings will be set to match this Button's position settings.
+	 * @param effectSubPanels If TRUE, all of this Button's subPanels position settings will be set to match this Button's position settings.
 	 */
 	public void movePanel(Vector2 move, boolean effectSubPanels){
 		if(move != null){
@@ -106,7 +107,7 @@ public class Label extends Panel {
 	/**
 	 * Will scale this panel by the given amount in world coordinates
 	 * @param scale the amount that will be scaled by 
-	 * @param affectSubPanels If TRUE, all of this panels subPanels size settings will be set to match this Panels size settings.
+	 * @param effectSubPanels If TRUE, all of this panels subPanels size settings will be set to match this Panels size settings.
 	 */
 	public void scalePanel(Vector2 scale, boolean effectSubPanels){
 		if(scale != null){
@@ -136,14 +137,16 @@ public class Label extends Panel {
 		lableText.destroy();
 		super.destroy();
 	}
+	
 	/**
 	 * Will Draw this Label
 	 * Note This function is not called if you use addToAutoDrawSet();
-	 */
+	 *
 	public void drawThisPanel(){
 		super.drawThisPanel();
 		if(lableText.visible){
 			lableText.draw();
 		}
 	}
+	*/
 }

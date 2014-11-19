@@ -20,11 +20,11 @@ public class Button extends Label{
 	public boolean selectable = true;
 	
 	/**
-	 * Will AutoUpdate the State if this Button and is subPanels based on the psotion of the mouse
+	 * Will AutoUpdate the State if this Button and is subPanels based on the position  of the mouse
 	 * Note: Subpanels will be made invisible if the button is idle or inactive and when only be visible of the button is selected
 	 * Unless selectable == false; Then subPanels will be updated the same way they are in Panel
 	 * Otherwise 
-	 * @param mouse
+	 * @param mouse current state of the mouse (x/y position, button states, etc.)
 	 */
 	public void autoUpdateState(MouseInput mouse){
 		//inactive Buttons do not update
@@ -105,10 +105,10 @@ public class Button extends Label{
 		}
 	}
 	/**
-	 * Will return whether or not the given world coordinants describe a point over this button
-	 * @param pointX
-	 * @param pointY
-	 * @return
+	 * Will return whether or not the given world coordinates describe a point over this button
+	 * @param pointX x position of input point
+	 * @param pointY y position of input point
+	 * @return true: if (pointX, pointY) is over current button, false otherwise.
 	 */
 	public boolean isPointOver(float pointX, float pointY){
 		if(pointX <= (super.getBackgroundCenter().getX() + (super.getBackgroundSize().getX()/2)) &&
@@ -122,14 +122,14 @@ public class Button extends Label{
 	/**
 	 * Returns the substate of the button, this includes whether the mouse is hovering over the button, whether the button is being held down, ir if the button is simply idle.
 	 * Note, these states do not update until autoUpdateState() is called
-	 * @return
+	 * @return the current state.
 	 */
 	public transitionState getSubState(){
 		return subState;
 	}
 	/**
 	 * Will set this buttons current SubState to the given state
-	 * @param newState
+	 * @param newState the new state to be set to.
 	 */
 	public void setSubState(transitionState newState){
 		subState = newState;
@@ -146,7 +146,7 @@ public class Button extends Label{
 	/**
 	* Will set the image this button will alternate between when using autoUpdateState and setState
 	* and will preload them if they are not already preloaded
-	* @param mouseOverSelectedImage used when the mouse is hovering over the button and the button is selected
+	* @param imageLocation filename to the image to be used.
 	*/
 	public void setMouseOverSelectImage(String imageLocation){
 		if(imageLocation != null && !imageLocation.equals("")){
@@ -165,7 +165,7 @@ public class Button extends Label{
 	/**
 	 * Will set the image this button will alternate between when using autoUpdateState and setState
 	 * and will preload them if they are not already preloaded
-	 * @param mouseOverIdleImage used when the mouse is hovering over the button and the button is idle, selected
+	 * @param imageLocation filename to the image to be used.
 	 */
 	public void setMouseOverIdleImage(String imageLocation){
 		if(imageLocation != null && !imageLocation.equals("")){
@@ -184,7 +184,7 @@ public class Button extends Label{
 	/**
 	 * Will set the image this button will alternate between when using autoUpdateState and setState
 	 * and will preload them if they are not already preloaded
-	 * @param buttonDownImage used when the button is being clicked
+	 * @param imageLocation used when the button is being clicked
 	 */
 	public void setButtonDownImage(String imageLocation){
 		if(imageLocation != null && !imageLocation.equals("")){

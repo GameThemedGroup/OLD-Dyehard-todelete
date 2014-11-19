@@ -18,8 +18,8 @@ public class Menue extends Panel{
 	 * This will resize and reposition the button to match to fit the menue.
 	 * This will also call autoUpdateTextScale().
 	 * This Button can be retrieved with getSubPanel()
-	 * @param targetButton
-	 * @return
+	 * @param targetButton the button to be added
+	 * @return if positive: represents the current button number, if negative: operation failed nothing is changed.
 	 */
 	public int addButton(Button targetButton){
 		int retVal = addPanel(targetButton);
@@ -39,7 +39,7 @@ public class Menue extends Panel{
 	}
 	/**
 	 * The Vector describing  space between the buttons and the outer edges of the Panel is returned by this function
-	 * @return
+	 * @return paddings around the button.
 	 */
 	public Vector2 getButtonPadding(){
 		return borderPadding;
@@ -62,7 +62,7 @@ public class Menue extends Panel{
 	}
 	/**
 	 * Will Reposition and Rescale all Buttons added using addButton() to fit within this Menue
-	 * &param vertical if TRUE, Buttons will be placed in a vertical line. if FALSE, buttons wil be placed in a horizontal line 
+	 * @param vertical if TRUE, Buttons will be placed in a vertical line. if FALSE, buttons wil be placed in a horizontal line 
 	 */
 	public void setButtonSizesPositions(boolean vertical){
 		if(menuButtons != null){
