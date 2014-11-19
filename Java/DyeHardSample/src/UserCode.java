@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import Engine.BaseCode;
 import Engine.Text;
 import Engine.Vector2;
+import dyehard.ClassReflector;
 import dyehard.CollisionManager;
 import dyehard.DyeHard;
 import dyehard.UpdateManager;
@@ -23,13 +24,11 @@ import dyehard.Collectibles.SlowDown;
 import dyehard.Collectibles.SpeedUp;
 import dyehard.Collectibles.Unarmed;
 import dyehard.Enemies.EnemyManager;
-import dyehard.Enemies.RegularEnemy;
-import dyehard.Player.Hero;
 import dyehard.Util.Colors;
-import dyehard.World.Gate;
 
 public class UserCode extends DyeHard {
-    private Hero hero;
+    private Object hero;
+    private ClassReflector cf;
 
     private List<Text> powerupText;
     private List<PowerUp> powerUpTypes;
@@ -40,9 +39,9 @@ public class UserCode extends DyeHard {
     @Override
     protected void initialize() {
         sample1Ini();
-        sample2Ini();
-        sample3Ini();
-        sample4Ini();
+        // sample2Ini();
+        // sample3Ini();
+        // sample4Ini();
     }
 
     private void sample1Ini() {
@@ -52,8 +51,19 @@ public class UserCode extends DyeHard {
 
         state = State.PLAYING;
 
-        hero = new Hero();
-        hero.drawOnTop();
+        // hero = new Hero();
+        // hero.drawOnTop();
+
+        cf = new ClassReflector("dyehard.Player.Hero");
+        if (cf.reflect()) {
+            String[] cs = { "public dyehard.Player.Hero()" };
+            String[] ms = { "public void dyehard.Player.Hero.drawOnTop()",
+                    "public void dyehard.Player.Hero.registerWeapon(dyehard.Weapons.Weapon)" };
+            if (cf.validate(cs, ms)) {
+                hero = cf.createObj("dyehard.Player.Hero");
+                cf.invokeMethod(hero, "drawOnTop");
+            }
+        }
     }
 
     private void sample2Ini() {
@@ -77,26 +87,28 @@ public class UserCode extends DyeHard {
     }
 
     private void sample4Ini() {
-        dyehard.World.Gate.setGatePathImages();
-        new Gate(hero, Colors.randomColor(), 30f, 15f, 100f, 20f);
+        dyehard.World.WormHole.setGatePathImages();
+        // new WormHole(hero, Colors.randomColor(), 30f, 15f, 100f, 20f);
     }
 
     @Override
     protected void update() {
 
-        sample2Update();
-        sample3Update();
-        sample4Update();
+        // sample2Update();
+        // sample3Update();
+        // sample4Update();
         sample1Update();
     }
 
     private void sample1Update() {
         UpdateManager.update();
         CollisionManager.update();
-        hero.moveTo(mouse.getWorldX(), mouse.getWorldY());
+        cf.invokeMethod(hero, "moveTo", mouse.getWorldX(), mouse.getWorldY());
+        // hero.moveTo(mouse.getWorldX(), mouse.getWorldY());
 
         if ((keyboard.isButtonDown(KeyEvent.VK_F)) || (mouse.isButtonDown(1))) {
-            hero.currentWeapon.fire();
+            cf.invokeMethod(hero, "fire");
+            // hero.currentWeapon.fire();
         }
     }
 
@@ -128,7 +140,7 @@ public class UserCode extends DyeHard {
         float randomY = RANDOM.nextInt((int) BaseCode.world.getHeight() - 8) + 5;
         Vector2 position = new Vector2(BaseCode.world.getWidth() - 5, randomY);
         if (keyboard.isButtonTapped(KeyEvent.VK_E)) {
-            enemyManager.registerEnemy(new RegularEnemy(position, hero));
+            // enemyManager.registerEnemy(new RegularEnemy(position, hero));
         }
     }
 
@@ -136,8 +148,9 @@ public class UserCode extends DyeHard {
         float randomY = RANDOM.nextInt((int) BaseCode.world.getHeight() - 8) + 5;
         Vector2 position = new Vector2(BaseCode.world.getWidth() - 5, randomY);
         if (keyboard.isButtonTapped(KeyEvent.VK_G)) {
-            new Gate(hero, Colors.randomColor(), 60f, 15f, position.getX(),
-                    position.getY());
+            // new WormHole(hero, Colors.randomColor(), 60f, 15f,
+            // position.getX(),
+            // position.getY());
         }
     }
 
@@ -150,7 +163,7 @@ public class UserCode extends DyeHard {
                                 .getRemainingTime());
                     }
                 });
-        sortedPowerups.addAll(hero.powerups);
+        // sortedPowerups.addAll(hero.powerups);
 
         if (sortedPowerups.size() > powerupText.size()) {
             for (int i = powerupText.size(); i < sortedPowerups.size(); ++i) {

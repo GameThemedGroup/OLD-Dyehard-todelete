@@ -42,7 +42,7 @@ public class GameWorld implements Updateable {
         enemyGenerator = new EnemyGenerator(hero);
         this.hero = hero;
         // preload the gate path images
-        dyehard.World.Gate.setGatePathImages();
+        dyehard.World.WormHole.setGatePathImages();
 
         new Background();
 

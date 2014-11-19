@@ -27,7 +27,7 @@ import dyehard.Util.ImageTint;
 import dyehard.Weapons.OverHeatWeapon;
 import dyehard.Weapons.Weapon;
 import dyehard.World.GameState;
-import dyehard.World.Gate.DeathGate;
+import dyehard.World.WormHole.DeathGate;
 
 public class Hero extends Actor implements HeroCollision, HeroDamage {
     public static HashMap<Color, BufferedImage> chargerIdleTextures = new HashMap<Color, BufferedImage>();
@@ -382,6 +382,10 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
             }
             texture = dyeTextures.get(directionState);
         }
+    }
+
+    public void fire() {
+        currentWeapon.fire();
     }
 
     private void handleInput() {

@@ -8,7 +8,7 @@ import dyehard.Configuration;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.World.GameWorldRegion;
-import dyehard.World.Gate;
+import dyehard.World.WormHole;
 
 public class Stargate extends GameWorldRegion {
     public static final int GATE_COUNT = 4;
@@ -17,7 +17,7 @@ public class Stargate extends GameWorldRegion {
 
     private final float platHeight = 1.25f;
 
-    private Gate[] gates;
+    private WormHole[] wormHoles;
     private Platform[] platforms;
     // private GameObject backdrop;
     private static ArrayList<Color> userColors;
@@ -44,15 +44,15 @@ public class Stargate extends GameWorldRegion {
                 GATE_COUNT - userColors.size(), userColors));
         Collections.shuffle(colors);
 
-        gates = new Gate[GATE_COUNT];
+        wormHoles = new WormHole[GATE_COUNT];
         float gateHeight = (BaseCode.world.getHeight() / Stargate.GATE_COUNT)
                 - (platHeight * 2);
         float gateX = (width * 0.5f) + leftEdge;
-        for (int i = 0; i < gates.length; i++) {
+        for (int i = 0; i < wormHoles.length; i++) {
             float gateY = (BaseCode.world.getHeight() / Stargate.GATE_COUNT)
                     * (i + 0.5f);
-            gates[i] = new Gate(hero, colors.get(i), width, gateHeight, gateX,
-                    gateY);
+            wormHoles[i] = new WormHole(hero, colors.get(i), width, gateHeight,
+                    gateX, gateY);
         }
         platforms = new Platform[GATE_COUNT + 1];
         for (int i = 0; i < platforms.length; i++) {
@@ -97,8 +97,8 @@ public class Stargate extends GameWorldRegion {
 
     @Override
     public void destroy() {
-        for (Gate gate : gates) {
-            gate.destroy();
+        for (WormHole wormHole : wormHoles) {
+            wormHole.destroy();
         }
         for (Platform p : platforms) {
             p.destroy();
