@@ -11,6 +11,7 @@ import dyehard.UpdateManager;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.Util.DyeHardSound;
+import dyehard.Util.Timer;
 import dyehard.World.GameState;
 
 public class UserCode extends DyeHard {
@@ -19,6 +20,7 @@ public class UserCode extends DyeHard {
 
     private Hero hero;
     protected GameWorld world;
+    private Timer timer;
 
     private void checkControl() {
         keyboard.update();
@@ -34,15 +36,23 @@ public class UserCode extends DyeHard {
 
         switch (state) {
         case BEGIN:
-            if (keyboard.isButtonTapped(KeyEvent.VK_A)
-                    || mouse.isButtonTapped(1)) {
-                state = State.PLAYING;
-                world.hero.currentWeapon.resetTimer();
-                world.start.showScreen(false);
-            }
-            if (keyboard.isButtonTapped(KeyEvent.VK_ESCAPE)) {
-                state = State.MENU;
-                world.start.showScreen(false);
+            if (world.startScreen.isShown()) {
+                if (timer.isDone()) {
+                    world.startScreen.showScreen(false);
+                } else {
+                    world.startScreen.showScreen(true);
+                }
+            } else {
+                if (keyboard.isButtonTapped(KeyEvent.VK_A)
+                        || mouse.isButtonTapped(1)) {
+                    state = State.PLAYING;
+                    world.hero.currentWeapon.resetTimer();
+                    world.start.showScreen(false);
+                }
+                if (keyboard.isButtonTapped(KeyEvent.VK_ESCAPE)) {
+                    state = State.MENU;
+                    world.start.showScreen(false);
+                }
             }
             break;
         case PAUSED:
@@ -132,6 +142,8 @@ public class UserCode extends DyeHard {
         new DeveloperControls(hero);
 
         Stargate.addColor(Colors.Yellow);
+
+        timer = new Timer(2000);
     }
 
     protected void restart() {

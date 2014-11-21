@@ -9,6 +9,7 @@ import dyehard.UpdateManager;
 import dyehard.UpdateManager.Updateable;
 import dyehard.Background.DyehardUI;
 import dyehard.Background.LogScreen;
+import dyehard.Background.StartScreen;
 import dyehard.Obstacles.Laser;
 import dyehard.Player.Hero;
 import dyehard.World.GameState;
@@ -18,6 +19,7 @@ public class GameWorld implements Updateable {
     public DyehardMenuUI menu;
     public DyehardEndMenu endMenu;
     public LogScreen start;
+    public StartScreen startScreen;
 
     private static EnemyGenerator enemyGenerator;
 
@@ -48,6 +50,8 @@ public class GameWorld implements Updateable {
         menu = new DyehardMenuUI();
         endMenu = new DyehardEndMenu();
         start = new LogScreen();
+        startScreen = new StartScreen();
+
         new Laser(hero);
 
         // hero.alwaysOnTop();
