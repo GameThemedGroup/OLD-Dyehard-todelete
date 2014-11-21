@@ -22,7 +22,6 @@ public class DyehardRectangle extends Primitive {
 
     private boolean usingSpriteSheet = false;
     private boolean panning = false;
-    private BufferedImage panningTexture;
     private boolean vertical = false;
     /**
      * Sprite tolerance is for letting spritesheets with odd widths/heights to
@@ -237,39 +236,27 @@ public class DyehardRectangle extends Primitive {
         if (totalFrames <= 0) {
             return;
         }
+
         this.vertical = vertical;
+        frameCoords = new int[totalFrames][4];
         this.totalFrames = totalFrames;
         currentFrame = 0;
 
         currentTick = 0;
         this.ticksPerFrame = ticksPerFrame;
 
-        if (texture == null) {
-            texture = t;
-        }
-
         int factor;
         if (vertical) {
             float ratio = t.getWidth() / size.getX();
             factor = ((int) ((size.getY() * ratio) / t.getHeight())) * 2;
-            if (factor < 1) {
-                factor = 1;
-            }
             extra = (factor * t.getHeight()) - ((int) (ratio * size.getY()));
         } else {
             float ratio = t.getHeight() / size.getY();
             factor = ((int) ((size.getX() * ratio) / t.getWidth())) * 2;
-            if (factor < 1) {
-                factor = 1;
-            }
             extra = (factor * t.getWidth()) - ((int) (ratio * size.getX()));
         }
+        texture = setTiling(t, factor, vertical);
 
-        if (factor > 1) {
-            panningTexture = setTiling(t, factor, vertical);
-        } else {
-            panningTexture = t;
-        }
     }
 
     @Override
@@ -286,26 +273,25 @@ public class DyehardRectangle extends Primitive {
                 updateSpriteSheetAnimation();
             } else if (panning) {
                 if (vertical) {
-                    BaseCode.resources.drawImage(panningTexture, center.getX()
-                            - (size.getX() * 0.5f),
-                            center.getY() - (size.getY() * 0.5f), center.getX()
+                    BaseCode.resources.drawImage(texture,
+                            center.getX() - (size.getX() * 0.5f), center.getY()
+                                    - (size.getY() * 0.5f), center.getX()
                                     + (size.getX() * 0.5f), center.getY()
                                     + (size.getY() * 0.5f), 0, extra
                                     / totalFrames * currentFrame,
-                            panningTexture.getWidth(),
-                            extra / totalFrames * currentFrame
-                                    + (panningTexture.getHeight() - extra),
-                            rotate);
+                            texture.getWidth(), extra / totalFrames
+                                    * currentFrame
+                                    + (texture.getHeight() - extra), rotate);
                 } else {
-                    BaseCode.resources.drawImage(panningTexture, center.getX()
-                            - (size.getX() * 0.5f),
-                            center.getY() - (size.getY() * 0.5f), center.getX()
+                    BaseCode.resources.drawImage(texture,
+                            center.getX() - (size.getX() * 0.5f), center.getY()
+                                    - (size.getY() * 0.5f), center.getX()
                                     + (size.getX() * 0.5f), center.getY()
                                     + (size.getY() * 0.5f), extra / totalFrames
                                     * currentFrame, 0, extra / totalFrames
                                     * currentFrame
-                                    + (panningTexture.getWidth() - extra),
-                            panningTexture.getHeight(), rotate);
+                                    + (texture.getWidth() - extra),
+                            texture.getHeight(), rotate);
                 }
                 updateSpriteSheetAnimation();
             } else {
