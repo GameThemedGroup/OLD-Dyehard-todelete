@@ -288,6 +288,42 @@ public class DyehardRectangle extends Primitive {
         }
     }
 
+    public void setPanningSheet(BufferedImage t, int totalFrames,
+            int ticksPerFrame, boolean vertical, BufferedImage t2) {
+        if (totalFrames <= 0) {
+            return;
+        }
+        this.vertical = vertical;
+        this.totalFrames = totalFrames;
+        currentFrame = 0;
+
+        currentTick = 0;
+        this.ticksPerFrame = ticksPerFrame;
+
+        if (texture == null) {
+            texture = t;
+        }
+
+        int factor;
+        if (vertical) {
+            float ratio = t.getWidth() / size.getX();
+            factor = ((int) ((size.getY() * ratio) / t.getHeight())) * 2;
+            if (factor < 1) {
+                factor = 1;
+            }
+            extra = (factor * t.getHeight()) - ((int) (ratio * size.getY()));
+        } else {
+            float ratio = t.getHeight() / size.getY();
+            factor = ((int) ((size.getX() * ratio) / t.getWidth())) * 2;
+            if (factor < 1) {
+                factor = 1;
+            }
+            extra = (factor * t.getWidth()) - ((int) (ratio * size.getX()));
+        }
+
+        panningTexture = t2;
+    }
+
     @Override
     public void draw() {
         if (flash) {
@@ -667,6 +703,13 @@ public class DyehardRectangle extends Primitive {
             g2.dispose();
             return newImage;
         }
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        texture = null;
+        panningTexture = null;
     }
 
     /*

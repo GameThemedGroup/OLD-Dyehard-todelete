@@ -15,6 +15,7 @@ import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.Util.DyeHardSound;
 import dyehard.Util.ImageTint;
+import dyehard.Util.TextureTile;
 
 public class WormHole {
     private final Hero hero;
@@ -45,7 +46,7 @@ public class WormHole {
 
         BufferedImage dGate = BaseCode.resources
                 .loadImage("Textures/Background/Warp_start_Anim.png");
-        // TextureTile tile = new TextureTile();
+        TextureTile tile = new TextureTile();
         // Fill the hashmaps with tinted images for later use
         for (int i = 0; i < 6; i++) {
             Color temp = Colors.colorPicker(i);
@@ -74,14 +75,12 @@ public class WormHole {
             }
 
             // cache the tiled portal images
-            gPathBack.put(
-                    temp,
+            gPathBack.put(temp, tile.setTiling(
                     BaseCode.resources.loadImage("Textures/Background/Warp_"
-                            + colorString + "_back.png"));
-            gPathFront.put(
-                    temp,
+                            + colorString + "_back.png"), 22, false));
+            gPathFront.put(temp, tile.setTiling(
                     BaseCode.resources.loadImage("Textures/Background/Warp_"
-                            + colorString + "_front.png"));
+                            + colorString + "_front.png"), 22, false));
         }
     }
 

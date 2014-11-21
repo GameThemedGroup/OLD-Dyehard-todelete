@@ -87,6 +87,7 @@ public class GameWorld implements Updateable {
         } else {
             addRegion(new Stargate(hero));
         }
+        System.gc();
         distance = 0f;
         GameState.DistanceTravelled = 0;
         GameState.Score = 0;
