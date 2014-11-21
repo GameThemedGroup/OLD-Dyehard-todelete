@@ -217,18 +217,30 @@ public class DyehardRectangle extends Primitive {
 
     // Helper getters for drawing a portion of an image(the spritesheet)
     private int getSpriteUpperX() {
+        if (currentFrame >= frameCoords.length) {
+            currentFrame = frameCoords.length - 1;
+        }
         return frameCoords[currentFrame][0];
     }
 
     private int getSpriteUpperY() {
+        if (currentFrame >= frameCoords.length) {
+            currentFrame = frameCoords.length - 1;
+        }
         return frameCoords[currentFrame][1];
     }
 
     private int getSpriteLowerX() {
+        if (currentFrame >= frameCoords.length) {
+            currentFrame = frameCoords.length - 1;
+        }
         return frameCoords[currentFrame][2];
     }
 
     private int getSpriteLowerY() {
+        if (currentFrame >= frameCoords.length) {
+            currentFrame = frameCoords.length - 1;
+        }
         return frameCoords[currentFrame][3];
     }
 
