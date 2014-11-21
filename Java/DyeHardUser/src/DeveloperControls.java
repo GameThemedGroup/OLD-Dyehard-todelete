@@ -113,22 +113,6 @@ public class DeveloperControls extends UpdateObject {
         if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_L)) {
             DyeHardSound.play(DyeHardSound.loseSound);
         }
-        if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_8)) {
-            if (BaseCode.resources.isSoundPlaying(DyeHardSound.enemySpaceship1)) {
-                BaseCode.resources.stopSound(DyeHardSound.enemySpaceship1);
-            } else {
-                BaseCode.resources
-                        .playSoundLooping(DyeHardSound.enemySpaceship1);
-            }
-        }
-        if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_9)) {
-            if (BaseCode.resources.isSoundPlaying(DyeHardSound.enemySpaceship2)) {
-                BaseCode.resources.stopSound(DyeHardSound.enemySpaceship2);
-            } else {
-                BaseCode.resources
-                        .playSoundLooping(DyeHardSound.enemySpaceship2);
-            }
-        }
 
         if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_E)) {
             EnemyGenerator.generateEnemy();
