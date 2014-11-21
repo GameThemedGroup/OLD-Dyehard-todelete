@@ -160,6 +160,24 @@ public class HeroEffect {
         }
     }
 
+    public void startFlashing() {
+        boost.startFlashing();
+        if (hero.isRepel) {
+            repelLeft.startFlashing();
+            repelRight.startFlashing();
+        }
+        if (hero.isInvin) {
+            invin.startFlashing();
+        }
+    }
+
+    public void stopFlashing() {
+        boost.stopFlashing();
+        repelLeft.stopFlashing();
+        repelRight.stopFlashing();
+        invin.stopFlashing();
+    }
+
     public void drawOnTop() {
         invin.removeFromAutoDrawSet();
         invin.addToAutoDrawSet();

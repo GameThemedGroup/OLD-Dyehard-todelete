@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Engine.BaseCode;
-import Engine.Rectangle;
 import Engine.Vector2;
+import dyehard.DyehardRectangle;
 import dyehard.Collectibles.DyePack;
 import dyehard.Player.Hero.Direction;
 
-public class DynamicDyePack extends Rectangle {
+public class DynamicDyePack extends DyehardRectangle {
     Hero hero;
     private final float height = 2f;
     private final float width = 1.75f;

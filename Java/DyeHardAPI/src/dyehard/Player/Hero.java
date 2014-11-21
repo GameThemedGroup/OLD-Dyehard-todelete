@@ -49,6 +49,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public boolean isInvin;
     public boolean isRepel;
     public boolean isFiring;
+    private boolean flashing;
 
     public final Weapon defaultWeapon = new OverHeatWeapon(this);
     public final float defaultJetSpeed = Configuration.heroJetSpeed;
@@ -203,6 +204,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     @Override
     public void update() {
+        super.update();
         applyPowerups();
         handleInput();
         // updateDirectionState();
@@ -266,7 +268,7 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     }
 
     public void moveTo(float x, float y) {
-        if (DyeHard.getState() == DyeHard.State.PLAYING) {
+        if ((DyeHard.getState() == DyeHard.State.PLAYING) && !flashing) {
             float xOffset = x - center.getX();
             float yOffset = y - center.getY();
 
@@ -389,7 +391,9 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     }
 
     public void fire() {
-        currentWeapon.fire();
+        if (!flashing) {
+            currentWeapon.fire();
+        }
     }
 
     private void handleInput() {
@@ -552,5 +556,23 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
 
     public Vector2 getStart() {
         return startingLocation.clone();
+    }
+
+    @Override
+    public void startFlashing() {
+        super.startFlashing();
+        heroEffect.startFlashing();
+        dynamicDyepack.startFlashing();
+        flashing = true;
+        damageOn = false;
+    }
+
+    @Override
+    public void stopFlashing() {
+        super.stopFlashing();
+        heroEffect.stopFlashing();
+        dynamicDyepack.stopFlashing();
+        flashing = false;
+        damageOn = true;
     }
 }

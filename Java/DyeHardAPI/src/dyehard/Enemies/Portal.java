@@ -65,7 +65,7 @@ public class Portal extends GameObject {
         texture = exitTexture;
         setUsingSpriteSheet(true);
         setSpriteSheet(texture, 160, 160, 20, 2);
-        timer = new Timer(duration / 4);
+        timer = new Timer(1500);
     }
 
     @Override
@@ -75,6 +75,7 @@ public class Portal extends GameObject {
                 Random rand = new Random();
                 new Portal(hero, new Vector2(rand.nextInt(90) + 5,
                         rand.nextInt(50) + 5));
+                hero.startFlashing();
                 destroy();
             }
         }
@@ -82,8 +83,16 @@ public class Portal extends GameObject {
             if (!collide) {
                 hero.center.set(center.clone());
                 hero.velocity = new Vector2(0f, 0f);
+                if (visible) {
+                    visible = false;
+                    timer.reset();
+                } else {
+                    hero.stopFlashing();
+                    destroy();
+                }
+            } else {
+                destroy();
             }
-            destroy();
         }
     }
 
