@@ -100,16 +100,20 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         // Fill the hashmap with tinted images for later use
         for (int i = 0; i < 6; i++) {
             Color temp = Colors.colorPicker(i);
+            float alpha = 0.45f;
+            if (temp == Colors.Blue) {
+                alpha = 0.75f;
+            }
             chargerIdleTextures.put(temp,
-                    ImageTint.tintedImage(idle, temp, 0.45f));
+                    ImageTint.tintedImage(idle, temp, alpha));
             chargerAttackTextures.put(temp,
-                    ImageTint.tintedImage(attack, temp, 0.45f));
+                    ImageTint.tintedImage(attack, temp, alpha));
             regularLeftTextures.put(temp,
-                    ImageTint.tintedImage(regularLeft, temp, 0.45f));
+                    ImageTint.tintedImage(regularLeft, temp, alpha));
             regularRightTextures.put(temp,
-                    ImageTint.tintedImage(regularRight, temp, 0.45f));
+                    ImageTint.tintedImage(regularRight, temp, alpha));
             portalEnemyTextures.put(temp,
-                    ImageTint.tintedImage(portalEnemy, temp, 0.45f));
+                    ImageTint.tintedImage(portalEnemy, temp, alpha));
         }
         chargerIdleTextures.put(Color.gray, idle);
         chargerAttackTextures.put(Color.gray, attack);
