@@ -241,13 +241,6 @@ public class Sound
       theClip.setFramePosition(0);
     }
   }
-  
-  public void destroy()
-  {
-	  stop();
-	  if (theClip != null)
-		  theClip.close();
-  }
 
   /**
    * Check if the audio clip is in use.
@@ -305,8 +298,6 @@ public class Sound
             AudioSystem.getAudioInputStream(dataStream);
 
         toReturn.open(theStream);
-        dataStream.close();
-        theStream.close();
       }
       catch(Exception e)
       {

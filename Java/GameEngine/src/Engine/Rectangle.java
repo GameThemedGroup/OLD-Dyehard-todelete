@@ -5,9 +5,8 @@ import java.awt.image.BufferedImage;
 
 // Sprite sheet code ported from the C# engine, which
 // is credited to Samuel Cook and Ron Cook for adding support for that.
-class Rectangle extends Primitive
+public class Rectangle extends Primitive
 {
-	// Note: this class is package private, we DO NOT want anyone to see this outside of this class
 
   public enum SpriteSheetAnimationMode
   {
@@ -44,8 +43,6 @@ class Rectangle extends Primitive
   private boolean mSwingDirectionLeft = false; // For swing animation, if false, go from
                                                // first to last frame, if true go from
                                                // last to first frame.
-  
-  private boolean mPauseAnimation = false;     // If set to true, spritesheet will not advance
   
   private boolean mDrawImage = true;
   private boolean mDrawFilledRect = true;
@@ -106,7 +103,9 @@ class Rectangle extends Primitive
     mDrawFilledRect = value;
   }
   /**
-   * Sets up the spritesheet animation. Will not do anything if width, height, or totalFrame are less than 0.
+   * Sets up the spritesheet animation.
+   * 
+   * Will do nothing if width, height, or totalFrame are <= 0.
    * 
    * @param textureFilename Filename of the spritesheet image
    * @param width Width of individual sprite.
@@ -124,9 +123,11 @@ class Rectangle extends Primitive
 	  initializeSpriteSheet(width,height,totalFrames,ticksPerFrame);
   }
   /**
-   * Sets up the spritesheet animation. Will not do anything if width, height, or totalFrame are less than 0.
+   * Sets up the spritesheet animation.
    * 
-   * @param texture the spritesheet image
+   * Will do nothing if width, height, or totalFrame are <= 0.
+   * 
+   * @param textureFilename Filename of the spritesheet image
    * @param width Width of individual sprite.
    * @param height Height of individual sprite.
    * @param totalFrames Total sprites in spritesheet
@@ -267,10 +268,8 @@ class Rectangle extends Primitive
     			    getSpriteUpperX(),
     			    getSpriteUpperY(),
     			    rotate);
-    	  if(!mPauseAnimation)
-    	  {
     	  updateSpriteSheetAnimation();
-    	  }
+    	  
       }
       else
       {
@@ -441,24 +440,6 @@ class Rectangle extends Primitive
 		  }
 		  ++mCurrentFrame;
 	  }
-  }
-  
-  /**
-   * sets the paused status of the animation
-   * @param animate if true, animation will be paused
-   */
-  public void setAnimationPauseStatus(boolean pause)
-  {
-	  mPauseAnimation = pause;
-  }
-  
-  /**
-   * Gets the animation pause state
-   * @return True if animation is paused
-   */
-  public boolean isAnimationPaused()
-  {
-	  return mPauseAnimation;
   }
   //***************************************************************************
   // Collision and related methods

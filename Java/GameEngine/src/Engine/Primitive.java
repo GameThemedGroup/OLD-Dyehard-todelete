@@ -6,10 +6,8 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 import Engine.World.BoundCollidedStatus;
 
-// note this class is private! to this package, will NOT be visible outside of GameEngine!! 
-abstract class Primitive
+public abstract class Primitive
 {
-
   public static ResourceHandler resources = null;
 
   public Vector2 center = new Vector2();
@@ -135,7 +133,7 @@ abstract class Primitive
    * Check if the primitive is touching or outside of any side of the world.
    * 
    * @return - The side of the world that the object is overlapping.
-   *
+   */
   public BoundCollidedStatus collideWorldBound()
   {
     if(!visible)
@@ -151,7 +149,7 @@ abstract class Primitive
    * 
    * @return - True if touching or outside of any side of the world, otherwise
    *         false.
-   *
+   */
   public boolean checkWorldBound(BoundCollidedStatus whichBound)
   {
     if(!visible)
@@ -167,19 +165,18 @@ abstract class Primitive
    * 
    * @return - True if any part of the primitive is inside the world, otherwise
    *         false.
-   *
+   */
   public boolean isInsideWorldBound()
   {
     return visible && BaseCode.world.isInsideWorldBound(this);
   }
-*/
+
   /**
    * Remove the object from drawing and updating.
    */
   public void destroy()
   {
     removeFromAutoDrawSet();
-    texture = null;
     visible = false;
   }
 
