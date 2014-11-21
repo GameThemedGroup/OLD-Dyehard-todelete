@@ -14,8 +14,8 @@ public abstract class DyeHard extends LibraryCode {
         BEGIN, PAUSED, PLAYING, GAMEOVER, QUIT, MENU, RESTART
     }
 
-    public static ClassReflector studentObjRef;
-    private static boolean useStudentObj = false;
+    // public static ClassReflector studentObjRef;
+    // private static boolean useStudentObj = false;
     // Game state
     protected static State state;
 
@@ -66,10 +66,10 @@ public abstract class DyeHard extends LibraryCode {
     public static State getState() {
         return state;
     }
-
-    public static boolean useStudentObj() {
-        return useStudentObj;
-    }
+//
+//    public static boolean useStudentObj() {
+//        return useStudentObj;
+//    }
 
     protected abstract void update();
 

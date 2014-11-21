@@ -11,9 +11,6 @@ import dyehard.UpdateManager;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 import dyehard.Util.DyeHardSound;
-import dyehard.Weapons.LimitedAmmoWeapon;
-import dyehard.Weapons.OverHeatWeapon;
-import dyehard.Weapons.SpreadFireWeapon;
 import dyehard.World.GameState;
 
 public class UserCode extends DyeHard {
@@ -125,10 +122,10 @@ public class UserCode extends DyeHard {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-        hero.registerWeapon(new SpreadFireWeapon(hero));
-        hero.registerWeapon(new OverHeatWeapon(hero));
-        hero.registerWeapon(new LimitedAmmoWeapon(hero));
+        //
+        // hero.registerWeapon(new SpreadFireWeapon(hero));
+        // hero.registerWeapon(new OverHeatWeapon(hero));
+        // hero.registerWeapon(new LimitedAmmoWeapon(hero));
 
         world.initialize(hero);
 
