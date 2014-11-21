@@ -622,6 +622,7 @@ public class DyehardRectangle extends Primitive {
 
     public void startFlashing() {
         flashCount = 0;
+        drawImage = true;
         flash = true;
     }
 
