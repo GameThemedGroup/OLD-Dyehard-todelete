@@ -41,6 +41,25 @@ public class EnemyGenerator {
         t.reset();
     }
 
+    // 1 for portalEnemy, 2 for Charger, other for regular
+    public static void generateEnemy(int choice) {
+        // TODO: Replace magic numbers
+        float randomY = RANDOM.nextInt((int) BaseCode.world.getHeight() - 8) + 5;
+        Vector2 position = new Vector2(BaseCode.world.getWidth() + 10, randomY);
+        switch (choice) {
+        case 1:
+            enemyManager.registerEnemy(new PortalEnemy(position, hero));
+            break;
+        case 2:
+            enemyManager.registerEnemy(new ChargerEnemy(position, hero));
+            break;
+        default:
+            enemyManager.registerEnemy(new RegularEnemy(position, hero));
+            break;
+        }
+        t.reset();
+    }
+
     public void clearEnemy() {
         enemyManager.clear();
     }
