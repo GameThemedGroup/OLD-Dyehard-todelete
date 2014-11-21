@@ -15,7 +15,7 @@ public class CreditScreen {
         creditFront.center.set(BaseCode.world.getWidth() / 2,
                 BaseCode.world.getHeight() / 2);
         creditFront.texture = BaseCode.resources
-                .loadImage("Textures/UI/DyeHard_CreditsFront.png");
+                .getImage("Textures/UI/DyeHard_CreditsFront.png");
         creditFront.visible = false;
 
         credit = new DyehardRectangle();
@@ -24,7 +24,7 @@ public class CreditScreen {
         credit.center.set(BaseCode.world.getWidth() / 2,
                 BaseCode.world.getHeight() / 2);
         credit.texture = BaseCode.resources
-                .loadImage("Textures/UI/DyeHard_CreditsScroll.png");
+                .getImage("Textures/UI/DyeHard_CreditsScroll.png");
         credit.setPanning(true);
         credit.setPanningSheet(credit.texture, 300, 2, true);
         credit.visible = false;
@@ -36,7 +36,7 @@ public class CreditScreen {
         creditBack.center.set(BaseCode.world.getWidth() / 2,
                 BaseCode.world.getHeight() / 2);
         creditBack.texture = BaseCode.resources
-                .loadImage("Textures/UI/DyeHard_CreditsBack.png");
+                .getImage("Textures/UI/DyeHard_CreditsBack.png");
         creditBack.visible = false;
     }
 

@@ -550,6 +550,32 @@ public class ResourceHandler {
     }
 
     /**
+     * Get image once, no cache
+     * 
+     * @param fileName
+     * @return
+     */
+    public BufferedImage getImage(String fileName) {
+        if (fileName == null || fileName.compareTo("") == 0) {
+            return null;
+        }
+        BufferedImage img = null;
+
+        InputStream input = getResourceStream(fileName);
+
+        if (input != null) {
+            img = preloadImage(input);
+        }
+
+        if (img == null) {
+            System.err.println("Error loading image: '" + fileName + "'");
+            MessageOnce.showAlert("Error loading image: '" + fileName + "'");
+        }
+
+        return img;
+    }
+
+    /**
      * Loads and stores a sound to be played later.
      * 
      * @param fileName

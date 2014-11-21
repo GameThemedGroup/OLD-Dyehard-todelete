@@ -12,7 +12,7 @@ public class StartScreen {
         screen.center.set(BaseCode.world.getWidth() / 2,
                 BaseCode.world.getHeight() / 2);
         screen.texture = BaseCode.resources
-                .loadImage("Textures/UI/DyeHard_StartScreen.png");
+                .getImage("Textures/UI/DyeHard_StartScreen.png");
         screen.alwaysOnTop = true;
         screen.visible = true;
     }
@@ -20,6 +20,8 @@ public class StartScreen {
     public void showScreen(boolean show) {
         if (show) {
             BaseCode.resources.moveToFrontOfDrawSet(screen);
+        } else {
+            screen.texture = null;
         }
         screen.visible = show;
     }
