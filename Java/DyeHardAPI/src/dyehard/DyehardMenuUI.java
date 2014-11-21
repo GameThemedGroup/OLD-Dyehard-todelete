@@ -2,6 +2,7 @@ package dyehard;
 
 import Engine.BaseCode;
 import Engine.Vector2;
+import dyehard.Background.CreditScreen;
 import dyehard.Util.DyeHardSound;
 
 public class DyehardMenuUI {
@@ -9,6 +10,7 @@ public class DyehardMenuUI {
     private final MenuSelect soundTog;
     private final MenuSelect musicTog;
     private final DyehardRectangle menuHud;
+    private final CreditScreen credit;
 
     private boolean music = true;
 
@@ -36,9 +38,12 @@ public class DyehardMenuUI {
                 .loadImage("Textures/UI/UI_Menu.png");
         menuHud.alwaysOnTop = true;
         menuHud.visible = false;
+
+        credit = new CreditScreen();
     }
 
     public void active(boolean active) {
+        BaseCode.resources.moveToFrontOfDrawSet(menuHud);
         menuHud.visible = active;
         soundTog.active(active);
         musicTog.active(active);
@@ -85,7 +90,10 @@ public class DyehardMenuUI {
             // hit button 4, credits
             else if ((y > 19.25f) && (y < 23.75f)) {
                 menuSelect.move(creditSelect);
-                // TODO add credits
+                if (click) {
+                    DyeHard.state = DyeHard.State.PAUSED;
+                    credit.showScreen(true);
+                }
             }
             // hit button 5, quit
             else if ((y > 13.125f) && (y < 17.5f)) {
@@ -145,6 +153,12 @@ public class DyehardMenuUI {
         }
     }
 
+    public void CreditOff() {
+        if (credit.isShown()) {
+            credit.showScreen(false);
+        }
+    }
+
     private class MenuSelect {
         private final DyehardRectangle sel;
 
@@ -159,6 +173,7 @@ public class DyehardMenuUI {
         }
 
         private void active(boolean active) {
+            BaseCode.resources.moveToFrontOfDrawSet(sel);
             sel.visible = active;
         }
 

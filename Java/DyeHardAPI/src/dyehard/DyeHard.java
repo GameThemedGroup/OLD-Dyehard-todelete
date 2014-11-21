@@ -66,10 +66,11 @@ public abstract class DyeHard extends LibraryCode {
     public static State getState() {
         return state;
     }
-//
-//    public static boolean useStudentObj() {
-//        return useStudentObj;
-//    }
+
+    //
+    // public static boolean useStudentObj() {
+    // return useStudentObj;
+    // }
 
     protected abstract void update();
 

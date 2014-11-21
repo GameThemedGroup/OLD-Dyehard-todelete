@@ -13,6 +13,7 @@ public class DyehardRectangle extends Primitive {
     public boolean spriteCycleDone = false;
 
     public boolean reverse = false;
+    public boolean overRide = false;
     private boolean drawImage = true;
     private boolean drawFilledRect = true;
     private boolean flash = false;
@@ -168,7 +169,7 @@ public class DyehardRectangle extends Primitive {
      * Updates the currently drawn sprite of the spritesheet.
      */
     private void updateSpriteSheetAnimation() {
-        if (DyeHard.state == DyeHard.State.PLAYING) {
+        if ((DyeHard.state == DyeHard.State.PLAYING) || (overRide)) {
             if (currentTick < ticksPerFrame) {
                 currentTick++;
                 return;

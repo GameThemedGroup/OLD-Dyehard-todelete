@@ -46,11 +46,11 @@ public class UserCode extends DyeHard {
             }
             break;
         case PAUSED:
-            if (keyboard.isButtonTapped(KeyEvent.VK_A)) {
+            if (keyboard.isButtonTapped(KeyEvent.VK_A)
+                    || mouse.isButtonTapped(1)
+                    || keyboard.isButtonTapped(KeyEvent.VK_ESCAPE)) {
+                world.menu.CreditOff();
                 state = State.PLAYING;
-            }
-            if (keyboard.isButtonTapped(KeyEvent.VK_ESCAPE)) {
-                state = State.MENU;
             }
             break;
         case MENU:

@@ -1,7 +1,6 @@
 package dyehard.Background;
 
 import Engine.BaseCode;
-import Engine.Vector2;
 import dyehard.DyehardRectangle;
 
 public class LogScreen {
@@ -9,9 +8,9 @@ public class LogScreen {
 
     public LogScreen() {
         screen = new DyehardRectangle();
-        screen.size.set(new Vector2(40f, 11f));
-        screen.center.set(new Vector2(BaseCode.world.getWidth() / 2,
-                BaseCode.world.getHeight() / 2));
+        screen.size.set(40f, 11f);
+        screen.center.set(BaseCode.world.getWidth() / 2,
+                BaseCode.world.getHeight() / 2);
         screen.texture = BaseCode.resources
                 .loadImage("Textures/UI/UI_Start.png");
         screen.alwaysOnTop = true;
