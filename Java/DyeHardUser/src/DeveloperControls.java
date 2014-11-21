@@ -118,6 +118,16 @@ public class DeveloperControls extends UpdateObject {
             EnemyGenerator.generateEnemy();
         }
 
+        if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_P)) {
+            EnemyGenerator.generateEnemy(1);
+        }
+        // if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_9)) {
+        // EnemyGenerator.generateEnemy(1);
+        // }
+        // if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_0)) {
+        // EnemyGenerator.generateEnemy(1);
+        // }
+
         // 'K' to kill all the enemies on screen
         if (DyehardKeyboard.isKeyTapped(KeyEvent.VK_K)) {
             for (Enemy e : EnemyManager.getEnemies()) {
