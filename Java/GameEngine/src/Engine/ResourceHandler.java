@@ -194,7 +194,7 @@ public class ResourceHandler {
      */
     public void moveToFrontOfDrawSet(Primitive thePrimitive) {
         removeFromAutoDrawSet(thePrimitive);
-        addToAutoDrawSet(thePrimitive);
+        drawSet.add(thePrimitive);
     }
 
     /**
