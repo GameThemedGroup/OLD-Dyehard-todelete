@@ -7,6 +7,7 @@ import Engine.Vector2;
 import dyehard.Configuration;
 import dyehard.Configuration.EnemyType;
 import dyehard.Player.Hero;
+import dyehard.Util.DyeHardSound;
 
 public class RegularEnemy extends Enemy {
     private boolean left;
@@ -29,6 +30,7 @@ public class RegularEnemy extends Enemy {
         super.update();
         if (enemyState == EnemyState.CHASEHERO) {
             soundOn = true;
+            DyeHardSound.playLoop(DyeHardSound.enemySpaceship2);
         }
 
         if ((velocity.getX() > 0) && left) {
@@ -73,5 +75,13 @@ public class RegularEnemy extends Enemy {
     @Override
     public String toString() {
         return "Shooting";
+    }
+
+    @Override
+    public void destroy() {
+        if (soundOn) {
+            DyeHardSound.stopSound(DyeHardSound.enemySpaceship2);
+        }
+        super.destroy();
     }
 }
