@@ -15,9 +15,6 @@ public class DyehardRectangle extends Primitive {
     public boolean reverse = false;
     private boolean drawImage = true;
     private boolean drawFilledRect = true;
-    private boolean flash = false;
-    private int flashCount = 0;
-    private final int flashRate = 5;
 
     public enum SpriteSheetAnimationMode {
         ANIMATE_FORWARD, ANIMATE_BACKWARD, ANIMATE_SWING
@@ -289,12 +286,6 @@ public class DyehardRectangle extends Primitive {
 
     @Override
     public void draw() {
-        if (flash) {
-            if (flashCount == flashRate) {
-                visible = !visible;
-            }
-            flashCount++;
-        }
         if (drawImage && texture != null) {
             if (usingSpriteSheet) {
                 BaseCode.resources.drawImage(texture,
@@ -617,16 +608,6 @@ public class DyehardRectangle extends Primitive {
         }
 
         return resolved;
-    }
-
-    public void startFlashing() {
-        flashCount = 0;
-        flash = true;
-    }
-
-    public void stopFlashing() {
-        visible = true;
-        flash = false;
     }
 
     private BufferedImage setTiling(BufferedImage img, int tileNum,
