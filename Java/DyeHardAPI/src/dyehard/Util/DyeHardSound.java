@@ -12,7 +12,6 @@ public class DyeHardSound {
     public final static String powerUpSound = "Audio/Powerup.wav";
     public final static String paintSpraySound = "Audio/PaintSpraySound.wav";
     public final static String enemySpaceship1 = "Audio/EnemySpaceship1.wav";
-    public final static String enemySpaceship2 = "Audio/EnemySpaceship2.wav";
     public final static String loseSound = "Audio/DyeLose.wav";
     public final static String winSound = "Audio/DyeWin.wav";
     public final static String lifeLostSound = "Audio/LifeLost.wav";
@@ -28,7 +27,6 @@ public class DyeHardSound {
         BaseCode.resources.preloadSound(powerUpSound);
         BaseCode.resources.preloadSound(paintSpraySound);
         BaseCode.resources.preloadSound(enemySpaceship1);
-        BaseCode.resources.preloadSound(enemySpaceship2);
         BaseCode.resources.preloadSound(loseSound);
         BaseCode.resources.preloadSound(winSound);
         BaseCode.resources.preloadSound(lifeLostSound);
@@ -82,7 +80,6 @@ public class DyeHardSound {
             DyeHardSound.stopSound(DyeHardSound.portalLoop);
             DyeHardSound.stopSound(DyeHardSound.shieldSound);
             DyeHardSound.stopSound(DyeHardSound.enemySpaceship1);
-            DyeHardSound.stopSound(DyeHardSound.enemySpaceship2);
         }
     }
 
