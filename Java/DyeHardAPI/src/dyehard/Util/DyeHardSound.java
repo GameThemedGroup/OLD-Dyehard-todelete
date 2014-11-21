@@ -5,6 +5,7 @@ import Engine.BaseCode;
 public class DyeHardSound {
     private static boolean soundPlay = true;
     private static boolean musicPlay = true;
+    private static boolean bgStoppedOnce = false;
     // Music/Sound path strings
     public final static String bgMusicPath = "Audio/BgMusic.wav";
     public final static String pickUpSound = "Audio/PickupSound.wav";
@@ -61,13 +62,17 @@ public class DyeHardSound {
 
     public static void playBgMusic() {
         if (musicPlay) {
-            BaseCode.resources.playSoundLooping(bgMusicPath);
+            BaseCode.resources.setSoundVolume(bgMusicPath, 0.7f);
+            if (!bgStoppedOnce) {
+                BaseCode.resources.playSoundLooping(bgMusicPath);
+            }
         }
     }
 
     public static void stopBgMusic() {
         if (!musicPlay) {
-            BaseCode.resources.stopSound(bgMusicPath);
+            BaseCode.resources.setSoundVolume(bgMusicPath, 0f);
+            bgStoppedOnce = true;
         }
     }
 
