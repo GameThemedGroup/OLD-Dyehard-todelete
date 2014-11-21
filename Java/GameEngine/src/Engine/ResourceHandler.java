@@ -783,7 +783,8 @@ public class ResourceHandler {
         if (theSound != null) {
             // System.out.println("Start: " + fileName);
 
-            theSound.setVolume(soundVolume);
+            // why was this here? made set sound volume useless -Chuan
+            // theSound.setVolume(soundVolume);
 
             if (isMuted) {
                 theSound.mute();
