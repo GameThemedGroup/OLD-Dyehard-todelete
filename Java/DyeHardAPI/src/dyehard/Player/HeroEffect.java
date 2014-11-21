@@ -62,8 +62,8 @@ public class HeroEffect {
             switch (hero.directionState) {
             case UP:
                 boost.center = hero.center.clone().add(
-                        new Vector2(hero.size.getX() * -.35f,
-                                hero.size.getY() * .2f));
+                        new Vector2(hero.size.getX() * -.35f, hero.size.getY()
+                                * -.2f));
                 boost.rotate = 90f;
                 boost.visible = true;
                 break;
