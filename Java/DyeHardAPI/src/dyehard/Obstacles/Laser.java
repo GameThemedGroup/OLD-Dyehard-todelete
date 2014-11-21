@@ -21,21 +21,21 @@ public class Laser extends GameObject {
                 .loadImage("Textures/Background/DeathEdge.png");
         setPanning(true);
         setPanningSheet(texture, 16, 3, true);
-        alwaysOnTop = true;
 
         laserReverse = new DyehardRectangle();
-        laserReverse.size.set(width, height);
-        laserReverse.center.set(width / 2 - 2, height / 2);
+        laserReverse.size.set(width / 2f, height);
+        laserReverse.center.set(width / 2 - 3, height / 2);
         laserReverse.setPanning(true);
         laserReverse.reverse = true;
         laserReverse.setPanningSheet(texture, 32, 3, true);
         laserReverse.alwaysOnTop = true;
+        alwaysOnTop = true;
     }
 
     // TODO should we put this collision into the user code?
     @Override
     public void update() {
-        if (hero.center.getX() < center.getX()) {
+        if (hero.center.getX() - (hero.size.getX() / 2) < center.getX()) {
             hero.kill(this);
         }
     }
