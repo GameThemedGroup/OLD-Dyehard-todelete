@@ -47,12 +47,15 @@ public abstract class DyeHard extends LibraryCode {
         studentObjRef.reflect();
         String[] cs = { "public StudentObj()",
                 "public StudentObj(Engine.Vector2,float,float)" };
-        String[] ms = { "public float StudentObj.getWidth()",
+        String[] ms = {
+                "public float StudentObj.getWidth()",
                 "public float StudentObj.getHeight()",
                 "public void StudentObj.setWidth(float)",
                 "public void StudentObj.setHeight(float)",
-                "public void StudentObj.setCenter(Engine.Vector2)",
-                "public Engine.Vector2 StudentObj.getCenter()" };
+                "public void StudentObj.setCenter(float,float)",
+                "public Engine.Vector2 StudentObj.getCenter()",
+                "public void StudentObj.setTexture(java.awt.image.BufferedImage)",
+                "public java.awt.image.BufferedImage StudentObj.getTexture()" };
         useStudentObj = studentObjRef.validate(cs, ms);
 
         initialize(); // call user code Initialize()
@@ -67,10 +70,9 @@ public abstract class DyeHard extends LibraryCode {
         return state;
     }
 
-    //
-    // public static boolean useStudentObj() {
-    // return useStudentObj;
-    // }
+    public static boolean useStudentObj() {
+        return useStudentObj;
+    }
 
     protected abstract void update();
 

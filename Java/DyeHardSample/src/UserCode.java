@@ -9,7 +9,6 @@ import java.util.TreeSet;
 import Engine.BaseCode;
 import Engine.Text;
 import Engine.Vector2;
-import dyehard.ClassReflector;
 import dyehard.CollisionManager;
 import dyehard.DyeHard;
 import dyehard.UpdateManager;
@@ -24,11 +23,13 @@ import dyehard.Collectibles.SlowDown;
 import dyehard.Collectibles.SpeedUp;
 import dyehard.Collectibles.Unarmed;
 import dyehard.Enemies.EnemyManager;
+import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 
 public class UserCode extends DyeHard {
-    private Object hero;
-    private ClassReflector cf;
+    private Hero h;
+    // private ClassReflector cf;
+    private StudentObj hero;
 
     private List<Text> powerupText;
     private List<PowerUp> powerUpTypes;
@@ -45,19 +46,21 @@ public class UserCode extends DyeHard {
     }
 
     private void sample1Ini() {
-        // hero = new Hero();
-        // hero.drawOnTop();
+        h = new Hero();
+        h.drawOnTop();
+        hero = (StudentObj) h.getHeroObject();
 
-        cf = new ClassReflector("dyehard.Player.Hero");
-        if (cf.reflect()) {
-            String[] cs = { "public dyehard.Player.Hero()" };
-            String[] ms = { "public void dyehard.Player.Hero.drawOnTop()",
-                    "public void dyehard.Player.Hero.registerWeapon(dyehard.Weapons.Weapon)" };
-            if (cf.validate(cs, ms)) {
-                hero = cf.createObj("dyehard.Player.Hero0");
-                cf.invokeMethod(hero, "drawOnTop");
-            }
-        }
+        // cf = new ClassReflector("dyehard.Player.Hero");
+        // if (cf.reflect()) {
+        // String[] cs = { "public dyehard.Player.Hero()" };
+        // String[] ms = { "public void dyehard.Player.Hero.drawOnTop()",
+        // "public void dyehard.Player.Hero.registerWeapon(dyehard.Weapons.Weapon)"
+        // };
+        // if (cf.validate(cs, ms)) {
+        // hero = cf.createObj("dyehard.Player.Hero0");
+        // cf.invokeMethod(hero, "drawOnTop");
+        // }
+        // }
     }
 
     private void sample2Ini() {
@@ -96,12 +99,15 @@ public class UserCode extends DyeHard {
     private void sample1Update() {
         UpdateManager.update();
         CollisionManager.update();
-        cf.invokeMethod(hero, "moveTo", mouse.getWorldX(), mouse.getWorldY());
+        // cf.invokeMethod(hero, "moveTo", mouse.getWorldX(),
+        // mouse.getWorldY());
         // hero.moveTo(mouse.getWorldX(), mouse.getWorldY());
 
+        hero.setCenter(mouse.getWorldX(), mouse.getWorldY());
+
         if ((keyboard.isButtonDown(KeyEvent.VK_F)) || (mouse.isButtonDown(1))) {
-            cf.invokeMethod(hero, "fire");
-            // hero.currentWeapon.fire();
+            // cf.invokeMethod(hero, "fire");
+            h.currentWeapon.fire();
         }
     }
 

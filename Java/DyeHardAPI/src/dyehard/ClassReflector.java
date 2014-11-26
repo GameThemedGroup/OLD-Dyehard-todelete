@@ -39,7 +39,8 @@ public class ClassReflector {
             }
             for (Method method : c.getMethods()) {
                 methods.put(method.getName(), method);
-                // System.out.println(method.getName() + "   " + method);
+                // System.out.println(method.getName() + "   "
+                // + method.toGenericString());
             }
 
         } catch (ClassNotFoundException x) {
@@ -75,10 +76,12 @@ public class ClassReflector {
             int test = 0;
             for (Method ms2 : methods.values()) {
                 if (ms.equals(ms2.toGenericString())) {
+                    // System.out.println(ms);
                     test++;
                 }
             }
             if (test < 1) {
+                // System.out.println(ms);
                 return false;
             }
         }
@@ -99,20 +102,18 @@ public class ClassReflector {
     }
 
     // invoke method by name
-    public boolean invokeMethod(Object obj, String method, Object... params) {
+    public Object invokeMethod(Object obj, String method, Object... params) {
         if (!methods.containsKey(method)) {
             return false;
         } else {
             try {
-                methods.get(method).invoke(obj, params);
+                return methods.get(method).invoke(obj, params);
             } catch (IllegalAccessException | IllegalArgumentException
                     | InvocationTargetException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
                 return false;
             }
-
-            return true;
         }
     }
 

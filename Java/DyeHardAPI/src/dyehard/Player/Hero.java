@@ -81,6 +81,8 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     private final ArrayList<Weapon> weaponRack;
     private final HashMap<Integer, Integer> weaponHotkeys;
 
+    private Object heroObj;
+
     public enum Direction {
         UP, DOWN, BACK, FORWARD, UPFORWARD, UPBACK, DOWNFORWARD, DOWNBACK, NEUTRAL
     }
@@ -140,6 +142,11 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     public Hero() {
         super(startingLocation.clone(), Configuration.heroWidth,
                 Configuration.heroHeight); // TODO remove magic numbers
+
+        if (DyeHard.useStudentObj()) {
+            heroObj = DyeHard.studentObjRef.createObj("StudentObj1",
+                    center.clone(), size.getX(), size.getY());
+        }
 
         sizeScale = size.getY() / 9f;
 
@@ -214,7 +221,16 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
             }
         }
         applyPowerups();
-        handleInput();
+        if (DyeHard.useStudentObj()) {
+            center = (Vector2) DyeHard.studentObjRef.invokeMethod(heroObj,
+                    "getCenter");
+            size.set((float) DyeHard.studentObjRef.invokeMethod(heroObj,
+                    "getWidth"), (float) DyeHard.studentObjRef.invokeMethod(
+                    heroObj, "getHeight"));
+            texture = (BufferedImage) DyeHard.studentObjRef.invokeMethod(
+                    heroObj, "getTexture");
+        }
+        // handleInput();
         // updateDirectionState();
         // updateMovement();
         // selectWeapon();
@@ -584,5 +600,14 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         dynamicDyepack.stopFlashing();
         flashing = false;
         damageOn = true;
+    }
+
+    // return heroObj for user to manipulate
+    public Object getHeroObject() {
+        if (DyeHard.useStudentObj()) {
+            return heroObj;
+        } else {
+            return null;
+        }
     }
 }
