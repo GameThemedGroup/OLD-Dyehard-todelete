@@ -24,6 +24,7 @@ import dyehard.Player.HeroInterfaces.HeroDamage;
 import dyehard.Util.Colors;
 import dyehard.Util.DyeHardSound;
 import dyehard.Util.ImageTint;
+import dyehard.Util.Timer;
 import dyehard.Weapons.OverHeatWeapon;
 import dyehard.Weapons.Weapon;
 import dyehard.World.GameState;
@@ -38,6 +39,8 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     private static HashMap<Direction, BufferedImage> dyeTextures = new HashMap<Direction, BufferedImage>();
     private static HashMap<Direction, BufferedImage> dyeFireTextures = new HashMap<Direction, BufferedImage>();
 
+    private final Timer timer = new Timer(7000);
+    public boolean noMoreTeleport = false;
     public boolean collisionOn = true;
     public boolean damageOn = true;
     public Weapon currentWeapon;
@@ -205,6 +208,11 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
     @Override
     public void update() {
         super.update();
+        if (noMoreTeleport) {
+            if (timer.isDone()) {
+                noMoreTeleport = false;
+            }
+        }
         applyPowerups();
         handleInput();
         // updateDirectionState();
@@ -565,6 +573,8 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
         dynamicDyepack.startFlashing();
         flashing = true;
         damageOn = false;
+        noMoreTeleport = true;
+        timer.reset();
     }
 
     @Override

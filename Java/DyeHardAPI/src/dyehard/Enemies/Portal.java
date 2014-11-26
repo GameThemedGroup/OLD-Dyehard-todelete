@@ -24,6 +24,7 @@ public class Portal extends GameObject {
     protected float height;
     protected float duration = 4000f;
 
+    private boolean ported = false;
     private final boolean collide;
 
     private static BufferedImage exitTexture;
@@ -72,19 +73,21 @@ public class Portal extends GameObject {
     public void update() {
         if (collide) {
             if (collided(hero)) {
-                Random rand = new Random();
-                new Portal(hero, new Vector2(rand.nextInt(90) + 5,
-                        rand.nextInt(50) + 5));
-                hero.startFlashing();
-                destroy();
+                if (!hero.noMoreTeleport) {
+                    Random rand = new Random();
+                    new Portal(hero, new Vector2(rand.nextInt(90) + 5,
+                            rand.nextInt(50) + 5));
+                    hero.startFlashing();
+                    destroy();
+                }
             }
         }
         if (timer.isDone()) {
             if (!collide) {
                 hero.center.set(center.clone());
                 hero.velocity = new Vector2(0f, 0f);
-                if (visible) {
-                    visible = false;
+                if (!ported) {
+                    ported = true;
                     timer.reset();
                 } else {
                     hero.stopFlashing();
