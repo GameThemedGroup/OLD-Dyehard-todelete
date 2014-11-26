@@ -177,7 +177,7 @@ public class Sound {
                     .getControl(FloatControl.Type.MASTER_GAIN);
 
             // final float max = control.getMaximum();
-            final float max = 0.0f;
+            final float max = 1.0f;
             final float min = control.getMinimum();
 
             final float range = max - min;

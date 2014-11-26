@@ -68,6 +68,20 @@ public class Configuration {
     public static float debrisHeight;
     public static float debrisSpeed;
 
+    // Sound variables
+    public static float bgMusicPath;
+    public static float pickUpSound;
+    public static float powerUpSound;
+    public static float paintSpraySound;
+    public static float enemySpaceship1;
+    public static float loseSound;
+    public static float winSound;
+    public static float lifeLostSound;
+    public static float portalEnter;
+    public static float portalExit;
+    public static float portalLoop;
+    public static float shieldSound;
+
     public static class PowerUpData {
         public float duration;
         public float magnitude;
@@ -106,6 +120,7 @@ public class Configuration {
             parseDyePackData();
             parsePowerUpData();
             parseDebrisData();
+            parseSoundData();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -323,6 +338,31 @@ public class Configuration {
                 debrisWidth = parseFloat(elem, "width");
                 debrisHeight = parseFloat(elem, "height");
                 debrisSpeed = parseFloat(elem, "speed");
+            }
+        }
+    }
+
+    private static void parseSoundData() throws Exception {
+        NodeList nodeList = createNodeList("Sounds");
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element elem = (Element) node;
+
+                bgMusicPath = parseFloat(elem, "bgMusicPath");
+                pickUpSound = parseFloat(elem, "pickUpSound");
+                powerUpSound = parseFloat(elem, "powerUpSound");
+                paintSpraySound = parseFloat(elem, "paintSpraySound");
+                enemySpaceship1 = parseFloat(elem, "enemySpaceship1");
+                loseSound = parseFloat(elem, "loseSound");
+                winSound = parseFloat(elem, "winSound");
+                lifeLostSound = parseFloat(elem, "lifeLostSound");
+                portalEnter = parseFloat(elem, "portalEnter");
+                portalExit = parseFloat(elem, "portalExit");
+                portalLoop = parseFloat(elem, "portalLoop");
+                shieldSound = parseFloat(elem, "shieldSound");
             }
         }
     }
