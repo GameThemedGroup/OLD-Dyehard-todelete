@@ -29,6 +29,7 @@ public class CreditScreen {
         credit.setPanningSheet(credit.texture, 300, 2, true);
         credit.visible = false;
         credit.overRide = true;
+        credit.stopAtEnd = true;
 
         creditBack = new DyehardRectangle();
         creditBack.size.set(BaseCode.world.getWidth(),

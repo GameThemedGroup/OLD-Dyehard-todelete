@@ -56,11 +56,18 @@ public class UserCode extends DyeHard {
             }
             break;
         case PAUSED:
-            if (keyboard.isButtonTapped(KeyEvent.VK_A)
-                    || mouse.isButtonTapped(1)
-                    || keyboard.isButtonTapped(KeyEvent.VK_ESCAPE)) {
-                world.menu.CreditOff();
-                state = State.PLAYING;
+            if (world.menu.getCredit()) {
+                if (mouse.isButtonTapped(1)
+                        || keyboard.isButtonTapped(KeyEvent.VK_ESCAPE)) {
+                    world.menu.CreditOff();
+                    state = State.MENU;
+                }
+            } else {
+                if (keyboard.isButtonTapped(KeyEvent.VK_A)) {
+                    state = State.PLAYING;
+                } else if (keyboard.isButtonTapped(KeyEvent.VK_ESCAPE)) {
+                    state = State.MENU;
+                }
             }
             break;
         case MENU:
@@ -191,6 +198,11 @@ public class UserCode extends DyeHard {
             }
             if (!world.start.isShown()) {
                 world.start.showScreen(true);
+            }
+        } else if (state == State.PAUSED) {
+            if (menuActive) {
+                world.menu.active(false);
+                menuActive = false;
             }
         }
         // state menu, activate menu

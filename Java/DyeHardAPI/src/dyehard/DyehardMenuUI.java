@@ -43,7 +43,9 @@ public class DyehardMenuUI {
     }
 
     public void active(boolean active) {
-        BaseCode.resources.moveToFrontOfDrawSet(menuHud);
+        if (active) {
+            BaseCode.resources.moveToFrontOfDrawSet(menuHud);
+        }
         menuHud.visible = active;
         soundTog.active(active);
         musicTog.active(active);
@@ -157,6 +159,10 @@ public class DyehardMenuUI {
         if (credit.isShown()) {
             credit.showScreen(false);
         }
+    }
+
+    public boolean getCredit() {
+        return credit.isShown();
     }
 
     private class MenuSelect {
