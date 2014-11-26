@@ -14,8 +14,8 @@ public abstract class DyeHard extends LibraryCode {
         BEGIN, PAUSED, PLAYING, GAMEOVER, QUIT, MENU, RESTART
     }
 
-    // public static ClassReflector studentObjRef;
-    // private static boolean useStudentObj = false;
+    public static ClassReflector studentObjRef;
+    private static boolean useStudentObj = false;
     // Game state
     protected static State state;
 
@@ -43,17 +43,17 @@ public abstract class DyeHard extends LibraryCode {
 
         new Background();
 
-        // studentObjRef = new ClassReflector("StudentObj");
-        // studentObjRef.reflect();
-        // String[] cs = { "public StudentObj()",
-        // "public StudentObj(Engine.Vector2,float,float)" };
-        // String[] ms = { "public float StudentObj.getWidth()",
-        // "public float StudentObj.getHeight()",
-        // "public void StudentObj.setWidth(float)",
-        // "public void StudentObj.setHeight(float)",
-        // "public void StudentObj.setCenter(Engine.Vector2)",
-        // "public Engine.Vector2 StudentObj.getCenter()" };
-        // useStudentObj = studentObjRef.validate(cs, ms);
+        studentObjRef = new ClassReflector("StudentObj");
+        studentObjRef.reflect();
+        String[] cs = { "public StudentObj()",
+                "public StudentObj(Engine.Vector2,float,float)" };
+        String[] ms = { "public float StudentObj.getWidth()",
+                "public float StudentObj.getHeight()",
+                "public void StudentObj.setWidth(float)",
+                "public void StudentObj.setHeight(float)",
+                "public void StudentObj.setCenter(Engine.Vector2)",
+                "public Engine.Vector2 StudentObj.getCenter()" };
+        useStudentObj = studentObjRef.validate(cs, ms);
 
         initialize(); // call user code Initialize()
     }
