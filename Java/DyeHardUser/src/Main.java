@@ -10,11 +10,17 @@ public class Main extends GameWindow {
                 Process ps = Runtime.getRuntime().exec(
                         "java -jar -Xms1024m -Xmx1150m DyeHard.jar command");
                 ps.waitFor();
-            } else {
+            } else if (javaHome.contains("java.exe")) {
                 Process ps = Runtime
                         .getRuntime()
                         .exec(javaHome
                                 + " -jar -Xms1024m -Xmx1150m DyeHard.jar command");
+                ps.waitFor();
+            } else {
+                Process ps = Runtime
+                        .getRuntime()
+                        .exec(javaHome
+                                + "\\bin\\java.exe -jar -Xms1024m -Xmx1150m DyeHard.jar command");
                 ps.waitFor();
             }
         } else {
