@@ -243,6 +243,12 @@ public class WormHole {
             if (other instanceof Actor) {
                 Actor target = (Actor) other;
                 target.setColor(dyeColor);
+                if (other.center.getX() >= center.getX() + (size.getX() / 2)
+                        - 3f) {
+                    if (other instanceof Enemy) {
+                        ((Enemy) other).setHarmless();
+                    }
+                }
             }
         }
 
