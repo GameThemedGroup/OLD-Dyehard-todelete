@@ -504,8 +504,6 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
             p.unapply(this);
         }
         powerups.clear();
-        powerups.add(new Invincibility());
-        applyPowerups();
 
         if (!debugInvincibility) {
             GameState.RemainingLives--;
@@ -515,6 +513,8 @@ public class Hero extends Actor implements HeroCollision, HeroDamage {
             alive = false;
             DyeHardSound.play(DyeHardSound.loseSound);
         } else {
+            powerups.add(new Invincibility());
+            applyPowerups();
             DyeHardSound.play(DyeHardSound.lifeLostSound);
             hero.center.set(startingLocation.clone());
         }
