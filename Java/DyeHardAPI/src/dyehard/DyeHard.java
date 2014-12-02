@@ -44,7 +44,7 @@ public abstract class DyeHard extends LibraryCode {
         new Background();
 
         studentObjRef = new ClassReflector("StudentObj");
-        studentObjRef.reflect();
+        // studentObjRef.reflect();
         String[] cs = { "public StudentObj()",
                 "public StudentObj(Engine.Vector2,float,float)" };
         String[] ms = {
