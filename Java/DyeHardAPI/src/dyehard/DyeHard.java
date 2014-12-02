@@ -56,7 +56,8 @@ public abstract class DyeHard extends LibraryCode {
                 "public Engine.Vector2 StudentObj.getCenter()",
                 "public void StudentObj.setTexture(java.awt.image.BufferedImage)",
                 "public java.awt.image.BufferedImage StudentObj.getTexture()" };
-        useStudentObj = studentObjRef.validate(cs, ms);
+        // useStudentObj = studentObjRef.validate(cs, ms);
+        useStudentObj = false;
 
         initialize(); // call user code Initialize()
     }

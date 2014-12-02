@@ -169,9 +169,6 @@ public class DyehardRectangle extends Primitive {
      * Updates the currently drawn sprite of the spritesheet.
      */
     private void updateSpriteSheetAnimation() {
-        if (stopAtEnd && currentFrame == totalFrames - 1) {
-            return;
-        }
         if ((DyeHard.state == DyeHard.State.PLAYING) || (overRide)) {
             if (currentTick < ticksPerFrame) {
                 currentTick++;
@@ -192,9 +189,13 @@ public class DyehardRectangle extends Primitive {
                 }
             } else {
                 if (currentFrame >= totalFrames - 1) {
-                    currentFrame = 0;
                     spriteCycleDone = true;
-                    return;
+                    if (stopAtEnd) {
+                        return;
+                    } else {
+                        currentFrame = 0;
+                        return;
+                    }
                 } else {
                     spriteCycleDone = false;
                 }
