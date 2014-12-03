@@ -48,6 +48,18 @@ public class Enemy extends Actor {
         harmlessTimer.setActive(false);
     }
 
+    public Enemy(Vector2 center, float width, float height, Hero hero,
+            BufferedImage img) {
+        super(center, width, height);
+        this.hero = hero;
+        baseTexture = img;
+        texture = baseTexture;
+        this.width = width;
+        this.height = height;
+        harmlessTimer = new Timer(4000);
+        harmlessTimer.setActive(false);
+    }
+
     public void initialize() {
         timer = new Timer(sleepTimer);
         size.set(width, height);
@@ -72,6 +84,14 @@ public class Enemy extends Actor {
         }
         harmlessReset();
         super.update();
+    }
+
+    public void setCenter(Vector2 c) {
+        center.set(c.getX(), c.getY());
+    }
+
+    public void setSize(float x, float y) {
+        size.set(x, y);
     }
 
     public void chaseHero() {

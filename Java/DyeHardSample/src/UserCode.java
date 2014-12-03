@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.TreeSet;
@@ -11,6 +12,7 @@ import Engine.Text;
 import Engine.Vector2;
 import dyehard.CollisionManager;
 import dyehard.DyeHard;
+import dyehard.StudentObjManager;
 import dyehard.UpdateManager;
 import dyehard.Collectibles.DyePack;
 import dyehard.Collectibles.Ghost;
@@ -22,7 +24,6 @@ import dyehard.Collectibles.Repel;
 import dyehard.Collectibles.SlowDown;
 import dyehard.Collectibles.SpeedUp;
 import dyehard.Collectibles.Unarmed;
-import dyehard.Enemies.EnemyManager;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
 
@@ -34,33 +35,21 @@ public class UserCode extends DyeHard {
     private List<Text> powerupText;
     private List<PowerUp> powerUpTypes;
 
-    private EnemyManager enemyManager;
+    private HashSet<StudentObj> enemies;
     private Random RANDOM = new Random();
 
     @Override
     protected void initialize() {
         sample1Ini();
         // sample2Ini();
-        // sample3Ini();
+        sample3Ini();
         // sample4Ini();
     }
 
     private void sample1Ini() {
-        h = new Hero();
-        h.drawOnTop();
-        hero = (StudentObj) h.getHeroObject();
-
-        // cf = new ClassReflector("dyehard.Player.Hero");
-        // if (cf.reflect()) {
-        // String[] cs = { "public dyehard.Player.Hero()" };
-        // String[] ms = { "public void dyehard.Player.Hero.drawOnTop()",
-        // "public void dyehard.Player.Hero.registerWeapon(dyehard.Weapons.Weapon)"
-        // };
-        // if (cf.validate(cs, ms)) {
-        // hero = cf.createObj("dyehard.Player.Hero0");
-        // cf.invokeMethod(hero, "drawOnTop");
-        // }
-        // }
+        StudentObjManager.validate();
+        hero = new StudentObj();
+        h = StudentObjManager.registerHero(hero);
     }
 
     private void sample2Ini() {
@@ -79,7 +68,7 @@ public class UserCode extends DyeHard {
     }
 
     private void sample3Ini() {
-        enemyManager = new EnemyManager();
+        enemies = new HashSet<StudentObj>();
         RANDOM = new Random();
     }
 
@@ -91,7 +80,7 @@ public class UserCode extends DyeHard {
     protected void update() {
 
         // sample2Update();
-        // sample3Update();
+        sample3Update();
         // sample4Update();
         sample1Update();
     }
@@ -99,6 +88,7 @@ public class UserCode extends DyeHard {
     private void sample1Update() {
         UpdateManager.update();
         CollisionManager.update();
+        StudentObjManager.update();
         // cf.invokeMethod(hero, "moveTo", mouse.getWorldX(),
         // mouse.getWorldY());
         // hero.moveTo(mouse.getWorldX(), mouse.getWorldY());
@@ -136,10 +126,18 @@ public class UserCode extends DyeHard {
     }
 
     private void sample3Update() {
-        float randomY = RANDOM.nextInt((int) BaseCode.world.getHeight() - 8) + 5;
-        Vector2 position = new Vector2(BaseCode.world.getWidth() - 5, randomY);
+        for (StudentObj temp : enemies) {
+            temp.setWidth((RANDOM.nextFloat() + 0.1f) * 7f);
+            temp.setHeight((RANDOM.nextFloat() + 0.1f) * 7f);
+        }
         if (keyboard.isButtonTapped(KeyEvent.VK_E)) {
-            // enemyManager.registerEnemy(new RegularEnemy(position, hero));
+            float randomY = RANDOM
+                    .nextInt((int) BaseCode.world.getHeight() - 8) + 5;
+            Vector2 position = new Vector2(BaseCode.world.getWidth() - 20,
+                    randomY);
+            StudentObj e = new StudentObj(position, 5f, 5f);
+            enemies.add(e);
+            StudentObjManager.registerEnemy(e);
         }
     }
 

@@ -10,12 +10,12 @@ public class EnemyManager {
         enemies = new ArrayList<Enemy>();
     }
 
-    public void registerEnemy(Enemy e) {
+    public static void registerEnemy(Enemy e) {
         e.initialize();
         enemies.add(e);
     }
 
-    public void clear() {
+    public static void clear() {
         for (Enemy e : enemies) {
             e.destroy();
         }

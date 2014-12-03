@@ -6,11 +6,11 @@ import Engine.Vector2;
 public class StudentObj {
     private float height;
     private float width;
-    private Vector2 center;
+    private final Vector2 center;
     private BufferedImage texture;
 
     public StudentObj() {
-        center.set(new Vector2(0, 0));
+        center = new Vector2(0, 0);
         height = 5f;
         width = 5f;
         texture = BaseCode.resources.loadImage("Beak.png");
