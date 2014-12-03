@@ -60,6 +60,8 @@ public class UserCode extends DyeHard {
                 if (mouse.isButtonTapped(1)
                         || keyboard.isButtonTapped(KeyEvent.VK_ESCAPE)) {
                     world.menu.CreditOff();
+                    world.deathEdge.drawFront();
+                    world.ui.drawFront();
                     state = State.MENU;
                 }
             } else {

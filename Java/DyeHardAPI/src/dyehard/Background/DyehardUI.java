@@ -116,6 +116,15 @@ public class DyehardUI extends UpdateObject {
 
     }
 
+    public void drawFront() {
+        BaseCode.resources.moveToFrontOfDrawSet(scoreText);
+        distanceMeter.drawFront();
+        for (Rectangle h : hearts) {
+            BaseCode.resources.moveToFrontOfDrawSet(h);
+        }
+        BaseCode.resources.moveToFrontOfDrawSet(hud);
+    }
+
     @Override
     public void setSpeed(float v) {
         // TODO Auto-generated method stub

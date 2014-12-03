@@ -25,6 +25,9 @@ public class DyehardEndMenu {
     }
 
     public void active(boolean active) {
+        if (active) {
+            BaseCode.resources.moveToFrontOfDrawSet(menuHud);
+        }
         menuHud.visible = active;
         menuSelect.active(active);
     }
@@ -73,6 +76,9 @@ public class DyehardEndMenu {
         }
 
         private void active(boolean active) {
+            if (active) {
+                BaseCode.resources.moveToFrontOfDrawSet(sel);
+            }
             sel.visible = active;
         }
 

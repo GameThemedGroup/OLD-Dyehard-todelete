@@ -20,6 +20,8 @@ public class GameWorld implements Updateable {
     public DyehardEndMenu endMenu;
     public LogScreen start;
     public StartScreen startScreen;
+    public Laser deathEdge;
+    public DyehardUI ui;
 
     private static EnemyGenerator enemyGenerator;
 
@@ -46,13 +48,13 @@ public class GameWorld implements Updateable {
         // Draw the hero on top of the background
         hero.drawOnTop();
 
-        new DyehardUI(hero);
+        ui = new DyehardUI(hero);
         menu = new DyehardMenuUI();
         endMenu = new DyehardEndMenu();
         start = new LogScreen();
         startScreen = new StartScreen();
 
-        new Laser(hero);
+        deathEdge = new Laser(hero);
 
         // hero.alwaysOnTop();
 

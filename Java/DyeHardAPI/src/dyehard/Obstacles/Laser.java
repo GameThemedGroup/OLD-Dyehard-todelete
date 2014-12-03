@@ -45,4 +45,9 @@ public class Laser extends GameObject {
         laserReverse.destroy();
         super.destroy();
     }
+
+    public void drawFront() {
+        BaseCode.resources.moveToFrontOfDrawSet(this);
+        BaseCode.resources.moveToFrontOfDrawSet(laserReverse);
+    }
 }

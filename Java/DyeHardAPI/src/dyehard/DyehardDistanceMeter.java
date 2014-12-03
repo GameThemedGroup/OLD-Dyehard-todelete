@@ -79,4 +79,9 @@ public class DyehardDistanceMeter {
                                         // declaration, also consider not using
                                         // fixed numbers.
     }
+
+    public void drawFront() {
+        BaseCode.resources.moveToFrontOfDrawSet(dyeMarker);
+        BaseCode.resources.moveToFrontOfDrawSet(progress);
+    }
 }
