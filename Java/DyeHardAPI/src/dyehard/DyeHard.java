@@ -44,7 +44,7 @@ public abstract class DyeHard extends LibraryCode {
         new Background();
 
         studentObjRef = new ClassReflector("StudentObj");
-        // studentObjRef.reflect();
+        studentObjRef.reflect();
         String[] cs = { "public StudentObj()",
                 "public StudentObj(Engine.Vector2,float,float)" };
         String[] ms = {
@@ -56,8 +56,7 @@ public abstract class DyeHard extends LibraryCode {
                 "public Engine.Vector2 StudentObj.getCenter()",
                 "public void StudentObj.setTexture(java.awt.image.BufferedImage)",
                 "public java.awt.image.BufferedImage StudentObj.getTexture()" };
-        // useStudentObj = studentObjRef.validate(cs, ms);
-        useStudentObj = false;
+        useStudentObj = studentObjRef.validate(cs, ms);
 
         initialize(); // call user code Initialize()
     }
