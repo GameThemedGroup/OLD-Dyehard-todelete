@@ -72,13 +72,13 @@ public class Portal extends GameObject {
     @Override
     public void update() {
         if (collide) {
-            if (collided(hero)) {
+            if (heroInside()) {
                 if (!hero.noMoreTeleport) {
                     Random rand = new Random();
                     new Portal(hero, new Vector2(rand.nextInt(90) + 5,
                             rand.nextInt(50) + 5));
                     hero.startFlashing();
-                    destroy();
+                    timer = new Timer(1500);
                 }
             }
         }
@@ -96,6 +96,16 @@ public class Portal extends GameObject {
             } else {
                 destroy();
             }
+        }
+    }
+
+    public boolean heroInside() {
+        float xDif = Math.abs(center.getX() - hero.center.getX());
+        float yDif = Math.abs(center.getY() - hero.center.getY());
+        if (xDif + yDif < 5f) {
+            return true;
+        } else {
+            return false;
         }
     }
 
