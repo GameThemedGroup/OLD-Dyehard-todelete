@@ -4,7 +4,7 @@ public class Main extends GameWindow {
     private static final long serialVersionUID = 1L;
 
     public static void main(String[] args) throws Exception {
-        if (args.length == 5) {
+        if (args.length == 0) {
             String javaHome = System.getProperty("java.home");
             if (javaHome.contains("eclipse")) {
                 Process ps = Runtime.getRuntime().exec(
