@@ -1,12 +1,16 @@
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.util.HashSet;
+import java.util.Random;
 
 import Engine.BaseCode;
+import Engine.Vector2;
 import dyehard.CollisionManager;
 import dyehard.Configuration;
 import dyehard.DyeHard;
 import dyehard.DyehardKeyboard;
+import dyehard.StudentObjManager;
 import dyehard.UpdateManager;
 import dyehard.Player.Hero;
 import dyehard.Util.Colors;
@@ -15,6 +19,9 @@ import dyehard.Util.Timer;
 import dyehard.World.GameState;
 
 public class UserCode extends DyeHard {
+    private HashSet<StudentObj> enemies;
+    private Random RANDOM = new Random();
+
     private boolean menuActive = false;
     private boolean endMenuActive = false;
 
@@ -152,6 +159,10 @@ public class UserCode extends DyeHard {
 
         Stargate.addColor(Colors.Yellow);
 
+        StudentObjManager.validate();
+        StudentObjManager.hero = hero;
+        testIni();
+
         timer = new Timer(2000);
     }
 
@@ -169,6 +180,8 @@ public class UserCode extends DyeHard {
         case PLAYING:
             UpdateManager.update();
             CollisionManager.update();
+            testUpdate();
+            StudentObjManager.update();
             break;
         default:
             break;
@@ -245,6 +258,27 @@ public class UserCode extends DyeHard {
                             false);
                 }
             }
+        }
+    }
+
+    private void testIni() {
+        enemies = new HashSet<StudentObj>();
+        RANDOM = new Random();
+    }
+
+    private void testUpdate() {
+        for (StudentObj temp : enemies) {
+            temp.setWidth((RANDOM.nextFloat() + 0.1f) * 7f);
+            temp.setHeight((RANDOM.nextFloat() + 0.1f) * 7f);
+        }
+        if (keyboard.isButtonTapped(KeyEvent.VK_8)) {
+            float randomY = RANDOM
+                    .nextInt((int) BaseCode.world.getHeight() - 8) + 5;
+            Vector2 position = new Vector2(BaseCode.world.getWidth() - 20,
+                    randomY);
+            StudentObj e = new StudentObj(position, 5f, 5f);
+            enemies.add(e);
+            StudentObjManager.registerEnemy(e);
         }
     }
 }
