@@ -39,7 +39,9 @@ public class StudentObjManager {
     }
 
     public static void update() {
-        studentHeroUpdate();
+        if (studentHero != null) {
+            studentHeroUpdate();
+        }
         studentEnemyUpdate();
     }
 
