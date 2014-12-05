@@ -98,8 +98,14 @@ public class StudentObjManager {
         for (Object e : enemies.keySet()) {
             float x = (float) studentObjRef.invokeMethod(e, "getWidth");
             float y = (float) studentObjRef.invokeMethod(e, "getHeight");
-            System.out.println(x + ", " + y);
+            studentObjRef.invokeMethod(e, "setWidth", x);
+            studentObjRef.invokeMethod(e, "setHeight", y);
+            x = (float) studentObjRef.invokeMethod(e, "getWidth");
+            y = (float) studentObjRef.invokeMethod(e, "getHeight");
+            Vector2 c = (Vector2) studentObjRef.invokeMethod(e, "getCenter");
+            studentObjRef.invokeMethod(e, "setCenter", c.getX(), c.getY());
             enemies.get(e).setSize(x, y);
+            enemies.get(e).setCenter(c);
         }
     }
 
