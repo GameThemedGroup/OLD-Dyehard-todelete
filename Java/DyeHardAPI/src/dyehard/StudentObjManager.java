@@ -1,5 +1,6 @@
 package dyehard;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
@@ -106,8 +107,10 @@ public class StudentObjManager {
             y = (float) studentObjRef.invokeMethod(e, "getHeight");
             Vector2 c = (Vector2) studentObjRef.invokeMethod(e, "getCenter");
             studentObjRef.invokeMethod(e, "setCenter", c.getX(), c.getY());
+            Color color = (Color) studentObjRef.invokeMethod(e, "getColor");
             enemies.get(e).setSize(x, y);
             enemies.get(e).setCenter(c);
+            enemies.get(e).setColor(color);
         }
     }
 

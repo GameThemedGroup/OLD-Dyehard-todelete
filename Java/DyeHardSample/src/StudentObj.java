@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import Engine.BaseCode;
@@ -8,6 +9,7 @@ public class StudentObj {
     private float width;
     private final Vector2 center;
     private BufferedImage texture;
+    private Color color;
 
     public StudentObj() {
         center = new Vector2(0, 0);
@@ -39,6 +41,10 @@ public class StudentObj {
         texture = img;
     }
 
+    public void setColor(Color c) {
+        color = c;
+    }
+
     public Vector2 getCenter() {
         return center;
     }
@@ -49,6 +55,15 @@ public class StudentObj {
 
     public float getWidth() {
         return width;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    @Override
+    public String toString() {
+        return "Student Object";
     }
 
     public BufferedImage getTexture() {

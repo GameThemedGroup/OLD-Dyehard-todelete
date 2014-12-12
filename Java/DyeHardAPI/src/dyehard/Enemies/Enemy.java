@@ -123,8 +123,10 @@ public class Enemy extends Actor {
 
     @Override
     public void setColor(Color color) {
-        super.setColor(color);
-        texture = ImageTint.tintedImage(baseTexture, color, 0.25f);
+        if (this.color != color) {
+            super.setColor(color);
+            texture = ImageTint.tintedImage(baseTexture, color, 0.25f);
+        }
     }
 
     public void setHarmless() {

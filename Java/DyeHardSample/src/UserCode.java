@@ -130,6 +130,11 @@ public class UserCode extends DyeHard {
             temp.setWidth((RANDOM.nextFloat() + 0.1f) * 7f);
             temp.setHeight((RANDOM.nextFloat() + 0.1f) * 7f);
         }
+        if (keyboard.isButtonTapped(KeyEvent.VK_C)) {
+            for (StudentObj temp : enemies) {
+                temp.setColor(Colors.randomColor());
+            }
+        }
         if (keyboard.isButtonTapped(KeyEvent.VK_E)) {
             float randomY = RANDOM
                     .nextInt((int) BaseCode.world.getHeight() - 8) + 5;
